@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Golang练习 | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="
+Go 中文网、思否、博客园等平台，内容主要以问答形式记录。如果回答中有错误，欢迎大家指出，共同学习、共同进步。
+">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/go_practise/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://loommii.github.io/go_practise/index.xml">
+<link rel="alternate" hreflang="en" href="https://loommii.github.io/go_practise/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/go_practise/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="Golang练习">
+  <meta property="og:description" content=" Go 中文网、思否、博客园等平台，内容主要以问答形式记录。如果回答中有错误，欢迎大家指出，共同学习、共同进步。">
+  <meta property="og:locale" content="zh-cn">
+  <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Golang练习">
+<meta name="twitter:description" content="">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Golang练习",
+      "item": "https://loommii.github.io/go_practise/"
+    }
+  ]
+}
+</script>
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span class="active">Golang练习</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header">
+  <h1>
+    Golang练习
+  </h1>
+</header>
+<div class="post-content"><blockquote>
+<p>Go 中文网、思否、博客园等平台，内容主要以问答形式记录。如果回答中有错误，欢迎大家指出，共同学习、共同进步。</p>
+</blockquote>
+
+
+</div>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_029
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面赋值正确的是：
+A. var x = nil B. var x interface{} = nil C. var x string = nil D. var x error = nil
+🔑 答案解析： BD。这道题考的知识点是 nil。nil 只能赋值给指针
+A 未指定类型 B 空接口 可以赋值nil C 字符串本质是个只读切片 不可以赋值nil D error 本质是个接口类型 可以赋值nil
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 19:49:55 +0800 CST'>December 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_029" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_029/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_021
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>写出程序运行的结果：
+package main import ( &#34;fmt&#34; ) func main(){ s := make([]int, 10) s = append(s, 1, 2, 3) fmt.Println(s) } 🔑 答案解析： 答： [0 0 0 0 0 0 0 0 0 0 1 2 3] make( 类型 , cap , len) 若只填写 cap, 则 len = cap 因此 s := make([]int, 10) s 切片的值 [0 0 0 0 0 0 0 0 0 0] </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 19:47:08 +0800 CST'>December 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_021" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_021/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_001
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码输出什么，说明原因。
+func main() { slice := []int{0,1,2,3} m := make(map[int]*int) for key,val := range slice { m[key] = &amp;val } for k,v := range m { fmt.Println(k,&#34;-&gt;&#34;,*v) } } 🔑 答案解析： 注意此类问题在Go版本在1.22 版本后将会有变化 🔗:修复 Go 1.22 中的 For 循环
+Go &gt;=1.22
+0 -&gt; 0 1 -&gt; 1 2 -&gt; 2 3 -&gt; 3 解释：Go &lt;= 1.22 当 for key,val := range slice 时,每次循环都会创建新变量 key、val。从而实现每次循环的 key、val变量的地址都是不同的。
+在源代码上增加验证打印
+package main import &#34;fmt&#34; func main() { slice := []int{0, 1, 2, 3} m := make(map[int]*int) for key, val := range slice { m[key] = &amp;val fmt.Println(&#34;key的值&#34;, key, &#34;key的地址&#34;, &amp;key, &#34;slice[&#34;, key, &#34;] 的地址&#34;, &amp;slice[key], &#34;val 的地址&#34;, &amp;val) } fmt.Println(&#34;m集合的内容&#34;, m) for k, v := range m { fmt.Println(k, &#34;-&gt;&#34;, *v) } } //GO版本 1.22.4 key的值 0 key的地址 0xc00000a0e0 slice[ 0 ] 的地址 0xc000014200 val 的地址 0xc00000a0c8 key的值 1 key的地址 0xc00000a110 slice[ 1 ] 的地址 0xc000014208 val 的地址 0xc00000a0e8 key的值 2 key的地址 0xc00000a120 slice[ 2 ] 的地址 0xc000014210 val 的地址 0xc00000a118 key的值 3 key的地址 0xc00000a130 slice[ 3 ] 的地址 0xc000014218 val 的地址 0xc00000a128 m集合的内容 map[0:0xc00000a0c8 1:0xc00000a0e8 2:0xc00000a118 3:0xc00000a128] 0 -&gt; 0 1 -&gt; 1 2 -&gt; 2 3 -&gt; 3 Go &lt;1.22
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 19:40:54 +0800 CST'>December 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_001" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_001/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_002
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码输出的内容
+package main import ( &#34;fmt&#34; ) func main() { defer_call() } func defer_call() { defer func() { fmt.Println(&#34;打印前&#34;) }() defer func() { fmt.Println(&#34;打印中&#34;) }() defer func() { fmt.Println(&#34;打印后&#34;) }() panic(&#34;触发异常&#34;) } 🔑 答案解析： 打印后 打印中 打印前 panic: 触发异常 解析：defer 的执行顺序是后进先出。当出现 panic 语句的时候，会先按照 defer 的后进先出的顺序执行，最后才会执行panic。
+知识点:defer后进先出
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 19:40:53 +0800 CST'>December 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_002" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_002/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_003
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>map 的 key 为什么是无序的？
+在遍历 map 的时候，我们会发现，输出的 key 是无序的。为什么？
+🔑 答案解析： 在go &lt;= 1.0 以后 迭代 map 的结果是无序的。 这是Golang map的实现原理导致的。在扩容中Map会指向新的桶，这是并不会立刻全部迁移，而是会指向新桶和旧桶。遍历Map上本质遍历这2个桶。但是发生了扩容Key的位置改变导致遍历的结果不同。 在go &gt; 1.0 以前遍历Map的时候 不扩容时是有序的，扩容后将改变顺序。为了统一这个问题go&gt;=1.0加入了遍历Map会随机播种，使得遍历无序。
+参考资料：
+🔗:key为什么是无序的 🔗:为什么遍历 Go map 是无序的(源码分析) </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 19:40:53 +0800 CST'>December 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_003" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_003/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_006
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码有什么缺陷：
+func sum(x, y int)(total int, error) { return x&#43;y, nil } 🔑 答案解析： 答案:(total int, error) 第二个返回值error没有命名
+解析: 在函数有多个返回值时，只要有一个返回值有命名，其他的也必须命名。 func sum(x, y int)(total int,err error) {如果有多个返回值必须加上括号()； func sum(x, y int)(total int,err error) func sum(x, y int)int如果只有一个返回值且命名也必须加上括号()。func sum(x, y int)(total int) {
+这里的第一个返回值有命名 total，第二个没有命名，所以错误。
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 19:40:53 +0800 CST'>December 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_006" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_006/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_007
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>以下代码是否能编译通过？
+package main import &#34;fmt&#34; func main() { m := make(map[string]int) fmt.Println(&amp;m[&#34;qcrao&#34;]) } 🔑 答案解析： 答:不能,编译报错
+.\main.go:8:15: invalid operation: cannot take address of m[“qcrao”] (map index expression of type int)
+解析: 这个问题，相当于问：可以对 map 的元素直接取地址吗？
+知识点:无法直接对 map 的 key 或 value 进行取址。如果通过其他 hack 的方式，例如 unsafe.Pointer 等获取到了 key 或 value 的地址，也不能长期持有，因为一旦发生扩容，key 和 value 的位置就会改变，之前保存的地址也就失效了。
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 19:40:52 +0800 CST'>December 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_007" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_007/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_008
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>以下代码是否能编译通过？
+如何确认两个 map 是否相等？ 🔑 答案解析： map 深度相等的条件：
+都为 nil 非空、长度相等，指向同一个 map 实体对象 相应的 key 指向的 value “深度”相等
+直接将使用 map1 == map2 是错误的。这种写法只能比较 map 是否为 nil。
+package main import &#34;fmt&#34; func main() { var m map[string]int var n map[string]int fmt.Println(m == nil) fmt.Println(n == nil) // 不能通过编译 //fmt.Println(m == n) } 方案一: 遍历（比较麻烦） 遍历 map 的每个元素，比较元素是否都是深度相等。 方案二: 反射
+package main import( &#34;fmt&#34; &#34;relflect&#34; ) func main() { var m map[string]int var n map[string]int fmt.Println(reflect.DeepEqual(m,n)) } 参考资料：
+🔗:reflect.DeepEqual函数：判断两个值是否一致 </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 19:40:52 +0800 CST'>December 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_008" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_008/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_009
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>空 struct{} 占多少空间？有什么用途？
+🔑 答案解析： 答:0 , 用于占位符
+例如:
+map[string]struct{},只关注key是否存在的话可以使用节省内存空间 ch := make(chan struct{}, 1)，使用信道(channel)控制并发时，我们只是需要一个信号，但并不需要传递值，这个时候，也可以使用 struct{} 代替。 type Lamp struct{} ,声明只包含方法的结构体。 type Lamp struct{} func (l Lamp) On() { println(&#34;On&#34;) } func (l Lamp) Off() { println(&#34;Off&#34;) } 解析: Go为每一种类型都有全局唯一的类型元数据，元数据记录了该类型大小。因为空结构体内没有任何的类型因此空类型的大小为0。但是因为有创建类型元数据因此可以想正常的类型一样用于占位 这里建议看一下参考资料【幼麟实验室】- Go类型系统讲解
+参考资料：
+🔗📺️:【幼麟实验室】- Go类型系统讲解 </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 19:40:52 +0800 CST'>December 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_009" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_009/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_010
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>init() 函数是什么时候执行的？
+🔑 答案解析： 答:init()是再main()函数执行前
+一句话总结： import –&gt; const –&gt; var –&gt; init() –&gt; main()
+如果有多个init就要分情况
+单个源文件的 init 执行顺序 结论： 同一个源文件的 init 函数执行顺序与其定义顺序一致，从上到下。
+package main func init() { println(&#34;init a&#34;) } func init() { println(&#34;init b&#34;) } func init() { println(&#34;init c&#34;) } func main() { println(&#34;main&#34;) } $ go run main.go init a init b init c main 单个包的 init 执行顺序 结论： 同一个包中不同源文件 init 函数的执行顺序，是根据文件名的字典序来确定。
+// a.go package main func init() { println(&#34;init a&#34;) } // b.go package main func init() { println(&#34;init b&#34;) } // c.go package main func init() { println(&#34;init c&#34;) } // main.go package main func init() { println(&#34;init main&#34;) } func main() { println(&#34;main&#34;) } $ go build &amp;&amp; ./main init a init b init c init main main main 包导入多个包时 init 执行顺序-不存在依赖 结论： 对于不同的包，如果不相互依赖的话，按照 main 包中导入顺序调用包的 init 函数，最后再调用 main 包的 init 函数。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 19:40:52 +0800 CST'>December 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_010" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_010/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://loommii.github.io/go_practise/page/10/">
+      «&nbsp;Prev&nbsp;
+    </a>
+    <a class="next" href="https://loommii.github.io/go_practise/page/12/">Next&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
