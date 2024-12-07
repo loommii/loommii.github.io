@@ -43,7 +43,7 @@ wg.Wait()
 ">
 <meta name="author" content="">
 <link rel="canonical" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_038/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d72444526d7ecbdb0015438a7fa89054a658bf759d0542e2e5df81ce94b493ee.css" integrity="sha256-1yREUm1&#43;y9sAFUOKf6iQVKZYv3WdBULi5d&#43;BzpS0k&#43;4=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://loommii.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
@@ -92,7 +92,7 @@ wg.Wait()
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="Go每日一题_038">
   <meta property="og:description" content="以下代码有什么问题？
-package main import ( &#34;sync&#34; ) const N = 10 var wg = &amp;sync.WaitGroup{} func main() { for i := 0; i &lt; N; i&#43;&#43; { go func(i int) { wg.Add(1) println(i) defer wg.Done() }(i) } wg.Wait() } 🔑 答案解析： 答：输出结果不唯一，代码存在风险, 所有 go 语句未必都能执行到。 解析：
+package main import ( &#34;sync&#34; ) const N = 10 var wg = &amp;sync.WaitGroup{} func main() { for i := 0; i &lt; N; i&#43;&#43; { go func(i int) { wg.Add(1) println(i) defer wg.Done() }(i) } wg.Wait() } 🔑 答案解析：答：输出结果不唯一，代码存在风险, 所有 go 语句未必都能执行到。 解析：
 var wg = &amp;sync.WaitGroup{} wg.Add(1) wg.Done() wg.Wait() 该用法类似一个栈,wg.Wait()判断wg中是否还有记录有的话堵塞直到栈为0才开始活跃。 这里的写法存在问题。wg.Add(1)被放到了协程中，导致存在未运行wg.Add(1)，wg.Wait()就已经判断结束了。">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
@@ -163,11 +163,11 @@ wg.Wait()
   "@type": "BlogPosting",
   "headline": "Go每日一题_038",
   "name": "Go每日一题_038",
-  "description": "以下代码有什么问题？\npackage main import ( \u0026#34;sync\u0026#34; ) const N = 10 var wg = \u0026amp;sync.WaitGroup{} func main() { for i := 0; i \u0026lt; N; i++ { go func(i int) { wg.Add(1) println(i) defer wg.Done() }(i) } wg.Wait() } 🔑 答案解析： 答：输出结果不唯一，代码存在风险, 所有 go 语句未必都能执行到。 解析：\nvar wg = \u0026amp;sync.WaitGroup{} wg.Add(1) wg.Done() wg.Wait() 该用法类似一个栈,wg.Wait()判断wg中是否还有记录有的话堵塞直到栈为0才开始活跃。 这里的写法存在问题。wg.Add(1)被放到了协程中，导致存在未运行wg.Add(1)，wg.Wait()就已经判断结束了。\n",
+  "description": "以下代码有什么问题？\npackage main import ( \u0026#34;sync\u0026#34; ) const N = 10 var wg = \u0026amp;sync.WaitGroup{} func main() { for i := 0; i \u0026lt; N; i++ { go func(i int) { wg.Add(1) println(i) defer wg.Done() }(i) } wg.Wait() } 🔑 答案解析：\r答：输出结果不唯一，代码存在风险, 所有 go 语句未必都能执行到。 解析：\nvar wg = \u0026amp;sync.WaitGroup{} wg.Add(1) wg.Done() wg.Wait() 该用法类似一个栈,wg.Wait()判断wg中是否还有记录有的话堵塞直到栈为0才开始活跃。 这里的写法存在问题。wg.Add(1)被放到了协程中，导致存在未运行wg.Add(1)，wg.Wait()就已经判断结束了。\n",
   "keywords": [
     
   ],
-  "articleBody": "以下代码有什么问题？\npackage main import ( \"sync\" ) const N = 10 var wg = \u0026sync.WaitGroup{} func main() { for i := 0; i \u003c N; i++ { go func(i int) { wg.Add(1) println(i) defer wg.Done() }(i) } wg.Wait() } 🔑 答案解析： 答：输出结果不唯一，代码存在风险, 所有 go 语句未必都能执行到。 解析：\nvar wg = \u0026sync.WaitGroup{} wg.Add(1) wg.Done() wg.Wait() 该用法类似一个栈,wg.Wait()判断wg中是否还有记录有的话堵塞直到栈为0才开始活跃。 这里的写法存在问题。wg.Add(1)被放到了协程中，导致存在未运行wg.Add(1)，wg.Wait()就已经判断结束了。\n",
+  "articleBody": "以下代码有什么问题？\npackage main import ( \"sync\" ) const N = 10 var wg = \u0026sync.WaitGroup{} func main() { for i := 0; i \u003c N; i++ { go func(i int) { wg.Add(1) println(i) defer wg.Done() }(i) } wg.Wait() } 🔑 答案解析：\r答：输出结果不唯一，代码存在风险, 所有 go 语句未必都能执行到。 解析：\nvar wg = \u0026sync.WaitGroup{} wg.Add(1) wg.Done() wg.Wait() 该用法类似一个栈,wg.Wait()判断wg中是否还有记录有的话堵塞直到栈为0才开始活跃。 这里的写法存在问题。wg.Add(1)被放到了协程中，导致存在未运行wg.Add(1)，wg.Wait()就已经判断结束了。\n",
   "wordCount" : "55",
   "inLanguage": "zh",
   "datePublished": "2024-12-06T20:44:15+08:00",
@@ -236,6 +236,16 @@ wg.Wait()
             <li>
                 <a href="https://loommii.github.io/leetcode/" title="力扣">
                     <span>力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
                 </a>
             </li>
         </ul>
