@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>Go每日一题_033 | loommii</title>
 <meta name="keywords" content="">
 <meta name="description" content="今天给两道类似的题目，注意，有半数以上的人可能会做错！
@@ -33,16 +33,16 @@ func main() {
 
 ">
 <meta name="author" content="">
-<link rel="canonical" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_033/">
+<link rel="canonical" href="http://localhost:1313/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_033/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://loommii.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_033/">
+<link rel="alternate" hreflang="zh" href="http://localhost:1313/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_033/">
 <noscript>
     <style>
         #theme-toggle,
@@ -79,94 +79,7 @@ func main() {
         }
 
     </style>
-</noscript><meta property="og:url" content="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_033/">
-  <meta property="og:site_name" content="loommii">
-  <meta property="og:title" content="Go每日一题_033">
-  <meta property="og:description" content="今天给两道类似的题目，注意，有半数以上的人可能会做错！
-package main func main() { var a int8 = -1 var b int8 = -128 / a println(b) } package main func main() { const a int8 = -1 var b int8 = -128 / a println(b) } 🔑 答案解析： 题一： 因为 var b int8 = -128 / a 不是常量表达式，因此 untyped 常量 -128 隐式转换为 int8 类型（即和 a 的类型一致），所以 -128 / a 的结果是 int8 类型，值是 128，超出了 int8 的范围。因为结果不是常量，允许溢出，128 的二进制表示是 10000000，正好是 -128 的补码。所以，第一题的结果是 -128。 题二： -128 和 -1 都是 const，直接在编译时求值，untyped 的 -128 隐式转 int8，结果为 128，仍然是一个 const。const 转换时不允许溢出，编译错误。 其实差别就是表达式的值，题一不是常量题二是，常量类型转换不允许溢出后 truncate。 ">
-  <meta property="og:locale" content="zh">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="go_practise">
-    <meta property="article:published_time" content="2024-12-06T20:44:09+08:00">
-    <meta property="article:modified_time" content="2024-12-06T20:44:09+08:00">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go每日一题_033">
-<meta name="twitter:description" content="今天给两道类似的题目，注意，有半数以上的人可能会做错！
-package main
-
-func main() {
-    var a int8 = -1
-    var b int8 = -128 / a
-
-    println(b)
-}
-package main
-
-func main() {
-    const a int8 = -1
-    var b int8 = -128 / a
-
-    println(b)
-}
-🔑 答案解析：
-
-  题一：
-因为 var b int8 = -128 / a 不是常量表达式，因此 untyped 常量 -128 隐式转换为 int8 类型（即和 a 的类型一致），所以 -128 / a 的结果是 int8 类型，值是 128，超出了 int8 的范围。因为结果不是常量，允许溢出，128 的二进制表示是 10000000，正好是 -128 的补码。所以，第一题的结果是 -128。
-题二：
--128 和 -1 都是 const，直接在编译时求值，untyped 的 -128 隐式转 int8，结果为 128，仍然是一个 const。const 转换时不允许溢出，编译错误。 其实差别就是表达式的值，题一不是常量题二是，常量类型转换不允许溢出后 truncate。
-
-">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Golang练习",
-      "item": "https://loommii.github.io/go_practise/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "Go每日一题_033",
-      "item": "https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_033/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Go每日一题_033",
-  "name": "Go每日一题_033",
-  "description": "今天给两道类似的题目，注意，有半数以上的人可能会做错！\npackage main func main() { var a int8 = -1 var b int8 = -128 / a println(b) } package main func main() { const a int8 = -1 var b int8 = -128 / a println(b) } 🔑 答案解析： 题一： 因为 var b int8 = -128 / a 不是常量表达式，因此 untyped 常量 -128 隐式转换为 int8 类型（即和 a 的类型一致），所以 -128 / a 的结果是 int8 类型，值是 128，超出了 int8 的范围。因为结果不是常量，允许溢出，128 的二进制表示是 10000000，正好是 -128 的补码。所以，第一题的结果是 -128。 题二： -128 和 -1 都是 const，直接在编译时求值，untyped 的 -128 隐式转 int8，结果为 128，仍然是一个 const。const 转换时不允许溢出，编译错误。 其实差别就是表达式的值，题一不是常量题二是，常量类型转换不允许溢出后 truncate。 ",
-  "keywords": [
-    
-  ],
-  "articleBody": "今天给两道类似的题目，注意，有半数以上的人可能会做错！\npackage main func main() { var a int8 = -1 var b int8 = -128 / a println(b) } package main func main() { const a int8 = -1 var b int8 = -128 / a println(b) } 🔑 答案解析： 题一： 因为 var b int8 = -128 / a 不是常量表达式，因此 untyped 常量 -128 隐式转换为 int8 类型（即和 a 的类型一致），所以 -128 / a 的结果是 int8 类型，值是 128，超出了 int8 的范围。因为结果不是常量，允许溢出，128 的二进制表示是 10000000，正好是 -128 的补码。所以，第一题的结果是 -128。 题二： -128 和 -1 都是 const，直接在编译时求值，untyped 的 -128 隐式转 int8，结果为 128，仍然是一个 const。const 转换时不允许溢出，编译错误。 其实差别就是表达式的值，题一不是常量题二是，常量类型转换不允许溢出后 truncate。 ",
-  "wordCount" : "88",
-  "inLanguage": "zh",
-  "datePublished": "2024-12-06T20:44:09+08:00",
-  "dateModified": "2024-12-06T20:44:09+08:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_033/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "loommii",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://loommii.github.io/favicon.ico"
-    }
-  }
-}
-</script>
+</noscript>
 </head>
 
 <body class="" id="top">
@@ -184,7 +97,7 @@ func main() {
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <a href="http://localhost:1313/" accesskey="h" title="loommii (Alt + H)">loommii</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -210,22 +123,27 @@ func main() {
         </div>
         <ul id="menu">
             <li>
-                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                <a href="http://localhost:1313/posts/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/go_practise/" title="Golang练习">
                     <span>Golang练习</span>
                 </a>
             </li>
             <li>
-                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                <a href="http://localhost:1313/leetcode/" title="力扣">
                     <span>力扣</span>
                 </a>
             </li>
             <li>
-                <a href="https://loommii.github.io/archives/" title="归档">
+                <a href="http://localhost:1313/archives/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="https://loommii.github.io/search/" title="搜索">
+                <a href="http://localhost:1313/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
@@ -290,7 +208,7 @@ func main() {
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 <a href="https://loommii.github.io/">loommii</a></span> · 
+        <span>&copy; 2024 <a href="http://localhost:1313/">loommii</a></span> · 
 
     <span>
         Powered by

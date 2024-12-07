@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>Go每日一题_026 | loommii</title>
 <meta name="keywords" content="">
 <meta name="description" content="以下代码能否编译？
@@ -65,16 +65,16 @@ func main() {
 
 ">
 <meta name="author" content="">
-<link rel="canonical" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_026/">
+<link rel="canonical" href="http://localhost:1313/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_026/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://loommii.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_026/">
+<link rel="alternate" hreflang="zh" href="http://localhost:1313/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_026/">
 <noscript>
     <style>
         #theme-toggle,
@@ -111,129 +111,7 @@ func main() {
         }
 
     </style>
-</noscript><meta property="og:url" content="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_026/">
-  <meta property="og:site_name" content="loommii">
-  <meta property="og:title" content="Go每日一题_026">
-  <meta property="og:description" content="以下代码能否编译？
-package main import &#34;fmt&#34; type Student struct { Name string } var list map[string]Student func main() { list = make(map[string]Student) student := Student{&#34;Aceld&#34;} list[&#34;student&#34;] = student list[&#34;student&#34;].Name = &#34;LDB&#34; fmt.Println(list[&#34;student&#34;]) } 🔑 答案解析： 答：编译失败。 map[string]Student 的 value 是一个 Student 结构值，所以当list[&#34;student&#34;] = student,是一个值拷贝过程。而list[“student”]则是一个值引用。那么值引用的特点是只读。所以对list[“student”].Name = “LDB&#34;的修改是不允许的。
-如果真要修改需要New一个新的结构体，修改内容后重新赋值
-//list[&#34;student&#34;].Name = &#34;LDB&#34; newStudent := list[&#34;student&#34;] newStudent.Name = &#34;LDB&#34; list[&#34;student&#34;] = newStudent 或者将map value 改为一个 Student 结构值指针 map[string]*Student
-package main import &#34;fmt&#34; type Student struct { Name string } var list map[string]*Student func main() { list = make(map[string]*Student) student := Student{&#34;Aceld&#34;} list[&#34;student&#34;] = &amp;student list[&#34;student&#34;].Name = &#34;LDB&#34; fmt.Println(list[&#34;student&#34;]) } ">
-  <meta property="og:locale" content="zh">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="go_practise">
-    <meta property="article:published_time" content="2024-12-06T19:49:56+08:00">
-    <meta property="article:modified_time" content="2024-12-06T19:49:56+08:00">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go每日一题_026">
-<meta name="twitter:description" content="以下代码能否编译？
-package main
-
-import &#34;fmt&#34;
-
-type Student struct {
-	Name string
-}
-
-var list map[string]Student
-
-func main() {
-
-	list = make(map[string]Student)
-
-	student := Student{&#34;Aceld&#34;}
-
-	list[&#34;student&#34;] = student
-	list[&#34;student&#34;].Name = &#34;LDB&#34;
-
-	fmt.Println(list[&#34;student&#34;])
-}
-🔑 答案解析：
-
-  答：编译失败。
-map[string]Student  的 value 是一个 Student 结构值，所以当list[&quot;student&quot;] = student,是一个值拷贝过程。而list[&ldquo;student&rdquo;]则是一个值引用。那么值引用的特点是只读。所以对list[&ldquo;student&rdquo;].Name = &ldquo;LDB&quot;的修改是不允许的。
-如果真要修改需要New一个新的结构体，修改内容后重新赋值
-	//list[&#34;student&#34;].Name = &#34;LDB&#34;
-	newStudent := list[&#34;student&#34;]
-	newStudent.Name = &#34;LDB&#34;
-	list[&#34;student&#34;] = newStudent
-或者将map value 改为一个 Student 结构值指针
-map[string]*Student
-package main
-
-import &#34;fmt&#34;
-
-type Student struct {
-	Name string
-}
-
-var list map[string]*Student
-
-func main() {
-
-	list = make(map[string]*Student)
-
-	student := Student{&#34;Aceld&#34;}
-
-	list[&#34;student&#34;] = &amp;student
-	list[&#34;student&#34;].Name = &#34;LDB&#34;
-
-	fmt.Println(list[&#34;student&#34;])
-}
-
-
-">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Golang练习",
-      "item": "https://loommii.github.io/go_practise/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "Go每日一题_026",
-      "item": "https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_026/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Go每日一题_026",
-  "name": "Go每日一题_026",
-  "description": "以下代码能否编译？\npackage main import \u0026#34;fmt\u0026#34; type Student struct { Name string } var list map[string]Student func main() { list = make(map[string]Student) student := Student{\u0026#34;Aceld\u0026#34;} list[\u0026#34;student\u0026#34;] = student list[\u0026#34;student\u0026#34;].Name = \u0026#34;LDB\u0026#34; fmt.Println(list[\u0026#34;student\u0026#34;]) } 🔑 答案解析： 答：编译失败。 map[string]Student 的 value 是一个 Student 结构值，所以当list[\u0026quot;student\u0026quot;] = student,是一个值拷贝过程。而list[\u0026ldquo;student\u0026rdquo;]则是一个值引用。那么值引用的特点是只读。所以对list[\u0026ldquo;student\u0026rdquo;].Name = \u0026ldquo;LDB\u0026quot;的修改是不允许的。\n如果真要修改需要New一个新的结构体，修改内容后重新赋值\n//list[\u0026#34;student\u0026#34;].Name = \u0026#34;LDB\u0026#34; newStudent := list[\u0026#34;student\u0026#34;] newStudent.Name = \u0026#34;LDB\u0026#34; list[\u0026#34;student\u0026#34;] = newStudent 或者将map value 改为一个 Student 结构值指针 map[string]*Student\npackage main import \u0026#34;fmt\u0026#34; type Student struct { Name string } var list map[string]*Student func main() { list = make(map[string]*Student) student := Student{\u0026#34;Aceld\u0026#34;} list[\u0026#34;student\u0026#34;] = \u0026amp;student list[\u0026#34;student\u0026#34;].Name = \u0026#34;LDB\u0026#34; fmt.Println(list[\u0026#34;student\u0026#34;]) } ",
-  "keywords": [
-    
-  ],
-  "articleBody": "以下代码能否编译？\npackage main import \"fmt\" type Student struct { Name string } var list map[string]Student func main() { list = make(map[string]Student) student := Student{\"Aceld\"} list[\"student\"] = student list[\"student\"].Name = \"LDB\" fmt.Println(list[\"student\"]) } 🔑 答案解析： 答：编译失败。 map[string]Student 的 value 是一个 Student 结构值，所以当list[\"student\"] = student,是一个值拷贝过程。而list[“student”]则是一个值引用。那么值引用的特点是只读。所以对list[“student”].Name = “LDB\"的修改是不允许的。\n如果真要修改需要New一个新的结构体，修改内容后重新赋值\n//list[\"student\"].Name = \"LDB\" newStudent := list[\"student\"] newStudent.Name = \"LDB\" list[\"student\"] = newStudent 或者将map value 改为一个 Student 结构值指针 map[string]*Student\npackage main import \"fmt\" type Student struct { Name string } var list map[string]*Student func main() { list = make(map[string]*Student) student := Student{\"Aceld\"} list[\"student\"] = \u0026student list[\"student\"].Name = \"LDB\" fmt.Println(list[\"student\"]) } ",
-  "wordCount" : "95",
-  "inLanguage": "zh",
-  "datePublished": "2024-12-06T19:49:56+08:00",
-  "dateModified": "2024-12-06T19:49:56+08:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_026/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "loommii",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://loommii.github.io/favicon.ico"
-    }
-  }
-}
-</script>
+</noscript>
 </head>
 
 <body class="" id="top">
@@ -251,7 +129,7 @@ func main() {
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <a href="http://localhost:1313/" accesskey="h" title="loommii (Alt + H)">loommii</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -277,22 +155,27 @@ func main() {
         </div>
         <ul id="menu">
             <li>
-                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                <a href="http://localhost:1313/posts/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="http://localhost:1313/go_practise/" title="Golang练习">
                     <span>Golang练习</span>
                 </a>
             </li>
             <li>
-                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                <a href="http://localhost:1313/leetcode/" title="力扣">
                     <span>力扣</span>
                 </a>
             </li>
             <li>
-                <a href="https://loommii.github.io/archives/" title="归档">
+                <a href="http://localhost:1313/archives/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="https://loommii.github.io/search/" title="搜索">
+                <a href="http://localhost:1313/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
@@ -389,7 +272,7 @@ map[string]*Student</p>
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 <a href="https://loommii.github.io/">loommii</a></span> · 
+        <span>&copy; 2024 <a href="http://localhost:1313/">loommii</a></span> · 
 
     <span>
         Powered by
