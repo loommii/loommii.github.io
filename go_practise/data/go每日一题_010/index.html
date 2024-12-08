@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Go每日一题_010 | loommii</title>
 <meta name="keywords" content="">
 <meta name="description" content="init() 函数是什么时候执行的？
@@ -85,16 +85,16 @@ main 包导入多个包时 init 执行顺序-不存在依赖
 
 结论： 对于不同的包，如果不相互依赖的话，按照 main 包中导入顺序调用包的 init 函数，最后再调用 main 包的 init 函数。">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_010/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="canonical" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_010/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d72444526d7ecbdb0015438a7fa89054a658bf759d0542e2e5df81ce94b493ee.css" integrity="sha256-1yREUm1&#43;y9sAFUOKf6iQVKZYv3WdBULi5d&#43;BzpS0k&#43;4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="http://localhost:1313/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_010/">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_010/">
 <noscript>
     <style>
         #theme-toggle,
@@ -131,7 +131,151 @@ main 包导入多个包时 init 执行顺序-不存在依赖
         }
 
     </style>
-</noscript>
+</noscript><meta property="og:url" content="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_010/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="Go每日一题_010">
+  <meta property="og:description" content="init() 函数是什么时候执行的？
+🔑 答案解析：答:init()是再main()函数执行前
+一句话总结： import –&gt; const –&gt; var –&gt; init() –&gt; main()
+如果有多个init就要分情况
+单个源文件的 init 执行顺序 结论： 同一个源文件的 init 函数执行顺序与其定义顺序一致，从上到下。
+package main func init() { println(&#34;init a&#34;) } func init() { println(&#34;init b&#34;) } func init() { println(&#34;init c&#34;) } func main() { println(&#34;main&#34;) } $ go run main.go init a init b init c main 单个包的 init 执行顺序 结论： 同一个包中不同源文件 init 函数的执行顺序，是根据文件名的字典序来确定。
+// a.go package main func init() { println(&#34;init a&#34;) } // b.go package main func init() { println(&#34;init b&#34;) } // c.go package main func init() { println(&#34;init c&#34;) } // main.go package main func init() { println(&#34;init main&#34;) } func main() { println(&#34;main&#34;) } $ go build &amp;&amp; ./main init a init b init c init main main main 包导入多个包时 init 执行顺序-不存在依赖 结论： 对于不同的包，如果不相互依赖的话，按照 main 包中导入顺序调用包的 init 函数，最后再调用 main 包的 init 函数。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="go_practise">
+    <meta property="article:published_time" content="2024-12-06T19:40:52+08:00">
+    <meta property="article:modified_time" content="2024-12-06T19:40:52+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go每日一题_010">
+<meta name="twitter:description" content="init() 函数是什么时候执行的？
+🔑 答案解析：
+
+  答:init()是再main()函数执行前
+一句话总结： import –&gt; const –&gt; var –&gt; init() –&gt; main()
+如果有多个init就要分情况
+
+单个源文件的 init 执行顺序
+
+结论： 同一个源文件的 init 函数执行顺序与其定义顺序一致，从上到下。
+package main
+
+func init() {
+	println(&#34;init a&#34;)
+}
+
+func init() {
+	println(&#34;init b&#34;)
+}
+
+func init() {
+	println(&#34;init c&#34;)
+}
+
+func main() {
+	println(&#34;main&#34;)
+}
+$ go run main.go
+init a
+init b
+init c
+main
+
+单个包的 init 执行顺序
+
+结论： 同一个包中不同源文件 init 函数的执行顺序，是根据文件名的字典序来确定。
+// a.go
+package main
+
+func init() {
+	println(&#34;init a&#34;)
+}
+
+// b.go
+package main
+
+func init() {
+	println(&#34;init b&#34;)
+}
+
+// c.go
+package main
+
+func init() {
+	println(&#34;init c&#34;)
+}
+
+// main.go
+package main
+
+func init() {
+	println(&#34;init main&#34;)
+}
+
+func main() {
+	println(&#34;main&#34;)
+}
+$ go build &amp;&amp; ./main
+init a
+init b
+init c
+init main
+main
+
+main 包导入多个包时 init 执行顺序-不存在依赖
+
+结论： 对于不同的包，如果不相互依赖的话，按照 main 包中导入顺序调用包的 init 函数，最后再调用 main 包的 init 函数。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Golang练习",
+      "item": "https://loommii.github.io/go_practise/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Go每日一题_010",
+      "item": "https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_010/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Go每日一题_010",
+  "name": "Go每日一题_010",
+  "description": "init() 函数是什么时候执行的？\n🔑 答案解析：\r答:init()是再main()函数执行前\n一句话总结： import –\u0026gt; const –\u0026gt; var –\u0026gt; init() –\u0026gt; main()\n如果有多个init就要分情况\n单个源文件的 init 执行顺序 结论： 同一个源文件的 init 函数执行顺序与其定义顺序一致，从上到下。\npackage main func init() { println(\u0026#34;init a\u0026#34;) } func init() { println(\u0026#34;init b\u0026#34;) } func init() { println(\u0026#34;init c\u0026#34;) } func main() { println(\u0026#34;main\u0026#34;) } $ go run main.go init a init b init c main 单个包的 init 执行顺序 结论： 同一个包中不同源文件 init 函数的执行顺序，是根据文件名的字典序来确定。\n// a.go package main func init() { println(\u0026#34;init a\u0026#34;) } // b.go package main func init() { println(\u0026#34;init b\u0026#34;) } // c.go package main func init() { println(\u0026#34;init c\u0026#34;) } // main.go package main func init() { println(\u0026#34;init main\u0026#34;) } func main() { println(\u0026#34;main\u0026#34;) } $ go build \u0026amp;\u0026amp; ./main init a init b init c init main main main 包导入多个包时 init 执行顺序-不存在依赖 结论： 对于不同的包，如果不相互依赖的话，按照 main 包中导入顺序调用包的 init 函数，最后再调用 main 包的 init 函数。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "init() 函数是什么时候执行的？\n🔑 答案解析：\r答:init()是再main()函数执行前\n一句话总结： import –\u003e const –\u003e var –\u003e init() –\u003e main()\n如果有多个init就要分情况\n单个源文件的 init 执行顺序 结论： 同一个源文件的 init 函数执行顺序与其定义顺序一致，从上到下。\npackage main func init() { println(\"init a\") } func init() { println(\"init b\") } func init() { println(\"init c\") } func main() { println(\"main\") } $ go run main.go init a init b init c main 单个包的 init 执行顺序 结论： 同一个包中不同源文件 init 函数的执行顺序，是根据文件名的字典序来确定。\n// a.go package main func init() { println(\"init a\") } // b.go package main func init() { println(\"init b\") } // c.go package main func init() { println(\"init c\") } // main.go package main func init() { println(\"init main\") } func main() { println(\"main\") } $ go build \u0026\u0026 ./main init a init b init c init main main main 包导入多个包时 init 执行顺序-不存在依赖 结论： 对于不同的包，如果不相互依赖的话，按照 main 包中导入顺序调用包的 init 函数，最后再调用 main 包的 init 函数。\n// a 包 // a.go package a func init() { println(\"init a\") } // b 包 // b.go package b func init() { println(\"init b\") } // c 包 // c.go package c func init() { println(\"init c\") } // main 包 // main.go package main import ( _ \"main/a\" _ \"main/b\" _ \"main/c\" ) func init() { println(\"init main\") } func main() { println(\"main\") } $ go build \u0026\u0026 ./main init a init b init c init main main main 包导入多个包时 init 执行顺序-存在依赖 结论： 如果 package 存在依赖，不同包的 init 函数按照包导入的依赖关系决定执行顺序。 调用顺序为最后被依赖的最先被初始化，如导入顺序 main \u003e a \u003e b \u003e c，则初始化顺序为 c \u003e b \u003e a \u003e main，依次执行对应的 init 方法\n// a 包 // a.go package a import _ \"main/b\" func init() { println(\"init a\") } // b 包 // b.go package b import _ \"main/c\" func init() { println(\"init b\") } // c 包 // c.go package c func init() { println(\"init c\") } // main 包 // main.go package main import ( _ \"main/a\" ) func init() { println(\"init main\") } func main() { println(\"main\") } $ go build \u0026\u0026 ./main init c init b init a init main main 包级变量初始化与 init 函数执行顺序 结论:如果包存在包级变量，则先于包的 init 函数完成初始化。\n// a 包 // a.go package a import _ \"main/b\" var A = func() string { println(\"init var A\") return \"A\" }() func init() { println(\"init a\") } // b 包 // b.go package b import _ \"main/c\" var B = func() string { println(\"init var B\") return \"B\" }() func init() { println(\"init b\") } // c 包 // c.go package c var C = func() string { println(\"init var C\") return \"C\" }() func init() { println(\"init c\") } // main 包 // main.go package main import ( _ \"main/a\" ) var m = func() string { println(\"init var m\") return \"m\" }() func init() { println(\"init main\") } func main() { println(\"main\") } $ go build \u0026\u0026 ./main init var C init c init var B init b init var A init a init var m init main main 参考资料:\n🔗:一文读懂 Golang init 函数执行顺序 ",
+  "wordCount" : "481",
+  "inLanguage": "zh",
+  "datePublished": "2024-12-06T19:40:52+08:00",
+  "dateModified": "2024-12-06T19:40:52+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_010/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "loommii",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://loommii.github.io/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top">
@@ -149,7 +293,7 @@ main 包导入多个包时 init 执行顺序-不存在依赖
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -175,27 +319,27 @@ main 包导入多个包时 init 执行顺序-不存在依赖
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/posts/" title="文章">
+                <a href="https://loommii.github.io/posts/" title="文章">
                     <span>文章</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/go_practise/" title="Golang练习">
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
                     <span>Golang练习</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/leetcode/" title="力扣">
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
                     <span>力扣</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives/" title="归档">
+                <a href="https://loommii.github.io/archives/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="搜索">
+                <a href="https://loommii.github.io/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
@@ -496,7 +640,7 @@ main 包导入多个包时 init 执行顺序-不存在依赖
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 <a href="http://localhost:1313/">loommii</a></span> · 
+        <span>&copy; 2024 <a href="https://loommii.github.io/">loommii</a></span> · 
 
     <span>
         Powered by

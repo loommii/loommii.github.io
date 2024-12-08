@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>原码、反码、补码、移码 | loommii</title>
 <meta name="keywords" content="">
 <meta name="description" content="名词解释
@@ -47,16 +47,16 @@
 应用场景
 原码：符合人类直觉，是最简单的整数表示方法">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/posts/data/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="canonical" href="https://loommii.github.io/posts/data/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d72444526d7ecbdb0015438a7fa89054a658bf759d0542e2e5df81ce94b493ee.css" integrity="sha256-1yREUm1&#43;y9sAFUOKf6iQVKZYv3WdBULi5d&#43;BzpS0k&#43;4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/data/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/data/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/">
 <noscript>
     <style>
         #theme-toggle,
@@ -93,7 +93,107 @@
         }
 
     </style>
-</noscript>
+</noscript><meta property="og:url" content="https://loommii.github.io/posts/data/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="原码、反码、补码、移码">
+  <meta property="og:description" content="名词解释 原码:原码是最简单的整数表示方法，其中最高位用来表示符号（0表示正数，1表示负数），其余位表示数值的绝对值。例如，&#43;5的原码是00000101，-5的原码是10000101。 反码:反码是通过对原码取反得到的，即将正数的原码保持不变，负数的原码的所有位取反（包括符号位）。例如，&#43;5的反码是00000101（与原码相同），-5的反码是11111010。 补码:补码是计算机中最常用的整数表示方法。正数的补码与其原码相同，而负数的补码是其反码加1。补码的特点是在进行加减法运算时，不需要单独处理符号位。例如，&#43;5的补码是00000101，-5的补码是11111011。 移码:移码是一种不常见的整数表示方法，在计算机领域中较少使用。它与补码类似，但是所有的数值都被偏移了一个固定的值，通常是一个中间值，以使得正数的表示始终比负数的表示更大。这种表示方法在某些特殊的硬件设计中可能会使用。 例子 原码为正数 整数 &#43;10000 0001 // 原码0000 0001 // 反码 // 正数的 反码 = 原码0000 0001 // 补码 // 正数的 补码 = 反码 = 原码1000 0001 // 移码 // 移码 = 补码的符号位取反 原码为0 整数 &#43;00000 0000 // 原码0000 0000 // 反码 // 正数的 反码 = 原码0000 0000 // 补码 // 正数的 补码 = 反码 = 原码1000 0000 // 移码 // 移码 = 补码的符号位取反整数 -01000 0000 // 原码1111 1111 // 反码 // 负数的 反码 = 原码除符号位不变 其他全取反0000 0000 // 补码 // 负数的 补码 = 反码&#43;1 //这里由于越界,取后8位则结果为8个01000 0000 // 移码 // 移码 = 补码的符号位取反 原码为负数 整数 -11000 0001 // 原码1111 1110 // 反码 // 负数的 反码 = 原码除符号位不变 其他全取反1111 1111 // 补码 // 负数的 补码 = 反码&#43;10110 1111 // 移码 // 移码 = 补码的符号位取反 应用场景 原码：符合人类直觉，是最简单的整数表示方法">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-08T00:24:00+08:00">
+    <meta property="article:modified_time" content="2024-12-08T00:24:00+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="原码、反码、补码、移码">
+<meta name="twitter:description" content="名词解释
+原码:原码是最简单的整数表示方法，其中最高位用来表示符号（0表示正数，1表示负数），其余位表示数值的绝对值。例如，&#43;5的原码是00000101，-5的原码是10000101。
+反码:反码是通过对原码取反得到的，即将正数的原码保持不变，负数的原码的所有位取反（包括符号位）。例如，&#43;5的反码是00000101（与原码相同），-5的反码是11111010。
+补码:补码是计算机中最常用的整数表示方法。正数的补码与其原码相同，而负数的补码是其反码加1。补码的特点是在进行加减法运算时，不需要单独处理符号位。例如，&#43;5的补码是00000101，-5的补码是11111011。
+移码:移码是一种不常见的整数表示方法，在计算机领域中较少使用。它与补码类似，但是所有的数值都被偏移了一个固定的值，通常是一个中间值，以使得正数的表示始终比负数的表示更大。这种表示方法在某些特殊的硬件设计中可能会使用。
+
+例子
+
+原码为正数
+
+整数 &#43;1
+0000 0001  // 原码
+0000 0001  // 反码  // 正数的 反码 = 原码
+0000 0001  // 补码  // 正数的 补码 = 反码 = 原码
+1000 0001  // 移码  // 移码 = 补码的符号位取反
+
+原码为0
+
+整数 &#43;0
+0000 0000  // 原码
+0000 0000  // 反码  // 正数的 反码 = 原码
+0000 0000  // 补码  // 正数的 补码 = 反码 = 原码
+1000 0000  // 移码  // 移码 = 补码的符号位取反
+
+整数 -0
+1000 0000  // 原码
+1111 1111  // 反码  // 负数的 反码 = 原码除符号位不变 其他全取反
+0000 0000  // 补码  // 负数的 补码 = 反码&#43;1 //这里由于越界,取后8位则结果为8个0
+1000 0000  // 移码  // 移码 = 补码的符号位取反
+
+原码为负数
+
+整数 -1
+1000 0001  // 原码
+1111 1110  // 反码  // 负数的 反码 = 原码除符号位不变 其他全取反
+1111 1111  // 补码  // 负数的 补码 = 反码&#43;1
+0110 1111  // 移码  // 移码 = 补码的符号位取反
+应用场景
+原码：符合人类直觉，是最简单的整数表示方法">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "文章",
+      "item": "https://loommii.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "原码、反码、补码、移码",
+      "item": "https://loommii.github.io/posts/data/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "原码、反码、补码、移码",
+  "name": "原码、反码、补码、移码",
+  "description": "名词解释 原码:原码是最简单的整数表示方法，其中最高位用来表示符号（0表示正数，1表示负数），其余位表示数值的绝对值。例如，+5的原码是00000101，-5的原码是10000101。 反码:反码是通过对原码取反得到的，即将正数的原码保持不变，负数的原码的所有位取反（包括符号位）。例如，+5的反码是00000101（与原码相同），-5的反码是11111010。 补码:补码是计算机中最常用的整数表示方法。正数的补码与其原码相同，而负数的补码是其反码加1。补码的特点是在进行加减法运算时，不需要单独处理符号位。例如，+5的补码是00000101，-5的补码是11111011。 移码:移码是一种不常见的整数表示方法，在计算机领域中较少使用。它与补码类似，但是所有的数值都被偏移了一个固定的值，通常是一个中间值，以使得正数的表示始终比负数的表示更大。这种表示方法在某些特殊的硬件设计中可能会使用。 例子 原码为正数 整数 +1\r0000 0001 // 原码\r0000 0001 // 反码 // 正数的 反码 = 原码\r0000 0001 // 补码 // 正数的 补码 = 反码 = 原码\r1000 0001 // 移码 // 移码 = 补码的符号位取反 原码为0 整数 +0\r0000 0000 // 原码\r0000 0000 // 反码 // 正数的 反码 = 原码\r0000 0000 // 补码 // 正数的 补码 = 反码 = 原码\r1000 0000 // 移码 // 移码 = 补码的符号位取反\r整数 -0\r1000 0000 // 原码\r1111 1111 // 反码 // 负数的 反码 = 原码除符号位不变 其他全取反\r0000 0000 // 补码 // 负数的 补码 = 反码+1 //这里由于越界,取后8位则结果为8个0\r1000 0000 // 移码 // 移码 = 补码的符号位取反 原码为负数 整数 -1\r1000 0001 // 原码\r1111 1110 // 反码 // 负数的 反码 = 原码除符号位不变 其他全取反\r1111 1111 // 补码 // 负数的 补码 = 反码+1\r0110 1111 // 移码 // 移码 = 补码的符号位取反 应用场景 原码：符合人类直觉，是最简单的整数表示方法\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "名词解释 原码:原码是最简单的整数表示方法，其中最高位用来表示符号（0表示正数，1表示负数），其余位表示数值的绝对值。例如，+5的原码是00000101，-5的原码是10000101。 反码:反码是通过对原码取反得到的，即将正数的原码保持不变，负数的原码的所有位取反（包括符号位）。例如，+5的反码是00000101（与原码相同），-5的反码是11111010。 补码:补码是计算机中最常用的整数表示方法。正数的补码与其原码相同，而负数的补码是其反码加1。补码的特点是在进行加减法运算时，不需要单独处理符号位。例如，+5的补码是00000101，-5的补码是11111011。 移码:移码是一种不常见的整数表示方法，在计算机领域中较少使用。它与补码类似，但是所有的数值都被偏移了一个固定的值，通常是一个中间值，以使得正数的表示始终比负数的表示更大。这种表示方法在某些特殊的硬件设计中可能会使用。 例子 原码为正数 整数 +1\r0000 0001 // 原码\r0000 0001 // 反码 // 正数的 反码 = 原码\r0000 0001 // 补码 // 正数的 补码 = 反码 = 原码\r1000 0001 // 移码 // 移码 = 补码的符号位取反 原码为0 整数 +0\r0000 0000 // 原码\r0000 0000 // 反码 // 正数的 反码 = 原码\r0000 0000 // 补码 // 正数的 补码 = 反码 = 原码\r1000 0000 // 移码 // 移码 = 补码的符号位取反\r整数 -0\r1000 0000 // 原码\r1111 1111 // 反码 // 负数的 反码 = 原码除符号位不变 其他全取反\r0000 0000 // 补码 // 负数的 补码 = 反码+1 //这里由于越界,取后8位则结果为8个0\r1000 0000 // 移码 // 移码 = 补码的符号位取反 原码为负数 整数 -1\r1000 0001 // 原码\r1111 1110 // 反码 // 负数的 反码 = 原码除符号位不变 其他全取反\r1111 1111 // 补码 // 负数的 补码 = 反码+1\r0110 1111 // 移码 // 移码 = 补码的符号位取反 应用场景 原码：符合人类直觉，是最简单的整数表示方法\n反码：\n诞生的前景：CPU擅长加法运算，因此为了提高运算速度，会将减法也转为加法 例如 1 - 1 会转为 1 + (-1) 。此时发现计算结果不符合预期 0000 0001 // 1\r+ 1000 0001 // -1\r——————————————\r1000 0010 // -2 解决什么问题：解决原码运算中，将符号位也参与运算会导致计算结果不符合预期的问题。 0000 0001 // 1\r+ 1111 1110 // -1\r——————————————\r1111 1111 // -0 0000 0001 // 1\r+ 1111 1101 // -2\r——————————————\r1111 1110 // -1 还有什么问题：原码和反码都存在+0和-0的问题，计算-0会计算结果不符合预期的问题 0000 0001 // 1\r+ 1111 1111 // -0\r——————————————\r0000 0000 // +0 补码：\n诞生的前景：反码解决了大部分的计算问题，但是在连续计算中不可避免会出现-0导致计算结果不符合预期。 解决什么问题：原码和反码中 0的表示不一致，以及导致的运算错误的问题。（-+0） ",
+  "wordCount" : "219",
+  "inLanguage": "zh",
+  "datePublished": "2024-12-08T00:24:00+08:00",
+  "dateModified": "2024-12-08T00:24:00+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://loommii.github.io/posts/data/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "loommii",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://loommii.github.io/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top">
@@ -111,7 +211,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -137,27 +237,27 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/posts/" title="文章">
+                <a href="https://loommii.github.io/posts/" title="文章">
                     <span>文章</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/go_practise/" title="Golang练习">
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
                     <span>Golang练习</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/leetcode/" title="力扣">
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
                     <span>力扣</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives/" title="归档">
+                <a href="https://loommii.github.io/archives/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="搜索">
+                <a href="https://loommii.github.io/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
@@ -258,7 +358,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 <a href="http://localhost:1313/">loommii</a></span> · 
+        <span>&copy; 2024 <a href="https://loommii.github.io/">loommii</a></span> · 
 
     <span>
         Powered by

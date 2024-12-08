@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
+<head><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="noindex, nofollow">
+<meta name="robots" content="index, follow">
 <title>Go每日一题_124 | loommii</title>
 <meta name="keywords" content="">
 <meta name="description" content="以下代码输出什么？
@@ -37,16 +37,16 @@ time.Time 的重写了MarshalJSON 方法因此会按照time.Time  的MarshalJSON
 
 ">
 <meta name="author" content="">
-<link rel="canonical" href="http://localhost:1313/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_124/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
-<link rel="icon" href="http://localhost:1313/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
-<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
-<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
+<link rel="canonical" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_124/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d72444526d7ecbdb0015438a7fa89054a658bf759d0542e2e5df81ce94b493ee.css" integrity="sha256-1yREUm1&#43;y9sAFUOKf6iQVKZYv3WdBULi5d&#43;BzpS0k&#43;4=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="http://localhost:1313/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_124/">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_124/">
 <noscript>
     <style>
         #theme-toggle,
@@ -83,7 +83,99 @@ time.Time 的重写了MarshalJSON 方法因此会按照time.Time  的MarshalJSON
         }
 
     </style>
-</noscript>
+</noscript><meta property="og:url" content="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_124/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="Go每日一题_124">
+  <meta property="og:description" content="以下代码输出什么？
+package main import ( &#34;encoding/json&#34; &#34;fmt&#34; &#34;time&#34; ) func main() { t := struct { time.Time N int }{ time.Date(2020, 12, 20, 0, 0, 0, 0, time.UTC), 5, } m, _ := json.Marshal(t) fmt.Printf(&#34;%s&#34;, m) } A：{“Time”: “2020-12-20T00:00:00Z”, “N”: 5 }；B：“2020-12-20T00:00:00Z”；C：{“N”: 5}；D：&lt;nil&gt;
+🔑 答案解析：答 B 题中time.Time 是内嵌到匿名struct 中的，也就是继承了time.Time 。 time.Time 的重写了MarshalJSON 方法因此会按照time.Time 的MarshalJSON 规定的格式输出">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="go_practise">
+    <meta property="article:published_time" content="2024-12-07T00:36:19+08:00">
+    <meta property="article:modified_time" content="2024-12-07T00:36:19+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go每日一题_124">
+<meta name="twitter:description" content="以下代码输出什么？
+package main
+
+import (
+    &#34;encoding/json&#34;
+    &#34;fmt&#34;
+    &#34;time&#34;
+)
+
+func main() {
+    t := struct {
+        time.Time
+        N int
+    }{
+        time.Date(2020, 12, 20, 0, 0, 0, 0, time.UTC),
+        5,
+    }
+
+    m, _ := json.Marshal(t)
+    fmt.Printf(&#34;%s&#34;, m)
+}
+A：{&ldquo;Time&rdquo;: &ldquo;2020-12-20T00:00:00Z&rdquo;, &ldquo;N&rdquo;: 5 }；B：&ldquo;2020-12-20T00:00:00Z&rdquo;；C：{&ldquo;N&rdquo;: 5}；D：&lt;nil&gt;
+🔑 答案解析：
+
+  答 B
+题中time.Time 是内嵌到匿名struct 中的，也就是继承了time.Time 。
+time.Time 的重写了MarshalJSON 方法因此会按照time.Time  的MarshalJSON 规定的格式输出
+
+">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Golang练习",
+      "item": "https://loommii.github.io/go_practise/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Go每日一题_124",
+      "item": "https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_124/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Go每日一题_124",
+  "name": "Go每日一题_124",
+  "description": "以下代码输出什么？\npackage main import ( \u0026#34;encoding/json\u0026#34; \u0026#34;fmt\u0026#34; \u0026#34;time\u0026#34; ) func main() { t := struct { time.Time N int }{ time.Date(2020, 12, 20, 0, 0, 0, 0, time.UTC), 5, } m, _ := json.Marshal(t) fmt.Printf(\u0026#34;%s\u0026#34;, m) } A：{\u0026ldquo;Time\u0026rdquo;: \u0026ldquo;2020-12-20T00:00:00Z\u0026rdquo;, \u0026ldquo;N\u0026rdquo;: 5 }；B：\u0026ldquo;2020-12-20T00:00:00Z\u0026rdquo;；C：{\u0026ldquo;N\u0026rdquo;: 5}；D：\u0026lt;nil\u0026gt;\n🔑 答案解析：\r答 B 题中time.Time 是内嵌到匿名struct 中的，也就是继承了time.Time 。 time.Time 的重写了MarshalJSON 方法因此会按照time.Time 的MarshalJSON 规定的格式输出\r",
+  "keywords": [
+    
+  ],
+  "articleBody": "以下代码输出什么？\npackage main import ( \"encoding/json\" \"fmt\" \"time\" ) func main() { t := struct { time.Time N int }{ time.Date(2020, 12, 20, 0, 0, 0, 0, time.UTC), 5, } m, _ := json.Marshal(t) fmt.Printf(\"%s\", m) } A：{“Time”: “2020-12-20T00:00:00Z”, “N”: 5 }；B：“2020-12-20T00:00:00Z”；C：{“N”: 5}；D：\n🔑 答案解析：\r答 B 题中time.Time 是内嵌到匿名struct 中的，也就是继承了time.Time 。 time.Time 的重写了MarshalJSON 方法因此会按照time.Time 的MarshalJSON 规定的格式输出\r",
+  "wordCount" : "56",
+  "inLanguage": "zh",
+  "datePublished": "2024-12-07T00:36:19+08:00",
+  "dateModified": "2024-12-07T00:36:19+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_124/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "loommii",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://loommii.github.io/favicon.ico"
+    }
+  }
+}
+</script>
 </head>
 
 <body class="" id="top">
@@ -101,7 +193,7 @@ time.Time 的重写了MarshalJSON 方法因此会按照time.Time  的MarshalJSON
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="http://localhost:1313/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -127,27 +219,27 @@ time.Time 的重写了MarshalJSON 方法因此会按照time.Time  的MarshalJSON
         </div>
         <ul id="menu">
             <li>
-                <a href="http://localhost:1313/posts/" title="文章">
+                <a href="https://loommii.github.io/posts/" title="文章">
                     <span>文章</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/go_practise/" title="Golang练习">
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
                     <span>Golang练习</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/leetcode/" title="力扣">
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
                     <span>力扣</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/archives/" title="归档">
+                <a href="https://loommii.github.io/archives/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="http://localhost:1313/search/" title="搜索">
+                <a href="https://loommii.github.io/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
@@ -216,7 +308,7 @@ time.Time 的重写了MarshalJSON 方法因此会按照time.Time  的MarshalJSON
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 <a href="http://localhost:1313/">loommii</a></span> · 
+        <span>&copy; 2024 <a href="https://loommii.github.io/">loommii</a></span> · 
 
     <span>
         Powered by
