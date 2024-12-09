@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>服务设计_如何设计一个URL短链服务 | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="什么是URL短链服务
+URL短链服务的本质是通过HTTP 302重定向机制，将一个简短的URL重定向到原始的长URL。
+短链服务解决了什么问题
+
+解决消息发送的字数限制问题
+例如，腾讯云SMS限制每条短信的字数为500个字符，而在营销短信中，通常会携带包含大量参数的URL（如邀请平台、邀请人、活动ID等）。这些参数使得URL变得非常冗长。通过URL短链服务，营销短信中的长URL可以被替换为一个简短的短链，节省了字数空间。
+
+隐藏请求参数
+以营销活动为例，URL中的常见参数可能包括活动ID等信息。如果我们不希望这些ID被随便修改，可以在参数中添加对应的活动ID KEY，这样只有当ID和KEY匹配时，用户才能进入相应的活动页面。然而，添加了KEY后，原本的URL会变得更加冗长。短链服务可以帮助隐藏这些请求参数，保持URL简洁且安全。
+
+最基础的需求
+
+长链登记
+短链重定向
+
+短链KEY为什么选择 Base62 编码
+根据 RFC3986 标准，URL 由 ASCII 字符组成，以下字符可以安全地在 URL 中使用：
+
+字母（a-z 和 A-Z）
+数字（0-9）
+部分特殊字符：$-_.&#43;!*&rsquo;(),
+虽然RFC3986标准允许一些特殊字符，但有些特殊字符可能会对URL解析、传输或存储造成问题。例如，字符如 &amp;, ?, =, # 等在查询参数或路径中有特定意义，因此它们可能引起冲突或产生解析错误。
+
+
+为了避免这些潜在的麻烦，特别是在需要将复杂的查询参数或密钥编码为 URL 友好的格式时，我们通常会选择 Base62 编码，即只使用字母（大小写）和数字的组合。
+
+短链KEY的长度选择
+我们字符集已经确定为Base62,因此长度为1 可以存储 62种。每增加一位，存储的极限数量会按 62 的指数增长。
+
+  
+      
+          长度
+          存储极限
+          解释
+      
+  
+  
+      
+          1
+          62
+          1 位可以表示 62 种不同的组合
+      
+      
+          2
+          62 × 62 = 3,844
+          2 位可以表示 62 的平方，即 3,844 种不同的组合
+      
+      
+          3
+          62 × 62 × 62 = 238,328
+          3 位可以表示 62 的三次方，即 238,328 种不同的组合
+      
+      
+          4
+          62 × 62 × 62 × 62 = 14,776,336
+          4 位可以表示 62 的四次方，即 14,776,336 种不同的组合
+      
+      
+          5
+          62 × 62 × 62 × 62 × 62 = 916,132,832
+          5 位可以表示 62 的五次方，即 916,132,832种不同的组合
+      
+      
+          6
+          62 × 62 × 62 × 62 × 62 × 62 = 56,800,235,584
+          6 位可以表示 62 的六次方，即 56,800,235,584 种不同的组合
+      
+  
+
+
+5位的存储极限已经达到916,132,832,这个数量已经非常大，足以支持大多数应用场景。然而，如果你希望进一步减少生成字符时的冲突、长远规划，选择 6 位 作为短链 KEY 长度会是一个不错的选择。">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/posts/skill/data/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/skill/data/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/posts/skill/data/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="服务设计_如何设计一个URL短链服务">
+  <meta property="og:description" content="什么是URL短链服务 URL短链服务的本质是通过HTTP 302重定向机制，将一个简短的URL重定向到原始的长URL。
+短链服务解决了什么问题 解决消息发送的字数限制问题 例如，腾讯云SMS限制每条短信的字数为500个字符，而在营销短信中，通常会携带包含大量参数的URL（如邀请平台、邀请人、活动ID等）。这些参数使得URL变得非常冗长。通过URL短链服务，营销短信中的长URL可以被替换为一个简短的短链，节省了字数空间。 隐藏请求参数 以营销活动为例，URL中的常见参数可能包括活动ID等信息。如果我们不希望这些ID被随便修改，可以在参数中添加对应的活动ID KEY，这样只有当ID和KEY匹配时，用户才能进入相应的活动页面。然而，添加了KEY后，原本的URL会变得更加冗长。短链服务可以帮助隐藏这些请求参数，保持URL简洁且安全。 最基础的需求 长链登记 短链重定向 短链KEY为什么选择 Base62 编码 根据 RFC3986 标准，URL 由 ASCII 字符组成，以下字符可以安全地在 URL 中使用：
+字母（a-z 和 A-Z） 数字（0-9） 部分特殊字符：$-_.&#43;!*’(), 虽然RFC3986标准允许一些特殊字符，但有些特殊字符可能会对URL解析、传输或存储造成问题。例如，字符如 &amp;, ?, =, # 等在查询参数或路径中有特定意义，因此它们可能引起冲突或产生解析错误。 为了避免这些潜在的麻烦，特别是在需要将复杂的查询参数或密钥编码为 URL 友好的格式时，我们通常会选择 Base62 编码，即只使用字母（大小写）和数字的组合。
+短链KEY的长度选择 我们字符集已经确定为Base62,因此长度为1 可以存储 62种。每增加一位，存储的极限数量会按 62 的指数增长。
+长度 存储极限 解释 1 62 1 位可以表示 62 种不同的组合 2 62 × 62 = 3,844 2 位可以表示 62 的平方，即 3,844 种不同的组合 3 62 × 62 × 62 = 238,328 3 位可以表示 62 的三次方，即 238,328 种不同的组合 4 62 × 62 × 62 × 62 = 14,776,336 4 位可以表示 62 的四次方，即 14,776,336 种不同的组合 5 62 × 62 × 62 × 62 × 62 = 916,132,832 5 位可以表示 62 的五次方，即 916,132,832种不同的组合 6 62 × 62 × 62 × 62 × 62 × 62 = 56,800,235,584 6 位可以表示 62 的六次方，即 56,800,235,584 种不同的组合 5位的存储极限已经达到916,132,832,这个数量已经非常大，足以支持大多数应用场景。然而，如果你希望进一步减少生成字符时的冲突、长远规划，选择 6 位 作为短链 KEY 长度会是一个不错的选择。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-09T13:57:51+08:00">
+    <meta property="article:modified_time" content="2024-12-09T13:57:51+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="服务设计_如何设计一个URL短链服务">
+<meta name="twitter:description" content="什么是URL短链服务
+URL短链服务的本质是通过HTTP 302重定向机制，将一个简短的URL重定向到原始的长URL。
+短链服务解决了什么问题
+
+解决消息发送的字数限制问题
+例如，腾讯云SMS限制每条短信的字数为500个字符，而在营销短信中，通常会携带包含大量参数的URL（如邀请平台、邀请人、活动ID等）。这些参数使得URL变得非常冗长。通过URL短链服务，营销短信中的长URL可以被替换为一个简短的短链，节省了字数空间。
+
+隐藏请求参数
+以营销活动为例，URL中的常见参数可能包括活动ID等信息。如果我们不希望这些ID被随便修改，可以在参数中添加对应的活动ID KEY，这样只有当ID和KEY匹配时，用户才能进入相应的活动页面。然而，添加了KEY后，原本的URL会变得更加冗长。短链服务可以帮助隐藏这些请求参数，保持URL简洁且安全。
+
+最基础的需求
+
+长链登记
+短链重定向
+
+短链KEY为什么选择 Base62 编码
+根据 RFC3986 标准，URL 由 ASCII 字符组成，以下字符可以安全地在 URL 中使用：
+
+字母（a-z 和 A-Z）
+数字（0-9）
+部分特殊字符：$-_.&#43;!*&rsquo;(),
+虽然RFC3986标准允许一些特殊字符，但有些特殊字符可能会对URL解析、传输或存储造成问题。例如，字符如 &amp;, ?, =, # 等在查询参数或路径中有特定意义，因此它们可能引起冲突或产生解析错误。
+
+
+为了避免这些潜在的麻烦，特别是在需要将复杂的查询参数或密钥编码为 URL 友好的格式时，我们通常会选择 Base62 编码，即只使用字母（大小写）和数字的组合。
+
+短链KEY的长度选择
+我们字符集已经确定为Base62,因此长度为1 可以存储 62种。每增加一位，存储的极限数量会按 62 的指数增长。
+
+  
+      
+          长度
+          存储极限
+          解释
+      
+  
+  
+      
+          1
+          62
+          1 位可以表示 62 种不同的组合
+      
+      
+          2
+          62 × 62 = 3,844
+          2 位可以表示 62 的平方，即 3,844 种不同的组合
+      
+      
+          3
+          62 × 62 × 62 = 238,328
+          3 位可以表示 62 的三次方，即 238,328 种不同的组合
+      
+      
+          4
+          62 × 62 × 62 × 62 = 14,776,336
+          4 位可以表示 62 的四次方，即 14,776,336 种不同的组合
+      
+      
+          5
+          62 × 62 × 62 × 62 × 62 = 916,132,832
+          5 位可以表示 62 的五次方，即 916,132,832种不同的组合
+      
+      
+          6
+          62 × 62 × 62 × 62 × 62 × 62 = 56,800,235,584
+          6 位可以表示 62 的六次方，即 56,800,235,584 种不同的组合
+      
+  
+
+
+5位的存储极限已经达到916,132,832,这个数量已经非常大，足以支持大多数应用场景。然而，如果你希望进一步减少生成字符时的冲突、长远规划，选择 6 位 作为短链 KEY 长度会是一个不错的选择。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "文章",
+      "item": "https://loommii.github.io/skill/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "服务设计_如何设计一个URL短链服务",
+      "item": "https://loommii.github.io/posts/skill/data/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "服务设计_如何设计一个URL短链服务",
+  "name": "服务设计_如何设计一个URL短链服务",
+  "description": "什么是URL短链服务 URL短链服务的本质是通过HTTP 302重定向机制，将一个简短的URL重定向到原始的长URL。\n短链服务解决了什么问题 解决消息发送的字数限制问题 例如，腾讯云SMS限制每条短信的字数为500个字符，而在营销短信中，通常会携带包含大量参数的URL（如邀请平台、邀请人、活动ID等）。这些参数使得URL变得非常冗长。通过URL短链服务，营销短信中的长URL可以被替换为一个简短的短链，节省了字数空间。 隐藏请求参数 以营销活动为例，URL中的常见参数可能包括活动ID等信息。如果我们不希望这些ID被随便修改，可以在参数中添加对应的活动ID KEY，这样只有当ID和KEY匹配时，用户才能进入相应的活动页面。然而，添加了KEY后，原本的URL会变得更加冗长。短链服务可以帮助隐藏这些请求参数，保持URL简洁且安全。 最基础的需求 长链登记 短链重定向 短链KEY为什么选择 Base62 编码 根据 RFC3986 标准，URL 由 ASCII 字符组成，以下字符可以安全地在 URL 中使用：\n字母（a-z 和 A-Z） 数字（0-9） 部分特殊字符：$-_.+!*\u0026rsquo;(), 虽然RFC3986标准允许一些特殊字符，但有些特殊字符可能会对URL解析、传输或存储造成问题。例如，字符如 \u0026amp;, ?, =, # 等在查询参数或路径中有特定意义，因此它们可能引起冲突或产生解析错误。 为了避免这些潜在的麻烦，特别是在需要将复杂的查询参数或密钥编码为 URL 友好的格式时，我们通常会选择 Base62 编码，即只使用字母（大小写）和数字的组合。\n短链KEY的长度选择 我们字符集已经确定为Base62,因此长度为1 可以存储 62种。每增加一位，存储的极限数量会按 62 的指数增长。\n长度 存储极限 解释 1 62 1 位可以表示 62 种不同的组合 2 62 × 62 = 3,844 2 位可以表示 62 的平方，即 3,844 种不同的组合 3 62 × 62 × 62 = 238,328 3 位可以表示 62 的三次方，即 238,328 种不同的组合 4 62 × 62 × 62 × 62 = 14,776,336 4 位可以表示 62 的四次方，即 14,776,336 种不同的组合 5 62 × 62 × 62 × 62 × 62 = 916,132,832 5 位可以表示 62 的五次方，即 916,132,832种不同的组合 6 62 × 62 × 62 × 62 × 62 × 62 = 56,800,235,584 6 位可以表示 62 的六次方，即 56,800,235,584 种不同的组合 5位的存储极限已经达到916,132,832,这个数量已经非常大，足以支持大多数应用场景。然而，如果你希望进一步减少生成字符时的冲突、长远规划，选择 6 位 作为短链 KEY 长度会是一个不错的选择。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "什么是URL短链服务 URL短链服务的本质是通过HTTP 302重定向机制，将一个简短的URL重定向到原始的长URL。\n短链服务解决了什么问题 解决消息发送的字数限制问题 例如，腾讯云SMS限制每条短信的字数为500个字符，而在营销短信中，通常会携带包含大量参数的URL（如邀请平台、邀请人、活动ID等）。这些参数使得URL变得非常冗长。通过URL短链服务，营销短信中的长URL可以被替换为一个简短的短链，节省了字数空间。 隐藏请求参数 以营销活动为例，URL中的常见参数可能包括活动ID等信息。如果我们不希望这些ID被随便修改，可以在参数中添加对应的活动ID KEY，这样只有当ID和KEY匹配时，用户才能进入相应的活动页面。然而，添加了KEY后，原本的URL会变得更加冗长。短链服务可以帮助隐藏这些请求参数，保持URL简洁且安全。 最基础的需求 长链登记 短链重定向 短链KEY为什么选择 Base62 编码 根据 RFC3986 标准，URL 由 ASCII 字符组成，以下字符可以安全地在 URL 中使用：\n字母（a-z 和 A-Z） 数字（0-9） 部分特殊字符：$-_.+!*’(), 虽然RFC3986标准允许一些特殊字符，但有些特殊字符可能会对URL解析、传输或存储造成问题。例如，字符如 \u0026, ?, =, # 等在查询参数或路径中有特定意义，因此它们可能引起冲突或产生解析错误。 为了避免这些潜在的麻烦，特别是在需要将复杂的查询参数或密钥编码为 URL 友好的格式时，我们通常会选择 Base62 编码，即只使用字母（大小写）和数字的组合。\n短链KEY的长度选择 我们字符集已经确定为Base62,因此长度为1 可以存储 62种。每增加一位，存储的极限数量会按 62 的指数增长。\n长度 存储极限 解释 1 62 1 位可以表示 62 种不同的组合 2 62 × 62 = 3,844 2 位可以表示 62 的平方，即 3,844 种不同的组合 3 62 × 62 × 62 = 238,328 3 位可以表示 62 的三次方，即 238,328 种不同的组合 4 62 × 62 × 62 × 62 = 14,776,336 4 位可以表示 62 的四次方，即 14,776,336 种不同的组合 5 62 × 62 × 62 × 62 × 62 = 916,132,832 5 位可以表示 62 的五次方，即 916,132,832种不同的组合 6 62 × 62 × 62 × 62 × 62 × 62 = 56,800,235,584 6 位可以表示 62 的六次方，即 56,800,235,584 种不同的组合 5位的存储极限已经达到916,132,832,这个数量已经非常大，足以支持大多数应用场景。然而，如果你希望进一步减少生成字符时的冲突、长远规划，选择 6 位 作为短链 KEY 长度会是一个不错的选择。\n短链KEY的生成 没有最好的方案只有最适合的方案\n方案一:随机生成短链 KEY 实现:系统通过随机函数生成对应短链 KEY 优点：\n实现容易：随机生成短链 KEY 的实现相对简单，可以通过生成随机数并映射到 Base62 字符集，快速获得短链标识符。大多数编程语言都提供了简单的随机数生成函数，操作简便。 缺点：\n冲突的概率随着存量数据增多而增加 相同的长URL会生成不同的短链 KEY，可能导致浪费 解决：采用哈希计算，\n方案二:哈希计算 实现:将长 URL 通过哈希算法生成固定长度的短链 KEY。\n优点：\n解决了相同的长 URL 会生成不同的短链的问题：哈希计算能够确保相同的长 URL 每次生成相同的短链 KEY，从而避免存储冗余。 缺点：\n哈希冲突的可能性：虽然哈希函数可以生成固定长度的短链，但不同的长 URL 可能会产生相同的哈希值，从而发生哈希冲突。 解决:遇到哈希冲突时，可以在哈希值后插入无意义的字符串或采用其他去重策略，如进行二次哈希计算。 方案三:计数器自增法 + 字典 实现: 通过维护一个计数器，每当新增一个长 URL 时，计数器自增，然后将计数值转为固定的短链 KEY。\n例: 值为66 短链 KEY为 字典[0]+字典[0]+字典[0]+字典[0]+字典[1]+字典[4]\n优点：\n单机环境下不存在冲突的可能：由于计数器是自增的，每个短链 KEY 都是唯一的，因此不会发生冲突。 缺点:\n生成的短链 KEY 存在明显的规律：由于短链 KEY 基于计数器生成，因此 KEY 存在明显的递增规律，易被推测或猜测。 分布式环境下，存在冲突的可能：在分布式环境中，如果多个节点使用相同的计数器，可能会导致短链 KEY 冲突。 相同的长 URL 会生成不同的短链 KEY，可能导致浪费：每次生成短链时，相同的长 URL 会得到不同的短链 KEY。 解决: 可以通过计数倒置、乱序字典、哈希计算等方式来优化生成逻辑，减少规律性和冲突。\n方案四:计数器自增法 + 乱序字典 + 计数倒置 +哈希计算 实现：\n乱序字典：在服务启动时，打乱字典的顺序，确保相同的计数值生成不同的短链 KEY，从而避免分布式环境下的冲突。 计数倒置：为了打破短链生成中的规律性，可以在计数器自增的基础上对生成的数字进行倒置处理，使每次数字变化幅度增大，生成的短链 KEY 更加多样化。 例如 123 -\u003e 00 0000 0123 -\u003e 32 1000 0000\n优点：\n几乎解决了所有问题：这种方案通过多种方式的优化，几乎解决了所有潜在问题，如冲突、规律性、浪费等。 缺点:\n服务实现相对复杂：该方案需要额外的逻辑来处理字典乱序、计数倒置等，服务实现较为复杂。 性能要求较高 ",
+  "wordCount" : "237",
+  "inLanguage": "zh",
+  "datePublished": "2024-12-09T13:57:51+08:00",
+  "dateModified": "2024-12-09T13:57:51+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://loommii.github.io/posts/skill/data/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "loommii",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://loommii.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/skill/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span>Golang练习</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                    <span>力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      服务设计_如何设计一个URL短链服务
+    </h1>
+    <div class="post-meta"><span title='2024-12-09 13:57:51 +0800 CST'>十二月 9, 2024</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h3 id="什么是url短链服务">什么是URL短链服务<a hidden class="anchor" aria-hidden="true" href="#什么是url短链服务">#</a></h3>
+<p>URL短链服务的本质是通过HTTP 302重定向机制，将一个简短的URL重定向到原始的长URL。</p>
+<h3 id="短链服务解决了什么问题">短链服务解决了什么问题<a hidden class="anchor" aria-hidden="true" href="#短链服务解决了什么问题">#</a></h3>
+<ol>
+<li>解决消息发送的字数限制问题
+例如，腾讯云SMS限制每条短信的字数为500个字符，而在营销短信中，通常会携带包含大量参数的URL（如邀请平台、邀请人、活动ID等）。这些参数使得URL变得非常冗长。通过URL短链服务，营销短信中的长URL可以被替换为一个简短的短链，节省了字数空间。
+<img alt="腾讯云SMS" loading="lazy" src="/posts/skill/data/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/image.png"></li>
+<li>隐藏请求参数
+以营销活动为例，URL中的常见参数可能包括活动ID等信息。如果我们不希望这些ID被随便修改，可以在参数中添加对应的活动ID KEY，这样只有当ID和KEY匹配时，用户才能进入相应的活动页面。然而，添加了KEY后，原本的URL会变得更加冗长。短链服务可以帮助隐藏这些请求参数，保持URL简洁且安全。</li>
+</ol>
+<h3 id="最基础的需求">最基础的需求<a hidden class="anchor" aria-hidden="true" href="#最基础的需求">#</a></h3>
+<ol>
+<li>长链登记</li>
+<li>短链重定向</li>
+</ol>
+<h3 id="短链key为什么选择-base62-编码">短链KEY为什么选择 Base62 编码<a hidden class="anchor" aria-hidden="true" href="#短链key为什么选择-base62-编码">#</a></h3>
+<p>根据 RFC3986 标准，URL 由 ASCII 字符组成，以下字符可以安全地在 URL 中使用：</p>
+<ul>
+<li>字母（a-z 和 A-Z）</li>
+<li>数字（0-9）</li>
+<li>部分特殊字符：$-_.+!*&rsquo;(),
+虽然RFC3986标准允许一些特殊字符，但有些特殊字符可能会对URL解析、传输或存储造成问题。例如，字符如 &amp;, ?, =, # 等在查询参数或路径中有特定意义，因此它们可能引起冲突或产生解析错误。</li>
+</ul>
+<blockquote>
+<p>为了避免这些潜在的麻烦，特别是在需要将复杂的查询参数或密钥编码为 URL 友好的格式时，我们通常会选择 Base62 编码，即只使用字母（大小写）和数字的组合。</p>
+</blockquote>
+<h3 id="短链key的长度选择">短链KEY的长度选择<a hidden class="anchor" aria-hidden="true" href="#短链key的长度选择">#</a></h3>
+<p>我们字符集已经确定为Base62,因此长度为1 可以存储 62种。每增加一位，存储的极限数量会按 62 的指数增长。</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left">长度</th>
+          <th style="text-align: left">存储极限</th>
+          <th style="text-align: left">解释</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left">1</td>
+          <td style="text-align: left">62</td>
+          <td style="text-align: left">1 位可以表示 62 种不同的组合</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">2</td>
+          <td style="text-align: left">62 × 62 = 3,844</td>
+          <td style="text-align: left">2 位可以表示 62 的平方，即 3,844 种不同的组合</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">3</td>
+          <td style="text-align: left">62 × 62 × 62 = 238,328</td>
+          <td style="text-align: left">3 位可以表示 62 的三次方，即 238,328 种不同的组合</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">4</td>
+          <td style="text-align: left">62 × 62 × 62 × 62 = 14,776,336</td>
+          <td style="text-align: left">4 位可以表示 62 的四次方，即 14,776,336 种不同的组合</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">5</td>
+          <td style="text-align: left">62 × 62 × 62 × 62 × 62 = 916,132,832</td>
+          <td style="text-align: left">5 位可以表示 62 的五次方，即 916,132,832种不同的组合</td>
+      </tr>
+      <tr>
+          <td style="text-align: left">6</td>
+          <td style="text-align: left">62 × 62 × 62 × 62 × 62 × 62 = 56,800,235,584</td>
+          <td style="text-align: left">6 位可以表示 62 的六次方，即 56,800,235,584 种不同的组合</td>
+      </tr>
+  </tbody>
+</table>
+<blockquote>
+<p>5位的存储极限已经达到916,132,832,这个数量已经非常大，足以支持大多数应用场景。然而，如果你希望进一步减少生成字符时的冲突、长远规划，选择 6 位 作为短链 KEY 长度会是一个不错的选择。</p>
+</blockquote>
+<h3 id="短链key的生成">短链KEY的生成<a hidden class="anchor" aria-hidden="true" href="#短链key的生成">#</a></h3>
+<p>没有最好的方案只有最适合的方案</p>
+<h4 id="方案一随机生成短链-key">方案一:随机生成短链 KEY<a hidden class="anchor" aria-hidden="true" href="#方案一随机生成短链-key">#</a></h4>
+<p>实现:系统通过随机函数生成对应短链 KEY
+优点：</p>
+<ul>
+<li>实现容易：随机生成短链 KEY 的实现相对简单，可以通过生成随机数并映射到 Base62 字符集，快速获得短链标识符。大多数编程语言都提供了简单的随机数生成函数，操作简便。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>冲突的概率随着存量数据增多而增加</li>
+<li>相同的长URL会生成不同的短链 KEY，可能导致浪费</li>
+</ul>
+<p>解决：采用哈希计算，</p>
+<h4 id="方案二哈希计算">方案二:哈希计算<a hidden class="anchor" aria-hidden="true" href="#方案二哈希计算">#</a></h4>
+<p>实现:将长 URL 通过哈希算法生成固定长度的短链 KEY。</p>
+<p>优点：</p>
+<ul>
+<li>解决了相同的长 URL 会生成不同的短链的问题：哈希计算能够确保相同的长 URL 每次生成相同的短链 KEY，从而避免存储冗余。</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>哈希冲突的可能性：虽然哈希函数可以生成固定长度的短链，但不同的长 URL 可能会产生相同的哈希值，从而发生哈希冲突。
+<img alt="哈希冲突" loading="lazy" src="/posts/skill/data/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/image-1.png">
+解决:遇到哈希冲突时，可以在哈希值后插入无意义的字符串或采用其他去重策略，如进行二次哈希计算。</li>
+</ul>
+<h4 id="方案三计数器自增法--字典">方案三:计数器自增法 + 字典<a hidden class="anchor" aria-hidden="true" href="#方案三计数器自增法--字典">#</a></h4>
+<p>实现: 通过维护一个计数器，每当新增一个长 URL 时，计数器自增，然后将计数值转为固定的短链 KEY。</p>
+<blockquote>
+<p>例: 值为66 短链 KEY为 字典[0]+字典[0]+字典[0]+字典[0]+字典[1]+字典[4]</p>
+</blockquote>
+<p>优点：</p>
+<ul>
+<li>单机环境下不存在冲突的可能：由于计数器是自增的，每个短链 KEY 都是唯一的，因此不会发生冲突。</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>生成的短链 KEY 存在明显的规律：由于短链 KEY 基于计数器生成，因此 KEY 存在明显的递增规律，易被推测或猜测。</li>
+<li>分布式环境下，存在冲突的可能：在分布式环境中，如果多个节点使用相同的计数器，可能会导致短链 KEY 冲突。</li>
+<li>相同的长 URL 会生成不同的短链 KEY，可能导致浪费：每次生成短链时，相同的长 URL 会得到不同的短链 KEY。</li>
+</ul>
+<p>解决: 可以通过计数倒置、乱序字典、哈希计算等方式来优化生成逻辑，减少规律性和冲突。</p>
+<h4 id="方案四计数器自增法--乱序字典--计数倒置-哈希计算">方案四:计数器自增法 + 乱序字典 + 计数倒置 +哈希计算<a hidden class="anchor" aria-hidden="true" href="#方案四计数器自增法--乱序字典--计数倒置-哈希计算">#</a></h4>
+<p>实现：</p>
+<ul>
+<li>乱序字典：在服务启动时，打乱字典的顺序，确保相同的计数值生成不同的短链 KEY，从而避免分布式环境下的冲突。</li>
+<li>计数倒置：为了打破短链生成中的规律性，可以在计数器自增的基础上对生成的数字进行倒置处理，使每次数字变化幅度增大，生成的短链 KEY 更加多样化。</li>
+</ul>
+<blockquote>
+<p>例如 123 -&gt; 00 0000 0123 -&gt; 32 1000 0000</p>
+</blockquote>
+<p>优点：</p>
+<ul>
+<li>几乎解决了所有问题：这种方案通过多种方式的优化，几乎解决了所有潜在问题，如冲突、规律性、浪费等。</li>
+</ul>
+<p>缺点:</p>
+<ul>
+<li>服务实现相对复杂：该方案需要额外的逻辑来处理字典乱序、计数倒置等，服务实现较为复杂。</li>
+<li>性能要求较高</li>
+</ul>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
