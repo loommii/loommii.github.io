@@ -77,6 +77,12 @@ Go 中文网、思否、博客园等平台，内容主要以问答形式记录�
     {
       "@type": "ListItem",
       "position":  1 ,
+      "name": "Posts",
+      "item": "https://loommii.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
       "name": "Golang练习",
       "item": "https://loommii.github.io/go_practise/"
     }
@@ -126,7 +132,7 @@ Go 中文网、思否、博客园等平台，内容主要以问答形式记录�
         </div>
         <ul id="menu">
             <li>
-                <a href="https://loommii.github.io/posts/" title="文章">
+                <a href="https://loommii.github.io/skill/" title="文章">
                     <span>文章</span>
                 </a>
             </li>
@@ -168,6 +174,19 @@ Go 中文网、思否、博客园等平台，内容主要以问答形式记录�
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_036
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码能否编译通过？如果可以，输出什么？
+func GetValue() int { return 1 } func main() { i := GetValue() switch i.(type) { case int: println(&#34;int&#34;) case string: println(&#34;string&#34;) case interface{}: println(&#34;interface&#34;) default: println(&#34;unknown&#34;) } } 🔑 答案解析： 答 编译错误 这里使用到了 类型断言。 但是注意只有接口类型才能进行类型断言。 i.(type)，这里i 的类型是 int 而不是 接口 </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 20:44:12 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_036" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_036/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Go每日一题_035
     </h2>
   </header>
@@ -180,7 +199,7 @@ func hello() []string { return nil } func main() { h := hello() if h == nil { fm
 </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:44:11 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_035" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_035/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_035" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_035/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -194,7 +213,7 @@ A. 一个包中，可以包含多个 init 函数； B. 程序运行时，先执�
 🔑 答案解析： 答案是AB </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:44:10 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_034" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_034/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_034" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_034/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -207,7 +226,7 @@ A. 一个包中，可以包含多个 init 函数； B. 程序运行时，先执�
 package main func main() { var a int8 = -1 var b int8 = -128 / a println(b) } package main func main() { const a int8 = -1 var b int8 = -128 / a println(b) } 🔑 答案解析： 题一： 因为 var b int8 = -128 / a 不是常量表达式，因此 untyped 常量 -128 隐式转换为 int8 类型（即和 a 的类型一致），所以 -128 / a 的结果是 int8 类型，值是 128，超出了 int8 的范围。因为结果不是常量，允许溢出，128 的二进制表示是 10000000，正好是 -128 的补码。所以，第一题的结果是 -128。 题二： -128 和 -1 都是 const，直接在编译时求值，untyped 的 -128 隐式转 int8，结果为 128，仍然是一个 const。const 转换时不允许溢出，编译错误。 其实差别就是表达式的值，题一不是常量题二是，常量类型转换不允许溢出后 truncate。 </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:44:09 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_033" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_033/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_033" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_033/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -221,7 +240,7 @@ package main import ( &#34;fmt&#34; ) type People interface { Speak(string) stri
 var peo People = &amp;Student{} </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:44:08 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_032" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_032/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_032" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_032/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -236,7 +255,7 @@ var( size := 1024 ) 不符合规范 问题1：var 声明变量不能使用 := �
 但这种声明方式有限制： 必须使用显示初始化； 不能提供数据类型，编译器会自动推导； 只能在函数内部使用简短模式； </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 19:49:56 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_022" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_022/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_022" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_022/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -249,7 +268,7 @@ var( size := 1024 ) 不符合规范 问题1：var 声明变量不能使用 := �
 A.p.name B.(&amp;p).name C.(*p).name D.p-&gt;name 🔑 答案解析： 答: AC &amp; 取址运算符，* 指针解引用。 p 是指针变量, 因此可以使用 *指针解引用 Go有语法糖,直接使用 指针变量.成员变量 也是可以访问的 </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 19:49:56 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_023" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_023/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_023" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_023/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -262,7 +281,7 @@ A.p.name B.(&amp;p).name C.(*p).name D.p-&gt;name 🔑 答案解析： 答: AC &
 package main import &#34;fmt&#34; type MyInt1 int type MyInt2 = int func main() { var i int =0 var i1 MyInt1 = i var i2 MyInt2 = i fmt.Println(i1,i2) } 🔑 答案解析： 答: 不能 参考解析：这道题考的是类型别名与类型定义的区别。 类型别名type MyInt2 = int 类型定义type MyInt1 int Go 赋值 = 左右的类型需要一致。 MyInt1 是基于int定义的新类型,因此不能直接赋值。如果需要赋值，需要类型转换	var i1 MyInt1 = MyInt1(i) </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 19:49:56 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_024" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_024/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_024" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_024/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -277,7 +296,7 @@ A. str := &#39;abc&#39; &#43; &#39;123&#39; B. str := &#34;abc&#34; &#43; &#34;1
 </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 19:49:56 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_025" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_025/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_025" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_025/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -293,23 +312,7 @@ package main import &#34;fmt&#34; type Student struct { Name string } var list m
 package main import &#34;fmt&#34; type Student struct { Name string } var list map[string]*Student func main() { list = make(map[string]*Student) student := Student{&#34;Aceld&#34;} list[&#34;student&#34;] = &amp;student list[&#34;student&#34;].Name = &#34;LDB&#34; fmt.Println(list[&#34;student&#34;]) } </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 19:49:56 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_026" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_026/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_027
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>以下代码有什么问题，说明原因
-package main import ( &#34;fmt&#34; ) type student struct { Name string Age int } func main() { //定义map m := make(map[string]*student) //定义student数组 stus := []student{ {Name: &#34;zhou&#34;, Age: 24}, {Name: &#34;li&#34;, Age: 23}, {Name: &#34;wang&#34;, Age: 22}, } //将数组依次添加到map中 for _, stu := range stus { m[stu.Name] = &amp;stu } //打印map for k,v := range m { fmt.Println(k ,&#34;=&gt;&#34;, v.Name) } } 🔑 答案解析： 注意此类问题在Go版本在1.22 版本后将会有变化 🔗:修复 Go 1.22 中的 For 循环
-Go &gt;=1.22
-zhou =&gt; zhou li =&gt; li wang =&gt; wang Go &lt; 1.22
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-06 19:49:55 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_027" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_027/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_026" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_026/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

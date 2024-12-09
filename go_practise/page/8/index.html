@@ -77,6 +77,12 @@ Go 中文网、思否、博客园等平台，内容主要以问答形式记录�
     {
       "@type": "ListItem",
       "position":  1 ,
+      "name": "Posts",
+      "item": "https://loommii.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
       "name": "Golang练习",
       "item": "https://loommii.github.io/go_practise/"
     }
@@ -126,7 +132,7 @@ Go 中文网、思否、博客园等平台，内容主要以问答形式记录�
         </div>
         <ul id="menu">
             <li>
-                <a href="https://loommii.github.io/posts/" title="文章">
+                <a href="https://loommii.github.io/skill/" title="文章">
                     <span>文章</span>
                 </a>
             </li>
@@ -168,6 +174,21 @@ Go 中文网、思否、博客园等平台，内容主要以问答形式记录�
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_056
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码输出什么？
+type People struct{} func (p *People) ShowA() { fmt.Println(&#34;showA&#34;) p.ShowB() } func (p *People) ShowB() { fmt.Println(&#34;showB&#34;) } type Teacher struct { People } func (t *Teacher) ShowB() { fmt.Println(&#34;teacher showB&#34;) } func main() { t := Teacher{} t.ShowA() } 🔑 答案解析： 答 “showA” “showB”
+t.ShowA() 会优先调用t自己的ShowA，但是题中未定义着调用父 struct的showA。运行到p.ShowB()时，这里注意是p *People p是父 struct，他会调用p自己的ShowB 因此输出 “showA” “showB”
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 20:44:36 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_056" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_056/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Go每日一题_055
     </h2>
   </header>
@@ -178,7 +199,7 @@ func hello(i int) { fmt.Println(i) } func main() { i := 5 defer hello(i) i = i &
 </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:44:35 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_055" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_055/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_055" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_055/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -192,7 +213,7 @@ package main import ( &#34;encoding/json&#34; &#34;fmt&#34; &#34;time&#34; ) fun
 🔑 答案解析： 答 B 题中time.Time 是内嵌到匿名struct 中的，也就是继承了time.Time 。 time.Time 的重写了MarshalJSON 方法因此会按照time.Time 的MarshalJSON 规定的格式输出 </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:44:34 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_054" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_054/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_054" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_054/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -206,7 +227,7 @@ A. var str string B. str := &#34;&#34; C. str = &#34;&#34; D. var str = &#34;&#3
 🔑 答案解析： A D 关键在 包内全局 B := 只能用到函数没 C 是赋值并不是声明 </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:44:33 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_053" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_053/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_053" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_053/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -219,7 +240,7 @@ A. var str string B. str := &#34;&#34; C. str = &#34;&#34; D. var str = &#34;&#3
 type People struct{} func (p *People) ShowA() { fmt.Println(&#34;showA&#34;) p.ShowB() } func (p *People) ShowB() { fmt.Println(&#34;showB&#34;) } type Teacher struct { People } func (t *Teacher) ShowB() { fmt.Println(&#34;teacher showB&#34;) } func main() { t := Teacher{} t.ShowB() } 🔑 答案解析： 答 ：teacher showB t.ShowB() 会使用自己已有的ShowB() ， 若要使用父struct（People）的ShowB() 需要改为 t.People.ShowB() </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:44:31 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_052" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_052/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_052" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_052/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -232,7 +253,7 @@ type People struct{} func (p *People) ShowA() { fmt.Println(&#34;showA&#34;) p.S
 func main() { i := -5 j := &#43;5 fmt.Printf(&#34;%&#43;d %&#43;d&#34;, i, j) } A. -5 &#43;5 B. &#43;5 &#43;5 C. 0 0 🔑 答案解析： A %d表示输出十进制数字，&#43;表示输出数值的符号。这里不表示取反。 %d 输出 正数不会输出符号 &#43; </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:44:30 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_051" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_051/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_051" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_051/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -248,7 +269,7 @@ func main() { var s map[string]int delete(s, &#34;h&#34;) s[&#34;h&#34;] = 1 fmt
 </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:44:29 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_050" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_050/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_050" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_050/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -262,7 +283,7 @@ func main() { var i interface{} if i == nil { fmt.Println(&#34;nil&#34;) return 
 🔑 答案解析： A 接口类型 当动态值和动态类型都为 nil 时，接口类型值才为 nil。 </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:44:28 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_049" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_049/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_049" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_049/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -276,7 +297,7 @@ A. array B. slice C. map D. channel
 🔑 答案解析： ABD 数组 切片 管道 </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:44:27 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_048" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_048/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_048" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_048/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -289,20 +310,7 @@ A. array B. slice C. map D. channel
 func main() { a := [2]int{5, 6} b := [3]int{5, 6} if a == b { fmt.Println(&#34;equal&#34;) } else { fmt.Println(&#34;not equal&#34;) } } A. compilation error B. equal C. not equal 🔑 答案解析： A 只有同容量，同类型的数组才能比较 </p>
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:44:26 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_047" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_047/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_046
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>下面这段代码输出什么？
-package main import ( &#34;fmt&#34; ) func main() { a := [5]int{1, 2, 3, 4, 5} t := a[3:4:4] fmt.Println(t[0]) } A.3 B.4 C.compilation error 🔑 答案解析： 答B 解析 t := a[3:4:4] 基于a切片生成一个新切片t ,该t的起始指向a[3]的位置,到a[4]停止 </p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-06 20:44:24 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_046" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_046/"></a>
+  <a class="entry-link" aria-label="post link to Go每日一题_047" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_047/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

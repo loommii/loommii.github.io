@@ -1,0 +1,535 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Go每日一题_123 | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="以下代码打印出来什么内容，说出为什么。
+package main
+
+import (
+	&#34;fmt&#34;
+)
+
+type People interface {
+	Show()
+}
+
+type Student struct{}
+
+func (stu *Student) Show() {
+
+}
+
+func live() People {
+	var stu *Student
+	return stu
+}
+
+func main() {
+	if live() == nil {
+		fmt.Println(&#34;AAAAAAA&#34;)
+	} else {
+		fmt.Println(&#34;BBBBBBB&#34;)
+	}
+}
+🔑 答案解析：
+
+  答：BBBBBBB
+简单来说,接口变量有2个值,一个是类型,另一个是值。
+if 接口 时,值和类型都为零值时,接口live() == nil 判断才为T
+接口interface内部结构
+interface共有2种表现形式
+// 1 空接口
+var MyInterface interface{}
+// 2 非空接口
+type MyInterface interface {
+	function()
+}
+对应的2种底层结构
+
+空接口
+
+type eface struct {      // 空接口
+    _type *_type         // 类型信息
+    data  unsafe.Pointer // 指向数据的指针(go 语言中特殊的指针类型 unsafe.Pointer 类似于 c 语言中的void*)
+}
+type _type struct {
+	size       uintptr // 类型大小
+	ptrdata    uintptr // 前缀持有所有指针的内存大小
+	hash       uint32  // 数据 hash 值
+	tflag      tflag
+	align      uint8   // 对齐
+	fieldalign uint8   // 嵌入结构体时的对齐
+	kind       uint8   // kind 有些枚举值 kind 等于 0 是无效的
+	// function for comparing objects of this type
+	// (ptr to object A, ptr to object B) -&gt; ==?
+	equal     func(unsafe.Pointer, unsafe.Pointer) bool
+	gcdata    *byte
+	str       nameOff
+	ptrToThis typeOff
+}
+_type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成 _type，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作
+data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.Pointer类型，相当于一个 C 的万能指针void*。">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_123/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_123/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_123/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="Go每日一题_123">
+  <meta property="og:description" content="以下代码打印出来什么内容，说出为什么。
+package main import ( &#34;fmt&#34; ) type People interface { Show() } type Student struct{} func (stu *Student) Show() { } func live() People { var stu *Student return stu } func main() { if live() == nil { fmt.Println(&#34;AAAAAAA&#34;) } else { fmt.Println(&#34;BBBBBBB&#34;) } } 🔑 答案解析： 答：BBBBBBB 简单来说,接口变量有2个值,一个是类型,另一个是值。 if 接口 时,值和类型都为零值时,接口live() == nil 判断才为T
+接口interface内部结构 interface共有2种表现形式
+// 1 空接口 var MyInterface interface{} // 2 非空接口 type MyInterface interface { function() } 对应的2种底层结构
+空接口 type eface struct { // 空接口 _type *_type // 类型信息 data unsafe.Pointer // 指向数据的指针(go 语言中特殊的指针类型 unsafe.Pointer 类似于 c 语言中的void*) } type _type struct { size uintptr // 类型大小 ptrdata uintptr // 前缀持有所有指针的内存大小 hash uint32 // 数据 hash 值 tflag tflag align uint8 // 对齐 fieldalign uint8 // 嵌入结构体时的对齐 kind uint8 // kind 有些枚举值 kind 等于 0 是无效的 // function for comparing objects of this type // (ptr to object A, ptr to object B) -&gt; ==? equal func(unsafe.Pointer, unsafe.Pointer) bool gcdata *byte str nameOff ptrToThis typeOff } _type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成 _type，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作 data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.Pointer类型，相当于一个 C 的万能指针void*。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-06T23:55:50+08:00">
+    <meta property="article:modified_time" content="2024-12-06T23:55:50+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go每日一题_123">
+<meta name="twitter:description" content="以下代码打印出来什么内容，说出为什么。
+package main
+
+import (
+	&#34;fmt&#34;
+)
+
+type People interface {
+	Show()
+}
+
+type Student struct{}
+
+func (stu *Student) Show() {
+
+}
+
+func live() People {
+	var stu *Student
+	return stu
+}
+
+func main() {
+	if live() == nil {
+		fmt.Println(&#34;AAAAAAA&#34;)
+	} else {
+		fmt.Println(&#34;BBBBBBB&#34;)
+	}
+}
+🔑 答案解析：
+
+  答：BBBBBBB
+简单来说,接口变量有2个值,一个是类型,另一个是值。
+if 接口 时,值和类型都为零值时,接口live() == nil 判断才为T
+接口interface内部结构
+interface共有2种表现形式
+// 1 空接口
+var MyInterface interface{}
+// 2 非空接口
+type MyInterface interface {
+	function()
+}
+对应的2种底层结构
+
+空接口
+
+type eface struct {      // 空接口
+    _type *_type         // 类型信息
+    data  unsafe.Pointer // 指向数据的指针(go 语言中特殊的指针类型 unsafe.Pointer 类似于 c 语言中的void*)
+}
+type _type struct {
+	size       uintptr // 类型大小
+	ptrdata    uintptr // 前缀持有所有指针的内存大小
+	hash       uint32  // 数据 hash 值
+	tflag      tflag
+	align      uint8   // 对齐
+	fieldalign uint8   // 嵌入结构体时的对齐
+	kind       uint8   // kind 有些枚举值 kind 等于 0 是无效的
+	// function for comparing objects of this type
+	// (ptr to object A, ptr to object B) -&gt; ==?
+	equal     func(unsafe.Pointer, unsafe.Pointer) bool
+	gcdata    *byte
+	str       nameOff
+	ptrToThis typeOff
+}
+_type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成 _type，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作
+data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.Pointer类型，相当于一个 C 的万能指针void*。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Golang练习",
+      "item": "https://loommii.github.io/go_practise/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Go每日一题_123",
+      "item": "https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_123/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Go每日一题_123",
+  "name": "Go每日一题_123",
+  "description": "以下代码打印出来什么内容，说出为什么。\npackage main import ( \u0026#34;fmt\u0026#34; ) type People interface { Show() } type Student struct{} func (stu *Student) Show() { } func live() People { var stu *Student return stu } func main() { if live() == nil { fmt.Println(\u0026#34;AAAAAAA\u0026#34;) } else { fmt.Println(\u0026#34;BBBBBBB\u0026#34;) } } 🔑 答案解析： 答：BBBBBBB 简单来说,接口变量有2个值,一个是类型,另一个是值。 if 接口 时,值和类型都为零值时,接口live() == nil 判断才为T\n接口interface内部结构 interface共有2种表现形式\n// 1 空接口 var MyInterface interface{} // 2 非空接口 type MyInterface interface { function() } 对应的2种底层结构\n空接口 type eface struct { // 空接口 _type *_type // 类型信息 data unsafe.Pointer // 指向数据的指针(go 语言中特殊的指针类型 unsafe.Pointer 类似于 c 语言中的void*) } type _type struct { size uintptr // 类型大小 ptrdata uintptr // 前缀持有所有指针的内存大小 hash uint32 // 数据 hash 值 tflag tflag align uint8 // 对齐 fieldalign uint8 // 嵌入结构体时的对齐 kind uint8 // kind 有些枚举值 kind 等于 0 是无效的 // function for comparing objects of this type // (ptr to object A, ptr to object B) -\u0026gt; ==? equal func(unsafe.Pointer, unsafe.Pointer) bool gcdata *byte str nameOff ptrToThis typeOff } _type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成 _type，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作 data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.Pointer类型，相当于一个 C 的万能指针void*。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "以下代码打印出来什么内容，说出为什么。\npackage main import ( \"fmt\" ) type People interface { Show() } type Student struct{} func (stu *Student) Show() { } func live() People { var stu *Student return stu } func main() { if live() == nil { fmt.Println(\"AAAAAAA\") } else { fmt.Println(\"BBBBBBB\") } } 🔑 答案解析： 答：BBBBBBB 简单来说,接口变量有2个值,一个是类型,另一个是值。 if 接口 时,值和类型都为零值时,接口live() == nil 判断才为T\n接口interface内部结构 interface共有2种表现形式\n// 1 空接口 var MyInterface interface{} // 2 非空接口 type MyInterface interface { function() } 对应的2种底层结构\n空接口 type eface struct { // 空接口 _type *_type // 类型信息 data unsafe.Pointer // 指向数据的指针(go 语言中特殊的指针类型 unsafe.Pointer 类似于 c 语言中的void*) } type _type struct { size uintptr // 类型大小 ptrdata uintptr // 前缀持有所有指针的内存大小 hash uint32 // 数据 hash 值 tflag tflag align uint8 // 对齐 fieldalign uint8 // 嵌入结构体时的对齐 kind uint8 // kind 有些枚举值 kind 等于 0 是无效的 // function for comparing objects of this type // (ptr to object A, ptr to object B) -\u003e ==? equal func(unsafe.Pointer, unsafe.Pointer) bool gcdata *byte str nameOff ptrToThis typeOff } _type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成 _type，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作 data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.Pointer类型，相当于一个 C 的万能指针void*。\n非空接口 /// 非空接口 type iface struct { tab *itab data unsafe.Pointer } type itab struct { inter *interfacetype // 接口自身的元信息 _type *_type // 具体类型的元信息 hash int32 // _type 里也有一个同样的 hash，此处多放一个是为了方便运行接口断言 _ [4]byte fun [1]uintptr // 函数指针，指向具体类型所实现的方法 } // itab 里面包含了 interface 的一些关键信息，比如 method 的具体实现。\ninterface type包含了一些关于 interface 本身的信息，比如package path，包含的method。这里的interfacetype 是定义 interface 的一种抽象表示。 _type表示具体化的类型，与 eface 的 _type 类型相同。 ash字段其实是对_type.hash的拷贝，它会在 interface 的实例化时，用于快速判断目标类型和接口中的类型是否一致。另，Go 的 interface 的 Duck-typing 机制也是依赖这个字段来实现。 fun字段其实是一个动态大小的数组，虽然声明时是固定大小为 1，但在使用时会直接通过 fun 指针获取其中的数据，并且不会检查数组的边界，所以该数组中保存的元素数量是不确定的。 回到本题 People 拥有一个 Show 方法，属于非空接口\ntype iface struct { tab *itab data unsafe.Pointer } func live() People { var stu *Student return stu } live() == nil 这里接口的itab已经指向Student。因此接口不为nil\n",
+  "wordCount" : "274",
+  "inLanguage": "zh",
+  "datePublished": "2024-12-06T23:55:50+08:00",
+  "dateModified": "2024-12-06T23:55:50+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_123/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "loommii",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://loommii.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/skill/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span>Golang练习</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                    <span>力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    
+    <h1 class="post-title entry-hint-parent">
+      Go每日一题_123
+    </h1>
+    <div class="post-meta"><span title='2024-12-06 23:55:50 +0800 CST'>十二月 6, 2024</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>以下代码打印出来什么内容，说出为什么。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">People</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Show</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Student</span> <span style="color:#66d9ef">struct</span>{}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">stu</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Student</span>) <span style="color:#a6e22e">Show</span>() {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">live</span>() <span style="color:#a6e22e">People</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stu</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Student</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">stu</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">live</span>() <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;AAAAAAA&#34;</span>)
+</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;BBBBBBB&#34;</span>)
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  <p>答：BBBBBBB
+简单来说,接口变量有2个值,一个是类型,另一个是值。
+if 接口 时,值和类型都为零值时,接口live() == nil 判断才为T</p>
+<h2 id="接口interface内部结构">接口interface内部结构<a hidden class="anchor" aria-hidden="true" href="#接口interface内部结构">#</a></h2>
+<p>interface共有2种表现形式</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// 1 空接口
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">MyInterface</span> <span style="color:#66d9ef">interface</span>{}
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 2 非空接口
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyInterface</span> <span style="color:#66d9ef">interface</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">function</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>对应的2种底层结构</p>
+<ul>
+<li>空接口</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">eface</span> <span style="color:#66d9ef">struct</span> {      <span style="color:#75715e">// 空接口
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">_type</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">_type</span>         <span style="color:#75715e">// 类型信息
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">data</span>  <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// 指向数据的指针(go 语言中特殊的指针类型 unsafe.Pointer 类似于 c 语言中的void*)
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">_type</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">size</span>       <span style="color:#66d9ef">uintptr</span> <span style="color:#75715e">// 类型大小
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">ptrdata</span>    <span style="color:#66d9ef">uintptr</span> <span style="color:#75715e">// 前缀持有所有指针的内存大小
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">hash</span>       <span style="color:#66d9ef">uint32</span>  <span style="color:#75715e">// 数据 hash 值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">tflag</span>      <span style="color:#a6e22e">tflag</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">align</span>      <span style="color:#66d9ef">uint8</span>   <span style="color:#75715e">// 对齐
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">fieldalign</span> <span style="color:#66d9ef">uint8</span>   <span style="color:#75715e">// 嵌入结构体时的对齐
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">kind</span>       <span style="color:#66d9ef">uint8</span>   <span style="color:#75715e">// kind 有些枚举值 kind 等于 0 是无效的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// function for comparing objects of this type
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// (ptr to object A, ptr to object B) -&gt; ==?
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">equal</span>     <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>, <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>) <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">gcdata</span>    <span style="color:#f92672">*</span><span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">str</span>       <span style="color:#a6e22e">nameOff</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ptrToThis</span> <span style="color:#a6e22e">typeOff</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>_type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成 _type，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作
+data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.Pointer类型，相当于一个 C 的万能指针void*。</p>
+<ul>
+<li>非空接口</li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">/// 非空接口
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">iface</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tab</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">itab</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">itab</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">inter</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">interfacetype</span>   <span style="color:#75715e">// 接口自身的元信息
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">_type</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">_type</span>           <span style="color:#75715e">// 具体类型的元信息
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">hash</span>   <span style="color:#66d9ef">int32</span>            <span style="color:#75715e">// _type 里也有一个同样的 hash，此处多放一个是为了方便运行接口断言
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>  <span style="color:#a6e22e">_</span>      [<span style="color:#ae81ff">4</span>]<span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">fun</span>    [<span style="color:#ae81ff">1</span>]<span style="color:#66d9ef">uintptr</span>       <span style="color:#75715e">// 函数指针，指向具体类型所实现的方法
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>}
+</span></span></code></pre></div><p>// itab 里面包含了 interface 的一些关键信息，比如 method 的具体实现。</p>
+<ol>
+<li>interface type包含了一些关于 interface 本身的信息，比如package path，包含的method。这里的interfacetype 是定义 interface 的一种抽象表示。</li>
+<li>_type表示具体化的类型，与 eface 的 _type 类型相同。</li>
+<li>ash字段其实是对_type.hash的拷贝，它会在 interface 的实例化时，用于快速判断目标类型和接口中的类型是否一致。另，Go 的 interface 的 Duck-typing 机制也是依赖这个字段来实现。</li>
+<li>fun字段其实是一个动态大小的数组，虽然声明时是固定大小为 1，但在使用时会直接通过 fun 指针获取其中的数据，并且不会检查数组的边界，所以该数组中保存的元素数量是不确定的。</li>
+</ol>
+<h2 id="回到本题">回到本题<a hidden class="anchor" aria-hidden="true" href="#回到本题">#</a></h2>
+<p>People 拥有一个 Show 方法，属于非空接口</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">iface</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">tab</span>  <span style="color:#f92672">*</span><span style="color:#a6e22e">itab</span>
+</span></span><span style="display:flex;"><span>  <span style="color:#a6e22e">data</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">live</span>() <span style="color:#a6e22e">People</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stu</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Student</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">stu</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">live</span>() <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span>
+</span></span></code></pre></div><p>这里接口的itab已经指向Student。因此接口不为nil</p>
+
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>
+
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer>
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

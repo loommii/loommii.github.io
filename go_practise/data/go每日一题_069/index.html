@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>Go每日一题_069 | loommii</title>
 <meta name="keywords" content="">
 <meta name="description" content="有下面 3 行代码：
@@ -36,16 +36,16 @@ type rune = int32
 
 ">
 <meta name="author" content="">
-<link rel="canonical" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_069/">
+<link rel="canonical" href="http://localhost:1313/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_069/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://loommii.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_069/">
+<link rel="alternate" hreflang="zh" href="http://localhost:1313/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_069/">
 <noscript>
     <style>
         #theme-toggle,
@@ -82,102 +82,7 @@ type rune = int32
         }
 
     </style>
-</noscript><meta property="og:url" content="https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_069/">
-  <meta property="og:site_name" content="loommii">
-  <meta property="og:title" content="Go每日一题_069">
-  <meta property="og:description" content="有下面 3 行代码：
-// 32 位机器 1）var x int32 = 32.0 2）var y int = x 3）var z rune = x 它们是否能编译通过？为什么？
-如果面试时问这道题，你需要想想面试官想考察你什么。 🔑 答案解析： 数字字面量 在 Go 语言中，字面量是无类型（untyped）的。无类型是什么意思？无类型意味着可以赋值给类似类型的变量或常量。用上面例子，32.0 是无类型的浮点数字面量，因此它可以赋值给任意数字相关类型变量（或常量）。以下都是合法的：
-var a int64 = 32.0 var b int = 32.0 var c float32 = 32.0 var d complex64 = 32.0 var e byte = 32.0 var f rune = 32.0 所以上题中 1）是正确的。
-不同类型 在目前 Go 1.16 版本中（实际上只有很早期的版本不是），int 类型在 32 位机器占 4 字节，64 位机器占 8 字节。所以，在 32 位机器上，int32 和 int 的内存占用和内存布局是完全一样的。但 Go 语言不会做隐式类型转换，int 和 int32 是不同的类型，因此上题中 2）编译不通过。
-别名 rune 是什么类型？定义如下：
-type rune = int32 很显然，rune 是 int32 的别名，因此题目中 3）也能编译通过。">
-  <meta property="og:locale" content="zh">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="go_practise">
-    <meta property="article:published_time" content="2024-12-06T20:44:52+08:00">
-    <meta property="article:modified_time" content="2024-12-06T20:44:52+08:00">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go每日一题_069">
-<meta name="twitter:description" content="有下面 3 行代码：
-// 32 位机器
-1）var x int32 = 32.0
-2）var y int = x
-3）var z rune = x
-它们是否能编译通过？为什么？
-如果面试时问这道题，你需要想想面试官想考察你什么。
-🔑 答案解析：
-
-  数字字面量
-在 Go 语言中，字面量是无类型（untyped）的。无类型是什么意思？无类型意味着可以赋值给类似类型的变量或常量。用上面例子，32.0 是无类型的浮点数字面量，因此它可以赋值给任意数字相关类型变量（或常量）。以下都是合法的：
-var a int64 = 32.0
-var b int = 32.0
-var c float32 = 32.0
-var d complex64 = 32.0
-var e byte = 32.0
-var f rune = 32.0
-所以上题中 1）是正确的。
-不同类型
-在目前 Go 1.16 版本中（实际上只有很早期的版本不是），int 类型在 32 位机器占 4 字节，64 位机器占 8 字节。所以，在 32 位机器上，int32 和 int 的内存占用和内存布局是完全一样的。但 Go 语言不会做隐式类型转换，int 和 int32 是不同的类型，因此上题中 2）编译不通过。
-别名
-rune 是什么类型？定义如下：
-type rune = int32
-很显然，rune 是 int32 的别名，因此题目中 3）也能编译通过。
-
-
-
-">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "Golang练习",
-      "item": "https://loommii.github.io/go_practise/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "Go每日一题_069",
-      "item": "https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_069/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "Go每日一题_069",
-  "name": "Go每日一题_069",
-  "description": "有下面 3 行代码：\n// 32 位机器 1）var x int32 = 32.0 2）var y int = x 3）var z rune = x 它们是否能编译通过？为什么？\n如果面试时问这道题，你需要想想面试官想考察你什么。 🔑 答案解析： 数字字面量 在 Go 语言中，字面量是无类型（untyped）的。无类型是什么意思？无类型意味着可以赋值给类似类型的变量或常量。用上面例子，32.0 是无类型的浮点数字面量，因此它可以赋值给任意数字相关类型变量（或常量）。以下都是合法的：\nvar a int64 = 32.0 var b int = 32.0 var c float32 = 32.0 var d complex64 = 32.0 var e byte = 32.0 var f rune = 32.0 所以上题中 1）是正确的。\n不同类型 在目前 Go 1.16 版本中（实际上只有很早期的版本不是），int 类型在 32 位机器占 4 字节，64 位机器占 8 字节。所以，在 32 位机器上，int32 和 int 的内存占用和内存布局是完全一样的。但 Go 语言不会做隐式类型转换，int 和 int32 是不同的类型，因此上题中 2）编译不通过。\n别名 rune 是什么类型？定义如下：\ntype rune = int32 很显然，rune 是 int32 的别名，因此题目中 3）也能编译通过。\n",
-  "keywords": [
-    
-  ],
-  "articleBody": "有下面 3 行代码：\n// 32 位机器 1）var x int32 = 32.0 2）var y int = x 3）var z rune = x 它们是否能编译通过？为什么？\n如果面试时问这道题，你需要想想面试官想考察你什么。 🔑 答案解析： 数字字面量 在 Go 语言中，字面量是无类型（untyped）的。无类型是什么意思？无类型意味着可以赋值给类似类型的变量或常量。用上面例子，32.0 是无类型的浮点数字面量，因此它可以赋值给任意数字相关类型变量（或常量）。以下都是合法的：\nvar a int64 = 32.0 var b int = 32.0 var c float32 = 32.0 var d complex64 = 32.0 var e byte = 32.0 var f rune = 32.0 所以上题中 1）是正确的。\n不同类型 在目前 Go 1.16 版本中（实际上只有很早期的版本不是），int 类型在 32 位机器占 4 字节，64 位机器占 8 字节。所以，在 32 位机器上，int32 和 int 的内存占用和内存布局是完全一样的。但 Go 语言不会做隐式类型转换，int 和 int32 是不同的类型，因此上题中 2）编译不通过。\n别名 rune 是什么类型？定义如下：\ntype rune = int32 很显然，rune 是 int32 的别名，因此题目中 3）也能编译通过。\n",
-  "wordCount" : "98",
-  "inLanguage": "zh",
-  "datePublished": "2024-12-06T20:44:52+08:00",
-  "dateModified": "2024-12-06T20:44:52+08:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://loommii.github.io/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_069/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "loommii",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://loommii.github.io/favicon.ico"
-    }
-  }
-}
-</script>
+</noscript>
 </head>
 
 <body class="" id="top">
@@ -195,7 +100,7 @@ type rune = int32
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <a href="http://localhost:1313/" accesskey="h" title="loommii (Alt + H)">loommii</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -221,27 +126,27 @@ type rune = int32
         </div>
         <ul id="menu">
             <li>
-                <a href="https://loommii.github.io/posts/" title="文章">
+                <a href="http://localhost:1313/posts/" title="文章">
                     <span>文章</span>
                 </a>
             </li>
             <li>
-                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                <a href="http://localhost:1313/go_practise/" title="Golang练习">
                     <span>Golang练习</span>
                 </a>
             </li>
             <li>
-                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                <a href="http://localhost:1313/leetcode/" title="力扣">
                     <span>力扣</span>
                 </a>
             </li>
             <li>
-                <a href="https://loommii.github.io/archives/" title="归档">
+                <a href="http://localhost:1313/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="https://loommii.github.io/search/" title="搜索">
+                <a href="http://localhost:1313/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
@@ -308,7 +213,7 @@ type rune = int32
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 <a href="https://loommii.github.io/">loommii</a></span> · 
+        <span>&copy; 2024 <a href="http://localhost:1313/">loommii</a></span> · 
 
     <span>
         Powered by

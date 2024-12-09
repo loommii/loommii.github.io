@@ -1,10 +1,10 @@
 <!DOCTYPE html>
 <html lang="zh" dir="auto">
 
-<head><meta charset="utf-8">
+<head><script src="/livereload.js?mindelay=10&amp;v=2&amp;port=1313&amp;path=livereload" data-no-instant defer></script><meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, nofollow">
 <title>锁 | loommii</title>
 <meta name="keywords" content="">
 <meta name="description" content="计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了“锁”用于解决该类问题。
@@ -56,16 +56,16 @@
 悲观锁：多线程同时修改共享资源的概率比较高，容易发生冲突。因此访问共享资源前需要上锁。
 乐观锁：认为发生冲突的概率比较低。并不会上任何的锁，而是校验该数据是否别修改过，修改过着放弃本次操作">
 <meta name="author" content="">
-<link rel="canonical" href="https://loommii.github.io/posts/data/%E9%94%81/">
+<link rel="canonical" href="http://localhost:1313/posts/data/%E9%94%81/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://loommii.github.io/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
-<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<link rel="icon" href="http://localhost:1313/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="http://localhost:1313/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="http://localhost:1313/favicon-32x32.png">
+<link rel="apple-touch-icon" href="http://localhost:1313/apple-touch-icon.png">
+<link rel="mask-icon" href="http://localhost:1313/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/data/%E9%94%81/">
+<link rel="alternate" hreflang="zh" href="http://localhost:1313/posts/data/%E9%94%81/">
 <noscript>
     <style>
         #theme-toggle,
@@ -102,130 +102,7 @@
         }
 
     </style>
-</noscript><meta property="og:url" content="https://loommii.github.io/posts/data/%E9%94%81/">
-  <meta property="og:site_name" content="loommii">
-  <meta property="og:title" content="锁">
-  <meta property="og:description" content="计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了“锁”用于解决该类问题。 常见的锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁
-互斥锁 特点：容易实现，最基础的锁概念
-解释：在使用一个资源时，先上锁使用。上锁后其他线程都无法再上锁。直到解锁后，其他线程才能上锁使用。
-生活例子：公共厕所，谁要上厕所就要先上锁后使用，避免其他人也闯入使用厕所。
-自旋锁 自旋锁与互斥锁十分类似。 区别：
-自旋锁：加锁失败，线程还是会不断的去申请加锁，直到他拿到锁 互斥锁：加锁失败，线程会释放CPU资源，等待解锁后在申请上锁。 生活例子 -&gt; 公共厕所 自旋锁：不断的在门口敲门，直到里面的人出来 互斥锁：不动了，直到里面的人出来叫你。
-读写锁 顾名思义就是由读锁和写锁组成的。读数据往往是可以并发的读，并发写数据可能会导致数据不符合预期的情况
-读数据需要满足目前无写锁。 写数据需要满足目前无写锁、读锁。 生活例子：假设一个班级的考试成绩都写到同一个本子上。而学生会读成绩，老师会写成绩。学生看成绩可以同时看，而语文老师和数学老师不能并发的把成绩写到一页里。 读写锁可以分为 读优先锁 写优先锁 公平读写锁
-读优先锁 学生看到有老师在等待改写数据时，不理会老师继续读数据
-写优先锁
-读数据还需要满足无在等待的写锁 学生看到有老师在等待改写数据时，会主动让老师写数据。
-公平读写锁
-将读学请求放入一个队列，排队的去读写 学生和老师排个队伍
-乐观锁与悲观锁 互斥锁、自旋锁、读写锁都是悲观锁
-悲观锁：多线程同时修改共享资源的概率比较高，容易发生冲突。因此访问共享资源前需要上锁。 乐观锁：认为发生冲突的概率比较低。并不会上任何的锁，而是校验该数据是否别修改过，修改过着放弃本次操作">
-  <meta property="og:locale" content="zh">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2024-12-08T00:28:39+08:00">
-    <meta property="article:modified_time" content="2024-12-08T00:28:39+08:00">
-<meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="锁">
-<meta name="twitter:description" content="计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了“锁”用于解决该类问题。
-常见的锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁
-互斥锁
-特点：容易实现，最基础的锁概念
-解释：在使用一个资源时，先上锁使用。上锁后其他线程都无法再上锁。直到解锁后，其他线程才能上锁使用。
-生活例子：公共厕所，谁要上厕所就要先上锁后使用，避免其他人也闯入使用厕所。
-自旋锁
-自旋锁与互斥锁十分类似。
-区别：
-
-自旋锁：加锁失败，线程还是会不断的去申请加锁，直到他拿到锁
-互斥锁：加锁失败，线程会释放CPU资源，等待解锁后在申请上锁。
-
-生活例子 -&gt; 公共厕所
-自旋锁：不断的在门口敲门，直到里面的人出来
-互斥锁：不动了，直到里面的人出来叫你。
-读写锁
-顾名思义就是由读锁和写锁组成的。读数据往往是可以并发的读，并发写数据可能会导致数据不符合预期的情况
-
-读数据需要满足目前无写锁。
-写数据需要满足目前无写锁、读锁。
-生活例子：假设一个班级的考试成绩都写到同一个本子上。而学生会读成绩，老师会写成绩。学生看成绩可以同时看，而语文老师和数学老师不能并发的把成绩写到一页里。
-
-读写锁可以分为 读优先锁  	写优先锁  公平读写锁
-
-
-读优先锁
-学生看到有老师在等待改写数据时，不理会老师继续读数据
-
-
-写优先锁
-
-读数据还需要满足无在等待的写锁
-
-学生看到有老师在等待改写数据时，会主动让老师写数据。
-
-
-公平读写锁
-
-将读学请求放入一个队列，排队的去读写
-
-学生和老师排个队伍
-
-
-乐观锁与悲观锁
-互斥锁、自旋锁、读写锁都是悲观锁
-悲观锁：多线程同时修改共享资源的概率比较高，容易发生冲突。因此访问共享资源前需要上锁。
-乐观锁：认为发生冲突的概率比较低。并不会上任何的锁，而是校验该数据是否别修改过，修改过着放弃本次操作">
-
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BreadcrumbList",
-  "itemListElement": [
-    {
-      "@type": "ListItem",
-      "position":  1 ,
-      "name": "文章",
-      "item": "https://loommii.github.io/posts/"
-    }, 
-    {
-      "@type": "ListItem",
-      "position":  2 ,
-      "name": "锁",
-      "item": "https://loommii.github.io/posts/data/%E9%94%81/"
-    }
-  ]
-}
-</script>
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "BlogPosting",
-  "headline": "锁",
-  "name": "锁",
-  "description": "计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了“锁”用于解决该类问题。 常见的锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁\n互斥锁 特点：容易实现，最基础的锁概念\n解释：在使用一个资源时，先上锁使用。上锁后其他线程都无法再上锁。直到解锁后，其他线程才能上锁使用。\n生活例子：公共厕所，谁要上厕所就要先上锁后使用，避免其他人也闯入使用厕所。\n自旋锁 自旋锁与互斥锁十分类似。 区别：\n自旋锁：加锁失败，线程还是会不断的去申请加锁，直到他拿到锁 互斥锁：加锁失败，线程会释放CPU资源，等待解锁后在申请上锁。 生活例子 -\u0026gt; 公共厕所 自旋锁：不断的在门口敲门，直到里面的人出来 互斥锁：不动了，直到里面的人出来叫你。\n读写锁 顾名思义就是由读锁和写锁组成的。读数据往往是可以并发的读，并发写数据可能会导致数据不符合预期的情况\n读数据需要满足目前无写锁。 写数据需要满足目前无写锁、读锁。 生活例子：假设一个班级的考试成绩都写到同一个本子上。而学生会读成绩，老师会写成绩。学生看成绩可以同时看，而语文老师和数学老师不能并发的把成绩写到一页里。 读写锁可以分为 读优先锁 写优先锁 公平读写锁\n读优先锁 学生看到有老师在等待改写数据时，不理会老师继续读数据\n写优先锁\n读数据还需要满足无在等待的写锁 学生看到有老师在等待改写数据时，会主动让老师写数据。\n公平读写锁\n将读学请求放入一个队列，排队的去读写 学生和老师排个队伍\n乐观锁与悲观锁 互斥锁、自旋锁、读写锁都是悲观锁\n悲观锁：多线程同时修改共享资源的概率比较高，容易发生冲突。因此访问共享资源前需要上锁。 乐观锁：认为发生冲突的概率比较低。并不会上任何的锁，而是校验该数据是否别修改过，修改过着放弃本次操作\n",
-  "keywords": [
-    
-  ],
-  "articleBody": "计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了“锁”用于解决该类问题。 常见的锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁\n互斥锁 特点：容易实现，最基础的锁概念\n解释：在使用一个资源时，先上锁使用。上锁后其他线程都无法再上锁。直到解锁后，其他线程才能上锁使用。\n生活例子：公共厕所，谁要上厕所就要先上锁后使用，避免其他人也闯入使用厕所。\n自旋锁 自旋锁与互斥锁十分类似。 区别：\n自旋锁：加锁失败，线程还是会不断的去申请加锁，直到他拿到锁 互斥锁：加锁失败，线程会释放CPU资源，等待解锁后在申请上锁。 生活例子 -\u003e 公共厕所 自旋锁：不断的在门口敲门，直到里面的人出来 互斥锁：不动了，直到里面的人出来叫你。\n读写锁 顾名思义就是由读锁和写锁组成的。读数据往往是可以并发的读，并发写数据可能会导致数据不符合预期的情况\n读数据需要满足目前无写锁。 写数据需要满足目前无写锁、读锁。 生活例子：假设一个班级的考试成绩都写到同一个本子上。而学生会读成绩，老师会写成绩。学生看成绩可以同时看，而语文老师和数学老师不能并发的把成绩写到一页里。 读写锁可以分为 读优先锁 写优先锁 公平读写锁\n读优先锁 学生看到有老师在等待改写数据时，不理会老师继续读数据\n写优先锁\n读数据还需要满足无在等待的写锁 学生看到有老师在等待改写数据时，会主动让老师写数据。\n公平读写锁\n将读学请求放入一个队列，排队的去读写 学生和老师排个队伍\n乐观锁与悲观锁 互斥锁、自旋锁、读写锁都是悲观锁\n悲观锁：多线程同时修改共享资源的概率比较高，容易发生冲突。因此访问共享资源前需要上锁。 乐观锁：认为发生冲突的概率比较低。并不会上任何的锁，而是校验该数据是否别修改过，修改过着放弃本次操作\n",
-  "wordCount" : "37",
-  "inLanguage": "zh",
-  "datePublished": "2024-12-08T00:28:39+08:00",
-  "dateModified": "2024-12-08T00:28:39+08:00",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://loommii.github.io/posts/data/%E9%94%81/"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "loommii",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://loommii.github.io/favicon.ico"
-    }
-  }
-}
-</script>
+</noscript>
 </head>
 
 <body class="" id="top">
@@ -243,7 +120,7 @@
 <header class="header">
     <nav class="nav">
         <div class="logo">
-            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <a href="http://localhost:1313/" accesskey="h" title="loommii (Alt + H)">loommii</a>
             <div class="logo-switches">
                 <button id="theme-toggle" accesskey="t" title="(Alt + T)">
                     <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
@@ -269,27 +146,27 @@
         </div>
         <ul id="menu">
             <li>
-                <a href="https://loommii.github.io/posts/" title="文章">
+                <a href="http://localhost:1313/posts/" title="文章">
                     <span>文章</span>
                 </a>
             </li>
             <li>
-                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                <a href="http://localhost:1313/go_practise/" title="Golang练习">
                     <span>Golang练习</span>
                 </a>
             </li>
             <li>
-                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                <a href="http://localhost:1313/leetcode/" title="力扣">
                     <span>力扣</span>
                 </a>
             </li>
             <li>
-                <a href="https://loommii.github.io/archives/" title="归档">
+                <a href="http://localhost:1313/" title="归档">
                     <span>归档</span>
                 </a>
             </li>
             <li>
-                <a href="https://loommii.github.io/search/" title="搜索">
+                <a href="http://localhost:1313/search/" title="搜索">
                     <span>搜索</span>
                 </a>
             </li>
@@ -368,7 +245,7 @@
     </main>
     
 <footer class="footer">
-        <span>&copy; 2024 <a href="https://loommii.github.io/">loommii</a></span> · 
+        <span>&copy; 2024 <a href="http://localhost:1313/">loommii</a></span> · 
 
     <span>
         Powered by
