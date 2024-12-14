@@ -5,48 +5,27 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Go每日一题_121 | loommii</title>
+<title>Go每日一题_131 | loommii</title>
 <meta name="keywords" content="">
-<meta name="description" content="下面代码会输出什么
-func increaseA() int {
-	var i int
-	defer func() {
-		i&#43;&#43;
-	}()
-	return i
-}
+<meta name="description" content="关于 channel，下面语法正确的是：
 
-func increaseB() (r int) {
-	defer func() {
-		r&#43;&#43;
-	}()
-	return r
-}
+A. var ch chan int
+B. ch := make(chan int)
+C. &lt;- ch
+D. ch &lt;-
 
-func main() {
-	fmt.Println(increaseA())
-	fmt.Println(increaseB())
-}
 🔑 答案解析：
 
-  0
-1
-上方2个函数的区别在于increaseA() 的返回参数是匿名，increaseB() 是具名。
-A 执行到return i 是将i的值赋值给返回参数，后面i&#43;&#43;不影响
-B 执行到return r 是将r赋值给r,后面的r&#43;&#43; 因为是同一个r 后面的r&#43;&#43;会影响
-func increaseB() (r int) {
-	defer func() {
-		r&#43;&#43;
-	}()
-	return 4
-}
-// 返回5
-上面的代码就可以证明return 4 赋值给了r
+  A B C
+A 声明变量ch 类型为 chan int，并未初始化
+B 声明变量ch 类型为 chan int，并初始化
+C 读channel，值抛弃
+D 错误，写channel必须要值
 
 
 ">
 <meta name="author" content="">
-<link rel="canonical" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_121/">
+<link rel="canonical" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_131/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://loommii.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
@@ -55,7 +34,7 @@ func increaseB() (r int) {
 <link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_121/">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_131/">
 <noscript>
     <style>
         #theme-toggle,
@@ -92,54 +71,33 @@ func increaseB() (r int) {
         }
 
     </style>
-</noscript><meta property="og:url" content="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_121/">
+</noscript><meta property="og:url" content="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_131/">
   <meta property="og:site_name" content="loommii">
-  <meta property="og:title" content="Go每日一题_121">
-  <meta property="og:description" content="下面代码会输出什么
-func increaseA() int { var i int defer func() { i&#43;&#43; }() return i } func increaseB() (r int) { defer func() { r&#43;&#43; }() return r } func main() { fmt.Println(increaseA()) fmt.Println(increaseB()) } 🔑 答案解析： 0 1 上方2个函数的区别在于increaseA() 的返回参数是匿名，increaseB() 是具名。 A 执行到return i 是将i的值赋值给返回参数，后面i&#43;&#43;不影响 B 执行到return r 是将r赋值给r,后面的r&#43;&#43; 因为是同一个r 后面的r&#43;&#43;会影响
-func increaseB() (r int) { defer func() { r&#43;&#43; }() return 4 } // 返回5 上面的代码就可以证明return 4 赋值给了r">
+  <meta property="og:title" content="Go每日一题_131">
+  <meta property="og:description" content="关于 channel，下面语法正确的是：
+A. var ch chan int B. ch := make(chan int) C. &lt;- ch D. ch &lt;- 🔑 答案解析： A B C
+A 声明变量ch 类型为 chan int，并未初始化 B 声明变量ch 类型为 chan int，并初始化 C 读channel，值抛弃 D 错误，写channel必须要值">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2024-12-06T23:43:04+08:00">
-    <meta property="article:modified_time" content="2024-12-06T23:43:04+08:00">
+    <meta property="article:published_time" content="2024-12-14T11:59:22+08:00">
+    <meta property="article:modified_time" content="2024-12-14T11:59:22+08:00">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go每日一题_121">
-<meta name="twitter:description" content="下面代码会输出什么
-func increaseA() int {
-	var i int
-	defer func() {
-		i&#43;&#43;
-	}()
-	return i
-}
+<meta name="twitter:title" content="Go每日一题_131">
+<meta name="twitter:description" content="关于 channel，下面语法正确的是：
 
-func increaseB() (r int) {
-	defer func() {
-		r&#43;&#43;
-	}()
-	return r
-}
+A. var ch chan int
+B. ch := make(chan int)
+C. &lt;- ch
+D. ch &lt;-
 
-func main() {
-	fmt.Println(increaseA())
-	fmt.Println(increaseB())
-}
 🔑 答案解析：
 
-  0
-1
-上方2个函数的区别在于increaseA() 的返回参数是匿名，increaseB() 是具名。
-A 执行到return i 是将i的值赋值给返回参数，后面i&#43;&#43;不影响
-B 执行到return r 是将r赋值给r,后面的r&#43;&#43; 因为是同一个r 后面的r&#43;&#43;会影响
-func increaseB() (r int) {
-	defer func() {
-		r&#43;&#43;
-	}()
-	return 4
-}
-// 返回5
-上面的代码就可以证明return 4 赋值给了r
+  A B C
+A 声明变量ch 类型为 chan int，并未初始化
+B 声明变量ch 类型为 chan int，并初始化
+C 读channel，值抛弃
+D 错误，写channel必须要值
 
 
 ">
@@ -159,8 +117,8 @@ func increaseB() (r int) {
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "Go每日一题_121",
-      "item": "https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_121/"
+      "name": "Go每日一题_131",
+      "item": "https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_131/"
     }
   ]
 }
@@ -169,20 +127,20 @@ func increaseB() (r int) {
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Go每日一题_121",
-  "name": "Go每日一题_121",
-  "description": "下面代码会输出什么\nfunc increaseA() int { var i int defer func() { i++ }() return i } func increaseB() (r int) { defer func() { r++ }() return r } func main() { fmt.Println(increaseA()) fmt.Println(increaseB()) } 🔑 答案解析： 0 1 上方2个函数的区别在于increaseA() 的返回参数是匿名，increaseB() 是具名。 A 执行到return i 是将i的值赋值给返回参数，后面i++不影响 B 执行到return r 是将r赋值给r,后面的r++ 因为是同一个r 后面的r++会影响\nfunc increaseB() (r int) { defer func() { r++ }() return 4 } // 返回5 上面的代码就可以证明return 4 赋值给了r\n",
+  "headline": "Go每日一题_131",
+  "name": "Go每日一题_131",
+  "description": "关于 channel，下面语法正确的是：\nA. var ch chan int B. ch := make(chan int) C. \u0026lt;- ch D. ch \u0026lt;- 🔑 答案解析： A B C\nA 声明变量ch 类型为 chan int，并未初始化 B 声明变量ch 类型为 chan int，并初始化 C 读channel，值抛弃 D 错误，写channel必须要值\n",
   "keywords": [
     
   ],
-  "articleBody": "下面代码会输出什么\nfunc increaseA() int { var i int defer func() { i++ }() return i } func increaseB() (r int) { defer func() { r++ }() return r } func main() { fmt.Println(increaseA()) fmt.Println(increaseB()) } 🔑 答案解析： 0 1 上方2个函数的区别在于increaseA() 的返回参数是匿名，increaseB() 是具名。 A 执行到return i 是将i的值赋值给返回参数，后面i++不影响 B 执行到return r 是将r赋值给r,后面的r++ 因为是同一个r 后面的r++会影响\nfunc increaseB() (r int) { defer func() { r++ }() return 4 } // 返回5 上面的代码就可以证明return 4 赋值给了r\n",
-  "wordCount" : "70",
+  "articleBody": "关于 channel，下面语法正确的是：\nA. var ch chan int B. ch := make(chan int) C. \u003c- ch D. ch \u003c- 🔑 答案解析： A B C\nA 声明变量ch 类型为 chan int，并未初始化 B 声明变量ch 类型为 chan int，并初始化 C 读channel，值抛弃 D 错误，写channel必须要值\n",
+  "wordCount" : "37",
   "inLanguage": "zh",
-  "datePublished": "2024-12-06T23:43:04+08:00",
-  "dateModified": "2024-12-06T23:43:04+08:00",
+  "datePublished": "2024-12-14T11:59:22+08:00",
+  "dateModified": "2024-12-14T11:59:22+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_121/"
+    "@id": "https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_131/"
   },
   "publisher": {
     "@type": "Organization",
@@ -272,47 +230,26 @@ func increaseB() (r int) {
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/go_practise/">Golang练习</a></div>
     <h1 class="post-title entry-hint-parent">
-      Go每日一题_121
+      Go每日一题_131
     </h1>
-    <div class="post-meta"><span title='2024-12-06 23:43:04 +0800 CST'>十二月 6, 2024</span>
+    <div class="post-meta"><span title='2024-12-14 11:59:22 +0800 CST'>十二月 14, 2024</span>
 
 </div>
   </header> 
-  <div class="post-content"><p>下面代码会输出什么</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">increaseA</span>() <span style="color:#66d9ef">int</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>
-</span></span><span style="display:flex;"><span>	}()
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">i</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">increaseB</span>() (<span style="color:#a6e22e">r</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span><span style="color:#f92672">++</span>
-</span></span><span style="display:flex;"><span>	}()
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">r</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">increaseA</span>())
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">increaseB</span>())
-</span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+  <div class="post-content"><p>关于 channel，下面语法正确的是：</p>
+<ul>
+<li>A. var ch chan int</li>
+<li>B. ch := make(chan int)</li>
+<li>C. &lt;- ch</li>
+<li>D. ch &lt;-</li>
+</ul>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
 <div class="toggle-content">
-  <p>0
-1
-上方2个函数的区别在于increaseA() 的返回参数是匿名，increaseB() 是具名。
-A 执行到return i 是将i的值赋值给返回参数，后面i++不影响
-B 执行到return r 是将r赋值给r,后面的r++ 因为是同一个r 后面的r++会影响</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">increaseB</span>() (<span style="color:#a6e22e">r</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span><span style="color:#f92672">++</span>
-</span></span><span style="display:flex;"><span>	}()
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">4</span>
-</span></span><span style="display:flex;"><span>}
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 返回5
-</span></span></span></code></pre></div><p>上面的代码就可以证明return 4 赋值给了r</p>
+  <p>A B C</p>
+<p>A 声明变量ch 类型为 chan int，并未初始化
+B 声明变量ch 类型为 chan int，并初始化
+C 读channel，值抛弃
+D 错误，写channel必须要值</p>
 
 </div>
 <style>
