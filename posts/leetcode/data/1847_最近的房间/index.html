@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>1847_最近的房间 | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="力扣链接:1847. 最近的房间
+
+力扣难度 困难
+算法评级: 8      掌握不同的数据结构与算法之间的关联性，处理复杂问题，掌握高级数据结构
+难度分 2082
+
+
+题目：
+一个酒店里有 n 个房间，这些房间用二维整数数组 rooms 表示，其中 rooms[i] = [roomIdi, sizei] 表示有一个房间号为 roomIdi 的房间且它的面积为 sizei 。每一个房间号 roomIdi 保证是 独一无二 的。
+同时给你 k 个查询，用二维数组 queries 表示，其中 queries[j] = [preferredj, minSizej] 。第 j 个查询的答案是满足如下条件的房间 id ：
+
+房间的面积 至少 为 minSizej ，且abs(id - preferredj) 的值 最小 ，其中 abs(x) 是 x 的绝对值。
+
+如果差的绝对值有 相等 的，选择 最小 的 id 。如果 没有满足条件的房间 ，答案为 -1 。
+请你返回长度为 k 的数组 answer ，其中 answer[j] 为第 j 个查询的结果。">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/posts/leetcode/data/1847_%E6%9C%80%E8%BF%91%E7%9A%84%E6%88%BF%E9%97%B4/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/leetcode/data/1847_%E6%9C%80%E8%BF%91%E7%9A%84%E6%88%BF%E9%97%B4/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/posts/leetcode/data/1847_%E6%9C%80%E8%BF%91%E7%9A%84%E6%88%BF%E9%97%B4/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="1847_最近的房间">
+  <meta property="og:description" content="力扣链接:1847. 最近的房间
+力扣难度 困难
+算法评级: 8 掌握不同的数据结构与算法之间的关联性，处理复杂问题，掌握高级数据结构
+难度分 2082
+题目：
+一个酒店里有 n 个房间，这些房间用二维整数数组 rooms 表示，其中 rooms[i] = [roomIdi, sizei] 表示有一个房间号为 roomIdi 的房间且它的面积为 sizei 。每一个房间号 roomIdi 保证是 独一无二 的。
+同时给你 k 个查询，用二维数组 queries 表示，其中 queries[j] = [preferredj, minSizej] 。第 j 个查询的答案是满足如下条件的房间 id ：
+房间的面积 至少 为 minSizej ，且abs(id - preferredj) 的值 最小 ，其中 abs(x) 是 x 的绝对值。 如果差的绝对值有 相等 的，选择 最小 的 id 。如果 没有满足条件的房间 ，答案为 -1 。
+请你返回长度为 k 的数组 answer ，其中 answer[j] 为第 j 个查询的结果。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-16T14:28:52+08:00">
+    <meta property="article:modified_time" content="2024-12-16T14:28:52+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1847_最近的房间">
+<meta name="twitter:description" content="力扣链接:1847. 最近的房间
+
+力扣难度 困难
+算法评级: 8      掌握不同的数据结构与算法之间的关联性，处理复杂问题，掌握高级数据结构
+难度分 2082
+
+
+题目：
+一个酒店里有 n 个房间，这些房间用二维整数数组 rooms 表示，其中 rooms[i] = [roomIdi, sizei] 表示有一个房间号为 roomIdi 的房间且它的面积为 sizei 。每一个房间号 roomIdi 保证是 独一无二 的。
+同时给你 k 个查询，用二维数组 queries 表示，其中 queries[j] = [preferredj, minSizej] 。第 j 个查询的答案是满足如下条件的房间 id ：
+
+房间的面积 至少 为 minSizej ，且abs(id - preferredj) 的值 最小 ，其中 abs(x) 是 x 的绝对值。
+
+如果差的绝对值有 相等 的，选择 最小 的 id 。如果 没有满足条件的房间 ，答案为 -1 。
+请你返回长度为 k 的数组 answer ，其中 answer[j] 为第 j 个查询的结果。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "力扣",
+      "item": "https://loommii.github.io/leetcode/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "1847_最近的房间",
+      "item": "https://loommii.github.io/posts/leetcode/data/1847_%E6%9C%80%E8%BF%91%E7%9A%84%E6%88%BF%E9%97%B4/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "1847_最近的房间",
+  "name": "1847_最近的房间",
+  "description": "力扣链接:1847. 最近的房间\n力扣难度 困难\n算法评级: 8 掌握不同的数据结构与算法之间的关联性，处理复杂问题，掌握高级数据结构\n难度分 2082\n题目：\n一个酒店里有 n 个房间，这些房间用二维整数数组 rooms 表示，其中 rooms[i] = [roomIdi, sizei] 表示有一个房间号为 roomIdi 的房间且它的面积为 sizei 。每一个房间号 roomIdi 保证是 独一无二 的。\n同时给你 k 个查询，用二维数组 queries 表示，其中 queries[j] = [preferredj, minSizej] 。第 j 个查询的答案是满足如下条件的房间 id ：\n房间的面积 至少 为 minSizej ，且abs(id - preferredj) 的值 最小 ，其中 abs(x) 是 x 的绝对值。 如果差的绝对值有 相等 的，选择 最小 的 id 。如果 没有满足条件的房间 ，答案为 -1 。\n请你返回长度为 k 的数组 answer ，其中 answer[j] 为第 j 个查询的结果。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "力扣链接:1847. 最近的房间\n力扣难度 困难\n算法评级: 8 掌握不同的数据结构与算法之间的关联性，处理复杂问题，掌握高级数据结构\n难度分 2082\n题目：\n一个酒店里有 n 个房间，这些房间用二维整数数组 rooms 表示，其中 rooms[i] = [roomIdi, sizei] 表示有一个房间号为 roomIdi 的房间且它的面积为 sizei 。每一个房间号 roomIdi 保证是 独一无二 的。\n同时给你 k 个查询，用二维数组 queries 表示，其中 queries[j] = [preferredj, minSizej] 。第 j 个查询的答案是满足如下条件的房间 id ：\n房间的面积 至少 为 minSizej ，且abs(id - preferredj) 的值 最小 ，其中 abs(x) 是 x 的绝对值。 如果差的绝对值有 相等 的，选择 最小 的 id 。如果 没有满足条件的房间 ，答案为 -1 。\n请你返回长度为 k 的数组 answer ，其中 answer[j] 为第 j 个查询的结果。\n示例 1：\n输入：rooms = [[2,2],[1,2],[3,2]], queries = [[3,1],[3,3],[5,2]]\n输出：[3,-1,3]\n解释：查询的答案如下：\n查询 [3,1] ：房间 3 的面积为 2 ，大于等于 1 ，且号码是最接近 3 的，为 abs(3 - 3) = 0 ，所以答案为 3 。\n查询 [3,3] ：没有房间的面积至少为 3 ，所以答案为 -1 。\n查询 [5,2] ：房间 3 的面积为 2 ，大于等于 2 ，且号码是最接近 5 的，为 abs(3 - 5) = 2 ，所以答案为 3 。\n示例 2：\n输入：rooms = [[1,4],[2,3],[3,5],[4,1],[5,2]], queries = [[2,3],[2,4],[2,5]]\n输出：[2,1,3]\n解释：查询的答案如下：\n查询 [2,3] ：房间 2 的面积为 3 ，大于等于 3 ，且号码是最接近的，为 abs(2 - 2) = 0 ，所以答案为 2 。\n查询 [2,4] ：房间 1 和 3 的面积都至少为 4 ，答案为 1 因为它房间编号更小。\n查询 [2,5] ：房间 3 是唯一面积大于等于 5 的，所以答案为 3 。\n提示：\nn == rooms.length 1 \u003c= n \u003c= 105 k == queries.length 1 \u003c= k \u003c= 104 1 \u003c= roomIdi, preferredj \u003c= 107 1 \u003c= sizei, minSizej \u003c= 107 func closestRoom(rooms [][]int, queries [][]int) []int { } 🧠思路: 👈点击 先将rooms排序,从大到小。例如我们找面积大于等于4的数组就不用全部遍历，而是有退出条件 遍历需求queries，如果符合条件就对比ID绝对值。 🔑 答案解析： 👈点击 const maxPreferred = 1_000_0000 + 1 func closestRoom(rooms [][]int, queries [][]int) []int { // 从大到小 排序 slices.SortFunc(rooms, func(i, k []int) int { return k[1] - i[1] }) n := len(queries) ans := make([]int, n) for ansI, q := range queries { // _ = q[0] // id // _ = q[1] // 最小面积 minID := maxPreferred // 这里记录最小的ID差值 for i := 0; i \u003c len(rooms) \u0026\u0026 rooms[i][1] \u003e= q[1]; i++ { // rooms[i][0] = 房间ID // rooms[i][1] = 房间面积 idGap := abs(rooms[i][0] - q[0]) if minID \u003e idGap { minID = idGap ans[ansI] = rooms[i][0] } else if minID == idGap { // 如果差相同 选小的ID ans[ansI] = min(ans[ansI], rooms[i][0]) } } if minID == maxPreferred { ans[ansI] = -1 // 默认为-1 } } return ans } func abs(a int) int { if a \u003c 0 { return -a } return a } ",
+  "wordCount" : "364",
+  "inLanguage": "zh",
+  "datePublished": "2024-12-16T14:28:52+08:00",
+  "dateModified": "2024-12-16T14:28:52+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://loommii.github.io/posts/leetcode/data/1847_%E6%9C%80%E8%BF%91%E7%9A%84%E6%88%BF%E9%97%B4/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "loommii",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://loommii.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/skill/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span>Golang练习</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                    <span>力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/leetcode/">力扣</a></div>
+    <h1 class="post-title entry-hint-parent">
+      1847_最近的房间
+    </h1>
+    <div class="post-meta"><span title='2024-12-16 14:28:52 +0800 CST'>十二月 16, 2024</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>力扣链接:<a href="https://leetcode.cn/problems/closest-room/description/?envType=daily-question&amp;envId=2024-12-16">1847. 最近的房间</a></p>
+<blockquote>
+<p>力扣难度 <code>困难</code></p>
+<p>算法评级: 8      掌握不同的数据结构与算法之间的关联性，处理复杂问题，掌握高级数据结构</p>
+<p>难度分 2082</p>
+</blockquote>
+<hr>
+<p>题目：</p>
+<p>一个酒店里有 n 个房间，这些房间用二维整数数组 rooms 表示，其中 rooms[i] = [roomIdi, sizei] 表示有一个房间号为 roomIdi 的房间且它的面积为 sizei 。每一个房间号 roomIdi 保证是 独一无二 的。</p>
+<p>同时给你 k 个查询，用二维数组 queries 表示，其中 queries[j] = [preferredj, minSizej] 。第 j 个查询的答案是满足如下条件的房间 id ：</p>
+<ul>
+<li>房间的面积 至少 为 minSizej ，且abs(id - preferredj) 的值 最小 ，其中 abs(x) 是 x 的绝对值。</li>
+</ul>
+<p>如果差的绝对值有 相等 的，选择 最小 的 id 。如果 没有满足条件的房间 ，答案为 -1 。</p>
+<p>请你返回长度为 k 的数组 answer ，其中 answer[j] 为第 j 个查询的结果。</p>
+<p>示例 1：</p>
+<blockquote>
+<p>输入：rooms = [[2,2],[1,2],[3,2]], queries = [[3,1],[3,3],[5,2]]</p>
+<p>输出：[3,-1,3]</p>
+<p>解释：查询的答案如下：</p>
+<p>查询 [3,1] ：房间 3 的面积为 2 ，大于等于 1 ，且号码是最接近 3 的，为 abs(3 - 3) = 0 ，所以答案为 3 。</p>
+<p>查询 [3,3] ：没有房间的面积至少为 3 ，所以答案为 -1 。</p>
+<p>查询 [5,2] ：房间 3 的面积为 2 ，大于等于 2 ，且号码是最接近 5 的，为 abs(3 - 5) = 2 ，所以答案为 3 。</p>
+</blockquote>
+<p>示例 2：</p>
+<blockquote>
+<p>输入：rooms = [[1,4],[2,3],[3,5],[4,1],[5,2]], queries = [[2,3],[2,4],[2,5]]</p>
+<p>输出：[2,1,3]</p>
+<p>解释：查询的答案如下：</p>
+<p>查询 [2,3] ：房间 2 的面积为 3 ，大于等于 3 ，且号码是最接近的，为 abs(2 - 2) = 0 ，所以答案为 2 。</p>
+<p>查询 [2,4] ：房间 1 和 3 的面积都至少为 4 ，答案为 1 因为它房间编号更小。</p>
+<p>查询 [2,5] ：房间 3 是唯一面积大于等于 5 的，所以答案为 3 。</p>
+</blockquote>
+<p>提示：</p>
+<ul>
+<li>n == rooms.length</li>
+<li>1 &lt;= n &lt;= 105</li>
+<li>k == queries.length</li>
+<li>1 &lt;= k &lt;= 104</li>
+<li>1 &lt;= roomIdi, preferredj &lt;= 107</li>
+<li>1 &lt;= sizei, minSizej &lt;= 107</li>
+</ul>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">closestRoom</span>(<span style="color:#a6e22e">rooms</span> [][]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">queries</span> [][]<span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🧠思路:  👈点击</button>
+<div class="toggle-content">
+  先将rooms排序,从大到小。例如我们找面积大于等于4的数组就不用全部遍历，而是有退出条件
+遍历需求queries，如果符合条件就对比ID绝对值。
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>
+
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析： 👈点击</button>
+<div class="toggle-content">
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">maxPreferred</span> = <span style="color:#ae81ff">1_000_0000</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">closestRoom</span>(<span style="color:#a6e22e">rooms</span> [][]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">queries</span> [][]<span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 从大到小 排序
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">slices</span>.<span style="color:#a6e22e">SortFunc</span>(<span style="color:#a6e22e">rooms</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">k</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">k</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">i</span>[<span style="color:#ae81ff">1</span>] })
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">queries</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">n</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">ansI</span>, <span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">queries</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// _ = q[0] // id
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#75715e">// _ = q[1] // 最小面积
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">minID</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">maxPreferred</span> <span style="color:#75715e">// 这里记录最小的ID差值
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">rooms</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">rooms</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">q</span>[<span style="color:#ae81ff">1</span>]; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// rooms[i][0] = 房间ID
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#75715e">// rooms[i][1] = 房间面积
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">idGap</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">rooms</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">q</span>[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">minID</span> &gt; <span style="color:#a6e22e">idGap</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">minID</span> = <span style="color:#a6e22e">idGap</span>
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">ansI</span>] = <span style="color:#a6e22e">rooms</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>			} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">minID</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">idGap</span> { <span style="color:#75715e">// 如果差相同 选小的ID
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>				<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">ansI</span>] = min(<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">ansI</span>], <span style="color:#a6e22e">rooms</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">minID</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">maxPreferred</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">ansI</span>] = <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#75715e">// 默认为-1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">a</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span> &lt; <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">a</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>
+
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer><div>    
+    
+    <script src="https://utteranc.es/client.js"
+        repo="loommii/blog-review"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
