@@ -6,8 +6,36 @@
     <description>Recent content in 文章 on loommii</description>
     <generator>Hugo -- 0.139.3</generator>
     <language>zh</language>
-    <lastBuildDate>Mon, 16 Dec 2024 20:06:16 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 18 Dec 2024 14:16:42 +0800</lastBuildDate>
     <atom:link href="https://loommii.github.io/skill/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go: GPM的数量限制</title>
+      <link>https://loommii.github.io/posts/skill/data/go_gpm%E7%9A%84%E6%95%B0%E9%87%8F%E9%99%90%E5%88%B6/</link>
+      <pubDate>Wed, 18 Dec 2024 14:16:42 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/go_gpm%E7%9A%84%E6%95%B0%E9%87%8F%E9%99%90%E5%88%B6/</guid>
+      <description>&lt;h1 id=&#34;g&#34;&gt;G&lt;/h1&gt;
+&lt;p&gt;协程的抽象&lt;/p&gt;
+&lt;p&gt;Goroutine  (go /ruːˈtiːn/  谐音 Go 如 听) 经 Golang 优化后的特殊“协程”&lt;/p&gt;
+&lt;h3 id=&#34;限制&#34;&gt;限制&lt;/h3&gt;
+&lt;p&gt;语言上无任何的限制,但是理论上会受到机器的内存限制,每个G创建时会占用4KB左右的内存空间&lt;/p&gt;
+&lt;p&gt;注：Goroutine 创建所需申请的 2-4KB 是需要连续的内存块。&lt;/p&gt;
+&lt;h1 id=&#34;m&#34;&gt;M&lt;/h1&gt;
+&lt;p&gt;系统线程的抽象&lt;/p&gt;
+&lt;p&gt;在 Go 的并发模型中，G（Goroutine）是一个轻量级的执行单元，它需要通过系统线程（M）来执行。
+每个 G 都会被映射到一个可用的 M 上，M 是操作系统层面的线程，负责实际的 CPU 执行。&lt;/p&gt;
+&lt;h3 id=&#34;限制-1&#34;&gt;限制&lt;/h3&gt;
+&lt;p&gt;M 是可以通过runtime下的 debug包SetMaxThreads函数去设置的。默认值为10,000 个线程
+&lt;a href=&#34;https://pkg.go.dev/runtime/debug#SetMaxThreads&#34;&gt;官方文档&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;SetMaxThreads 设置 Go 程序可以使用的操作系统线程的最大数量。如果程序尝试使用超过这个数量的线程，程序将崩溃。SetMaxThreads 返回之前的设置值。初始设置为 10,000 个线程。
+?
+这个限制控制的是操作系统线程的数量，而不是 goroutine 的数量。只有当 goroutine 准备运行，但所有现有的线程都因系统调用、cgo 调用被阻塞，或者由于使用了 runtime.LockOSThread 被锁定给其他 goroutine 时，Go 程序才会创建一个新的线程。&lt;/p&gt;
+&lt;p&gt;SetMaxThreads 主要用于限制那些创建无限数量线程的程序的影响。其目的是在程序把操作系统拖垮之前先把程序本身终止掉。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;p&#34;&gt;P&lt;/h1&gt;
+&lt;p&gt;p即 processor，是 golang 中的调度器；&lt;/p&gt;
+&lt;p&gt;p 是 gmp 的中枢，借由 p 承上启下，实现 g 和 m 之间的动态有机结合；&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Go: Map 是并发安全的吗？</title>
       <link>https://loommii.github.io/posts/skill/data/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/</link>

@@ -167,6 +167,29 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Go: GPM的数量限制
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>G 协程的抽象
+Goroutine (go /ruːˈtiːn/ 谐音 Go 如 听) 经 Golang 优化后的特殊“协程”
+限制 语言上无任何的限制,但是理论上会受到机器的内存限制,每个G创建时会占用4KB左右的内存空间
+注：Goroutine 创建所需申请的 2-4KB 是需要连续的内存块。
+M 系统线程的抽象
+在 Go 的并发模型中，G（Goroutine）是一个轻量级的执行单元，它需要通过系统线程（M）来执行。 每个 G 都会被映射到一个可用的 M 上，M 是操作系统层面的线程，负责实际的 CPU 执行。
+限制 M 是可以通过runtime下的 debug包SetMaxThreads函数去设置的。默认值为10,000 个线程 官方文档
+SetMaxThreads 设置 Go 程序可以使用的操作系统线程的最大数量。如果程序尝试使用超过这个数量的线程，程序将崩溃。SetMaxThreads 返回之前的设置值。初始设置为 10,000 个线程。 ? 这个限制控制的是操作系统线程的数量，而不是 goroutine 的数量。只有当 goroutine 准备运行，但所有现有的线程都因系统调用、cgo 调用被阻塞，或者由于使用了 runtime.LockOSThread 被锁定给其他 goroutine 时，Go 程序才会创建一个新的线程。
+SetMaxThreads 主要用于限制那些创建无限数量线程的程序的影响。其目的是在程序把操作系统拖垮之前先把程序本身终止掉。
+P p即 processor，是 golang 中的调度器；
+p 是 gmp 的中枢，借由 p 承上启下，实现 g 和 m 之间的动态有机结合；
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-18 14:16:42 +0800 CST'>十二月 18, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go: GPM的数量限制" href="https://loommii.github.io/posts/skill/data/go_gpm%E7%9A%84%E6%95%B0%E9%87%8F%E9%99%90%E5%88%B6/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Go: Map 是并发安全的吗？
     </h2>
   </header>
@@ -317,19 +340,12 @@ const cl = 10 cl是字面量10的对等符号。
   <footer class="entry-footer"><span title='2024-12-08 00:28:02 +0800 CST'>十二月 8, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 进程、线程、协程" href="https://loommii.github.io/posts/skill/data/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/"></a>
 </article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">原码、反码、补码、移码
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>名词解释 原码:原码是最简单的整数表示方法，其中最高位用来表示符号（0表示正数，1表示负数），其余位表示数值的绝对值。例如，&#43;5的原码是00000101，-5的原码是10000101。 反码:反码是通过对原码取反得到的，即将正数的原码保持不变，负数的原码的所有位取反（包括符号位）。例如，&#43;5的反码是00000101（与原码相同），-5的反码是11111010。 补码:补码是计算机中最常用的整数表示方法。正数的补码与其原码相同，而负数的补码是其反码加1。补码的特点是在进行加减法运算时，不需要单独处理符号位。例如，&#43;5的补码是00000101，-5的补码是11111011。 移码:移码是一种不常见的整数表示方法，在计算机领域中较少使用。它与补码类似，但是所有的数值都被偏移了一个固定的值，通常是一个中间值，以使得正数的表示始终比负数的表示更大。这种表示方法在某些特殊的硬件设计中可能会使用。 例子 原码为正数 整数 &#43;1 0000 0001 // 原码 0000 0001 // 反码 // 正数的 反码 = 原码 0000 0001 // 补码 // 正数的 补码 = 反码 = 原码 1000 0001 // 移码 // 移码 = 补码的符号位取反 原码为0 整数 &#43;0 0000 0000 // 原码 0000 0000 // 反码 // 正数的 反码 = 原码 0000 0000 // 补码 // 正数的 补码 = 反码 = 原码 1000 0000 // 移码 // 移码 = 补码的符号位取反 整数 -0 1000 0000 // 原码 1111 1111 // 反码 // 负数的 反码 = 原码除符号位不变 其他全取反 0000 0000 // 补码 // 负数的 补码 = 反码&#43;1 //这里由于越界,取后8位则结果为8个0 1000 0000 // 移码 // 移码 = 补码的符号位取反 原码为负数 整数 -1 1000 0001 // 原码 1111 1110 // 反码 // 负数的 反码 = 原码除符号位不变 其他全取反 1111 1111 // 补码 // 负数的 补码 = 反码&#43;1 0110 1111 // 移码 // 移码 = 补码的符号位取反 应用场景 原码：符合人类直觉，是最简单的整数表示方法
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-08 00:24:00 +0800 CST'>十二月 8, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to 原码、反码、补码、移码" href="https://loommii.github.io/posts/skill/data/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/"></a>
-</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="next" href="https://loommii.github.io/skill/page/2/">下一页&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
     </main>
     
 <footer class="footer">

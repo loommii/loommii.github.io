@@ -6,8 +6,184 @@
     <description>Recent content on loommii</description>
     <generator>Hugo -- 0.139.3</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 18 Dec 2024 12:24:37 +0800</lastBuildDate>
+    <lastBuildDate>Sat, 21 Dec 2024 01:24:56 +0800</lastBuildDate>
     <atom:link href="https://loommii.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_137</title>
+      <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_137/</link>
+      <pubDate>Sat, 21 Dec 2024 01:24:56 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_137/</guid>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; (  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {  
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;t&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;t&lt;/span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;])
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;A.3&lt;/li&gt;
+&lt;li&gt;B.4&lt;/li&gt;
+&lt;li&gt;C.compilation error&lt;/li&gt;
+&lt;/ul&gt;
+&lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
+&lt;div class=&#34;toggle-content&#34;&gt;
+  &lt;p&gt;B &lt;a href=&#34;https://go.dev/play/p/z3KqBXFXMm3&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;a 为 长度为 5的数组 元素为 1, 2, 3, 4, 5&lt;/p&gt;
+&lt;p&gt;t := baseStr[low:high:max]
+low指定开始元素下标，high指定结束元素下标，max指定切片能增长到的元素下标&lt;/p&gt;
+&lt;p&gt;a[3:4:4] 的意思是 下标为3开始 到下标4结束 左闭右开 最大为到4下标
+因此 t的内容为 4&lt;/p&gt;
+&lt;p&gt;a[3:4:4]  // 4
+a[3:4:5]  // 4
+a[3:4:6]  // 错误 a 下标最大为4 开区间 所以能为最大为5
+a[3:5:5]  // [4 5]&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;style&gt;
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+&lt;/style&gt;</description>
+    </item>
+    <item>
+      <title>3138_同位字符串连接的最小长度</title>
+      <link>https://loommii.github.io/posts/leetcode/data/3138_%E5%90%8C%E4%BD%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%9C%80%E5%B0%8F%E9%95%BF%E5%BA%A6/</link>
+      <pubDate>Fri, 20 Dec 2024 23:57:43 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/leetcode/data/3138_%E5%90%8C%E4%BD%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%9C%80%E5%B0%8F%E9%95%BF%E5%BA%A6/</guid>
+      <description>&lt;p&gt;力扣链接:&lt;a href=&#34;https://leetcode.cn/problems/minimum-length-of-anagram-concatenation/description/?envType=daily-question&amp;amp;envId=2024-12-20&#34;&gt;3138. 同位字符串连接的最小长度&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;力扣难度 &lt;code&gt;中等&lt;/code&gt;&lt;br&gt;
+算法评级: 5      熟练掌握常用数据结构和算法，初步了解高级数据结构
+难度分 1979&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;题目:&lt;br&gt;
+给你一个字符串 s ，它由某个字符串 t 和若干 t  的 同位字符串 连接而成。&lt;/p&gt;
+&lt;p&gt;请你返回字符串 t 的 最小 可能长度。&lt;/p&gt;
+&lt;p&gt;同位字符串 指的是重新排列一个单词得到的另外一个字符串，原来字符串中的每个字符在新字符串中都恰好只使用一次。&lt;/p&gt;
+&lt;p&gt;示例 1：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;输入：s = &amp;ldquo;abba&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;输出：2&lt;/p&gt;
+&lt;p&gt;解释：&lt;/p&gt;
+&lt;p&gt;一个可能的字符串 t 为 &amp;ldquo;ba&amp;rdquo; 。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;示例 2：&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;输入：s = &amp;ldquo;cdef&amp;rdquo;&lt;/p&gt;
+&lt;p&gt;输出：4&lt;/p&gt;
+&lt;p&gt;解释：&lt;/p&gt;
+&lt;p&gt;一个可能的字符串 t 为 &amp;ldquo;cdef&amp;rdquo; ，注意 t 可能等于 s 。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;提示：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;1 &amp;lt;= s.length &amp;lt;= 105&lt;/li&gt;
+&lt;li&gt;s 只包含小写英文字母。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;hr&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;minAnagramLength&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
+&lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🧠思路:  👈点击&lt;/button&gt;
+&lt;div class=&#34;toggle-content&#34;&gt;
+  &lt;h1 id=&#34;枚举&#34;&gt;枚举&lt;/h1&gt;
+&lt;p&gt;设 s字符串的长度为n,阅读题目可得提供的s一定是由 字符串 t构成的。(有确定的结)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_136</title>
+      <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_136/</link>
+      <pubDate>Fri, 20 Dec 2024 22:34:36 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_136/</guid>
+      <description>&lt;p&gt;以下代码能否通过编译？&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;worker&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;interface&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;work&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;person&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;worker&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;w&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;worker&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;person&lt;/span&gt;{}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;w&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;A: 能；&lt;/li&gt;
+&lt;li&gt;B: 不能；&lt;/li&gt;
+&lt;li&gt;C: 不知道&lt;/li&gt;
+&lt;/ul&gt;
+&lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
+&lt;div class=&#34;toggle-content&#34;&gt;
+  &lt;p&gt;答: A  &lt;a href=&#34;https://go.dev/play/p/RSSWTD3otlJ&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;
+&lt;h1 id=&#34;01&#34;&gt;01&lt;/h1&gt;
+&lt;p&gt;我们都知晓 Go 没有继承，但可以通过内嵌类型模拟部分继承的功能。大家要记住，接口也是类型，自然也将它作为嵌入类型。如果题目的 person 接口体改为：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;person&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;worker&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;worker&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;相信会有更多人答对，这和嵌入类型唯一的区别在于是否显示指定了字段名，其他并无区别。&lt;/p&gt;
+&lt;p&gt;将接口作为嵌入类型可能让人感觉有些奇怪：那这个类型不是默认就实现了这个接口？！确实是这样的，所以才有了题目中这一句能编译通过：&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;w&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;worker&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;person&lt;/span&gt;{}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;只不过，因为实例化 person 时，没有给 worker 指定值，因此 person 中的 worker 是 nil，调用它的话会报错，但编译是没问题的。&lt;/p&gt;
+&lt;h1 id=&#34;02&#34;&gt;02&lt;/h1&gt;
+&lt;p&gt;有人可能要问，嵌入接口有实际用途吗？我找一个标准库中的例子。&lt;/p&gt;
+&lt;p&gt;在 sort 包中，有一个接口：Interface&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Interface&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;interface&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// Len is the number of elements in the collection.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;Len&lt;/span&gt;() &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// Less reports whether the element with
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// index i should sort before the element with index j.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;Less&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;j&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;bool&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#75715e&#34;&gt;// Swap swaps the elements with indexes i and j.
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;Swap&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;j&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这是用于排序的。还有另外一个结构体：reverse&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go: GPM的数量限制</title>
+      <link>https://loommii.github.io/posts/skill/data/go_gpm%E7%9A%84%E6%95%B0%E9%87%8F%E9%99%90%E5%88%B6/</link>
+      <pubDate>Wed, 18 Dec 2024 14:16:42 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/go_gpm%E7%9A%84%E6%95%B0%E9%87%8F%E9%99%90%E5%88%B6/</guid>
+      <description>&lt;h1 id=&#34;g&#34;&gt;G&lt;/h1&gt;
+&lt;p&gt;协程的抽象&lt;/p&gt;
+&lt;p&gt;Goroutine  (go /ruːˈtiːn/  谐音 Go 如 听) 经 Golang 优化后的特殊“协程”&lt;/p&gt;
+&lt;h3 id=&#34;限制&#34;&gt;限制&lt;/h3&gt;
+&lt;p&gt;语言上无任何的限制,但是理论上会受到机器的内存限制,每个G创建时会占用4KB左右的内存空间&lt;/p&gt;
+&lt;p&gt;注：Goroutine 创建所需申请的 2-4KB 是需要连续的内存块。&lt;/p&gt;
+&lt;h1 id=&#34;m&#34;&gt;M&lt;/h1&gt;
+&lt;p&gt;系统线程的抽象&lt;/p&gt;
+&lt;p&gt;在 Go 的并发模型中，G（Goroutine）是一个轻量级的执行单元，它需要通过系统线程（M）来执行。
+每个 G 都会被映射到一个可用的 M 上，M 是操作系统层面的线程，负责实际的 CPU 执行。&lt;/p&gt;
+&lt;h3 id=&#34;限制-1&#34;&gt;限制&lt;/h3&gt;
+&lt;p&gt;M 是可以通过runtime下的 debug包SetMaxThreads函数去设置的。默认值为10,000 个线程
+&lt;a href=&#34;https://pkg.go.dev/runtime/debug#SetMaxThreads&#34;&gt;官方文档&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;SetMaxThreads 设置 Go 程序可以使用的操作系统线程的最大数量。如果程序尝试使用超过这个数量的线程，程序将崩溃。SetMaxThreads 返回之前的设置值。初始设置为 10,000 个线程。
+?
+这个限制控制的是操作系统线程的数量，而不是 goroutine 的数量。只有当 goroutine 准备运行，但所有现有的线程都因系统调用、cgo 调用被阻塞，或者由于使用了 runtime.LockOSThread 被锁定给其他 goroutine 时，Go 程序才会创建一个新的线程。&lt;/p&gt;
+&lt;p&gt;SetMaxThreads 主要用于限制那些创建无限数量线程的程序的影响。其目的是在程序把操作系统拖垮之前先把程序本身终止掉。&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;h1 id=&#34;p&#34;&gt;P&lt;/h1&gt;
+&lt;p&gt;p即 processor，是 golang 中的调度器；&lt;/p&gt;
+&lt;p&gt;p 是 gmp 的中枢，借由 p 承上启下，实现 g 和 m 之间的动态有机结合；&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Go每日一题_135</title>
       <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_135/</link>
