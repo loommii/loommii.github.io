@@ -6,8 +6,78 @@
     <description>Recent content on loommii</description>
     <generator>Hugo -- 0.139.3</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 21 Dec 2024 01:24:56 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 22 Dec 2024 12:52:47 +0800</lastBuildDate>
     <atom:link href="https://loommii.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_138</title>
+      <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_138/</link>
+      <pubDate>Sun, 22 Dec 2024 12:52:47 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_138/</guid>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;{&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;{&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;equal&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	} &lt;span style=&#34;color:#66d9ef&#34;&gt;else&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;		&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;not equal&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ul&gt;
+&lt;li&gt;A. compilation error&lt;/li&gt;
+&lt;li&gt;B. equal&lt;/li&gt;
+&lt;li&gt;C. not equal&lt;/li&gt;
+&lt;/ul&gt;
+&lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
+&lt;div class=&#34;toggle-content&#34;&gt;
+  &lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/rNBNzx3dOUY&#34;&gt;在线运行&lt;/a&gt;
+A  [2]int 和 [3]int 在Go中是不同的类型 不能通过 == 运算符对比&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;./prog.go:8:10: invalid operation: a == b (mismatched types [2]int and [3]int)&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;/div&gt;
+&lt;style&gt;
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+&lt;/style&gt;</description>
+    </item>
+    <item>
+      <title>2545_根据第K场考试的分数排序</title>
+      <link>https://loommii.github.io/posts/leetcode/data/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/</link>
+      <pubDate>Sat, 21 Dec 2024 13:47:52 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/leetcode/data/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/</guid>
+      <description>&lt;p&gt;力扣链接:&lt;a href=&#34;https://leetcode.cn/problems/sort-the-students-by-their-kth-score/description/?envType=daily-question&amp;amp;envId=2024-12-21&#34;&gt;2545. 根据第 K 场考试的分数排序&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;力扣难度 &lt;code&gt;中等&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;算法评级:  3      理解常用数据结构和算法&lt;/p&gt;
+&lt;p&gt;难度分 1294&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;题目：&lt;/p&gt;
+&lt;p&gt;班里有 m 位学生，共计划组织 n 场考试。给你一个下标从 0 开始、大小为 m x n 的整数矩阵 score ，其中每一行对应一位学生，而 score[i][j] 表示第 i 位学生在第 j 场考试取得的分数。矩阵 score 包含的整数 互不相同 。&lt;/p&gt;
+&lt;p&gt;另给你一个整数 k 。请你按第 k 场考试分数从高到低完成对这些学生（矩阵中的行）的排序。&lt;/p&gt;
+&lt;p&gt;返回排序后的矩阵。&lt;/p&gt;
+&lt;p&gt;示例 1：
+&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/leetcode/data/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/image.png&#34;&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;输入：score = [[10,6,9,1],[7,5,11,2],[4,8,3,15]], k = 2 &lt;br&gt;
+输出：[[7,5,11,2],[10,6,9,1],[4,8,3,15]]&lt;br&gt;
+解释：在上图中，S 表示学生，E 表示考试。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;下标为 1 的学生在第 2 场考试取得的分数为 11 ，这是考试的最高分，所以 TA 需要排在第一。&lt;/li&gt;
+&lt;li&gt;下标为 0 的学生在第 2 场考试取得的分数为 9 ，这是考试的第二高分，所以 TA 需要排在第二。&lt;/li&gt;
+&lt;li&gt;下标为 2 的学生在第 2 场考试取得的分数为 3 ，这是考试的最低分，所以 TA 需要排在第三。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/blockquote&gt;
+&lt;p&gt;示例 2：
+&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/leetcode/data/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/image-1.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Go每日一题_137</title>
       <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_137/</link>
