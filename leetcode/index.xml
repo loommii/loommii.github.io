@@ -6,8 +6,29 @@
     <description>Recent content in 力扣 on loommii</description>
     <generator>Hugo -- 0.139.3</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 21 Dec 2024 13:47:52 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 22 Dec 2024 15:09:23 +0800</lastBuildDate>
     <atom:link href="https://loommii.github.io/leetcode/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>1387_将整数按权重排序</title>
+      <link>https://loommii.github.io/posts/leetcode/data/1387_%E5%B0%86%E6%95%B4%E6%95%B0%E6%8C%89%E6%9D%83%E9%87%8D%E6%8E%92%E5%BA%8F/</link>
+      <pubDate>Sun, 22 Dec 2024 15:09:23 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/leetcode/data/1387_%E5%B0%86%E6%95%B4%E6%95%B0%E6%8C%89%E6%9D%83%E9%87%8D%E6%8E%92%E5%BA%8F/</guid>
+      <description>&lt;p&gt;力扣链接:&lt;a href=&#34;https://leetcode.cn/problems/sort-integers-by-the-power-value/description/?envType=daily-question&amp;amp;envId=2024-12-22&#34;&gt;1387. 将整数按权重排序&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;力扣难度 &lt;code&gt;中等&lt;/code&gt;&lt;/p&gt;
+&lt;p&gt;算法评级:  6      深入理解并灵活应用数据结构和算法，理解高级数据结构&lt;/p&gt;
+&lt;p&gt;难度分 1507&lt;/p&gt;
+&lt;/blockquote&gt;
+&lt;hr&gt;
+&lt;p&gt;题目：&lt;/p&gt;
+&lt;p&gt;我们将整数 x 的 权重 定义为按照下述规则将 x 变成 1 所需要的步数：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;如果 x 是偶数，那么 x = x / 2&lt;/li&gt;
+&lt;li&gt;如果 x 是奇数，那么 x = 3 * x + 1&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;比方说，x=3 的权重为 7 。因为 3 需要 7 步变成 1 （3 &amp;ndash;&amp;gt; 10 &amp;ndash;&amp;gt; 5 &amp;ndash;&amp;gt; 16 &amp;ndash;&amp;gt; 8 &amp;ndash;&amp;gt; 4 &amp;ndash;&amp;gt; 2 &amp;ndash;&amp;gt; 1）。&lt;/p&gt;
+&lt;p&gt;给你三个整数 lo， hi 和 k 。你的任务是将区间 [lo, hi] 之间的整数按照它们的权重 升序排序 ，如果大于等于 2 个整数有 相同 的权重，那么按照数字自身的数值 升序排序 。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>2545_根据第K场考试的分数排序</title>
       <link>https://loommii.github.io/posts/leetcode/data/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/</link>
@@ -452,17 +473,7 @@
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;hr&gt;
 &lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析： 👈点击&lt;/button&gt;
 &lt;div class=&#34;toggle-content&#34;&gt;
-  &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;climbStairs&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt; &amp;lt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;;&lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;n&lt;/span&gt;; &lt;span style=&#34;color:#a6e22e&#34;&gt;i&lt;/span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;++&lt;/span&gt; {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;
+  
 &lt;/div&gt;
 &lt;style&gt;
   .toggle-content {

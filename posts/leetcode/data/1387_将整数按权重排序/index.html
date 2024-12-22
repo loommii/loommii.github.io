@@ -1,0 +1,408 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>1387_将整数按权重排序 | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="力扣链接:1387. 将整数按权重排序
+
+力扣难度 中等
+算法评级:  6      深入理解并灵活应用数据结构和算法，理解高级数据结构
+难度分 1507
+
+
+题目：
+我们将整数 x 的 权重 定义为按照下述规则将 x 变成 1 所需要的步数：
+
+如果 x 是偶数，那么 x = x / 2
+如果 x 是奇数，那么 x = 3 * x &#43; 1
+
+比方说，x=3 的权重为 7 。因为 3 需要 7 步变成 1 （3 &ndash;&gt; 10 &ndash;&gt; 5 &ndash;&gt; 16 &ndash;&gt; 8 &ndash;&gt; 4 &ndash;&gt; 2 &ndash;&gt; 1）。
+给你三个整数 lo， hi 和 k 。你的任务是将区间 [lo, hi] 之间的整数按照它们的权重 升序排序 ，如果大于等于 2 个整数有 相同 的权重，那么按照数字自身的数值 升序排序 。">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/posts/leetcode/data/1387_%E5%B0%86%E6%95%B4%E6%95%B0%E6%8C%89%E6%9D%83%E9%87%8D%E6%8E%92%E5%BA%8F/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.d6fcd20a4fb86efa4dfac8ec95da60244cc8871042183da1ef28e3a762ad79c8.css" integrity="sha256-1vzSCk&#43;4bvpN&#43;sjsldpgJEzIhxBCGD2h7yjjp2Ktecg=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/leetcode/data/1387_%E5%B0%86%E6%95%B4%E6%95%B0%E6%8C%89%E6%9D%83%E9%87%8D%E6%8E%92%E5%BA%8F/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/posts/leetcode/data/1387_%E5%B0%86%E6%95%B4%E6%95%B0%E6%8C%89%E6%9D%83%E9%87%8D%E6%8E%92%E5%BA%8F/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="1387_将整数按权重排序">
+  <meta property="og:description" content="力扣链接:1387. 将整数按权重排序
+力扣难度 中等
+算法评级: 6 深入理解并灵活应用数据结构和算法，理解高级数据结构
+难度分 1507
+题目：
+我们将整数 x 的 权重 定义为按照下述规则将 x 变成 1 所需要的步数：
+如果 x 是偶数，那么 x = x / 2 如果 x 是奇数，那么 x = 3 * x &#43; 1 比方说，x=3 的权重为 7 。因为 3 需要 7 步变成 1 （3 –&gt; 10 –&gt; 5 –&gt; 16 –&gt; 8 –&gt; 4 –&gt; 2 –&gt; 1）。
+给你三个整数 lo， hi 和 k 。你的任务是将区间 [lo, hi] 之间的整数按照它们的权重 升序排序 ，如果大于等于 2 个整数有 相同 的权重，那么按照数字自身的数值 升序排序 。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-22T15:09:23+08:00">
+    <meta property="article:modified_time" content="2024-12-22T15:09:23+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="1387_将整数按权重排序">
+<meta name="twitter:description" content="力扣链接:1387. 将整数按权重排序
+
+力扣难度 中等
+算法评级:  6      深入理解并灵活应用数据结构和算法，理解高级数据结构
+难度分 1507
+
+
+题目：
+我们将整数 x 的 权重 定义为按照下述规则将 x 变成 1 所需要的步数：
+
+如果 x 是偶数，那么 x = x / 2
+如果 x 是奇数，那么 x = 3 * x &#43; 1
+
+比方说，x=3 的权重为 7 。因为 3 需要 7 步变成 1 （3 &ndash;&gt; 10 &ndash;&gt; 5 &ndash;&gt; 16 &ndash;&gt; 8 &ndash;&gt; 4 &ndash;&gt; 2 &ndash;&gt; 1）。
+给你三个整数 lo， hi 和 k 。你的任务是将区间 [lo, hi] 之间的整数按照它们的权重 升序排序 ，如果大于等于 2 个整数有 相同 的权重，那么按照数字自身的数值 升序排序 。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "力扣",
+      "item": "https://loommii.github.io/leetcode/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "1387_将整数按权重排序",
+      "item": "https://loommii.github.io/posts/leetcode/data/1387_%E5%B0%86%E6%95%B4%E6%95%B0%E6%8C%89%E6%9D%83%E9%87%8D%E6%8E%92%E5%BA%8F/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "1387_将整数按权重排序",
+  "name": "1387_将整数按权重排序",
+  "description": "力扣链接:1387. 将整数按权重排序\n力扣难度 中等\n算法评级: 6 深入理解并灵活应用数据结构和算法，理解高级数据结构\n难度分 1507\n题目：\n我们将整数 x 的 权重 定义为按照下述规则将 x 变成 1 所需要的步数：\n如果 x 是偶数，那么 x = x / 2 如果 x 是奇数，那么 x = 3 * x + 1 比方说，x=3 的权重为 7 。因为 3 需要 7 步变成 1 （3 \u0026ndash;\u0026gt; 10 \u0026ndash;\u0026gt; 5 \u0026ndash;\u0026gt; 16 \u0026ndash;\u0026gt; 8 \u0026ndash;\u0026gt; 4 \u0026ndash;\u0026gt; 2 \u0026ndash;\u0026gt; 1）。\n给你三个整数 lo， hi 和 k 。你的任务是将区间 [lo, hi] 之间的整数按照它们的权重 升序排序 ，如果大于等于 2 个整数有 相同 的权重，那么按照数字自身的数值 升序排序 。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "力扣链接:1387. 将整数按权重排序\n力扣难度 中等\n算法评级: 6 深入理解并灵活应用数据结构和算法，理解高级数据结构\n难度分 1507\n题目：\n我们将整数 x 的 权重 定义为按照下述规则将 x 变成 1 所需要的步数：\n如果 x 是偶数，那么 x = x / 2 如果 x 是奇数，那么 x = 3 * x + 1 比方说，x=3 的权重为 7 。因为 3 需要 7 步变成 1 （3 –\u003e 10 –\u003e 5 –\u003e 16 –\u003e 8 –\u003e 4 –\u003e 2 –\u003e 1）。\n给你三个整数 lo， hi 和 k 。你的任务是将区间 [lo, hi] 之间的整数按照它们的权重 升序排序 ，如果大于等于 2 个整数有 相同 的权重，那么按照数字自身的数值 升序排序 。\n请你返回区间 [lo, hi] 之间的整数按权重排序后的第 k 个数。\n注意，题目保证对于任意整数 x （lo \u003c= x \u003c= hi） ，它变成 1 所需要的步数是一个 32 位有符号整数。\nfunc getKth(lo int, hi int, k int) int { } 🔑 答案解析： 👈点击 type num struct { data int weight int } type nlist []num // 设置权重 func (n *num) SetWeight() { for i := n.data; i != 1; n.weight++ { if i%2 == 0 { i = i / 2 } else { i = 3*i + 1 } } } func (n nlist) Len() int { return len(n) } func (n nlist) Less(i, j int) bool { if n[i].weight \u003e n[j].weight || (n[i].weight == n[j].weight \u0026\u0026 n[i].data \u003e n[j].data) { return false } return true } func (n nlist) Swap(i, j int) { n[i], n[j] = n[j], n[i] } func getKth(lo int, hi int, k int) (ans int) { nums := make(nlist, hi-lo+1) // 记录走了多少步 for i := range nums { nums[i].data = i + lo nums[i].SetWeight() } // 排序 sort.Sort(nums) return nums[k-1].data } ",
+  "wordCount" : "242",
+  "inLanguage": "zh",
+  "datePublished": "2024-12-22T15:09:23+08:00",
+  "dateModified": "2024-12-22T15:09:23+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://loommii.github.io/posts/leetcode/data/1387_%E5%B0%86%E6%95%B4%E6%95%B0%E6%8C%89%E6%9D%83%E9%87%8D%E6%8E%92%E5%BA%8F/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "loommii",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://loommii.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/skill/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span>Golang练习</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                    <span>力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/leetcode/">力扣</a></div>
+    <h1 class="post-title entry-hint-parent">
+      1387_将整数按权重排序
+    </h1>
+    <div class="post-meta"><span title='2024-12-22 15:09:23 +0800 CST'>十二月 22, 2024</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>力扣链接:<a href="https://leetcode.cn/problems/sort-integers-by-the-power-value/description/?envType=daily-question&amp;envId=2024-12-22">1387. 将整数按权重排序</a></p>
+<blockquote>
+<p>力扣难度 <code>中等</code></p>
+<p>算法评级:  6      深入理解并灵活应用数据结构和算法，理解高级数据结构</p>
+<p>难度分 1507</p>
+</blockquote>
+<hr>
+<p>题目：</p>
+<p>我们将整数 x 的 权重 定义为按照下述规则将 x 变成 1 所需要的步数：</p>
+<ul>
+<li>如果 x 是偶数，那么 x = x / 2</li>
+<li>如果 x 是奇数，那么 x = 3 * x + 1</li>
+</ul>
+<p>比方说，x=3 的权重为 7 。因为 3 需要 7 步变成 1 （3 &ndash;&gt; 10 &ndash;&gt; 5 &ndash;&gt; 16 &ndash;&gt; 8 &ndash;&gt; 4 &ndash;&gt; 2 &ndash;&gt; 1）。</p>
+<p>给你三个整数 lo， hi 和 k 。你的任务是将区间 [lo, hi] 之间的整数按照它们的权重 升序排序 ，如果大于等于 2 个整数有 相同 的权重，那么按照数字自身的数值 升序排序 。</p>
+<p>请你返回区间 [lo, hi] 之间的整数按权重排序后的第 k 个数。</p>
+<p>注意，题目保证对于任意整数 x （lo &lt;= x &lt;= hi） ，它变成 1 所需要的步数是一个 32 位有符号整数。</p>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getKth</span>(<span style="color:#a6e22e">lo</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">hi</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析： 👈点击</button>
+<div class="toggle-content">
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">num</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">data</span>   <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">weight</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">nlist</span> []<span style="color:#a6e22e">num</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 设置权重
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">num</span>) <span style="color:#a6e22e">SetWeight</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">data</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">weight</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">%</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">i</span> = <span style="color:#a6e22e">i</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">i</span> = <span style="color:#ae81ff">3</span><span style="color:#f92672">*</span><span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#a6e22e">nlist</span>) <span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> len(<span style="color:#a6e22e">n</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#a6e22e">nlist</span>) <span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">weight</span> &gt; <span style="color:#a6e22e">n</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">weight</span> <span style="color:#f92672">||</span> (<span style="color:#a6e22e">n</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">weight</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">n</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">weight</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">n</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">data</span> &gt; <span style="color:#a6e22e">n</span>[<span style="color:#a6e22e">j</span>].<span style="color:#a6e22e">data</span>) {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#a6e22e">nlist</span>) <span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">n</span>[<span style="color:#a6e22e">i</span>], <span style="color:#a6e22e">n</span>[<span style="color:#a6e22e">j</span>] = <span style="color:#a6e22e">n</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">n</span>[<span style="color:#a6e22e">i</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getKth</span>(<span style="color:#a6e22e">lo</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">hi</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>) (<span style="color:#a6e22e">ans</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">nums</span> <span style="color:#f92672">:=</span> make(<span style="color:#a6e22e">nlist</span>, <span style="color:#a6e22e">hi</span><span style="color:#f92672">-</span><span style="color:#a6e22e">lo</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 记录走了多少步
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">data</span> = <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">lo</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">SetWeight</span>()
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 排序
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">nums</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">k</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">data</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>
+
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer><div>    
+    
+    <script src="https://utteranc.es/client.js"
+        repo="loommii/blog-review"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2024 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
