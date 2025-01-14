@@ -6,8 +6,94 @@
     <description>Recent content on loommii</description>
     <generator>Hugo -- 0.139.3</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 12 Jan 2025 15:25:17 +0800</lastBuildDate>
+    <lastBuildDate>Tue, 14 Jan 2025 21:10:21 +0800</lastBuildDate>
     <atom:link href="https://loommii.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_161</title>
+      <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_161/</link>
+      <pubDate>Tue, 14 Jan 2025 21:10:21 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_161/</guid>
+      <description>&lt;p&gt;下面代码中，x 已声明，y 没有声明，判断每条语句的对错。&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;）&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;_&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;）&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;_&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;）&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;）&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
+&lt;div class=&#34;toggle-content&#34;&gt;
+  &lt;p&gt;1）错
+2）对
+3）对
+4）错&lt;/p&gt;
+&lt;h3 id=&#34;1-x-_--f&#34;&gt;1. &lt;code&gt;x, _ := f()&lt;/code&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;错误&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;原因&lt;/strong&gt;：&lt;code&gt;:=&lt;/code&gt; 是短变量声明操作符，要求左侧的所有变量都必须是未声明的。由于 &lt;code&gt;x&lt;/code&gt; 已经声明，因此不能使用 &lt;code&gt;:=&lt;/code&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;修正&lt;/strong&gt;：如果 &lt;code&gt;x&lt;/code&gt; 已经声明，应该使用 &lt;code&gt;=&lt;/code&gt; 赋值操作符：
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;_&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;2-x-_--f&#34;&gt;2. &lt;code&gt;x, _ = f()&lt;/code&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;正确&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;原因&lt;/strong&gt;：&lt;code&gt;=&lt;/code&gt; 是赋值操作符，可以用于已声明的变量。&lt;code&gt;x&lt;/code&gt; 已经声明，&lt;code&gt;_&lt;/code&gt; 是空白标识符，用于忽略返回值，因此这条语句是合法的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;3-x-y--f&#34;&gt;3. &lt;code&gt;x, y := f()&lt;/code&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;正确&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;原因&lt;/strong&gt;：&lt;code&gt;:=&lt;/code&gt; 是短变量声明操作符，要求左侧至少有一个变量是未声明的。虽然 &lt;code&gt;x&lt;/code&gt; 已经声明，但 &lt;code&gt;y&lt;/code&gt; 是未声明的，因此这条语句是合法的。此时，&lt;code&gt;x&lt;/code&gt; 会被重新赋值，&lt;code&gt;y&lt;/code&gt; 会被声明并赋值。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h3 id=&#34;4-x-y--f&#34;&gt;4. &lt;code&gt;x, y = f()&lt;/code&gt;&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;strong&gt;错误&lt;/strong&gt;。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;原因&lt;/strong&gt;：&lt;code&gt;=&lt;/code&gt; 是赋值操作符，要求左侧的所有变量都必须是已声明的。由于 &lt;code&gt;y&lt;/code&gt; 未声明，因此这条语句会编译失败。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;修正&lt;/strong&gt;：如果 &lt;code&gt;y&lt;/code&gt; 未声明，应该使用 &lt;code&gt;:=&lt;/code&gt;：
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;()
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;style&gt;
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+&lt;/style&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_160</title>
+      <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_160/</link>
+      <pubDate>Mon, 13 Jan 2025 12:22:18 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_160/</guid>
+      <description>&lt;p&gt;它们是否能编译通过？为什么？&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 32 位机器
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;）&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int32&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;32.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;）&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;）&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;z&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;rune&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
+&lt;div class=&#34;toggle-content&#34;&gt;
+  &lt;p&gt;1 &lt;a href=&#34;https://go.dev/play/p/9eGpGYkcqqp&#34;&gt;可以&lt;/a&gt;
+2 &lt;a href=&#34;https://go.dev/play/p/L5LsYs4NvDO&#34;&gt;不可以&lt;/a&gt;
+3 &lt;a href=&#34;https://go.dev/play/p/xgIjiu6PQ1l&#34;&gt;可以&lt;/a&gt;&lt;/p&gt;
+&lt;h2 id=&#34;解析&#34;&gt;解析&lt;/h2&gt;
+&lt;h1 id=&#34;go-语言类型系统与代码解析&#34;&gt;Go 语言类型系统与代码解析&lt;/h1&gt;
+&lt;h2 id=&#34;1-无类型字面量&#34;&gt;1. 无类型字面量&lt;/h2&gt;
+&lt;p&gt;在 Go 语言中，字面量（如 &lt;code&gt;32.0&lt;/code&gt;）是无类型的（untyped）。无类型字面量可以根据上下文自动推断为目标类型。&lt;/p&gt;
+&lt;h3 id=&#34;示例&#34;&gt;示例&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int64&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;32.0&lt;/span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// 32.0 是无类型浮点数字面量，赋值给 int64 类型
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;32.0&lt;/span&gt;      &lt;span style=&#34;color:#75715e&#34;&gt;// 32.0 是无类型浮点数字面量，赋值给 int 类型
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;c&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;float32&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;32.0&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// 32.0 是无类型浮点数字面量，赋值给 float32 类型
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;d&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;complex64&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;32.0&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// 32.0 是无类型浮点数字面量，赋值给 complex64 类型
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;e&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;byte&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;32.0&lt;/span&gt;     &lt;span style=&#34;color:#75715e&#34;&gt;// 32.0 是无类型浮点数字面量，赋值给 byte 类型
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;rune&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;32.0&lt;/span&gt;     &lt;span style=&#34;color:#75715e&#34;&gt;// 32.0 是无类型浮点数字面量，赋值给 rune 类型
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;2-go-语言的类型系统&#34;&gt;2. Go 语言的类型系统&lt;/h2&gt;
+&lt;p&gt;Go 语言的类型系统非常严格，没有隐式类型转换。即使两种类型的底层表示相同，它们仍然是不同的类型，不能直接赋值&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int32&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;32&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// 编译错误：cannot use x (type int32) as type int in assignment
+&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;修正方法
+必须显式进行类型转换：&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Go每日一题_159</title>
       <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_159/</link>
@@ -31,14 +117,14 @@ Go 语言的&lt;a href=&#34;https://golang.google.cn/ref/spec#Operators&#34;&gt;
 &lt;blockquote&gt;
 &lt;p&gt;unary_op   = &amp;ldquo;+&amp;rdquo; | &amp;ldquo;-&amp;rdquo; | &amp;ldquo;!&amp;rdquo; | &amp;ldquo;^&amp;rdquo; | &amp;ldquo;*&amp;rdquo; | &amp;ldquo;&amp;amp;&amp;rdquo; | &amp;ldquo;&amp;lt;-&amp;rdquo; .&lt;/p&gt;
 &lt;/blockquote&gt;
-&lt;p&gt;题中一元运算符（+、-、* ）
+&lt;p&gt;题中一元运算符(+、-、* )
 +、- 和 * 同时也是算术运算符中的加、减和乘。&lt;/p&gt;
-&lt;p&gt;表达式：5/+-*v。5 后面 /，很显然，这是除法。
+&lt;p&gt;表达式: 5/+-*v。5 后面 /，很显然，这是除法。
 而 + 前面没有操作数，因此是一个一元运算符；同理 - 和 * 也是一元运算符。而一元运算符有最高的优先级，因此这个表达式优先计算 +-*v 的值。&lt;/p&gt;
 &lt;p&gt;在规范中有这么一句话：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;对于整数操作数，一元运算符 + , - 和 ^ 有如下定义：（省略了 ^ 的解释）
-+x 　　　　 是 0 + x
++x         是 0 + x
 -x 取其负值 是 0 - x&lt;/p&gt;</description>
     </item>
     <item>
