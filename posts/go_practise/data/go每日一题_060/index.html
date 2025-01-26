@@ -41,7 +41,7 @@ func main() {
 ">
 <meta name="author" content="">
 <link rel="canonical" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_060/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9de45e225101e4f99701d2b68fc6b8a1ef6027928be6391fa15bf7f56326c909.css" integrity="sha256-neReIlEB5PmXAdK2j8a4oe9gJ5KL5jkfoVv39WMmyQk=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://loommii.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
@@ -90,8 +90,8 @@ func main() {
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="Go每日一题_060">
   <meta property="og:description" content="以下代码输出什么？
-package main import ( &#34;fmt&#34; &#34;time&#34; ) func main() { ch1 := make(chan int) go fmt.Println(&lt;-ch1) ch1 &lt;- 5 time.Sleep(1 * time.Second) } A：5、B：不能编译；C：运行时死锁 🔑 答案解析： C 解析 因为 &lt;-ch1 是个参数,可以理解为他要先取出来得到结果后再创建协程 因此运行时死锁。因修改成下方的形式
-func main() { ch1 := make(chan int) go func() { fmt.Println(&lt;-ch1) }() ch1 &lt;- 5 time.Sleep(1 * time.Second) } 函数调用之前，实参就被求值好了 ">
+package main import ( &#34;fmt&#34; &#34;time&#34; ) func main() { ch1 := make(chan int) go fmt.Println(&lt;-ch1) ch1 &lt;- 5 time.Sleep(1 * time.Second) } A：5、B：不能编译；C：运行时死锁 🔑 答案解析：C 解析 因为 &lt;-ch1 是个参数,可以理解为他要先取出来得到结果后再创建协程 因此运行时死锁。因修改成下方的形式
+func main() { ch1 := make(chan int) go func() { fmt.Println(&lt;-ch1) }() ch1 &lt;- 5 time.Sleep(1 * time.Second) } 函数调用之前，实参就被求值好了">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -159,11 +159,11 @@ func main() {
   "@type": "BlogPosting",
   "headline": "Go每日一题_060",
   "name": "Go每日一题_060",
-  "description": "以下代码输出什么？\npackage main import ( \u0026#34;fmt\u0026#34; \u0026#34;time\u0026#34; ) func main() { ch1 := make(chan int) go fmt.Println(\u0026lt;-ch1) ch1 \u0026lt;- 5 time.Sleep(1 * time.Second) } A：5、B：不能编译；C：运行时死锁 🔑 答案解析： C 解析 因为 \u0026lt;-ch1 是个参数,可以理解为他要先取出来得到结果后再创建协程 因此运行时死锁。因修改成下方的形式\nfunc main() { ch1 := make(chan int) go func() { fmt.Println(\u0026lt;-ch1) }() ch1 \u0026lt;- 5 time.Sleep(1 * time.Second) } 函数调用之前，实参就被求值好了 ",
+  "description": "以下代码输出什么？\npackage main import ( \u0026#34;fmt\u0026#34; \u0026#34;time\u0026#34; ) func main() { ch1 := make(chan int) go fmt.Println(\u0026lt;-ch1) ch1 \u0026lt;- 5 time.Sleep(1 * time.Second) } A：5、B：不能编译；C：运行时死锁 🔑 答案解析：\rC 解析 因为 \u0026lt;-ch1 是个参数,可以理解为他要先取出来得到结果后再创建协程 因此运行时死锁。因修改成下方的形式\nfunc main() { ch1 := make(chan int) go func() { fmt.Println(\u0026lt;-ch1) }() ch1 \u0026lt;- 5 time.Sleep(1 * time.Second) } 函数调用之前，实参就被求值好了\r",
   "keywords": [
     
   ],
-  "articleBody": "以下代码输出什么？\npackage main import ( \"fmt\" \"time\" ) func main() { ch1 := make(chan int) go fmt.Println(\u003c-ch1) ch1 \u003c- 5 time.Sleep(1 * time.Second) } A：5、B：不能编译；C：运行时死锁 🔑 答案解析： C 解析 因为 \u003c-ch1 是个参数,可以理解为他要先取出来得到结果后再创建协程 因此运行时死锁。因修改成下方的形式\nfunc main() { ch1 := make(chan int) go func() { fmt.Println(\u003c-ch1) }() ch1 \u003c- 5 time.Sleep(1 * time.Second) } 函数调用之前，实参就被求值好了 ",
+  "articleBody": "以下代码输出什么？\npackage main import ( \"fmt\" \"time\" ) func main() { ch1 := make(chan int) go fmt.Println(\u003c-ch1) ch1 \u003c- 5 time.Sleep(1 * time.Second) } A：5、B：不能编译；C：运行时死锁 🔑 答案解析：\rC 解析 因为 \u003c-ch1 是个参数,可以理解为他要先取出来得到结果后再创建协程 因此运行时死锁。因修改成下方的形式\nfunc main() { ch1 := make(chan int) go func() { fmt.Println(\u003c-ch1) }() ch1 \u003c- 5 time.Sleep(1 * time.Second) } 函数调用之前，实参就被求值好了\r",
   "wordCount" : "53",
   "inLanguage": "zh",
   "datePublished": "2024-12-06T20:44:41+08:00",
