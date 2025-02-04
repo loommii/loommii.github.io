@@ -36,7 +36,7 @@ func main() {
 ">
 <meta name="author" content="">
 <link rel="canonical" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_089/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.9de45e225101e4f99701d2b68fc6b8a1ef6027928be6391fa15bf7f56326c909.css" integrity="sha256-neReIlEB5PmXAdK2j8a4oe9gJ5KL5jkfoVv39WMmyQk=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://loommii.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
@@ -85,7 +85,7 @@ func main() {
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="Go每日一题_089">
   <meta property="og:description" content="下面这段代码输出什么？为什么？
-func (i int) PrintInt () { fmt.Println(i) } func main() { var i int = 1 i.PrintInt() } 🔑 答案解析：会编译错误，只有自定义类型且与类型定义在同一个包内才能创建对应的方法
+func (i int) PrintInt () { fmt.Println(i) } func main() { var i int = 1 i.PrintInt() } 🔑 答案解析： 会编译错误，只有自定义类型且与类型定义在同一个包内才能创建对应的方法
 参考答案及解析：B。
 基于类型创建的方法必须定义在同一个包内，上面的代码基于 int 类型创建了 PrintInt() 方法，由于 int 类型和方法 PrintInt() 定义在不同的包内，所以编译出错。解决的办法可以定义一种新的类型：
 type Myint int func (i Myint) PrintInt () { fmt.Println(i) } func main() { var i Myint = 1 i.PrintInt() } ">
@@ -151,11 +151,11 @@ func main() {
   "@type": "BlogPosting",
   "headline": "Go每日一题_089",
   "name": "Go每日一题_089",
-  "description": "下面这段代码输出什么？为什么？\nfunc (i int) PrintInt () { fmt.Println(i) } func main() { var i int = 1 i.PrintInt() } 🔑 答案解析：\r会编译错误，只有自定义类型且与类型定义在同一个包内才能创建对应的方法\n参考答案及解析：B。\n基于类型创建的方法必须定义在同一个包内，上面的代码基于 int 类型创建了 PrintInt() 方法，由于 int 类型和方法 PrintInt() 定义在不同的包内，所以编译出错。解决的办法可以定义一种新的类型：\ntype Myint int func (i Myint) PrintInt () { fmt.Println(i) } func main() { var i Myint = 1 i.PrintInt() } ",
+  "description": "下面这段代码输出什么？为什么？\nfunc (i int) PrintInt () { fmt.Println(i) } func main() { var i int = 1 i.PrintInt() } 🔑 答案解析： 会编译错误，只有自定义类型且与类型定义在同一个包内才能创建对应的方法\n参考答案及解析：B。\n基于类型创建的方法必须定义在同一个包内，上面的代码基于 int 类型创建了 PrintInt() 方法，由于 int 类型和方法 PrintInt() 定义在不同的包内，所以编译出错。解决的办法可以定义一种新的类型：\ntype Myint int func (i Myint) PrintInt () { fmt.Println(i) } func main() { var i Myint = 1 i.PrintInt() } ",
   "keywords": [
     
   ],
-  "articleBody": "下面这段代码输出什么？为什么？\nfunc (i int) PrintInt () { fmt.Println(i) } func main() { var i int = 1 i.PrintInt() } 🔑 答案解析：\r会编译错误，只有自定义类型且与类型定义在同一个包内才能创建对应的方法\n参考答案及解析：B。\n基于类型创建的方法必须定义在同一个包内，上面的代码基于 int 类型创建了 PrintInt() 方法，由于 int 类型和方法 PrintInt() 定义在不同的包内，所以编译出错。解决的办法可以定义一种新的类型：\ntype Myint int func (i Myint) PrintInt () { fmt.Println(i) } func main() { var i Myint = 1 i.PrintInt() } ",
+  "articleBody": "下面这段代码输出什么？为什么？\nfunc (i int) PrintInt () { fmt.Println(i) } func main() { var i int = 1 i.PrintInt() } 🔑 答案解析： 会编译错误，只有自定义类型且与类型定义在同一个包内才能创建对应的方法\n参考答案及解析：B。\n基于类型创建的方法必须定义在同一个包内，上面的代码基于 int 类型创建了 PrintInt() 方法，由于 int 类型和方法 PrintInt() 定义在不同的包内，所以编译出错。解决的办法可以定义一种新的类型：\ntype Myint int func (i Myint) PrintInt () { fmt.Println(i) } func main() { var i Myint = 1 i.PrintInt() } ",
   "wordCount" : "53",
   "inLanguage": "zh",
   "datePublished": "2024-12-06T20:45:16+08:00",
@@ -254,7 +254,7 @@ func main() {
     <h1 class="post-title entry-hint-parent">
       Go每日一题_089
     </h1>
-    <div class="post-meta"><span title='2024-12-06 20:45:16 +0800 CST'>十二月 6, 2024</span>
+    <div class="post-meta"><span title='2024-12-06 20:45:16 +0800 +0800'>十二月 6, 2024</span>
 
 </div>
   </header> 

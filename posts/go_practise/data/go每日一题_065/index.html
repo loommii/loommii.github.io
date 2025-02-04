@@ -27,7 +27,7 @@ c 下表1 开始
 ">
 <meta name="author" content="">
 <link rel="canonical" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_065/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.9de45e225101e4f99701d2b68fc6b8a1ef6027928be6391fa15bf7f56326c909.css" integrity="sha256-neReIlEB5PmXAdK2j8a4oe9gJ5KL5jkfoVv39WMmyQk=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://loommii.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
@@ -76,7 +76,7 @@ c 下表1 开始
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="Go每日一题_065">
   <meta property="og:description" content="切片 a、b、c 的长度和容量分别是多少？
-func main() { s := [3]int{1, 2, 3} a := s[:0] b := s[:2] c := s[1:2:cap(s)] } 🔑 答案解析：a len 0 cap 3 b len 2 cap 3 c len 1 cap 2
+func main() { s := [3]int{1, 2, 3} a := s[:0] b := s[:2] c := s[1:2:cap(s)] } 🔑 答案解析： a len 0 cap 3 b len 2 cap 3 c len 1 cap 2
 c 下表1 开始
 参考答案及解析：a、b、c 的长度和容量分别是 0 3、2 3、1 2。
 知识点：数组或切片的截取操作。截取操作有带 2 个或者 3 个参数，形如：[i:j] 和 [i:j:k]，假设截取对象的底层数组长度为 l。在操作符 [i:j] 中，如果 i 省略，默认 0，如果 j 省略，默认底层数组的长度，截取得到的切片长度和容量计算方法是 j-i、l-i。操作符 [i:j:k]，k 主要是用来限制切片的容量，但是不能大于数组的长度 l，截取得到的切片长度和容量计算方法是 j-i、k-i。">
@@ -133,11 +133,11 @@ c 下表1 开始
   "@type": "BlogPosting",
   "headline": "Go每日一题_065",
   "name": "Go每日一题_065",
-  "description": "切片 a、b、c 的长度和容量分别是多少？\nfunc main() { s := [3]int{1, 2, 3} a := s[:0] b := s[:2] c := s[1:2:cap(s)] } 🔑 答案解析：\ra len 0 cap 3 b len 2 cap 3 c len 1 cap 2\nc 下表1 开始\n参考答案及解析：a、b、c 的长度和容量分别是 0 3、2 3、1 2。\n知识点：数组或切片的截取操作。截取操作有带 2 个或者 3 个参数，形如：[i:j] 和 [i:j:k]，假设截取对象的底层数组长度为 l。在操作符 [i:j] 中，如果 i 省略，默认 0，如果 j 省略，默认底层数组的长度，截取得到的切片长度和容量计算方法是 j-i、l-i。操作符 [i:j:k]，k 主要是用来限制切片的容量，但是不能大于数组的长度 l，截取得到的切片长度和容量计算方法是 j-i、k-i。\n",
+  "description": "切片 a、b、c 的长度和容量分别是多少？\nfunc main() { s := [3]int{1, 2, 3} a := s[:0] b := s[:2] c := s[1:2:cap(s)] } 🔑 答案解析： a len 0 cap 3 b len 2 cap 3 c len 1 cap 2\nc 下表1 开始\n参考答案及解析：a、b、c 的长度和容量分别是 0 3、2 3、1 2。\n知识点：数组或切片的截取操作。截取操作有带 2 个或者 3 个参数，形如：[i:j] 和 [i:j:k]，假设截取对象的底层数组长度为 l。在操作符 [i:j] 中，如果 i 省略，默认 0，如果 j 省略，默认底层数组的长度，截取得到的切片长度和容量计算方法是 j-i、l-i。操作符 [i:j:k]，k 主要是用来限制切片的容量，但是不能大于数组的长度 l，截取得到的切片长度和容量计算方法是 j-i、k-i。\n",
   "keywords": [
     
   ],
-  "articleBody": "切片 a、b、c 的长度和容量分别是多少？\nfunc main() { s := [3]int{1, 2, 3} a := s[:0] b := s[:2] c := s[1:2:cap(s)] } 🔑 答案解析：\ra len 0 cap 3 b len 2 cap 3 c len 1 cap 2\nc 下表1 开始\n参考答案及解析：a、b、c 的长度和容量分别是 0 3、2 3、1 2。\n知识点：数组或切片的截取操作。截取操作有带 2 个或者 3 个参数，形如：[i:j] 和 [i:j:k]，假设截取对象的底层数组长度为 l。在操作符 [i:j] 中，如果 i 省略，默认 0，如果 j 省略，默认底层数组的长度，截取得到的切片长度和容量计算方法是 j-i、l-i。操作符 [i:j:k]，k 主要是用来限制切片的容量，但是不能大于数组的长度 l，截取得到的切片长度和容量计算方法是 j-i、k-i。\n",
+  "articleBody": "切片 a、b、c 的长度和容量分别是多少？\nfunc main() { s := [3]int{1, 2, 3} a := s[:0] b := s[:2] c := s[1:2:cap(s)] } 🔑 答案解析： a len 0 cap 3 b len 2 cap 3 c len 1 cap 2\nc 下表1 开始\n参考答案及解析：a、b、c 的长度和容量分别是 0 3、2 3、1 2。\n知识点：数组或切片的截取操作。截取操作有带 2 个或者 3 个参数，形如：[i:j] 和 [i:j:k]，假设截取对象的底层数组长度为 l。在操作符 [i:j] 中，如果 i 省略，默认 0，如果 j 省略，默认底层数组的长度，截取得到的切片长度和容量计算方法是 j-i、l-i。操作符 [i:j:k]，k 主要是用来限制切片的容量，但是不能大于数组的长度 l，截取得到的切片长度和容量计算方法是 j-i、k-i。\n",
   "wordCount" : "67",
   "inLanguage": "zh",
   "datePublished": "2024-12-06T20:44:47+08:00",
@@ -236,7 +236,7 @@ c 下表1 开始
     <h1 class="post-title entry-hint-parent">
       Go每日一题_065
     </h1>
-    <div class="post-meta"><span title='2024-12-06 20:44:47 +0800 CST'>十二月 6, 2024</span>
+    <div class="post-meta"><span title='2024-12-06 20:44:47 +0800 +0800'>十二月 6, 2024</span>
 
 </div>
   </header> 

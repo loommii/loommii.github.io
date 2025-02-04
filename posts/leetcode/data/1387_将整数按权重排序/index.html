@@ -13,7 +13,6 @@
 算法评级:  6      深入理解并灵活应用数据结构和算法，理解高级数据结构
 难度分 1507
 
-
 题目：
 我们将整数 x 的 权重 定义为按照下述规则将 x 变成 1 所需要的步数：
 
@@ -24,7 +23,7 @@
 给你三个整数 lo， hi 和 k 。你的任务是将区间 [lo, hi] 之间的整数按照它们的权重 升序排序 ，如果大于等于 2 个整数有 相同 的权重，那么按照数字自身的数值 升序排序 。">
 <meta name="author" content="">
 <link rel="canonical" href="https://loommii.github.io/posts/leetcode/data/1387_%E5%B0%86%E6%95%B4%E6%95%B0%E6%8C%89%E6%9D%83%E9%87%8D%E6%8E%92%E5%BA%8F/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.9de45e225101e4f99701d2b68fc6b8a1ef6027928be6391fa15bf7f56326c909.css" integrity="sha256-neReIlEB5PmXAdK2j8a4oe9gJ5KL5jkfoVv39WMmyQk=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://loommii.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
@@ -93,7 +92,6 @@
 算法评级:  6      深入理解并灵活应用数据结构和算法，理解高级数据结构
 难度分 1507
 
-
 题目：
 我们将整数 x 的 权重 定义为按照下述规则将 x 变成 1 所需要的步数：
 
@@ -134,7 +132,7 @@
   "keywords": [
     
   ],
-  "articleBody": "力扣链接:1387. 将整数按权重排序\n力扣难度 中等\n算法评级: 6 深入理解并灵活应用数据结构和算法，理解高级数据结构\n难度分 1507\n题目：\n我们将整数 x 的 权重 定义为按照下述规则将 x 变成 1 所需要的步数：\n如果 x 是偶数，那么 x = x / 2 如果 x 是奇数，那么 x = 3 * x + 1 比方说，x=3 的权重为 7 。因为 3 需要 7 步变成 1 （3 –\u003e 10 –\u003e 5 –\u003e 16 –\u003e 8 –\u003e 4 –\u003e 2 –\u003e 1）。\n给你三个整数 lo， hi 和 k 。你的任务是将区间 [lo, hi] 之间的整数按照它们的权重 升序排序 ，如果大于等于 2 个整数有 相同 的权重，那么按照数字自身的数值 升序排序 。\n请你返回区间 [lo, hi] 之间的整数按权重排序后的第 k 个数。\n注意，题目保证对于任意整数 x （lo \u003c= x \u003c= hi） ，它变成 1 所需要的步数是一个 32 位有符号整数。\nfunc getKth(lo int, hi int, k int) int { } 🔑 答案解析： 👈点击\rtype num struct { data int weight int } type nlist []num // 设置权重 func (n *num) SetWeight() { for i := n.data; i != 1; n.weight++ { if i%2 == 0 { i = i / 2 } else { i = 3*i + 1 } } } func (n nlist) Len() int { return len(n) } func (n nlist) Less(i, j int) bool { if n[i].weight \u003e n[j].weight || (n[i].weight == n[j].weight \u0026\u0026 n[i].data \u003e n[j].data) { return false } return true } func (n nlist) Swap(i, j int) { n[i], n[j] = n[j], n[i] } func getKth(lo int, hi int, k int) (ans int) { nums := make(nlist, hi-lo+1) // 记录走了多少步 for i := range nums { nums[i].data = i + lo nums[i].SetWeight() } // 排序 sort.Sort(nums) return nums[k-1].data } ",
+  "articleBody": "力扣链接:1387. 将整数按权重排序\n力扣难度 中等\n算法评级: 6 深入理解并灵活应用数据结构和算法，理解高级数据结构\n难度分 1507\n题目：\n我们将整数 x 的 权重 定义为按照下述规则将 x 变成 1 所需要的步数：\n如果 x 是偶数，那么 x = x / 2 如果 x 是奇数，那么 x = 3 * x + 1 比方说，x=3 的权重为 7 。因为 3 需要 7 步变成 1 （3 –\u003e 10 –\u003e 5 –\u003e 16 –\u003e 8 –\u003e 4 –\u003e 2 –\u003e 1）。\n给你三个整数 lo， hi 和 k 。你的任务是将区间 [lo, hi] 之间的整数按照它们的权重 升序排序 ，如果大于等于 2 个整数有 相同 的权重，那么按照数字自身的数值 升序排序 。\n请你返回区间 [lo, hi] 之间的整数按权重排序后的第 k 个数。\n注意，题目保证对于任意整数 x （lo \u003c= x \u003c= hi） ，它变成 1 所需要的步数是一个 32 位有符号整数。\nfunc getKth(lo int, hi int, k int) int { } 🔑 答案解析： 👈点击 type num struct { data int weight int } type nlist []num // 设置权重 func (n *num) SetWeight() { for i := n.data; i != 1; n.weight++ { if i%2 == 0 { i = i / 2 } else { i = 3*i + 1 } } } func (n nlist) Len() int { return len(n) } func (n nlist) Less(i, j int) bool { if n[i].weight \u003e n[j].weight || (n[i].weight == n[j].weight \u0026\u0026 n[i].data \u003e n[j].data) { return false } return true } func (n nlist) Swap(i, j int) { n[i], n[j] = n[j], n[i] } func getKth(lo int, hi int, k int) (ans int) { nums := make(nlist, hi-lo+1) // 记录走了多少步 for i := range nums { nums[i].data = i + lo nums[i].SetWeight() } // 排序 sort.Sort(nums) return nums[k-1].data } ",
   "wordCount" : "242",
   "inLanguage": "zh",
   "datePublished": "2024-12-22T15:09:23+08:00",
@@ -233,7 +231,7 @@
     <h1 class="post-title entry-hint-parent">
       1387_将整数按权重排序
     </h1>
-    <div class="post-meta"><span title='2024-12-22 15:09:23 +0800 CST'>十二月 22, 2024</span>
+    <div class="post-meta"><span title='2024-12-22 15:09:23 +0800 +0800'>十二月 22, 2024</span>
 
 </div>
   </header> 
@@ -241,8 +239,7 @@
 <blockquote>
 <p>力扣难度 <code>中等</code></p>
 <p>算法评级:  6      深入理解并灵活应用数据结构和算法，理解高级数据结构</p>
-<p>难度分 1507</p>
-</blockquote>
+<p>难度分 1507</p></blockquote>
 <hr>
 <p>题目：</p>
 <p>我们将整数 x 的 权重 定义为按照下述规则将 x 变成 1 所需要的步数：</p>
@@ -267,8 +264,8 @@
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">nlist</span> []<span style="color:#a6e22e">num</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 设置权重
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">num</span>) <span style="color:#a6e22e">SetWeight</span>() {
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// 设置权重</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">n</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">num</span>) <span style="color:#a6e22e">SetWeight</span>() {
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">data</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">n</span>.<span style="color:#a6e22e">weight</span><span style="color:#f92672">++</span> {
 </span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span><span style="color:#f92672">%</span><span style="color:#ae81ff">2</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
 </span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">i</span> = <span style="color:#a6e22e">i</span> <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span>
@@ -292,13 +289,13 @@
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">getKth</span>(<span style="color:#a6e22e">lo</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">hi</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">k</span> <span style="color:#66d9ef">int</span>) (<span style="color:#a6e22e">ans</span> <span style="color:#66d9ef">int</span>) {
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">nums</span> <span style="color:#f92672">:=</span> make(<span style="color:#a6e22e">nlist</span>, <span style="color:#a6e22e">hi</span><span style="color:#f92672">-</span><span style="color:#a6e22e">lo</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 记录走了多少步
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 记录走了多少步</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span> {
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">data</span> = <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">lo</span>
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>].<span style="color:#a6e22e">SetWeight</span>()
 </span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 排序
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">nums</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 排序</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">Sort</span>(<span style="color:#a6e22e">nums</span>)
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">k</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>].<span style="color:#a6e22e">data</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
