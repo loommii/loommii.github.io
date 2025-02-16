@@ -13,7 +13,6 @@
 算法评级:  2      知道常用数据结构和算法并简单使用
 难度分 1263
 
-
 题目：
 给你一个整数数组 nums ，一个整数数组 queries 和一个整数 x 。
 对于每个查询 queries[i] ，你需要找到 nums 中第 queries[i] 个 x 的位置，并返回它的下标。如果数组中 x 的出现次数少于 queries[i] ，该查询的答案为 -1 。
@@ -29,11 +28,10 @@
 第 3 个查询，第二个 1 出现在下标 2 处。
 第 4 个查询，nums 中只有两个 1 ，所以答案为 -1 。
 
-
 示例 2：">
 <meta name="author" content="">
 <link rel="canonical" href="https://loommii.github.io/posts/leetcode/data/3159_%E6%9F%A5%E8%AF%A2%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E5%87%BA%E7%8E%B0%E4%BD%8D%E7%BD%AE/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.9de45e225101e4f99701d2b68fc6b8a1ef6027928be6391fa15bf7f56326c909.css" integrity="sha256-neReIlEB5PmXAdK2j8a4oe9gJ5KL5jkfoVv39WMmyQk=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://loommii.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
@@ -106,7 +104,6 @@
 算法评级:  2      知道常用数据结构和算法并简单使用
 难度分 1263
 
-
 题目：
 给你一个整数数组 nums ，一个整数数组 queries 和一个整数 x 。
 对于每个查询 queries[i] ，你需要找到 nums 中第 queries[i] 个 x 的位置，并返回它的下标。如果数组中 x 的出现次数少于 queries[i] ，该查询的答案为 -1 。
@@ -121,7 +118,6 @@
 第 2 个查询，nums 中只有两个 1 ，所以答案为 -1 。
 第 3 个查询，第二个 1 出现在下标 2 处。
 第 4 个查询，nums 中只有两个 1 ，所以答案为 -1 。
-
 
 示例 2：">
 
@@ -156,7 +152,7 @@
   "keywords": [
     
   ],
-  "articleBody": "力扣链接:3159. 查询数组中元素的出现位置\n力扣难度 中等\n算法评级: 2 知道常用数据结构和算法并简单使用\n难度分 1263\n题目： 给你一个整数数组 nums ，一个整数数组 queries 和一个整数 x 。\n对于每个查询 queries[i] ，你需要找到 nums 中第 queries[i] 个 x 的位置，并返回它的下标。如果数组中 x 的出现次数少于 queries[i] ，该查询的答案为 -1 。\n请你返回一个整数数组 answer ，包含所有查询的答案。\n示例 1：\n输入：nums = [1,3,1,7], queries = [1,3,2,4], x = 1\n输出：[0,-1,2,-1]\n解释：\n第 1 个查询，第一个 1 出现在下标 0 处。 第 2 个查询，nums 中只有两个 1 ，所以答案为 -1 。 第 3 个查询，第二个 1 出现在下标 2 处。 第 4 个查询，nums 中只有两个 1 ，所以答案为 -1 。 示例 2：\n输入：nums = [1,2,3], queries = [10], x = 5\n输出：[-1]\n解释：\n第 1 个查询，nums 中没有 5 ，所以答案为 -1 。 func occurrencesOfElement(nums, queries []int, x int) []int { } 🔑 答案解析： 👈点击\rfunc occurrencesOfElement(nums, queries []int, x int) []int { queryLen := len(queries) ans := make([]int, queryLen) // 定义一个切片 indexList，用于存储目标元素 x 在 nums 数组中的所有索引位置 var indexList []int // 遍历 nums 数组 for i, v := range nums { // 如果当前元素 v 等于目标元素 x if v == x { // 将当前元素的索引 i 添加到 indexList 切片中 indexList = append(indexList, i) } } // 遍历查询数组 queries for i, v := range queries { // 如果查询值 v 大于 indexList 切片的长度，说明查询的位置超出了目标元素 x 出现的次数 if v \u003e len(indexList) { // 在结果数组 ans 的对应位置存入 -1 ans[i] = -1 } else { // 在结果数组 ans 的对应位置存入 indexList 中索引为 v-1 的值 ans[i] = indexList[v-1] } } return ans } ",
+  "articleBody": "力扣链接:3159. 查询数组中元素的出现位置\n力扣难度 中等\n算法评级: 2 知道常用数据结构和算法并简单使用\n难度分 1263\n题目： 给你一个整数数组 nums ，一个整数数组 queries 和一个整数 x 。\n对于每个查询 queries[i] ，你需要找到 nums 中第 queries[i] 个 x 的位置，并返回它的下标。如果数组中 x 的出现次数少于 queries[i] ，该查询的答案为 -1 。\n请你返回一个整数数组 answer ，包含所有查询的答案。\n示例 1：\n输入：nums = [1,3,1,7], queries = [1,3,2,4], x = 1\n输出：[0,-1,2,-1]\n解释：\n第 1 个查询，第一个 1 出现在下标 0 处。 第 2 个查询，nums 中只有两个 1 ，所以答案为 -1 。 第 3 个查询，第二个 1 出现在下标 2 处。 第 4 个查询，nums 中只有两个 1 ，所以答案为 -1 。 示例 2：\n输入：nums = [1,2,3], queries = [10], x = 5\n输出：[-1]\n解释：\n第 1 个查询，nums 中没有 5 ，所以答案为 -1 。 func occurrencesOfElement(nums, queries []int, x int) []int { } 🔑 答案解析： 👈点击 func occurrencesOfElement(nums, queries []int, x int) []int { queryLen := len(queries) ans := make([]int, queryLen) // 定义一个切片 indexList，用于存储目标元素 x 在 nums 数组中的所有索引位置 var indexList []int // 遍历 nums 数组 for i, v := range nums { // 如果当前元素 v 等于目标元素 x if v == x { // 将当前元素的索引 i 添加到 indexList 切片中 indexList = append(indexList, i) } } // 遍历查询数组 queries for i, v := range queries { // 如果查询值 v 大于 indexList 切片的长度，说明查询的位置超出了目标元素 x 出现的次数 if v \u003e len(indexList) { // 在结果数组 ans 的对应位置存入 -1 ans[i] = -1 } else { // 在结果数组 ans 的对应位置存入 indexList 中索引为 v-1 的值 ans[i] = indexList[v-1] } } return ans } ",
   "wordCount" : "219",
   "inLanguage": "zh",
   "datePublished": "2024-12-28T14:28:22+08:00",
@@ -263,8 +259,7 @@
 <blockquote>
 <p>力扣难度 <code>中等</code><br>
 算法评级:  2      知道常用数据结构和算法并简单使用<br>
-难度分 1263</p>
-</blockquote>
+难度分 1263</p></blockquote>
 <hr>
 <p>题目：
 给你一个整数数组 nums ，一个整数数组 queries 和一个整数 x 。</p>
@@ -280,8 +275,7 @@
 <li>第 2 个查询，nums 中只有两个 1 ，所以答案为 -1 。</li>
 <li>第 3 个查询，第二个 1 出现在下标 2 处。</li>
 <li>第 4 个查询，nums 中只有两个 1 ，所以答案为 -1 。</li>
-</ul>
-</blockquote>
+</ul></blockquote>
 <p>示例 2：</p>
 <blockquote>
 <p>输入：nums = [1,2,3], queries = [10], x = 5</p>
@@ -289,8 +283,7 @@
 <p>解释：</p>
 <ul>
 <li>第 1 个查询，nums 中没有 5 ，所以答案为 -1 。</li>
-</ul>
-</blockquote>
+</ul></blockquote>
 <hr>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">occurrencesOfElement</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#a6e22e">queries</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">x</span> <span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
 </span></span><span style="display:flex;"><span>
@@ -301,26 +294,26 @@
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">queryLen</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">queries</span>)
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">queryLen</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 定义一个切片 indexList，用于存储目标元素 x 在 nums 数组中的所有索引位置
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">indexList</span> []<span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 遍历 nums 数组
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 如果当前元素 v 等于目标元素 x
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">x</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// 将当前元素的索引 i 添加到 indexList 切片中
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">indexList</span> = append(<span style="color:#a6e22e">indexList</span>, <span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 定义一个切片 indexList，用于存储目标元素 x 在 nums 数组中的所有索引位置</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">indexList</span> []<span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 遍历 nums 数组</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 如果当前元素 v 等于目标元素 x</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">x</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// 将当前元素的索引 i 添加到 indexList 切片中</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">indexList</span> = append(<span style="color:#a6e22e">indexList</span>, <span style="color:#a6e22e">i</span>)
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 遍历查询数组 queries
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">queries</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 如果查询值 v 大于 indexList 切片的长度，说明查询的位置超出了目标元素 x 出现的次数
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> &gt; len(<span style="color:#a6e22e">indexList</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// 在结果数组 ans 的对应位置存入 -1
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 遍历查询数组 queries</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">queries</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 如果查询值 v 大于 indexList 切片的长度，说明查询的位置超出了目标元素 x 出现的次数</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> &gt; len(<span style="color:#a6e22e">indexList</span>) {
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// 在结果数组 ans 的对应位置存入 -1</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// 在结果数组 ans 的对应位置存入 indexList 中索引为 v-1 的值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">indexList</span>[<span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// 在结果数组 ans 的对应位置存入 indexList 中索引为 v-1 的值</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">indexList</span>[<span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>

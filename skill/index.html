@@ -10,7 +10,7 @@
 <meta name="description" content="文章 - loommii">
 <meta name="author" content="">
 <link rel="canonical" href="https://loommii.github.io/skill/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.9de45e225101e4f99701d2b68fc6b8a1ef6027928be6391fa15bf7f56326c909.css" integrity="sha256-neReIlEB5PmXAdK2j8a4oe9gJ5KL5jkfoVv39WMmyQk=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://loommii.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
@@ -271,7 +271,7 @@ slice(切片) type SliceHeader struct { Data uintptr // 底层数组的地址 Le
 常见的GC有哪几种
 手动垃圾回收，代表语言（C，C&#43;&#43;） 标记-清扫算法 三色标记法 标记-整理算法 移动整理法 复制整理法 分代回收 引用计数 简述常见的GC如何实现，和他们各自的优缺点。
 手动垃圾回收： 实现：程序员自行调用函数销毁 优点：程序员对程序内存的掌控自由。 缺点：容易出现提前释放（悬挂指针）、忘记释放（内存泄漏)等问题。 标记-清扫算法： 实现：标记从根节点（栈内存、数据段）能追踪到的数据为游泳数据，其他未标记的数据就是垃圾数据，将对垃圾数据进行回收 优点：实现相对简单， 缺点：容易造成内存碎片化 标记-整理算法： 实现： 标记阶段与标记-清扫算法一致。 整理阶段： 移动整理法：整理移动有用的数据，使有用的数据尽可能紧凑的放在内存里。 优点：解决了内存碎片化的问题 缺点：多次扫描移动，会带来不小的性能开销 复制整理法：将内存划分为Form和To，将From空间中的有用数据都复制到To空间。并将Form和To空间的角色对换。 优点：解决了多次扫描移动的性能问题 缺点：内存使用率低。只有一半的堆内存空间被使用 分代回收： 实现：基于弱分代假说。将数据分为新生代、老年代。新生代、老年代采用不同的回收算法 引用计数 实现：每次对象应用都会更新对象的引用计数，当引用计数为0就回收该空间 优点：可以及时回收垃圾内存 缺点：高频更新引用计数会有不小性能开销，循环引用会导致引用计数永远不为0 什么是STW，为什么会有STW。 STW（stop the world）简单的就是让用户程序停下来。 STW期间，程序会进行垃圾回收
-STW STW 是 Stop-The-World 的缩写，指的是在垃圾回收或某些系统操作过程中，暂停所有应用程序线程的行为，直到特定任务（通常是垃圾回收）完成。这里会带来一个问题，用户程序接受长时间STW吗？ 为了解决这个问题就出现了增量式垃圾回收
+STW STW 是 Stop-The-World 的缩写，指的是在垃圾回收或某些系统操作过程中，暂停所有应用程序线程的行为，直到特定任务（通常是垃圾回收）完成。 这里会带来一个问题，用户程序接受长时间STW吗？ 为了解决这个问题就出现了增量式垃圾回收
 增量式垃圾回收 实现：将一次GC分为多次，并和用户程序交互进行 优点：解决了STW时间长的问题 缺点：如果在标记后-清理前。创建的内容将会被误删除
 为了避免误删可以采用三色抽象避免 三色抽象:标记数据分为 黑 - 灰 - 白
 黑：已经遍历标记完的数据 灰：还未遍历完的数据 白：未遍历（应用不到）的垃圾数据 因此在清扫阶段发现有黑-&gt;白的数据。着这个白数据是在标记后-清理前创建的 因此Golang官方提出2种条件
