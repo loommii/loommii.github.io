@@ -13,6 +13,7 @@
 算法评级:  2      知道常用数据结构和算法并简单使用
 难度分 1173
 
+
 题目：
 给你一个字符串 s ，请你判断字符串 s 是否存在一个长度为 2 的子字符串，在其反转后的字符串中也出现。
 如果存在这样的子字符串，返回 true；如果不存在，返回 false 。
@@ -21,16 +22,19 @@
 输入：s = &ldquo;leetcode&rdquo;
 输出：true
 解释：子字符串 &ldquo;ee&rdquo; 的长度为 2，它也出现在 reverse(s) == &ldquo;edocteel&rdquo; 中。
+
 示例 2：
 
 输入：s = &ldquo;abcba&rdquo;
 输出：true
 解释：所有长度为 2 的子字符串 &ldquo;ab&rdquo;、&ldquo;bc&rdquo;、&ldquo;cb&rdquo;、&ldquo;ba&rdquo; 也都出现在 reverse(s) == &ldquo;abcba&rdquo; 中。
+
 示例 3：
 
 输入：s = &ldquo;abcd&rdquo;
 输出：false
 解释：字符串 s 中不存在满足「在其反转后的字符串中也出现」且长度为 2 的子字符串。
+
 
 func isSubstringPresent(s string) bool {
     
@@ -71,7 +75,7 @@ func isSubstringPresent(s string) bool {
 ">
 <meta name="author" content="">
 <link rel="canonical" href="https://loommii.github.io/posts/leetcode/data/3083_%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E5%85%B6%E5%8F%8D%E8%BD%AC%E4%B8%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E5%90%8C%E4%B8%80%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9de45e225101e4f99701d2b68fc6b8a1ef6027928be6391fa15bf7f56326c909.css" integrity="sha256-neReIlEB5PmXAdK2j8a4oe9gJ5KL5jkfoVv39WMmyQk=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://loommii.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
@@ -138,7 +142,7 @@ func isSubstringPresent(s string) bool {
 输入：s = “abcd”
 输出：false
 解释：字符串 s 中不存在满足「在其反转后的字符串中也出现」且长度为 2 的子字符串。
-func isSubstringPresent(s string) bool { } 🔑 答案解析： 👈点击 // isSubstringPresent 函数用于判断给定字符串 s 中是否存在一对字符的子串， // 这对字符以相反的顺序也出现过。 func isSubstringPresent(s string) bool { // 创建一个 26×26 的布尔数组 vis，用于记录每对字符是否出现过。 // 索引的含义是：vis[x][y] 表示字符 x 和字符 y 组成的子串是否出现过。 // 这里的 x 和 y 是字符在字母表中的索引，从 0 到 25 分别对应 &#39;a&#39; 到 &#39;z&#39;。 vis := [26][26]bool{} // 遍历字符串 s，从第二个字符开始，因为要检查相邻的两个字符组成的子串。 for i := 1; i &lt; len(s); i&#43;&#43; { // 计算当前字符对中第一个字符在字母表中的索引。 // 例如，如果字符是 &#39;a&#39;，则 x 为 0；如果是 &#39;b&#39;，则 x 为 1，以此类推。 x := s[i-1] - &#39;a&#39; // 计算当前字符对中第二个字符在字母表中的索引。 y := s[i] - &#39;a&#39; // 将当前字符对标记为已出现过。 vis[x][y] = true // 检查是否存在相反顺序的字符对。 // 如果 vis[y][x] 为 true，说明字符 y 和字符 x 组成的子串也出现过， // 即找到了满足条件的子串，返回 true。 if vis[y][x] { return true } } // 如果遍历完整个字符串都没有找到满足条件的子串，返回 false。 return false } ">
+func isSubstringPresent(s string) bool { } 🔑 答案解析： 👈点击// isSubstringPresent 函数用于判断给定字符串 s 中是否存在一对字符的子串， // 这对字符以相反的顺序也出现过。 func isSubstringPresent(s string) bool { // 创建一个 26×26 的布尔数组 vis，用于记录每对字符是否出现过。 // 索引的含义是：vis[x][y] 表示字符 x 和字符 y 组成的子串是否出现过。 // 这里的 x 和 y 是字符在字母表中的索引，从 0 到 25 分别对应 &#39;a&#39; 到 &#39;z&#39;。 vis := [26][26]bool{} // 遍历字符串 s，从第二个字符开始，因为要检查相邻的两个字符组成的子串。 for i := 1; i &lt; len(s); i&#43;&#43; { // 计算当前字符对中第一个字符在字母表中的索引。 // 例如，如果字符是 &#39;a&#39;，则 x 为 0；如果是 &#39;b&#39;，则 x 为 1，以此类推。 x := s[i-1] - &#39;a&#39; // 计算当前字符对中第二个字符在字母表中的索引。 y := s[i] - &#39;a&#39; // 将当前字符对标记为已出现过。 vis[x][y] = true // 检查是否存在相反顺序的字符对。 // 如果 vis[y][x] 为 true，说明字符 y 和字符 x 组成的子串也出现过， // 即找到了满足条件的子串，返回 true。 if vis[y][x] { return true } } // 如果遍历完整个字符串都没有找到满足条件的子串，返回 false。 return false } ">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -152,6 +156,7 @@ func isSubstringPresent(s string) bool { } 🔑 答案解析： 👈点击 // is
 算法评级:  2      知道常用数据结构和算法并简单使用
 难度分 1173
 
+
 题目：
 给你一个字符串 s ，请你判断字符串 s 是否存在一个长度为 2 的子字符串，在其反转后的字符串中也出现。
 如果存在这样的子字符串，返回 true；如果不存在，返回 false 。
@@ -160,16 +165,19 @@ func isSubstringPresent(s string) bool { } 🔑 答案解析： 👈点击 // is
 输入：s = &ldquo;leetcode&rdquo;
 输出：true
 解释：子字符串 &ldquo;ee&rdquo; 的长度为 2，它也出现在 reverse(s) == &ldquo;edocteel&rdquo; 中。
+
 示例 2：
 
 输入：s = &ldquo;abcba&rdquo;
 输出：true
 解释：所有长度为 2 的子字符串 &ldquo;ab&rdquo;、&ldquo;bc&rdquo;、&ldquo;cb&rdquo;、&ldquo;ba&rdquo; 也都出现在 reverse(s) == &ldquo;abcba&rdquo; 中。
+
 示例 3：
 
 输入：s = &ldquo;abcd&rdquo;
 输出：false
 解释：字符串 s 中不存在满足「在其反转后的字符串中也出现」且长度为 2 的子字符串。
+
 
 func isSubstringPresent(s string) bool {
     
@@ -236,11 +244,11 @@ func isSubstringPresent(s string) bool {
   "@type": "BlogPosting",
   "headline": "3083_字符串及其反转中是否存在同一子字符串",
   "name": "3083_字符串及其反转中是否存在同一子字符串",
-  "description": "力扣链接:3083. 字符串及其反转中是否存在同一子字符串\n力扣难度 简单\n算法评级: 2 知道常用数据结构和算法并简单使用\n难度分 1173\n题目：\n给你一个字符串 s ，请你判断字符串 s 是否存在一个长度为 2 的子字符串，在其反转后的字符串中也出现。\n如果存在这样的子字符串，返回 true；如果不存在，返回 false 。\n示例 1：\n输入：s = \u0026ldquo;leetcode\u0026rdquo;\n输出：true\n解释：子字符串 \u0026ldquo;ee\u0026rdquo; 的长度为 2，它也出现在 reverse(s) == \u0026ldquo;edocteel\u0026rdquo; 中。\n示例 2：\n输入：s = \u0026ldquo;abcba\u0026rdquo;\n输出：true\n解释：所有长度为 2 的子字符串 \u0026ldquo;ab\u0026rdquo;、\u0026ldquo;bc\u0026rdquo;、\u0026ldquo;cb\u0026rdquo;、\u0026ldquo;ba\u0026rdquo; 也都出现在 reverse(s) == \u0026ldquo;abcba\u0026rdquo; 中。\n示例 3：\n输入：s = \u0026ldquo;abcd\u0026rdquo;\n输出：false\n解释：字符串 s 中不存在满足「在其反转后的字符串中也出现」且长度为 2 的子字符串。\nfunc isSubstringPresent(s string) bool { } 🔑 答案解析： 👈点击 // isSubstringPresent 函数用于判断给定字符串 s 中是否存在一对字符的子串， // 这对字符以相反的顺序也出现过。 func isSubstringPresent(s string) bool { // 创建一个 26×26 的布尔数组 vis，用于记录每对字符是否出现过。 // 索引的含义是：vis[x][y] 表示字符 x 和字符 y 组成的子串是否出现过。 // 这里的 x 和 y 是字符在字母表中的索引，从 0 到 25 分别对应 \u0026#39;a\u0026#39; 到 \u0026#39;z\u0026#39;。 vis := [26][26]bool{} // 遍历字符串 s，从第二个字符开始，因为要检查相邻的两个字符组成的子串。 for i := 1; i \u0026lt; len(s); i++ { // 计算当前字符对中第一个字符在字母表中的索引。 // 例如，如果字符是 \u0026#39;a\u0026#39;，则 x 为 0；如果是 \u0026#39;b\u0026#39;，则 x 为 1，以此类推。 x := s[i-1] - \u0026#39;a\u0026#39; // 计算当前字符对中第二个字符在字母表中的索引。 y := s[i] - \u0026#39;a\u0026#39; // 将当前字符对标记为已出现过。 vis[x][y] = true // 检查是否存在相反顺序的字符对。 // 如果 vis[y][x] 为 true，说明字符 y 和字符 x 组成的子串也出现过， // 即找到了满足条件的子串，返回 true。 if vis[y][x] { return true } } // 如果遍历完整个字符串都没有找到满足条件的子串，返回 false。 return false } ",
+  "description": "力扣链接:3083. 字符串及其反转中是否存在同一子字符串\n力扣难度 简单\n算法评级: 2 知道常用数据结构和算法并简单使用\n难度分 1173\n题目：\n给你一个字符串 s ，请你判断字符串 s 是否存在一个长度为 2 的子字符串，在其反转后的字符串中也出现。\n如果存在这样的子字符串，返回 true；如果不存在，返回 false 。\n示例 1：\n输入：s = \u0026ldquo;leetcode\u0026rdquo;\n输出：true\n解释：子字符串 \u0026ldquo;ee\u0026rdquo; 的长度为 2，它也出现在 reverse(s) == \u0026ldquo;edocteel\u0026rdquo; 中。\n示例 2：\n输入：s = \u0026ldquo;abcba\u0026rdquo;\n输出：true\n解释：所有长度为 2 的子字符串 \u0026ldquo;ab\u0026rdquo;、\u0026ldquo;bc\u0026rdquo;、\u0026ldquo;cb\u0026rdquo;、\u0026ldquo;ba\u0026rdquo; 也都出现在 reverse(s) == \u0026ldquo;abcba\u0026rdquo; 中。\n示例 3：\n输入：s = \u0026ldquo;abcd\u0026rdquo;\n输出：false\n解释：字符串 s 中不存在满足「在其反转后的字符串中也出现」且长度为 2 的子字符串。\nfunc isSubstringPresent(s string) bool { } 🔑 答案解析： 👈点击\r// isSubstringPresent 函数用于判断给定字符串 s 中是否存在一对字符的子串， // 这对字符以相反的顺序也出现过。 func isSubstringPresent(s string) bool { // 创建一个 26×26 的布尔数组 vis，用于记录每对字符是否出现过。 // 索引的含义是：vis[x][y] 表示字符 x 和字符 y 组成的子串是否出现过。 // 这里的 x 和 y 是字符在字母表中的索引，从 0 到 25 分别对应 \u0026#39;a\u0026#39; 到 \u0026#39;z\u0026#39;。 vis := [26][26]bool{} // 遍历字符串 s，从第二个字符开始，因为要检查相邻的两个字符组成的子串。 for i := 1; i \u0026lt; len(s); i++ { // 计算当前字符对中第一个字符在字母表中的索引。 // 例如，如果字符是 \u0026#39;a\u0026#39;，则 x 为 0；如果是 \u0026#39;b\u0026#39;，则 x 为 1，以此类推。 x := s[i-1] - \u0026#39;a\u0026#39; // 计算当前字符对中第二个字符在字母表中的索引。 y := s[i] - \u0026#39;a\u0026#39; // 将当前字符对标记为已出现过。 vis[x][y] = true // 检查是否存在相反顺序的字符对。 // 如果 vis[y][x] 为 true，说明字符 y 和字符 x 组成的子串也出现过， // 即找到了满足条件的子串，返回 true。 if vis[y][x] { return true } } // 如果遍历完整个字符串都没有找到满足条件的子串，返回 false。 return false } ",
   "keywords": [
     
   ],
-  "articleBody": "力扣链接:3083. 字符串及其反转中是否存在同一子字符串\n力扣难度 简单\n算法评级: 2 知道常用数据结构和算法并简单使用\n难度分 1173\n题目：\n给你一个字符串 s ，请你判断字符串 s 是否存在一个长度为 2 的子字符串，在其反转后的字符串中也出现。\n如果存在这样的子字符串，返回 true；如果不存在，返回 false 。\n示例 1：\n输入：s = “leetcode”\n输出：true\n解释：子字符串 “ee” 的长度为 2，它也出现在 reverse(s) == “edocteel” 中。\n示例 2：\n输入：s = “abcba”\n输出：true\n解释：所有长度为 2 的子字符串 “ab”、“bc”、“cb”、“ba” 也都出现在 reverse(s) == “abcba” 中。\n示例 3：\n输入：s = “abcd”\n输出：false\n解释：字符串 s 中不存在满足「在其反转后的字符串中也出现」且长度为 2 的子字符串。\nfunc isSubstringPresent(s string) bool { } 🔑 答案解析： 👈点击 // isSubstringPresent 函数用于判断给定字符串 s 中是否存在一对字符的子串， // 这对字符以相反的顺序也出现过。 func isSubstringPresent(s string) bool { // 创建一个 26×26 的布尔数组 vis，用于记录每对字符是否出现过。 // 索引的含义是：vis[x][y] 表示字符 x 和字符 y 组成的子串是否出现过。 // 这里的 x 和 y 是字符在字母表中的索引，从 0 到 25 分别对应 'a' 到 'z'。 vis := [26][26]bool{} // 遍历字符串 s，从第二个字符开始，因为要检查相邻的两个字符组成的子串。 for i := 1; i \u003c len(s); i++ { // 计算当前字符对中第一个字符在字母表中的索引。 // 例如，如果字符是 'a'，则 x 为 0；如果是 'b'，则 x 为 1，以此类推。 x := s[i-1] - 'a' // 计算当前字符对中第二个字符在字母表中的索引。 y := s[i] - 'a' // 将当前字符对标记为已出现过。 vis[x][y] = true // 检查是否存在相反顺序的字符对。 // 如果 vis[y][x] 为 true，说明字符 y 和字符 x 组成的子串也出现过， // 即找到了满足条件的子串，返回 true。 if vis[y][x] { return true } } // 如果遍历完整个字符串都没有找到满足条件的子串，返回 false。 return false } ",
+  "articleBody": "力扣链接:3083. 字符串及其反转中是否存在同一子字符串\n力扣难度 简单\n算法评级: 2 知道常用数据结构和算法并简单使用\n难度分 1173\n题目：\n给你一个字符串 s ，请你判断字符串 s 是否存在一个长度为 2 的子字符串，在其反转后的字符串中也出现。\n如果存在这样的子字符串，返回 true；如果不存在，返回 false 。\n示例 1：\n输入：s = “leetcode”\n输出：true\n解释：子字符串 “ee” 的长度为 2，它也出现在 reverse(s) == “edocteel” 中。\n示例 2：\n输入：s = “abcba”\n输出：true\n解释：所有长度为 2 的子字符串 “ab”、“bc”、“cb”、“ba” 也都出现在 reverse(s) == “abcba” 中。\n示例 3：\n输入：s = “abcd”\n输出：false\n解释：字符串 s 中不存在满足「在其反转后的字符串中也出现」且长度为 2 的子字符串。\nfunc isSubstringPresent(s string) bool { } 🔑 答案解析： 👈点击\r// isSubstringPresent 函数用于判断给定字符串 s 中是否存在一对字符的子串， // 这对字符以相反的顺序也出现过。 func isSubstringPresent(s string) bool { // 创建一个 26×26 的布尔数组 vis，用于记录每对字符是否出现过。 // 索引的含义是：vis[x][y] 表示字符 x 和字符 y 组成的子串是否出现过。 // 这里的 x 和 y 是字符在字母表中的索引，从 0 到 25 分别对应 'a' 到 'z'。 vis := [26][26]bool{} // 遍历字符串 s，从第二个字符开始，因为要检查相邻的两个字符组成的子串。 for i := 1; i \u003c len(s); i++ { // 计算当前字符对中第一个字符在字母表中的索引。 // 例如，如果字符是 'a'，则 x 为 0；如果是 'b'，则 x 为 1，以此类推。 x := s[i-1] - 'a' // 计算当前字符对中第二个字符在字母表中的索引。 y := s[i] - 'a' // 将当前字符对标记为已出现过。 vis[x][y] = true // 检查是否存在相反顺序的字符对。 // 如果 vis[y][x] 为 true，说明字符 y 和字符 x 组成的子串也出现过， // 即找到了满足条件的子串，返回 true。 if vis[y][x] { return true } } // 如果遍历完整个字符串都没有找到满足条件的子串，返回 false。 return false } ",
   "wordCount" : "178",
   "inLanguage": "zh",
   "datePublished": "2024-12-28T18:04:37+08:00",
@@ -339,7 +347,7 @@ func isSubstringPresent(s string) bool {
     <h1 class="post-title entry-hint-parent">
       3083_字符串及其反转中是否存在同一子字符串
     </h1>
-    <div class="post-meta"><span title='2024-12-28 18:04:37 +0800 +0800'>十二月 28, 2024</span>
+    <div class="post-meta"><span title='2024-12-28 18:04:37 +0800 CST'>十二月 28, 2024</span>
 
 </div>
   </header> 
@@ -347,7 +355,8 @@ func isSubstringPresent(s string) bool {
 <blockquote>
 <p>力扣难度 <code>简单</code><br>
 算法评级:  2      知道常用数据结构和算法并简单使用<br>
-难度分 1173</p></blockquote>
+难度分 1173</p>
+</blockquote>
 <hr>
 <p>题目：</p>
 <p>给你一个字符串 s ，请你判断字符串 s 是否存在一个长度为 2 的子字符串，在其反转后的字符串中也出现。</p>
@@ -356,17 +365,20 @@ func isSubstringPresent(s string) bool {
 <blockquote>
 <p>输入：s = &ldquo;leetcode&rdquo;</p>
 <p>输出：true</p>
-<p>解释：子字符串 &ldquo;ee&rdquo; 的长度为 2，它也出现在 reverse(s) == &ldquo;edocteel&rdquo; 中。</p></blockquote>
+<p>解释：子字符串 &ldquo;ee&rdquo; 的长度为 2，它也出现在 reverse(s) == &ldquo;edocteel&rdquo; 中。</p>
+</blockquote>
 <p>示例 2：</p>
 <blockquote>
 <p>输入：s = &ldquo;abcba&rdquo;</p>
 <p>输出：true</p>
-<p>解释：所有长度为 2 的子字符串 &ldquo;ab&rdquo;、&ldquo;bc&rdquo;、&ldquo;cb&rdquo;、&ldquo;ba&rdquo; 也都出现在 reverse(s) == &ldquo;abcba&rdquo; 中。</p></blockquote>
+<p>解释：所有长度为 2 的子字符串 &ldquo;ab&rdquo;、&ldquo;bc&rdquo;、&ldquo;cb&rdquo;、&ldquo;ba&rdquo; 也都出现在 reverse(s) == &ldquo;abcba&rdquo; 中。</p>
+</blockquote>
 <p>示例 3：</p>
 <blockquote>
 <p>输入：s = &ldquo;abcd&rdquo;</p>
 <p>输出：false</p>
-<p>解释：字符串 s 中不存在满足「在其反转后的字符串中也出现」且长度为 2 的子字符串。</p></blockquote>
+<p>解释：字符串 s 中不存在满足「在其反转后的字符串中也出现」且长度为 2 的子字符串。</p>
+</blockquote>
 <hr>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">isSubstringPresent</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
 </span></span><span style="display:flex;"><span>    
@@ -374,33 +386,33 @@ func isSubstringPresent(s string) bool {
 </span></span></code></pre></div><hr>
 <button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析： 👈点击</button>
 <div class="toggle-content">
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// isSubstringPresent 函数用于判断给定字符串 s 中是否存在一对字符的子串，</span>
-</span></span><span style="display:flex;"><span><span style="color:#75715e">// 这对字符以相反的顺序也出现过。</span>
-</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">isSubstringPresent</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 创建一个 26×26 的布尔数组 vis，用于记录每对字符是否出现过。</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 索引的含义是：vis[x][y] 表示字符 x 和字符 y 组成的子串是否出现过。</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 这里的 x 和 y 是字符在字母表中的索引，从 0 到 25 分别对应 &#39;a&#39; 到 &#39;z&#39;。</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">vis</span> <span style="color:#f92672">:=</span> [<span style="color:#ae81ff">26</span>][<span style="color:#ae81ff">26</span>]<span style="color:#66d9ef">bool</span>{} 
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// isSubstringPresent 函数用于判断给定字符串 s 中是否存在一对字符的子串，
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e">// 这对字符以相反的顺序也出现过。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">isSubstringPresent</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 创建一个 26×26 的布尔数组 vis，用于记录每对字符是否出现过。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 索引的含义是：vis[x][y] 表示字符 x 和字符 y 组成的子串是否出现过。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#75715e">// 这里的 x 和 y 是字符在字母表中的索引，从 0 到 25 分别对应 &#39;a&#39; 到 &#39;z&#39;。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#a6e22e">vis</span> <span style="color:#f92672">:=</span> [<span style="color:#ae81ff">26</span>][<span style="color:#ae81ff">26</span>]<span style="color:#66d9ef">bool</span>{} 
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 遍历字符串 s，从第二个字符开始，因为要检查相邻的两个字符组成的子串。</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">s</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 计算当前字符对中第一个字符在字母表中的索引。</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 例如，如果字符是 &#39;a&#39;，则 x 为 0；如果是 &#39;b&#39;，则 x 为 1，以此类推。</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span> 
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 计算当前字符对中第二个字符在字母表中的索引。</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">y</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span> 
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 遍历字符串 s，从第二个字符开始，因为要检查相邻的两个字符组成的子串。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">s</span>); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 计算当前字符对中第一个字符在字母表中的索引。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// 例如，如果字符是 &#39;a&#39;，则 x 为 0；如果是 &#39;b&#39;，则 x 为 1，以此类推。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">x</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 计算当前字符对中第二个字符在字母表中的索引。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">y</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;a&#39;</span> 
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 将当前字符对标记为已出现过。</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">vis</span>[<span style="color:#a6e22e">x</span>][<span style="color:#a6e22e">y</span>] = <span style="color:#66d9ef">true</span> 
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 检查是否存在相反顺序的字符对。</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 如果 vis[y][x] 为 true，说明字符 y 和字符 x 组成的子串也出现过，</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 即找到了满足条件的子串，返回 true。</span>
-</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">vis</span>[<span style="color:#a6e22e">y</span>][<span style="color:#a6e22e">x</span>] { 
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 将当前字符对标记为已出现过。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#a6e22e">vis</span>[<span style="color:#a6e22e">x</span>][<span style="color:#a6e22e">y</span>] = <span style="color:#66d9ef">true</span> 
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 检查是否存在相反顺序的字符对。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// 如果 vis[y][x] 为 true，说明字符 y 和字符 x 组成的子串也出现过，
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#75715e">// 即找到了满足条件的子串，返回 true。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">vis</span>[<span style="color:#a6e22e">y</span>][<span style="color:#a6e22e">x</span>] { 
 </span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
 </span></span><span style="display:flex;"><span>        }
 </span></span><span style="display:flex;"><span>    }
-</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 如果遍历完整个字符串都没有找到满足条件的子串，返回 false。</span>
-</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 如果遍历完整个字符串都没有找到满足条件的子串，返回 false。
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>    <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
 </div>

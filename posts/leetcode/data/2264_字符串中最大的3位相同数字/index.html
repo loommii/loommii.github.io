@@ -13,6 +13,7 @@
 算法评级: 2
 难度分 1309
 
+
 题目：
 给你一个字符串 num ，表示一个大整数。如果一个整数满足下述所有条件，则认为该整数是一个 优质整数 ：
 
@@ -31,19 +32,58 @@ num 或优质整数中可能存在 前导零 。
 输出：&ldquo;777&rdquo;
 解释：num 中存在两个优质整数：&ldquo;777&rdquo; 和 &ldquo;333&rdquo; 。
 &ldquo;777&rdquo; 是最大的那个，所以返回 &ldquo;777&rdquo; 。
+
 示例 2：
 
 输入：num = &ldquo;2300019&rdquo;
 输出：&ldquo;000&rdquo;
 解释：&ldquo;000&rdquo; 是唯一一个优质整数。
+
 示例 3：
 
 输入：num = &ldquo;42352338&rdquo;
 输出：&quot;&quot;
-解释：不存在长度为 3 且仅由一个唯一数字组成的整数。因此，不存在优质整数。">
+解释：不存在长度为 3 且仅由一个唯一数字组成的整数。因此，不存在优质整数。
+
+
+func largestGoodInteger(num string) (ans string) {
+	
+}
+
+🔑 答案解析： 👈点击
+
+  func largestGoodInteger(num string) (ans string) {
+	n := len(num)
+	sig := struct {
+		n int // 数字
+		i int // 重复次数
+	}{
+		n: -1,
+	}
+	maxn := -1 //
+	for i := 0; i &lt; n; i&#43;&#43; {
+		if sig.n == int(num[i]-&#39;0&#39;) { // 重复的
+			sig.i &#43;= 1 //重复次数&#43;1
+		} else {
+			sig.n = int(num[i] - &#39;0&#39;)
+			sig.i = 1
+		}
+		if sig.i &gt;= 3 { // 重复次数 大于等于3了
+			maxn = max(sig.n, maxn)
+		}
+	}
+	if maxn == -1 {
+		return &#34;&#34;
+	}
+	ans = strings.Repeat(string(maxn&#43;&#39;0&#39;), 3)
+	return
+}
+
+
+">
 <meta name="author" content="">
 <link rel="canonical" href="https://loommii.github.io/posts/leetcode/data/2264_%E5%AD%97%E7%AC%A6%E4%B8%B2%E4%B8%AD%E6%9C%80%E5%A4%A7%E7%9A%843%E4%BD%8D%E7%9B%B8%E5%90%8C%E6%95%B0%E5%AD%97/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9de45e225101e4f99701d2b68fc6b8a1ef6027928be6391fa15bf7f56326c909.css" integrity="sha256-neReIlEB5PmXAdK2j8a4oe9gJ5KL5jkfoVv39WMmyQk=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://loommii.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
@@ -111,7 +151,8 @@ num 或优质整数中可能存在 前导零 。
 示例 3：
 输入：num = “42352338”
 输出：&#34;&#34;
-解释：不存在长度为 3 且仅由一个唯一数字组成的整数。因此，不存在优质整数。">
+解释：不存在长度为 3 且仅由一个唯一数字组成的整数。因此，不存在优质整数。
+func largestGoodInteger(num string) (ans string) { } 🔑 答案解析： 👈点击func largestGoodInteger(num string) (ans string) { n := len(num) sig := struct { n int // 数字 i int // 重复次数 }{ n: -1, } maxn := -1 // for i := 0; i &lt; n; i&#43;&#43; { if sig.n == int(num[i]-&#39;0&#39;) { // 重复的 sig.i &#43;= 1 //重复次数&#43;1 } else { sig.n = int(num[i] - &#39;0&#39;) sig.i = 1 } if sig.i &gt;= 3 { // 重复次数 大于等于3了 maxn = max(sig.n, maxn) } } if maxn == -1 { return &#34;&#34; } ans = strings.Repeat(string(maxn&#43;&#39;0&#39;), 3) return } ">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
@@ -124,6 +165,7 @@ num 或优质整数中可能存在 前导零 。
 力扣难度 简单
 算法评级: 2
 难度分 1309
+
 
 题目：
 给你一个字符串 num ，表示一个大整数。如果一个整数满足下述所有条件，则认为该整数是一个 优质整数 ：
@@ -143,16 +185,55 @@ num 或优质整数中可能存在 前导零 。
 输出：&ldquo;777&rdquo;
 解释：num 中存在两个优质整数：&ldquo;777&rdquo; 和 &ldquo;333&rdquo; 。
 &ldquo;777&rdquo; 是最大的那个，所以返回 &ldquo;777&rdquo; 。
+
 示例 2：
 
 输入：num = &ldquo;2300019&rdquo;
 输出：&ldquo;000&rdquo;
 解释：&ldquo;000&rdquo; 是唯一一个优质整数。
+
 示例 3：
 
 输入：num = &ldquo;42352338&rdquo;
 输出：&quot;&quot;
-解释：不存在长度为 3 且仅由一个唯一数字组成的整数。因此，不存在优质整数。">
+解释：不存在长度为 3 且仅由一个唯一数字组成的整数。因此，不存在优质整数。
+
+
+func largestGoodInteger(num string) (ans string) {
+	
+}
+
+🔑 答案解析： 👈点击
+
+  func largestGoodInteger(num string) (ans string) {
+	n := len(num)
+	sig := struct {
+		n int // 数字
+		i int // 重复次数
+	}{
+		n: -1,
+	}
+	maxn := -1 //
+	for i := 0; i &lt; n; i&#43;&#43; {
+		if sig.n == int(num[i]-&#39;0&#39;) { // 重复的
+			sig.i &#43;= 1 //重复次数&#43;1
+		} else {
+			sig.n = int(num[i] - &#39;0&#39;)
+			sig.i = 1
+		}
+		if sig.i &gt;= 3 { // 重复次数 大于等于3了
+			maxn = max(sig.n, maxn)
+		}
+	}
+	if maxn == -1 {
+		return &#34;&#34;
+	}
+	ans = strings.Repeat(string(maxn&#43;&#39;0&#39;), 3)
+	return
+}
+
+
+">
 
 
 <script type="application/ld+json">
@@ -181,11 +262,11 @@ num 或优质整数中可能存在 前导零 。
   "@type": "BlogPosting",
   "headline": "2264_字符串中最大的3位相同数字",
   "name": "2264_字符串中最大的3位相同数字",
-  "description": "力扣链接:2264. 字符串中最大的 3 位相同数字\n力扣难度 简单\n算法评级: 2\n难度分 1309\n题目：\n给你一个字符串 num ，表示一个大整数。如果一个整数满足下述所有条件，则认为该整数是一个 优质整数 ：\n该整数是 num 的一个长度为 3 的 子字符串 。 该整数由唯一一个数字重复 3 次组成。 以字符串形式返回 最大的优质整数 。如果不存在满足要求的整数，则返回一个空字符串 \u0026quot;\u0026quot; 。\n注意：\n子字符串 是字符串中的一个连续字符序列。 num 或优质整数中可能存在 前导零 。 示例 1：\n输入：num = \u0026ldquo;6777133339\u0026rdquo;\n输出：\u0026ldquo;777\u0026rdquo;\n解释：num 中存在两个优质整数：\u0026ldquo;777\u0026rdquo; 和 \u0026ldquo;333\u0026rdquo; 。\n\u0026ldquo;777\u0026rdquo; 是最大的那个，所以返回 \u0026ldquo;777\u0026rdquo; 。\n示例 2：\n输入：num = \u0026ldquo;2300019\u0026rdquo;\n输出：\u0026ldquo;000\u0026rdquo;\n解释：\u0026ldquo;000\u0026rdquo; 是唯一一个优质整数。\n示例 3：\n输入：num = \u0026ldquo;42352338\u0026rdquo;\n输出：\u0026quot;\u0026quot;\n解释：不存在长度为 3 且仅由一个唯一数字组成的整数。因此，不存在优质整数。\n",
+  "description": "力扣链接:2264. 字符串中最大的 3 位相同数字\n力扣难度 简单\n算法评级: 2\n难度分 1309\n题目：\n给你一个字符串 num ，表示一个大整数。如果一个整数满足下述所有条件，则认为该整数是一个 优质整数 ：\n该整数是 num 的一个长度为 3 的 子字符串 。 该整数由唯一一个数字重复 3 次组成。 以字符串形式返回 最大的优质整数 。如果不存在满足要求的整数，则返回一个空字符串 \u0026quot;\u0026quot; 。\n注意：\n子字符串 是字符串中的一个连续字符序列。 num 或优质整数中可能存在 前导零 。 示例 1：\n输入：num = \u0026ldquo;6777133339\u0026rdquo;\n输出：\u0026ldquo;777\u0026rdquo;\n解释：num 中存在两个优质整数：\u0026ldquo;777\u0026rdquo; 和 \u0026ldquo;333\u0026rdquo; 。\n\u0026ldquo;777\u0026rdquo; 是最大的那个，所以返回 \u0026ldquo;777\u0026rdquo; 。\n示例 2：\n输入：num = \u0026ldquo;2300019\u0026rdquo;\n输出：\u0026ldquo;000\u0026rdquo;\n解释：\u0026ldquo;000\u0026rdquo; 是唯一一个优质整数。\n示例 3：\n输入：num = \u0026ldquo;42352338\u0026rdquo;\n输出：\u0026quot;\u0026quot;\n解释：不存在长度为 3 且仅由一个唯一数字组成的整数。因此，不存在优质整数。\nfunc largestGoodInteger(num string) (ans string) { } 🔑 答案解析： 👈点击\rfunc largestGoodInteger(num string) (ans string) { n := len(num) sig := struct { n int // 数字 i int // 重复次数 }{ n: -1, } maxn := -1 // for i := 0; i \u0026lt; n; i++ { if sig.n == int(num[i]-\u0026#39;0\u0026#39;) { // 重复的 sig.i += 1 //重复次数+1 } else { sig.n = int(num[i] - \u0026#39;0\u0026#39;) sig.i = 1 } if sig.i \u0026gt;= 3 { // 重复次数 大于等于3了 maxn = max(sig.n, maxn) } } if maxn == -1 { return \u0026#34;\u0026#34; } ans = strings.Repeat(string(maxn+\u0026#39;0\u0026#39;), 3) return } ",
   "keywords": [
     
   ],
-  "articleBody": "力扣链接:2264. 字符串中最大的 3 位相同数字\n力扣难度 简单\n算法评级: 2\n难度分 1309\n题目：\n给你一个字符串 num ，表示一个大整数。如果一个整数满足下述所有条件，则认为该整数是一个 优质整数 ：\n该整数是 num 的一个长度为 3 的 子字符串 。 该整数由唯一一个数字重复 3 次组成。 以字符串形式返回 最大的优质整数 。如果不存在满足要求的整数，则返回一个空字符串 \"\" 。\n注意：\n子字符串 是字符串中的一个连续字符序列。 num 或优质整数中可能存在 前导零 。 示例 1：\n输入：num = “6777133339”\n输出：“777”\n解释：num 中存在两个优质整数：“777” 和 “333” 。\n“777” 是最大的那个，所以返回 “777” 。\n示例 2：\n输入：num = “2300019”\n输出：“000”\n解释：“000” 是唯一一个优质整数。\n示例 3：\n输入：num = “42352338”\n输出：\"\"\n解释：不存在长度为 3 且仅由一个唯一数字组成的整数。因此，不存在优质整数。\nfunc largestGoodInteger(num string) (ans string) { } 🔑 答案解析： 👈点击 func largestGoodInteger(num string) (ans string) { n := len(num) sig := struct { n int // 数字 i int // 重复次数 }{ n: -1, } maxn := -1 // for i := 0; i \u003c n; i++ { if sig.n == int(num[i]-'0') { // 重复的 sig.i += 1 //重复次数+1 } else { sig.n = int(num[i] - '0') sig.i = 1 } if sig.i \u003e= 3 { // 重复次数 大于等于3了 maxn = max(sig.n, maxn) } } if maxn == -1 { return \"\" } ans = strings.Repeat(string(maxn+'0'), 3) return } ",
+  "articleBody": "力扣链接:2264. 字符串中最大的 3 位相同数字\n力扣难度 简单\n算法评级: 2\n难度分 1309\n题目：\n给你一个字符串 num ，表示一个大整数。如果一个整数满足下述所有条件，则认为该整数是一个 优质整数 ：\n该整数是 num 的一个长度为 3 的 子字符串 。 该整数由唯一一个数字重复 3 次组成。 以字符串形式返回 最大的优质整数 。如果不存在满足要求的整数，则返回一个空字符串 \"\" 。\n注意：\n子字符串 是字符串中的一个连续字符序列。 num 或优质整数中可能存在 前导零 。 示例 1：\n输入：num = “6777133339”\n输出：“777”\n解释：num 中存在两个优质整数：“777” 和 “333” 。\n“777” 是最大的那个，所以返回 “777” 。\n示例 2：\n输入：num = “2300019”\n输出：“000”\n解释：“000” 是唯一一个优质整数。\n示例 3：\n输入：num = “42352338”\n输出：\"\"\n解释：不存在长度为 3 且仅由一个唯一数字组成的整数。因此，不存在优质整数。\nfunc largestGoodInteger(num string) (ans string) { } 🔑 答案解析： 👈点击\rfunc largestGoodInteger(num string) (ans string) { n := len(num) sig := struct { n int // 数字 i int // 重复次数 }{ n: -1, } maxn := -1 // for i := 0; i \u003c n; i++ { if sig.n == int(num[i]-'0') { // 重复的 sig.i += 1 //重复次数+1 } else { sig.n = int(num[i] - '0') sig.i = 1 } if sig.i \u003e= 3 { // 重复次数 大于等于3了 maxn = max(sig.n, maxn) } } if maxn == -1 { return \"\" } ans = strings.Repeat(string(maxn+'0'), 3) return } ",
   "wordCount" : "169",
   "inLanguage": "zh",
   "datePublished": "2025-01-08T14:00:23+08:00",
@@ -284,7 +365,7 @@ num 或优质整数中可能存在 前导零 。
     <h1 class="post-title entry-hint-parent">
       2264_字符串中最大的3位相同数字
     </h1>
-    <div class="post-meta"><span title='2025-01-08 14:00:23 +0800 +0800'>一月 8, 2025</span>
+    <div class="post-meta"><span title='2025-01-08 14:00:23 +0800 CST'>一月 8, 2025</span>
 
 </div>
   </header> 
@@ -292,7 +373,8 @@ num 或优质整数中可能存在 前导零 。
 <blockquote>
 <p>力扣难度 <code>简单</code><br>
 算法评级: 2<br>
-难度分 1309</p></blockquote>
+难度分 1309</p>
+</blockquote>
 <hr>
 <p>题目：</p>
 <p>给你一个字符串 num ，表示一个大整数。如果一个整数满足下述所有条件，则认为该整数是一个 优质整数 ：</p>
@@ -311,17 +393,20 @@ num 或优质整数中可能存在 前导零 。
 <p>输入：num = &ldquo;6777133339&rdquo;<br>
 输出：&ldquo;777&rdquo;<br>
 解释：num 中存在两个优质整数：&ldquo;777&rdquo; 和 &ldquo;333&rdquo; 。<br>
-&ldquo;777&rdquo; 是最大的那个，所以返回 &ldquo;777&rdquo; 。</p></blockquote>
+&ldquo;777&rdquo; 是最大的那个，所以返回 &ldquo;777&rdquo; 。</p>
+</blockquote>
 <p>示例 2：</p>
 <blockquote>
 <p>输入：num = &ldquo;2300019&rdquo;<br>
 输出：&ldquo;000&rdquo;<br>
-解释：&ldquo;000&rdquo; 是唯一一个优质整数。</p></blockquote>
+解释：&ldquo;000&rdquo; 是唯一一个优质整数。</p>
+</blockquote>
 <p>示例 3：</p>
 <blockquote>
 <p>输入：num = &ldquo;42352338&rdquo;<br>
 输出：&quot;&quot;<br>
-解释：不存在长度为 3 且仅由一个唯一数字组成的整数。因此，不存在优质整数。</p></blockquote>
+解释：不存在长度为 3 且仅由一个唯一数字组成的整数。因此，不存在优质整数。</p>
+</blockquote>
 <hr>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">largestGoodInteger</span>(<span style="color:#a6e22e">num</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">ans</span> <span style="color:#66d9ef">string</span>) {
 </span></span><span style="display:flex;"><span>	
@@ -332,21 +417,21 @@ num 或优质整数中可能存在 前导零 。
   <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">largestGoodInteger</span>(<span style="color:#a6e22e">num</span> <span style="color:#66d9ef">string</span>) (<span style="color:#a6e22e">ans</span> <span style="color:#66d9ef">string</span>) {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">num</span>)
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">sig</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span> <span style="color:#75715e">// 数字</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span> <span style="color:#75715e">// 重复次数</span>
-</span></span><span style="display:flex;"><span>	}{
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">n</span> <span style="color:#66d9ef">int</span> <span style="color:#75715e">// 数字
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span> <span style="color:#75715e">// 重复次数
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	}{
 </span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">n</span>: <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>,
 </span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">maxn</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#75715e">//</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">sig</span>.<span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> int(<span style="color:#a6e22e">num</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">-</span><span style="color:#e6db74">&#39;0&#39;</span>) { <span style="color:#75715e">// 重复的</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">sig</span>.<span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e">//重复次数+1</span>
-</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">maxn</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#75715e">//
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">sig</span>.<span style="color:#a6e22e">n</span> <span style="color:#f92672">==</span> int(<span style="color:#a6e22e">num</span>[<span style="color:#a6e22e">i</span>]<span style="color:#f92672">-</span><span style="color:#e6db74">&#39;0&#39;</span>) { <span style="color:#75715e">// 重复的
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">sig</span>.<span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e">//重复次数+1
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>		} <span style="color:#66d9ef">else</span> {
 </span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">sig</span>.<span style="color:#a6e22e">n</span> = int(<span style="color:#a6e22e">num</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">-</span> <span style="color:#e6db74">&#39;0&#39;</span>)
 </span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">sig</span>.<span style="color:#a6e22e">i</span> = <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">sig</span>.<span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">3</span> { <span style="color:#75715e">// 重复次数 大于等于3了</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">maxn</span> = max(<span style="color:#a6e22e">sig</span>.<span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">maxn</span>)
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">sig</span>.<span style="color:#a6e22e">i</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">3</span> { <span style="color:#75715e">// 重复次数 大于等于3了
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>			<span style="color:#a6e22e">maxn</span> = max(<span style="color:#a6e22e">sig</span>.<span style="color:#a6e22e">n</span>, <span style="color:#a6e22e">maxn</span>)
 </span></span><span style="display:flex;"><span>		}
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">maxn</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {

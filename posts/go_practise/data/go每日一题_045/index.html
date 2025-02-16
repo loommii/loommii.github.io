@@ -51,7 +51,7 @@ type reverse struct {
 它就内嵌了一个 Interface，用于排序的反转。">
 <meta name="author" content="">
 <link rel="canonical" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_045/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9de45e225101e4f99701d2b68fc6b8a1ef6027928be6391fa15bf7f56326c909.css" integrity="sha256-neReIlEB5PmXAdK2j8a4oe9gJ5KL5jkfoVv39WMmyQk=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://loommii.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
@@ -101,7 +101,7 @@ type reverse struct {
   <meta property="og:title" content="Go每日一题_045">
   <meta property="og:description" content="以下代码能否通过编译？
 package main import ( &#34;fmt&#34; ) type worker interface { work() } type person struct { name string worker } func main() { var w worker = person{} fmt.Println(w) } A: 能；B: 不能；C: 不知道
-🔑 答案解析： A
+🔑 答案解析：A
 Go结构体中是可以嵌套接口类型的
 嵌入接口有实际用途。 例：标准库中 sort 包中，有一个接口：Interface
 type Interface interface { // Len is the number of elements in the collection. Len() int // Less reports whether the element with // index i should sort before the element with index j. Less(i, j int) bool // Swap swaps the elements with indexes i and j. Swap(i, j int) } type reverse struct { // This embedded Interface permits Reverse to use the methods of // another Interface implementation. Interface } 它就内嵌了一个 Interface，用于排序的反转。">
@@ -182,11 +182,11 @@ type reverse struct {
   "@type": "BlogPosting",
   "headline": "Go每日一题_045",
   "name": "Go每日一题_045",
-  "description": "以下代码能否通过编译？\npackage main import ( \u0026#34;fmt\u0026#34; ) type worker interface { work() } type person struct { name string worker } func main() { var w worker = person{} fmt.Println(w) } A: 能；B: 不能；C: 不知道\n🔑 答案解析： A\nGo结构体中是可以嵌套接口类型的\n嵌入接口有实际用途。 例：标准库中 sort 包中，有一个接口：Interface\ntype Interface interface { // Len is the number of elements in the collection. Len() int // Less reports whether the element with // index i should sort before the element with index j. Less(i, j int) bool // Swap swaps the elements with indexes i and j. Swap(i, j int) } type reverse struct { // This embedded Interface permits Reverse to use the methods of // another Interface implementation. Interface } 它就内嵌了一个 Interface，用于排序的反转。\n",
+  "description": "以下代码能否通过编译？\npackage main import ( \u0026#34;fmt\u0026#34; ) type worker interface { work() } type person struct { name string worker } func main() { var w worker = person{} fmt.Println(w) } A: 能；B: 不能；C: 不知道\n🔑 答案解析：\rA\nGo结构体中是可以嵌套接口类型的\n嵌入接口有实际用途。 例：标准库中 sort 包中，有一个接口：Interface\ntype Interface interface { // Len is the number of elements in the collection. Len() int // Less reports whether the element with // index i should sort before the element with index j. Less(i, j int) bool // Swap swaps the elements with indexes i and j. Swap(i, j int) } type reverse struct { // This embedded Interface permits Reverse to use the methods of // another Interface implementation. Interface } 它就内嵌了一个 Interface，用于排序的反转。\n",
   "keywords": [
     
   ],
-  "articleBody": "以下代码能否通过编译？\npackage main import ( \"fmt\" ) type worker interface { work() } type person struct { name string worker } func main() { var w worker = person{} fmt.Println(w) } A: 能；B: 不能；C: 不知道\n🔑 答案解析： A\nGo结构体中是可以嵌套接口类型的\n嵌入接口有实际用途。 例：标准库中 sort 包中，有一个接口：Interface\ntype Interface interface { // Len is the number of elements in the collection. Len() int // Less reports whether the element with // index i should sort before the element with index j. Less(i, j int) bool // Swap swaps the elements with indexes i and j. Swap(i, j int) } type reverse struct { // This embedded Interface permits Reverse to use the methods of // another Interface implementation. Interface } 它就内嵌了一个 Interface，用于排序的反转。\n而内嵌接口的关键在于如何给这个内嵌的接口赋值。sort 包有一个函数：Reverse\nfunc Reverse(data Interface) Interface { return \u0026reverse{data} } 其中实例化 reverse 时，直接通过传递的 Interface 实例赋值给 reverse 的内嵌接口，然后 reverse 类型可以有选择的重新实现内嵌的 Interface 的方法。比如 Less 方法：\nfunc (r reverse) Less(i, j int) bool { return r.Interface.Less(j, i) } 回到上面的题目，如果我们通过实例化的 w 调用 work 方法会报错：\nvar w worker = person{} w.work()\t// panic 和上面 reverse 类似，你需要给 person 中的 worker 实例化，也就是需要一个实现了 worker 接口的类型实例。比如：\ntype student struct{ name string } func (s student) work() { fmt.Println(\"I am \", s.name, \", I am learning\") } 然后这样实例化 person：\nvar w worker = person{worker: student{\"polarisxu\"}} ",
+  "articleBody": "以下代码能否通过编译？\npackage main import ( \"fmt\" ) type worker interface { work() } type person struct { name string worker } func main() { var w worker = person{} fmt.Println(w) } A: 能；B: 不能；C: 不知道\n🔑 答案解析：\rA\nGo结构体中是可以嵌套接口类型的\n嵌入接口有实际用途。 例：标准库中 sort 包中，有一个接口：Interface\ntype Interface interface { // Len is the number of elements in the collection. Len() int // Less reports whether the element with // index i should sort before the element with index j. Less(i, j int) bool // Swap swaps the elements with indexes i and j. Swap(i, j int) } type reverse struct { // This embedded Interface permits Reverse to use the methods of // another Interface implementation. Interface } 它就内嵌了一个 Interface，用于排序的反转。\n而内嵌接口的关键在于如何给这个内嵌的接口赋值。sort 包有一个函数：Reverse\nfunc Reverse(data Interface) Interface { return \u0026reverse{data} } 其中实例化 reverse 时，直接通过传递的 Interface 实例赋值给 reverse 的内嵌接口，然后 reverse 类型可以有选择的重新实现内嵌的 Interface 的方法。比如 Less 方法：\nfunc (r reverse) Less(i, j int) bool { return r.Interface.Less(j, i) } 回到上面的题目，如果我们通过实例化的 w 调用 work 方法会报错：\nvar w worker = person{} w.work()\t// panic 和上面 reverse 类似，你需要给 person 中的 worker 实例化，也就是需要一个实现了 worker 接口的类型实例。比如：\ntype student struct{ name string } func (s student) work() { fmt.Println(\"I am \", s.name, \", I am learning\") } 然后这样实例化 person：\nvar w worker = person{worker: student{\"polarisxu\"}} ",
   "wordCount" : "203",
   "inLanguage": "zh",
   "datePublished": "2024-12-06T20:44:23+08:00",
@@ -285,7 +285,7 @@ type reverse struct {
     <h1 class="post-title entry-hint-parent">
       Go每日一题_045
     </h1>
-    <div class="post-meta"><span title='2024-12-06 20:44:23 +0800 +0800'>十二月 6, 2024</span>
+    <div class="post-meta"><span title='2024-12-06 20:44:23 +0800 CST'>十二月 6, 2024</span>
 
 </div>
   </header> 
@@ -317,18 +317,18 @@ type reverse struct {
 <p>嵌入接口有实际用途。
 例：标准库中 sort 包中，有一个接口：Interface</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Interface</span> <span style="color:#66d9ef">interface</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Len is the number of elements in the collection.</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Less reports whether the element with</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// index i should sort before the element with index j.</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Swap swaps the elements with indexes i and j.</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Len is the number of elements in the collection.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Len</span>() <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Less reports whether the element with
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// index i should sort before the element with index j.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Swap swaps the elements with indexes i and j.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Swap</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">reverse</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// This embedded Interface permits Reverse to use the methods of</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// another Interface implementation.</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Interface</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// This embedded Interface permits Reverse to use the methods of
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#75715e">// another Interface implementation.
+</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span>	<span style="color:#a6e22e">Interface</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>它就内嵌了一个 Interface，用于排序的反转。</p>
 <p>而内嵌接口的关键在于如何给这个内嵌的接口赋值。sort 包有一个函数：Reverse</p>
@@ -341,8 +341,8 @@ type reverse struct {
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>回到上面的题目，如果我们通过实例化的 w 调用 work 方法会报错：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">w</span> <span style="color:#a6e22e">worker</span> = <span style="color:#a6e22e">person</span>{}
-</span></span><span style="display:flex;"><span><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">work</span>()	<span style="color:#75715e">// panic</span>
-</span></span></code></pre></div><p>和上面 reverse 类似，你需要给 person 中的 worker 实例化，也就是需要一个实现了 worker 接口的类型实例。比如：</p>
+</span></span><span style="display:flex;"><span><span style="color:#a6e22e">w</span>.<span style="color:#a6e22e">work</span>()	<span style="color:#75715e">// panic
+</span></span></span></code></pre></div><p>和上面 reverse 类似，你需要给 person 中的 worker 实例化，也就是需要一个实现了 worker 接口的类型实例。比如：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">student</span> <span style="color:#66d9ef">struct</span>{
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">name</span> <span style="color:#66d9ef">string</span>
 </span></span><span style="display:flex;"><span>}

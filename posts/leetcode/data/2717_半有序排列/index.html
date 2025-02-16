@@ -24,6 +24,7 @@
 1 - 交换下标 0 和下标 1 对应元素。排列变为 [1,2,4,3] 。
 2 - 交换下标 2 和下标 3 对应元素。排列变为 [1,2,3,4] 。
 可以证明，要让 nums 成为半有序排列，不存在执行操作少于 2 次的方案。
+
 示例 2：
 
 输入：nums = [2,4,1,3]
@@ -36,7 +37,7 @@
 可以证明，要让 nums 成为半有序排列，不存在执行操作少于 3 次的方案。">
 <meta name="author" content="">
 <link rel="canonical" href="https://loommii.github.io/posts/leetcode/data/2717_%E5%8D%8A%E6%9C%89%E5%BA%8F%E6%8E%92%E5%88%97/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.9de45e225101e4f99701d2b68fc6b8a1ef6027928be6391fa15bf7f56326c909.css" integrity="sha256-neReIlEB5PmXAdK2j8a4oe9gJ5KL5jkfoVv39WMmyQk=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://loommii.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
@@ -117,6 +118,7 @@
 1 - 交换下标 0 和下标 1 对应元素。排列变为 [1,2,4,3] 。
 2 - 交换下标 2 和下标 3 对应元素。排列变为 [1,2,3,4] 。
 可以证明，要让 nums 成为半有序排列，不存在执行操作少于 2 次的方案。
+
 示例 2：
 
 输入：nums = [2,4,1,3]
@@ -159,7 +161,7 @@
   "keywords": [
     
   ],
-  "articleBody": "力扣链接:2717. 半有序排列\n力扣难度 简单 算法评级: 3 理解常用数据结构和算法 难度分 1296\n题目:\n给你一个下标从 0 开始、长度为 n 的整数排列 nums 。\n如果排列的第一个数字等于 1 且最后一个数字等于 n，则称其为 半有序排列 。你可以执行多次下述操作，直到将 nums 变成一个 半有序排列 ：\n示例 1：\n输入：nums = [2,1,4,3] 输出：2 解释：可以依次执行下述操作得到半有序排列： 1 - 交换下标 0 和下标 1 对应元素。排列变为 [1,2,4,3] 。 2 - 交换下标 2 和下标 3 对应元素。排列变为 [1,2,3,4] 。 可以证明，要让 nums 成为半有序排列，不存在执行操作少于 2 次的方案。\n示例 2：\n输入：nums = [2,4,1,3] 输出：3 解释： 可以依次执行下述操作得到半有序排列： 1 - 交换下标 1 和下标 2 对应元素。排列变为 [2,1,4,3] 。 2 - 交换下标 0 和下标 1 对应元素。排列变为 [1,2,4,3] 。 3 - 交换下标 2 和下标 3 对应元素。排列变为 [1,2,3,4] 。 可以证明，要让 nums 成为半有序排列，不存在执行操作少于 3 次的方案。\n示例 3：\n输入：nums = [1,3,4,2,5] 输出：0 解释：这个排列已经是一个半有序排列，无需执行任何操作。\n提示：\n2 \u003c= nums.length == n \u003c= 50 1 \u003c= nums[i] \u003c= 50 nums 是一个 排列 func semiOrderedPermutation(nums []int) int { } 🧠思路: 👈点击 遍历一遍记录最小和最大值对应的下标 假则最小为j,则需要移动j次 最大为k，则需要移动n-1-k次 存在一种特殊启动, 小下标 比 大下标大的情况。移动小下标时会移动到大下标。因此次数会少1 🔑 答案解析： 👈点击 func semiOrderedPermutation(nums []int) int { j, k := 0, 0 n := len(nums) for i, v := range nums { if v == 1 { j = i } if v == n { k = i } } ans := j ans += (n - 1 - k) if j \u003e k { ans-- } return ans } ",
+  "articleBody": "力扣链接:2717. 半有序排列\n力扣难度 简单 算法评级: 3 理解常用数据结构和算法 难度分 1296\n题目:\n给你一个下标从 0 开始、长度为 n 的整数排列 nums 。\n如果排列的第一个数字等于 1 且最后一个数字等于 n，则称其为 半有序排列 。你可以执行多次下述操作，直到将 nums 变成一个 半有序排列 ：\n示例 1：\n输入：nums = [2,1,4,3] 输出：2 解释：可以依次执行下述操作得到半有序排列： 1 - 交换下标 0 和下标 1 对应元素。排列变为 [1,2,4,3] 。 2 - 交换下标 2 和下标 3 对应元素。排列变为 [1,2,3,4] 。 可以证明，要让 nums 成为半有序排列，不存在执行操作少于 2 次的方案。\n示例 2：\n输入：nums = [2,4,1,3] 输出：3 解释： 可以依次执行下述操作得到半有序排列： 1 - 交换下标 1 和下标 2 对应元素。排列变为 [2,1,4,3] 。 2 - 交换下标 0 和下标 1 对应元素。排列变为 [1,2,4,3] 。 3 - 交换下标 2 和下标 3 对应元素。排列变为 [1,2,3,4] 。 可以证明，要让 nums 成为半有序排列，不存在执行操作少于 3 次的方案。\n示例 3：\n输入：nums = [1,3,4,2,5] 输出：0 解释：这个排列已经是一个半有序排列，无需执行任何操作。\n提示：\n2 \u003c= nums.length == n \u003c= 50 1 \u003c= nums[i] \u003c= 50 nums 是一个 排列 func semiOrderedPermutation(nums []int) int { } 🧠思路: 👈点击\r遍历一遍记录最小和最大值对应的下标 假则最小为j,则需要移动j次 最大为k，则需要移动n-1-k次 存在一种特殊启动, 小下标 比 大下标大的情况。移动小下标时会移动到大下标。因此次数会少1\r🔑 答案解析： 👈点击\rfunc semiOrderedPermutation(nums []int) int { j, k := 0, 0 n := len(nums) for i, v := range nums { if v == 1 { j = i } if v == n { k = i } } ans := j ans += (n - 1 - k) if j \u003e k { ans-- } return ans } ",
   "wordCount" : "197",
   "inLanguage": "zh",
   "datePublished": "2024-12-11T00:35:39+08:00",
@@ -258,7 +260,7 @@
     <h1 class="post-title entry-hint-parent">
       2717_半有序排列
     </h1>
-    <div class="post-meta"><span title='2024-12-11 00:35:39 +0800 +0800'>十二月 11, 2024</span>
+    <div class="post-meta"><span title='2024-12-11 00:35:39 +0800 CST'>十二月 11, 2024</span>
 
 </div>
   </header> 
@@ -278,7 +280,8 @@
 解释：可以依次执行下述操作得到半有序排列：
 1 - 交换下标 0 和下标 1 对应元素。排列变为 [1,2,4,3] 。
 2 - 交换下标 2 和下标 3 对应元素。排列变为 [1,2,3,4] 。
-可以证明，要让 nums 成为半有序排列，不存在执行操作少于 2 次的方案。</p></blockquote>
+可以证明，要让 nums 成为半有序排列，不存在执行操作少于 2 次的方案。</p>
+</blockquote>
 <p>示例 2：</p>
 <blockquote>
 <p>输入：nums = [2,4,1,3]
@@ -288,12 +291,14 @@
 1 - 交换下标 1 和下标 2 对应元素。排列变为 [2,1,4,3] 。
 2 - 交换下标 0 和下标 1 对应元素。排列变为 [1,2,4,3] 。
 3 - 交换下标 2 和下标 3 对应元素。排列变为 [1,2,3,4] 。
-可以证明，要让 nums 成为半有序排列，不存在执行操作少于 3 次的方案。</p></blockquote>
+可以证明，要让 nums 成为半有序排列，不存在执行操作少于 3 次的方案。</p>
+</blockquote>
 <p>示例 3：</p>
 <blockquote>
 <p>输入：nums = [1,3,4,2,5]
 输出：0
-解释：这个排列已经是一个半有序排列，无需执行任何操作。</p></blockquote>
+解释：这个排列已经是一个半有序排列，无需执行任何操作。</p>
+</blockquote>
 <p>提示：</p>
 <ul>
 <li>2 &lt;= nums.length == n &lt;= 50</li>
