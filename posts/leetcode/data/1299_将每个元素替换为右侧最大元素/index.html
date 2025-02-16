@@ -13,7 +13,6 @@
 算法评级:  3      理解常用数据结构和算法
 难度分 1219
 
-
 题目:
 给你一个数组 arr ，请你将每个元素用它右边最大的元素替换，如果是最后一个元素，用 -1 替换。
 完成所有替换操作后，请你返回这个数组。
@@ -31,11 +30,10 @@
 下标 4 的元素 &ndash;&gt; 右侧最大元素是下标 5 的元素 (1)
 下标 5 的元素 &ndash;&gt; 右侧没有其他元素，替换为 -1
 
-
 示例 2：">
 <meta name="author" content="">
 <link rel="canonical" href="https://loommii.github.io/posts/leetcode/data/1299_%E5%B0%86%E6%AF%8F%E4%B8%AA%E5%85%83%E7%B4%A0%E6%9B%BF%E6%8D%A2%E4%B8%BA%E5%8F%B3%E4%BE%A7%E6%9C%80%E5%A4%A7%E5%85%83%E7%B4%A0/">
-<link crossorigin="anonymous" href="/assets/css/stylesheet.9de45e225101e4f99701d2b68fc6b8a1ef6027928be6391fa15bf7f56326c909.css" integrity="sha256-neReIlEB5PmXAdK2j8a4oe9gJ5KL5jkfoVv39WMmyQk=" rel="preload stylesheet" as="style">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://loommii.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
@@ -106,7 +104,6 @@
 算法评级:  3      理解常用数据结构和算法
 难度分 1219
 
-
 题目:
 给你一个数组 arr ，请你将每个元素用它右边最大的元素替换，如果是最后一个元素，用 -1 替换。
 完成所有替换操作后，请你返回这个数组。
@@ -123,7 +120,6 @@
 下标 3 的元素 &ndash;&gt; 右侧最大元素是下标 4 的元素 (6)
 下标 4 的元素 &ndash;&gt; 右侧最大元素是下标 5 的元素 (1)
 下标 5 的元素 &ndash;&gt; 右侧没有其他元素，替换为 -1
-
 
 示例 2：">
 
@@ -158,7 +154,7 @@
   "keywords": [
     
   ],
-  "articleBody": "力扣链接: 1299. 将每个元素替换为右侧最大元素\n力扣难度 简单\n算法评级: 3 理解常用数据结构和算法\n难度分 1219\n题目:\n给你一个数组 arr ，请你将每个元素用它右边最大的元素替换，如果是最后一个元素，用 -1 替换。\n完成所有替换操作后，请你返回这个数组。\n示例 1：\n输入：arr = [17,18,5,4,6,1] 输出：[18,6,6,6,1,-1] 解释：\n下标 0 的元素 –\u003e 右侧最大元素是下标 1 的元素 (18) 下标 1 的元素 –\u003e 右侧最大元素是下标 4 的元素 (6) 下标 2 的元素 –\u003e 右侧最大元素是下标 4 的元素 (6) 下标 3 的元素 –\u003e 右侧最大元素是下标 4 的元素 (6) 下标 4 的元素 –\u003e 右侧最大元素是下标 5 的元素 (1) 下标 5 的元素 –\u003e 右侧没有其他元素，替换为 -1 示例 2：\n输入：arr = [400] 输出：[-1] 解释：下标 0 的元素右侧没有其他元素。\nfunc replaceElements(arr []int) []int { } 🔑 答案解析： 👈点击\r// 暴力 func replaceElements(arr []int) []int { n := len(arr) ans := make([]int, n) for i := 0; i \u003c n; i++ { maxV := -1 for j := i + 1; j \u003c n; j++ { maxV = max(maxV, arr[j]) } ans[i] = maxV } return ans } // DP 从后往前 维护最大值 func replaceElements(arr []int) []int { n := len(arr) ans := make([]int, n) ans[n-1] = -1 for i := n - 2; i \u003e= 0; i-- { ans[i] = max(arr[i+1], ans[i+1]) } return ans } ",
+  "articleBody": "力扣链接: 1299. 将每个元素替换为右侧最大元素\n力扣难度 简单\n算法评级: 3 理解常用数据结构和算法\n难度分 1219\n题目:\n给你一个数组 arr ，请你将每个元素用它右边最大的元素替换，如果是最后一个元素，用 -1 替换。\n完成所有替换操作后，请你返回这个数组。\n示例 1：\n输入：arr = [17,18,5,4,6,1] 输出：[18,6,6,6,1,-1] 解释：\n下标 0 的元素 –\u003e 右侧最大元素是下标 1 的元素 (18) 下标 1 的元素 –\u003e 右侧最大元素是下标 4 的元素 (6) 下标 2 的元素 –\u003e 右侧最大元素是下标 4 的元素 (6) 下标 3 的元素 –\u003e 右侧最大元素是下标 4 的元素 (6) 下标 4 的元素 –\u003e 右侧最大元素是下标 5 的元素 (1) 下标 5 的元素 –\u003e 右侧没有其他元素，替换为 -1 示例 2：\n输入：arr = [400] 输出：[-1] 解释：下标 0 的元素右侧没有其他元素。\nfunc replaceElements(arr []int) []int { } 🔑 答案解析： 👈点击 // 暴力 func replaceElements(arr []int) []int { n := len(arr) ans := make([]int, n) for i := 0; i \u003c n; i++ { maxV := -1 for j := i + 1; j \u003c n; j++ { maxV = max(maxV, arr[j]) } ans[i] = maxV } return ans } // DP 从后往前 维护最大值 func replaceElements(arr []int) []int { n := len(arr) ans := make([]int, n) ans[n-1] = -1 for i := n - 2; i \u003e= 0; i-- { ans[i] = max(arr[i+1], ans[i+1]) } return ans } ",
   "wordCount" : "175",
   "inLanguage": "zh",
   "datePublished": "2025-02-16T23:49:25+08:00",
@@ -265,8 +261,7 @@
 <blockquote>
 <p>力扣难度 <code>简单</code></p>
 <p>算法评级:  3      理解常用数据结构和算法</p>
-<p>难度分 1219</p>
-</blockquote>
+<p>难度分 1219</p></blockquote>
 <hr>
 <p>题目:<br>
 给你一个数组 arr ，请你将每个元素用它右边最大的元素替换，如果是最后一个元素，用 -1 替换。</p>
@@ -284,14 +279,12 @@
 <li>下标 3 的元素 &ndash;&gt; 右侧最大元素是下标 4 的元素 (6)</li>
 <li>下标 4 的元素 &ndash;&gt; 右侧最大元素是下标 5 的元素 (1)</li>
 <li>下标 5 的元素 &ndash;&gt; 右侧没有其他元素，替换为 -1</li>
-</ul>
-</blockquote>
+</ul></blockquote>
 <p>示例 2：</p>
 <blockquote>
 <p>输入：arr = [400]
 输出：[-1]
-解释：下标 0 的元素右侧没有其他元素。</p>
-</blockquote>
+解释：下标 0 的元素右侧没有其他元素。</p></blockquote>
 <hr>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">replaceElements</span>(<span style="color:#a6e22e">arr</span> []<span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
 </span></span><span style="display:flex;"><span>    
@@ -299,8 +292,8 @@
 </span></span></code></pre></div><hr>
 <button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析： 👈点击</button>
 <div class="toggle-content">
-  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// 暴力
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">replaceElements</span>(<span style="color:#a6e22e">arr</span> []<span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// 暴力</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">replaceElements</span>(<span style="color:#a6e22e">arr</span> []<span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">arr</span>)
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">n</span>)
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
@@ -312,8 +305,8 @@
 </span></span><span style="display:flex;"><span>	}
 </span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// DP 从后往前 维护最大值
-</span></span></span><span style="display:flex;"><span><span style="color:#75715e"></span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">replaceElements</span>(<span style="color:#a6e22e">arr</span> []<span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// DP 从后往前 维护最大值</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">replaceElements</span>(<span style="color:#a6e22e">arr</span> []<span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">arr</span>)
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">n</span>)
 </span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] = <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
