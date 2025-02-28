@@ -11,16 +11,16 @@
 package main
 
 import (
-	&#34;fmt&#34;
+       &#34;fmt&#34;
 )
 
 func hello(i int) {
-	fmt.Println(i)
+       fmt.Println(i)
 }
 func main() {
-	i := 5
-	defer hello(i)
-	i = i &#43; 10
+       i := 5
+       defer hello(i)
+       i = i &#43; 10
 }
 🔑 答案解析：
 
@@ -30,16 +30,16 @@ Go传递只有值传递
 运行到defer hello(i)的时候就已经确定i的值了
 下方是defer的结构
 type _defer struct {
-	heap      bool
-	rangefunc bool    // true for rangefunc list
-	sp        uintptr // sp at time of defer
-	pc        uintptr // pc at time of defer
-	fn        func()  // can be nil for open-coded defers
-	link      *_defer // next defer on G; can point to either heap or stack!
+       heap      bool
+       rangefunc bool    // true for rangefunc list
+       sp        uintptr // sp at time of defer
+       pc        uintptr // pc at time of defer
+       fn        func()  // can be nil for open-coded defers
+       link      *_defer // next defer on G; can point to either heap or stack!
 
-	// If rangefunc is true, *head is the head of the atomic linked list
-	// during a range-over-func execution.
-	head *atomic.Pointer[_defer]
+       // If rangefunc is true, *head is the head of the atomic linked list
+       // during a range-over-func execution.
+       head *atomic.Pointer[_defer]
 }
 defer 的注册本质上是调用了内置函数 runtime.deferproc">
 <meta name="author" content="">
@@ -107,16 +107,16 @@ type _defer struct { heap bool rangefunc bool // true for rangefunc list sp uint
 package main
 
 import (
-	&#34;fmt&#34;
+       &#34;fmt&#34;
 )
 
 func hello(i int) {
-	fmt.Println(i)
+       fmt.Println(i)
 }
 func main() {
-	i := 5
-	defer hello(i)
-	i = i &#43; 10
+       i := 5
+       defer hello(i)
+       i = i &#43; 10
 }
 🔑 答案解析：
 
@@ -126,16 +126,16 @@ Go传递只有值传递
 运行到defer hello(i)的时候就已经确定i的值了
 下方是defer的结构
 type _defer struct {
-	heap      bool
-	rangefunc bool    // true for rangefunc list
-	sp        uintptr // sp at time of defer
-	pc        uintptr // pc at time of defer
-	fn        func()  // can be nil for open-coded defers
-	link      *_defer // next defer on G; can point to either heap or stack!
+       heap      bool
+       rangefunc bool    // true for rangefunc list
+       sp        uintptr // sp at time of defer
+       pc        uintptr // pc at time of defer
+       fn        func()  // can be nil for open-coded defers
+       link      *_defer // next defer on G; can point to either heap or stack!
 
-	// If rangefunc is true, *head is the head of the atomic linked list
-	// during a range-over-func execution.
-	head *atomic.Pointer[_defer]
+       // If rangefunc is true, *head is the head of the atomic linked list
+       // during a range-over-func execution.
+       head *atomic.Pointer[_defer]
 }
 defer 的注册本质上是调用了内置函数 runtime.deferproc">
 
@@ -277,16 +277,16 @@ defer 的注册本质上是调用了内置函数 runtime.deferproc">
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#e6db74">&#34;fmt&#34;</span>
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">hello</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">i</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">hello</span>(<span style="color:#a6e22e">i</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">i</span> = <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">hello</span>(<span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">i</span> = <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">10</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
 <div class="toggle-content">
@@ -296,16 +296,16 @@ Go传递只有值传递 <br>
 运行到defer hello(i)的时候就已经确定i的值了</p>
 <p>下方是defer的结构</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">_defer</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">heap</span>      <span style="color:#66d9ef">bool</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">rangefunc</span> <span style="color:#66d9ef">bool</span>    <span style="color:#75715e">// true for rangefunc list</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">sp</span>        <span style="color:#66d9ef">uintptr</span> <span style="color:#75715e">// sp at time of defer</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">pc</span>        <span style="color:#66d9ef">uintptr</span> <span style="color:#75715e">// pc at time of defer</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fn</span>        <span style="color:#66d9ef">func</span>()  <span style="color:#75715e">// can be nil for open-coded defers</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">link</span>      <span style="color:#f92672">*</span><span style="color:#a6e22e">_defer</span> <span style="color:#75715e">// next defer on G; can point to either heap or stack!</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">heap</span>      <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">rangefunc</span> <span style="color:#66d9ef">bool</span>    <span style="color:#75715e">// true for rangefunc list</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">sp</span>        <span style="color:#66d9ef">uintptr</span> <span style="color:#75715e">// sp at time of defer</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">pc</span>        <span style="color:#66d9ef">uintptr</span> <span style="color:#75715e">// pc at time of defer</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">fn</span>        <span style="color:#66d9ef">func</span>()  <span style="color:#75715e">// can be nil for open-coded defers</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">link</span>      <span style="color:#f92672">*</span><span style="color:#a6e22e">_defer</span> <span style="color:#75715e">// next defer on G; can point to either heap or stack!</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// If rangefunc is true, *head is the head of the atomic linked list</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// during a range-over-func execution.</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">head</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">atomic</span>.<span style="color:#a6e22e">Pointer</span>[<span style="color:#a6e22e">_defer</span>]
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">// If rangefunc is true, *head is the head of the atomic linked list</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#75715e">// during a range-over-func execution.</span>
+</span></span><span style="display:flex;"><span>       <span style="color:#a6e22e">head</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">atomic</span>.<span style="color:#a6e22e">Pointer</span>[<span style="color:#a6e22e">_defer</span>]
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>defer 的注册本质上是调用了内置函数 runtime.deferproc</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">deferproc</span>(<span style="color:#a6e22e">siz</span> <span style="color:#66d9ef">int32</span>, <span style="color:#a6e22e">fn</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">funcval</span>)

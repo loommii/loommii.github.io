@@ -13,21 +13,21 @@ package main
 import &#34;fmt&#34;
 
 type Foo struct {
-	bar string
+    bar string
 }
 
 func main() {
-	s1 := []Foo{
-		{&#34;A&#34;},
-		{&#34;B&#34;},
-		{&#34;C&#34;},
-	}
-	s2 := make([]*Foo, len(s1))
-	for i, value := range s1 {
-		s2[i] = &amp;value
-	}
-	fmt.Println(s1[0], s1[1], s1[2])
-	fmt.Println(s2[0], s2[1], s2[2])
+    s1 := []Foo{
+        {&#34;A&#34;},
+        {&#34;B&#34;},
+        {&#34;C&#34;},
+    }
+    s2 := make([]*Foo, len(s1))
+    for i, value := range s1 {
+        s2[i] = &amp;value
+    }
+    fmt.Println(s1[0], s1[1], s1[2])
+    fmt.Println(s2[0], s2[1], s2[2])
 }
 
 // 输出：
@@ -116,21 +116,21 @@ package main
 import &#34;fmt&#34;
 
 type Foo struct {
-	bar string
+    bar string
 }
 
 func main() {
-	s1 := []Foo{
-		{&#34;A&#34;},
-		{&#34;B&#34;},
-		{&#34;C&#34;},
-	}
-	s2 := make([]*Foo, len(s1))
-	for i, value := range s1 {
-		s2[i] = &amp;value
-	}
-	fmt.Println(s1[0], s1[1], s1[2])
-	fmt.Println(s2[0], s2[1], s2[2])
+    s1 := []Foo{
+        {&#34;A&#34;},
+        {&#34;B&#34;},
+        {&#34;C&#34;},
+    }
+    s2 := make([]*Foo, len(s1))
+    for i, value := range s1 {
+        s2[i] = &amp;value
+    }
+    fmt.Println(s1[0], s1[1], s1[2])
+    fmt.Println(s2[0], s2[1], s2[2])
 }
 
 // 输出：
@@ -291,21 +291,21 @@ s2[i] = &amp;value 记录的地址都是同一个地址。
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Foo</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">bar</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">bar</span> <span style="color:#66d9ef">string</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> []<span style="color:#a6e22e">Foo</span>{
-</span></span><span style="display:flex;"><span>		{<span style="color:#e6db74">&#34;A&#34;</span>},
-</span></span><span style="display:flex;"><span>		{<span style="color:#e6db74">&#34;B&#34;</span>},
-</span></span><span style="display:flex;"><span>		{<span style="color:#e6db74">&#34;C&#34;</span>},
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">Foo</span>, len(<span style="color:#a6e22e">s1</span>))
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s1</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">s2</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">value</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s1</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">s1</span>[<span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">s1</span>[<span style="color:#ae81ff">2</span>])
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s2</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">s2</span>[<span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">s2</span>[<span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">s1</span> <span style="color:#f92672">:=</span> []<span style="color:#a6e22e">Foo</span>{
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;A&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;B&#34;</span>},
+</span></span><span style="display:flex;"><span>        {<span style="color:#e6db74">&#34;C&#34;</span>},
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">s2</span> <span style="color:#f92672">:=</span> make([]<span style="color:#f92672">*</span><span style="color:#a6e22e">Foo</span>, len(<span style="color:#a6e22e">s1</span>))
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">value</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">s1</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">s2</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">value</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s1</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">s1</span>[<span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">s1</span>[<span style="color:#ae81ff">2</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">s2</span>[<span style="color:#ae81ff">0</span>], <span style="color:#a6e22e">s2</span>[<span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">s2</span>[<span style="color:#ae81ff">2</span>])
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// 输出：</span>

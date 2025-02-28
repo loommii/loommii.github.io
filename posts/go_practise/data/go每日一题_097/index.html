@@ -11,23 +11,23 @@
 var p *int
 
 func foo() (*int, error) {
-	var i int = 5
-	return &amp;i, nil
+    var i int = 5
+    return &amp;i, nil
 }
 
 func bar() {
-	//use p
-	fmt.Println(*p)
+    //use p
+    fmt.Println(*p)
 }
 
 func main() {
-	p, err := foo()
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	bar()
-	fmt.Println(*p)
+    p, err := foo()
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    bar()
+    fmt.Println(*p)
 }
 A. 5 5
 B. runtime error
@@ -102,23 +102,23 @@ var p *int func foo() (*int, error) { var i int = 5 return &amp;i, nil } func ba
 var p *int
 
 func foo() (*int, error) {
-	var i int = 5
-	return &amp;i, nil
+    var i int = 5
+    return &amp;i, nil
 }
 
 func bar() {
-	//use p
-	fmt.Println(*p)
+    //use p
+    fmt.Println(*p)
 }
 
 func main() {
-	p, err := foo()
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	bar()
-	fmt.Println(*p)
+    p, err := foo()
+    if err != nil {
+        fmt.Println(err)
+        return
+    }
+    bar()
+    fmt.Println(*p)
 }
 A. 5 5
 B. runtime error
@@ -268,23 +268,23 @@ p, err := foo() 这里是一个新的p 局部变量 与全局的p无关
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">p</span> <span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">foo</span>() (<span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>, <span style="color:#66d9ef">error</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span> = <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">i</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span> = <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">i</span>, <span style="color:#66d9ef">nil</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">bar</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">//use p</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">p</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">//use p</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">p</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">foo</span>()
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">bar</span>()
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">p</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">p</span>, <span style="color:#a6e22e">err</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">foo</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">err</span> <span style="color:#f92672">!=</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">err</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">bar</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#f92672">*</span><span style="color:#a6e22e">p</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>A. 5 5
 B. runtime error</p>

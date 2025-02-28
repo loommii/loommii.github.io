@@ -48,17 +48,17 @@ struct {
 // MarshalJSON implements the json.Marshaler interface.
 // The time is a quoted string in RFC 3339 format, with sub-second precision added if present.
 func (t Time) MarshalJSON() ([]byte, error) {
-	if y := t.Year(); y &lt; 0 || y &gt;= 10000 {
-		// RFC 3339 is clear that years are 4 digits exactly.
-		// See golang.org/issue/4556#c15 for more discussion.
-		return nil, errors.New(&#34;Time.MarshalJSON: year outside of range [0,9999]&#34;)
-	}
+    if y := t.Year(); y &lt; 0 || y &gt;= 10000 {
+        // RFC 3339 is clear that years are 4 digits exactly.
+        // See golang.org/issue/4556#c15 for more discussion.
+        return nil, errors.New(&#34;Time.MarshalJSON: year outside of range [0,9999]&#34;)
+    }
 
-	b := make([]byte, 0, len(RFC3339Nano)&#43;2)
-	b = append(b, &#39;&#34;&#39;)
-	b = t.AppendFormat(b, RFC3339Nano)
-	b = append(b, &#39;&#34;&#39;)
-	return b, nil
+    b := make([]byte, 0, len(RFC3339Nano)&#43;2)
+    b = append(b, &#39;&#34;&#39;)
+    b = t.AppendFormat(b, RFC3339Nano)
+    b = append(b, &#39;&#34;&#39;)
+    return b, nil
 }
 因此，这种结构体继承了 Time 类型的 MarshalJSON() 方法。当对该结构体进行 json.Marshal 操作时，效果与对 time.Time 进行相同操作的一致，输出结构为&quot;2020-12-20T00:00:00Z&quot;">
 <meta name="author" content="">
@@ -164,17 +164,17 @@ struct {
 // MarshalJSON implements the json.Marshaler interface.
 // The time is a quoted string in RFC 3339 format, with sub-second precision added if present.
 func (t Time) MarshalJSON() ([]byte, error) {
-	if y := t.Year(); y &lt; 0 || y &gt;= 10000 {
-		// RFC 3339 is clear that years are 4 digits exactly.
-		// See golang.org/issue/4556#c15 for more discussion.
-		return nil, errors.New(&#34;Time.MarshalJSON: year outside of range [0,9999]&#34;)
-	}
+    if y := t.Year(); y &lt; 0 || y &gt;= 10000 {
+        // RFC 3339 is clear that years are 4 digits exactly.
+        // See golang.org/issue/4556#c15 for more discussion.
+        return nil, errors.New(&#34;Time.MarshalJSON: year outside of range [0,9999]&#34;)
+    }
 
-	b := make([]byte, 0, len(RFC3339Nano)&#43;2)
-	b = append(b, &#39;&#34;&#39;)
-	b = t.AppendFormat(b, RFC3339Nano)
-	b = append(b, &#39;&#34;&#39;)
-	return b, nil
+    b := make([]byte, 0, len(RFC3339Nano)&#43;2)
+    b = append(b, &#39;&#34;&#39;)
+    b = t.AppendFormat(b, RFC3339Nano)
+    b = append(b, &#39;&#34;&#39;)
+    return b, nil
 }
 因此，这种结构体继承了 Time 类型的 MarshalJSON() 方法。当对该结构体进行 json.Marshal 操作时，效果与对 time.Time 进行相同操作的一致，输出结构为&quot;2020-12-20T00:00:00Z&quot;">
 
@@ -353,17 +353,17 @@ func (t Time) MarshalJSON() ([]byte, error) {
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// MarshalJSON implements the json.Marshaler interface.</span>
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// The time is a quoted string in RFC 3339 format, with sub-second precision added if present.</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">t</span> <span style="color:#a6e22e">Time</span>) <span style="color:#a6e22e">MarshalJSON</span>() ([]<span style="color:#66d9ef">byte</span>, <span style="color:#66d9ef">error</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Year</span>(); <span style="color:#a6e22e">y</span> &lt; <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">10000</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// RFC 3339 is clear that years are 4 digits exactly.</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// See golang.org/issue/4556#c15 for more discussion.</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;Time.MarshalJSON: year outside of range [0,9999]&#34;</span>)
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">Year</span>(); <span style="color:#a6e22e">y</span> &lt; <span style="color:#ae81ff">0</span> <span style="color:#f92672">||</span> <span style="color:#a6e22e">y</span> <span style="color:#f92672">&gt;=</span> <span style="color:#ae81ff">10000</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// RFC 3339 is clear that years are 4 digits exactly.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// See golang.org/issue/4556#c15 for more discussion.</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">nil</span>, <span style="color:#a6e22e">errors</span>.<span style="color:#a6e22e">New</span>(<span style="color:#e6db74">&#34;Time.MarshalJSON: year outside of range [0,9999]&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">RFC3339Nano</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">b</span> = append(<span style="color:#a6e22e">b</span>, <span style="color:#e6db74">&#39;&#34;&#39;</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">b</span> = <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">AppendFormat</span>(<span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">RFC3339Nano</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">b</span> = append(<span style="color:#a6e22e">b</span>, <span style="color:#e6db74">&#39;&#34;&#39;</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>, <span style="color:#66d9ef">nil</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">byte</span>, <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">RFC3339Nano</span>)<span style="color:#f92672">+</span><span style="color:#ae81ff">2</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">b</span> = append(<span style="color:#a6e22e">b</span>, <span style="color:#e6db74">&#39;&#34;&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">b</span> = <span style="color:#a6e22e">t</span>.<span style="color:#a6e22e">AppendFormat</span>(<span style="color:#a6e22e">b</span>, <span style="color:#a6e22e">RFC3339Nano</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">b</span> = append(<span style="color:#a6e22e">b</span>, <span style="color:#e6db74">&#39;&#34;&#39;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">b</span>, <span style="color:#66d9ef">nil</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>因此，这种结构体继承了 Time 类型的 MarshalJSON() 方法。当对该结构体进行 json.Marshal 操作时，效果与对 time.Time 进行相同操作的一致，输出结构为&quot;2020-12-20T00:00:00Z&quot;</p>
 

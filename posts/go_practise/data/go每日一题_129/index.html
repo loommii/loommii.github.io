@@ -11,30 +11,30 @@
 package main
 
 import (
-	&#34;fmt&#34;
-	&#34;time&#34;
+    &#34;fmt&#34;
+    &#34;time&#34;
 )
 
 func main() {
-	ch := make(chan int, 1000)
-	go func() {
-		for i := 0; i &lt; 10; i&#43;&#43; {
-			ch &lt;- i
-		}
-	}()
-	go func() {
-		for {
-			a, ok := &lt;-ch
-			if !ok {
-				fmt.Println(&#34;close&#34;)
-				return
-			}
-			fmt.Println(&#34;a: &#34;, a)
-		}
-	}()
-	close(ch)
-	fmt.Println(&#34;ok&#34;)
-	time.Sleep(time.Second * 100)
+    ch := make(chan int, 1000)
+    go func() {
+        for i := 0; i &lt; 10; i&#43;&#43; {
+            ch &lt;- i
+        }
+    }()
+    go func() {
+        for {
+            a, ok := &lt;-ch
+            if !ok {
+                fmt.Println(&#34;close&#34;)
+                return
+            }
+            fmt.Println(&#34;a: &#34;, a)
+        }
+    }()
+    close(ch)
+    fmt.Println(&#34;ok&#34;)
+    time.Sleep(time.Second * 100)
 }
 🔑 答案解析：
 
@@ -110,30 +110,30 @@ package main import ( &#34;fmt&#34; &#34;time&#34; ) func main() { ch := make(ch
 package main
 
 import (
-	&#34;fmt&#34;
-	&#34;time&#34;
+    &#34;fmt&#34;
+    &#34;time&#34;
 )
 
 func main() {
-	ch := make(chan int, 1000)
-	go func() {
-		for i := 0; i &lt; 10; i&#43;&#43; {
-			ch &lt;- i
-		}
-	}()
-	go func() {
-		for {
-			a, ok := &lt;-ch
-			if !ok {
-				fmt.Println(&#34;close&#34;)
-				return
-			}
-			fmt.Println(&#34;a: &#34;, a)
-		}
-	}()
-	close(ch)
-	fmt.Println(&#34;ok&#34;)
-	time.Sleep(time.Second * 100)
+    ch := make(chan int, 1000)
+    go func() {
+        for i := 0; i &lt; 10; i&#43;&#43; {
+            ch &lt;- i
+        }
+    }()
+    go func() {
+        for {
+            a, ok := &lt;-ch
+            if !ok {
+                fmt.Println(&#34;close&#34;)
+                return
+            }
+            fmt.Println(&#34;a: &#34;, a)
+        }
+    }()
+    close(ch)
+    fmt.Println(&#34;ok&#34;)
+    time.Sleep(time.Second * 100)
 }
 🔑 答案解析：
 
@@ -285,30 +285,30 @@ goroutine 6 [running]:
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;time&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;time&#34;</span>
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1000</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}()
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
-</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;close&#34;</span>)
-</span></span><span style="display:flex;"><span>				<span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>			}
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;a: &#34;</span>, <span style="color:#a6e22e">a</span>)
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}()
-</span></span><span style="display:flex;"><span>	close(<span style="color:#a6e22e">ch</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;ok&#34;</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ch</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">1000</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#ae81ff">10</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">ch</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">i</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">ch</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> !<span style="color:#a6e22e">ok</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;close&#34;</span>)
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;a: &#34;</span>, <span style="color:#a6e22e">a</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>    close(<span style="color:#a6e22e">ch</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;ok&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Sleep</span>(<span style="color:#a6e22e">time</span>.<span style="color:#a6e22e">Second</span> <span style="color:#f92672">*</span> <span style="color:#ae81ff">100</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
 <div class="toggle-content">

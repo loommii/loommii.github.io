@@ -9,33 +9,33 @@
 <meta name="keywords" content="">
 <meta name="description" content="下面这段代码输出什么？
 func main() {
-	var a = []int{1, 2, 3, 4, 5}
-	var r [5]int
+    var a = []int{1, 2, 3, 4, 5}
+    var r [5]int
 
-	for i, v := range a {
-		if i == 0 {
-			a[1] = 12
-			a[2] = 13
-		}
-		r[i] = v
-	}
-	fmt.Println(&#34;r = &#34;, r)
-	fmt.Println(&#34;a = &#34;, a)
+    for i, v := range a {
+        if i == 0 {
+            a[1] = 12
+            a[2] = 13
+        }
+        r[i] = v
+    }
+    fmt.Println(&#34;r = &#34;, r)
+    fmt.Println(&#34;a = &#34;, a)
 }
 🔑 答案解析：
 
   r =  [1 12 13 4 5]
 a =  [1 12 13 4 5]
-rang a 实际是在变量a的副本。由于切片的结构，这2个切片都会指向同一个底层数组。因此改动	a[1] = 12 ， a[2] = 13 会影响v的结构
+rang a 实际是在变量a的副本。由于切片的结构，这2个切片都会指向同一个底层数组。因此改动    a[1] = 12 ， a[2] = 13 会影响v的结构
 我们可以做验证 ，将a在循环中扩容。这时候a和副本切片指向的就不是同一个底层数组，改动将不会影响副本
 for i, v := range a {
-		if i == 0 {
-			a = append(a, v)
-			a[1] = 12
-			a[2] = 13
-		}
-		r[i] = v
-	}
+        if i == 0 {
+            a = append(a, v)
+            a[1] = 12
+            a[2] = 13
+        }
+        r[i] = v
+    }
 
 
 ">
@@ -90,7 +90,7 @@ for i, v := range a {
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="Go每日一题_103">
   <meta property="og:description" content="下面这段代码输出什么？
-func main() { var a = []int{1, 2, 3, 4, 5} var r [5]int for i, v := range a { if i == 0 { a[1] = 12 a[2] = 13 } r[i] = v } fmt.Println(&#34;r = &#34;, r) fmt.Println(&#34;a = &#34;, a) } 🔑 答案解析： r = [1 12 13 4 5] a = [1 12 13 4 5] rang a 实际是在变量a的副本。由于切片的结构，这2个切片都会指向同一个底层数组。因此改动	a[1] = 12 ， a[2] = 13 会影响v的结构
+func main() { var a = []int{1, 2, 3, 4, 5} var r [5]int for i, v := range a { if i == 0 { a[1] = 12 a[2] = 13 } r[i] = v } fmt.Println(&#34;r = &#34;, r) fmt.Println(&#34;a = &#34;, a) } 🔑 答案解析： r = [1 12 13 4 5] a = [1 12 13 4 5] rang a 实际是在变量a的副本。由于切片的结构，这2个切片都会指向同一个底层数组。因此改动 a[1] = 12 ， a[2] = 13 会影响v的结构
 我们可以做验证 ，将a在循环中扩容。这时候a和副本切片指向的就不是同一个底层数组，改动将不会影响副本
 for i, v := range a { if i == 0 { a = append(a, v) a[1] = 12 a[2] = 13 } r[i] = v } ">
   <meta property="og:locale" content="zh">
@@ -102,33 +102,33 @@ for i, v := range a { if i == 0 { a = append(a, v) a[1] = 12 a[2] = 13 } r[i] = 
 <meta name="twitter:title" content="Go每日一题_103">
 <meta name="twitter:description" content="下面这段代码输出什么？
 func main() {
-	var a = []int{1, 2, 3, 4, 5}
-	var r [5]int
+    var a = []int{1, 2, 3, 4, 5}
+    var r [5]int
 
-	for i, v := range a {
-		if i == 0 {
-			a[1] = 12
-			a[2] = 13
-		}
-		r[i] = v
-	}
-	fmt.Println(&#34;r = &#34;, r)
-	fmt.Println(&#34;a = &#34;, a)
+    for i, v := range a {
+        if i == 0 {
+            a[1] = 12
+            a[2] = 13
+        }
+        r[i] = v
+    }
+    fmt.Println(&#34;r = &#34;, r)
+    fmt.Println(&#34;a = &#34;, a)
 }
 🔑 答案解析：
 
   r =  [1 12 13 4 5]
 a =  [1 12 13 4 5]
-rang a 实际是在变量a的副本。由于切片的结构，这2个切片都会指向同一个底层数组。因此改动	a[1] = 12 ， a[2] = 13 会影响v的结构
+rang a 实际是在变量a的副本。由于切片的结构，这2个切片都会指向同一个底层数组。因此改动    a[1] = 12 ， a[2] = 13 会影响v的结构
 我们可以做验证 ，将a在循环中扩容。这时候a和副本切片指向的就不是同一个底层数组，改动将不会影响副本
 for i, v := range a {
-		if i == 0 {
-			a = append(a, v)
-			a[1] = 12
-			a[2] = 13
-		}
-		r[i] = v
-	}
+        if i == 0 {
+            a = append(a, v)
+            a[1] = 12
+            a[2] = 13
+        }
+        r[i] = v
+    }
 
 
 ">
@@ -160,11 +160,11 @@ for i, v := range a {
   "@type": "BlogPosting",
   "headline": "Go每日一题_103",
   "name": "Go每日一题_103",
-  "description": "下面这段代码输出什么？\nfunc main() { var a = []int{1, 2, 3, 4, 5} var r [5]int for i, v := range a { if i == 0 { a[1] = 12 a[2] = 13 } r[i] = v } fmt.Println(\u0026#34;r = \u0026#34;, r) fmt.Println(\u0026#34;a = \u0026#34;, a) } 🔑 答案解析： r = [1 12 13 4 5] a = [1 12 13 4 5] rang a 实际是在变量a的副本。由于切片的结构，这2个切片都会指向同一个底层数组。因此改动\ta[1] = 12 ， a[2] = 13 会影响v的结构\n我们可以做验证 ，将a在循环中扩容。这时候a和副本切片指向的就不是同一个底层数组，改动将不会影响副本\nfor i, v := range a { if i == 0 { a = append(a, v) a[1] = 12 a[2] = 13 } r[i] = v } ",
+  "description": "下面这段代码输出什么？\nfunc main() { var a = []int{1, 2, 3, 4, 5} var r [5]int for i, v := range a { if i == 0 { a[1] = 12 a[2] = 13 } r[i] = v } fmt.Println(\u0026#34;r = \u0026#34;, r) fmt.Println(\u0026#34;a = \u0026#34;, a) } 🔑 答案解析： r = [1 12 13 4 5] a = [1 12 13 4 5] rang a 实际是在变量a的副本。由于切片的结构，这2个切片都会指向同一个底层数组。因此改动 a[1] = 12 ， a[2] = 13 会影响v的结构\n我们可以做验证 ，将a在循环中扩容。这时候a和副本切片指向的就不是同一个底层数组，改动将不会影响副本\nfor i, v := range a { if i == 0 { a = append(a, v) a[1] = 12 a[2] = 13 } r[i] = v } ",
   "keywords": [
     
   ],
-  "articleBody": "下面这段代码输出什么？\nfunc main() { var a = []int{1, 2, 3, 4, 5} var r [5]int for i, v := range a { if i == 0 { a[1] = 12 a[2] = 13 } r[i] = v } fmt.Println(\"r = \", r) fmt.Println(\"a = \", a) } 🔑 答案解析： r = [1 12 13 4 5] a = [1 12 13 4 5] rang a 实际是在变量a的副本。由于切片的结构，这2个切片都会指向同一个底层数组。因此改动\ta[1] = 12 ， a[2] = 13 会影响v的结构\n我们可以做验证 ，将a在循环中扩容。这时候a和副本切片指向的就不是同一个底层数组，改动将不会影响副本\nfor i, v := range a { if i == 0 { a = append(a, v) a[1] = 12 a[2] = 13 } r[i] = v } ",
+  "articleBody": "下面这段代码输出什么？\nfunc main() { var a = []int{1, 2, 3, 4, 5} var r [5]int for i, v := range a { if i == 0 { a[1] = 12 a[2] = 13 } r[i] = v } fmt.Println(\"r = \", r) fmt.Println(\"a = \", a) } 🔑 答案解析： r = [1 12 13 4 5] a = [1 12 13 4 5] rang a 实际是在变量a的副本。由于切片的结构，这2个切片都会指向同一个底层数组。因此改动 a[1] = 12 ， a[2] = 13 会影响v的结构\n我们可以做验证 ，将a在循环中扩容。这时候a和副本切片指向的就不是同一个底层数组，改动将不会影响副本\nfor i, v := range a { if i == 0 { a = append(a, v) a[1] = 12 a[2] = 13 } r[i] = v } ",
   "wordCount" : "103",
   "inLanguage": "zh",
   "datePublished": "2024-12-06T23:42:42+08:00",
@@ -269,33 +269,33 @@ for i, v := range a {
   </header> 
   <div class="post-content"><p>下面这段代码输出什么？</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> = []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">r</span> [<span style="color:#ae81ff">5</span>]<span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> = []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>, <span style="color:#ae81ff">4</span>, <span style="color:#ae81ff">5</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">r</span> [<span style="color:#ae81ff">5</span>]<span style="color:#66d9ef">int</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">a</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">12</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">2</span>] = <span style="color:#ae81ff">13</span>
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">v</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;r = &#34;</span>, <span style="color:#a6e22e">r</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;a = &#34;</span>, <span style="color:#a6e22e">a</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">a</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">2</span>] = <span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">r</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">v</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;r = &#34;</span>, <span style="color:#a6e22e">r</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;a = &#34;</span>, <span style="color:#a6e22e">a</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
 <div class="toggle-content">
   <p>r =  [1 12 13 4 5]
 a =  [1 12 13 4 5]
-rang a 实际是在变量a的副本。由于切片的结构，这2个切片都会指向同一个底层数组。因此改动	a[1] = 12 ， a[2] = 13 会影响v的结构</p>
+rang a 实际是在变量a的副本。由于切片的结构，这2个切片都会指向同一个底层数组。因此改动    a[1] = 12 ， a[2] = 13 会影响v的结构</p>
 <p>我们可以做验证 ，将a在循环中扩容。这时候a和副本切片指向的就不是同一个底层数组，改动将不会影响副本</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">a</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">v</span>)
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">12</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">2</span>] = <span style="color:#ae81ff">13</span>
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">v</span>
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span> = append(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">v</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#ae81ff">12</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">a</span>[<span style="color:#ae81ff">2</span>] = <span style="color:#ae81ff">13</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">r</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">v</span>
+</span></span><span style="display:flex;"><span>    }
 </span></span></code></pre></div>
 </div>
 <style>

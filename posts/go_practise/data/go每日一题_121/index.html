@@ -9,23 +9,23 @@
 <meta name="keywords" content="">
 <meta name="description" content="下面代码会输出什么
 func increaseA() int {
-	var i int
-	defer func() {
-		i&#43;&#43;
-	}()
-	return i
+    var i int
+    defer func() {
+        i&#43;&#43;
+    }()
+    return i
 }
 
 func increaseB() (r int) {
-	defer func() {
-		r&#43;&#43;
-	}()
-	return r
+    defer func() {
+        r&#43;&#43;
+    }()
+    return r
 }
 
 func main() {
-	fmt.Println(increaseA())
-	fmt.Println(increaseB())
+    fmt.Println(increaseA())
+    fmt.Println(increaseB())
 }
 🔑 答案解析：
 
@@ -35,10 +35,10 @@ func main() {
 A 执行到return i 是将i的值赋值给返回参数，后面i&#43;&#43;不影响
 B 执行到return r 是将r赋值给r,后面的r&#43;&#43; 因为是同一个r 后面的r&#43;&#43;会影响
 func increaseB() (r int) {
-	defer func() {
-		r&#43;&#43;
-	}()
-	return 4
+    defer func() {
+        r&#43;&#43;
+    }()
+    return 4
 }
 // 返回5
 上面的代码就可以证明return 4 赋值给了r
@@ -107,23 +107,23 @@ func increaseB() (r int) { defer func() { r&#43;&#43; }() return 4 } // 返回5 
 <meta name="twitter:title" content="Go每日一题_121">
 <meta name="twitter:description" content="下面代码会输出什么
 func increaseA() int {
-	var i int
-	defer func() {
-		i&#43;&#43;
-	}()
-	return i
+    var i int
+    defer func() {
+        i&#43;&#43;
+    }()
+    return i
 }
 
 func increaseB() (r int) {
-	defer func() {
-		r&#43;&#43;
-	}()
-	return r
+    defer func() {
+        r&#43;&#43;
+    }()
+    return r
 }
 
 func main() {
-	fmt.Println(increaseA())
-	fmt.Println(increaseB())
+    fmt.Println(increaseA())
+    fmt.Println(increaseB())
 }
 🔑 答案解析：
 
@@ -133,10 +133,10 @@ func main() {
 A 执行到return i 是将i的值赋值给返回参数，后面i&#43;&#43;不影响
 B 执行到return r 是将r赋值给r,后面的r&#43;&#43; 因为是同一个r 后面的r&#43;&#43;会影响
 func increaseB() (r int) {
-	defer func() {
-		r&#43;&#43;
-	}()
-	return 4
+    defer func() {
+        r&#43;&#43;
+    }()
+    return 4
 }
 // 返回5
 上面的代码就可以证明return 4 赋值给了r
@@ -280,23 +280,23 @@ func increaseB() (r int) {
   </header> 
   <div class="post-content"><p>下面代码会输出什么</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">increaseA</span>() <span style="color:#66d9ef">int</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>
-</span></span><span style="display:flex;"><span>	}()
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">i</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">i</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">increaseB</span>() (<span style="color:#a6e22e">r</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span><span style="color:#f92672">++</span>
-</span></span><span style="display:flex;"><span>	}()
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">r</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">r</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">r</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">increaseA</span>())
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">increaseB</span>())
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">increaseA</span>())
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">increaseB</span>())
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
 <div class="toggle-content">
@@ -306,10 +306,10 @@ func increaseB() (r int) {
 A 执行到return i 是将i的值赋值给返回参数，后面i++不影响
 B 执行到return r 是将r赋值给r,后面的r++ 因为是同一个r 后面的r++会影响</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">increaseB</span>() (<span style="color:#a6e22e">r</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span><span style="color:#f92672">++</span>
-</span></span><span style="display:flex;"><span>	}()
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">4</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">r</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">4</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// 返回5</span>
 </span></span></code></pre></div><p>上面的代码就可以证明return 4 赋值给了r</p>

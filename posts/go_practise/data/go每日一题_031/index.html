@@ -11,11 +11,11 @@
 package main
 
 import (
-	&#34;fmt&#34;
+    &#34;fmt&#34;
 )
 
 type People interface {
-	Show()
+    Show()
 }
 
 type Student struct{}
@@ -25,16 +25,16 @@ func (stu *Student) Show() {
 }
 
 func live() People {
-	var stu *Student
-	return stu
+    var stu *Student
+    return stu
 }
 
 func main() {
-	if live() == nil {
-		fmt.Println(&#34;AAAAAAA&#34;)
-	} else {
-		fmt.Println(&#34;BBBBBBB&#34;)
-	}
+    if live() == nil {
+        fmt.Println(&#34;AAAAAAA&#34;)
+    } else {
+        fmt.Println(&#34;BBBBBBB&#34;)
+    }
 }
 🔑 答案解析：
 
@@ -42,8 +42,8 @@ func main() {
 简单解释一下，就是接口的底层其实是有2个指针 一个指向类型,一个指向值。
 //伪代码
 指针{
-	类型指针
-	值指针
+    类型指针
+    值指针
 }
 live()函数中
 var stu *Student 类型 返回是 Prople指针
@@ -116,11 +116,11 @@ package main import ( &#34;fmt&#34; ) type People interface { Show() } type Stud
 package main
 
 import (
-	&#34;fmt&#34;
+    &#34;fmt&#34;
 )
 
 type People interface {
-	Show()
+    Show()
 }
 
 type Student struct{}
@@ -130,16 +130,16 @@ func (stu *Student) Show() {
 }
 
 func live() People {
-	var stu *Student
-	return stu
+    var stu *Student
+    return stu
 }
 
 func main() {
-	if live() == nil {
-		fmt.Println(&#34;AAAAAAA&#34;)
-	} else {
-		fmt.Println(&#34;BBBBBBB&#34;)
-	}
+    if live() == nil {
+        fmt.Println(&#34;AAAAAAA&#34;)
+    } else {
+        fmt.Println(&#34;BBBBBBB&#34;)
+    }
 }
 🔑 答案解析：
 
@@ -147,8 +147,8 @@ func main() {
 简单解释一下，就是接口的底层其实是有2个指针 一个指向类型,一个指向值。
 //伪代码
 指针{
-	类型指针
-	值指针
+    类型指针
+    值指针
 }
 live()函数中
 var stu *Student 类型 返回是 Prople指针
@@ -298,11 +298,11 @@ if 接口类型 == nil
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">People</span> <span style="color:#66d9ef">interface</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Show</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Show</span>()
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Student</span> <span style="color:#66d9ef">struct</span>{}
@@ -312,16 +312,16 @@ if 接口类型 == nil
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">live</span>() <span style="color:#a6e22e">People</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stu</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Student</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">stu</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">stu</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">Student</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">stu</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">live</span>() <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;AAAAAAA&#34;</span>)
-</span></span><span style="display:flex;"><span>	} <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;BBBBBBB&#34;</span>)
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">live</span>() <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;AAAAAAA&#34;</span>)
+</span></span><span style="display:flex;"><span>    } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;BBBBBBB&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
 <div class="toggle-content">
@@ -329,8 +329,8 @@ if 接口类型 == nil
 简单解释一下，就是接口的底层其实是有2个指针 一个指向类型,一个指向值。</p>
 <pre tabindex="0"><code>//伪代码
 指针{
-	类型指针
-	值指针
+    类型指针
+    值指针
 }
 </code></pre><p>live()函数中
 var stu *Student 类型 返回是 Prople指针

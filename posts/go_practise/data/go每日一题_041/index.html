@@ -30,14 +30,14 @@ package main
 import &#34;fmt&#34;
 
 func hello(num ...int) {
-	num = append(num, 1)
-	num[0] = 18
+    num = append(num, 1)
+    num[0] = 18
 
 }
 func main() {
-	i := []int{5, 6, 7}
-	hello(i...)
-	fmt.Println(i[0])
+    i := []int{5, 6, 7}
+    hello(i...)
+    fmt.Println(i[0])
 }
 改动后 num的切片发送了扩容，导致2个切片指的底层数组不通，因此不会影响到 i切片 最终print 输出 5
 
@@ -128,14 +128,14 @@ package main
 import &#34;fmt&#34;
 
 func hello(num ...int) {
-	num = append(num, 1)
-	num[0] = 18
+    num = append(num, 1)
+    num[0] = 18
 
 }
 func main() {
-	i := []int{5, 6, 7}
-	hello(i...)
-	fmt.Println(i[0])
+    i := []int{5, 6, 7}
+    hello(i...)
+    fmt.Println(i[0])
 }
 改动后 num的切片发送了扩容，导致2个切片指的底层数组不通，因此不会影响到 i切片 最终print 输出 5
 
@@ -300,14 +300,14 @@ C.Compilation error
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">hello</span>(<span style="color:#a6e22e">num</span> <span style="color:#f92672">...</span><span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">num</span> = append(<span style="color:#a6e22e">num</span>, <span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">num</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#ae81ff">18</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">num</span> = append(<span style="color:#a6e22e">num</span>, <span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">num</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#ae81ff">18</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">hello</span>(<span style="color:#a6e22e">i</span><span style="color:#f92672">...</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">i</span>[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">5</span>, <span style="color:#ae81ff">6</span>, <span style="color:#ae81ff">7</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">hello</span>(<span style="color:#a6e22e">i</span><span style="color:#f92672">...</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">i</span>[<span style="color:#ae81ff">0</span>])
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>改动后 num的切片发送了扩容，导致2个切片指的底层数组不通，因此不会影响到 i切片 最终print 输出 5</p>
 

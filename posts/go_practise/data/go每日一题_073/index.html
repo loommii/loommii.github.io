@@ -9,27 +9,27 @@
 <meta name="keywords" content="">
 <meta name="description" content="f1()、f2()、f3() 函数分别返回什么？
 func f1() (r int) {
-	defer func() {
-		r&#43;&#43;
-	}()
-	return 0
+    defer func() {
+        r&#43;&#43;
+    }()
+    return 0
 }
 
 
 func f2() (r int) {
-	t := 5
-	defer func() {
-		t = t &#43; 5
-	}()
-	return t
+    t := 5
+    defer func() {
+        t = t &#43; 5
+    }()
+    return t
 }
 
 
 func f3() (r int) {
-	defer func(r int) {
-		r = r &#43; 5
-	}(r)
-	return 1
+    defer func(r int) {
+        r = r &#43; 5
+    }(r)
+    return 1
 }
 🔑 答案解析：
 
@@ -99,27 +99,27 @@ func f1() (r int) { defer func() { r&#43;&#43; }() return 0 } func f2() (r int) 
 <meta name="twitter:title" content="Go每日一题_073">
 <meta name="twitter:description" content="f1()、f2()、f3() 函数分别返回什么？
 func f1() (r int) {
-	defer func() {
-		r&#43;&#43;
-	}()
-	return 0
+    defer func() {
+        r&#43;&#43;
+    }()
+    return 0
 }
 
 
 func f2() (r int) {
-	t := 5
-	defer func() {
-		t = t &#43; 5
-	}()
-	return t
+    t := 5
+    defer func() {
+        t = t &#43; 5
+    }()
+    return t
 }
 
 
 func f3() (r int) {
-	defer func(r int) {
-		r = r &#43; 5
-	}(r)
-	return 1
+    defer func(r int) {
+        r = r &#43; 5
+    }(r)
+    return 1
 }
 🔑 答案解析：
 
@@ -265,27 +265,27 @@ f3 1
   </header> 
   <div class="post-content"><p>f1()、f2()、f3() 函数分别返回什么？</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">f1</span>() (<span style="color:#a6e22e">r</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span><span style="color:#f92672">++</span>
-</span></span><span style="display:flex;"><span>	}()
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">r</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">0</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">f2</span>() (<span style="color:#a6e22e">r</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">t</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">t</span> = <span style="color:#a6e22e">t</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>	}()
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">t</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">t</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">t</span> = <span style="color:#a6e22e">t</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">t</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">f3</span>() (<span style="color:#a6e22e">r</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">r</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">r</span> = <span style="color:#a6e22e">r</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>
-</span></span><span style="display:flex;"><span>	}(<span style="color:#a6e22e">r</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">defer</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">r</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">r</span> = <span style="color:#a6e22e">r</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">5</span>
+</span></span><span style="display:flex;"><span>    }(<span style="color:#a6e22e">r</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
 <div class="toggle-content">

@@ -13,19 +13,19 @@ package main
 import &#34;sync&#34;
 
 func main() {
-	var wg sync.WaitGroup
-	foo := make(chan int)
-	bar := make(chan int)
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		select {
-		case foo &lt;- &lt;-bar:
-		default:
-			println(&#34;default&#34;)
-		}
-	}()
-	wg.Wait()
+    var wg sync.WaitGroup
+    foo := make(chan int)
+    bar := make(chan int)
+    wg.Add(1)
+    go func() {
+        defer wg.Done()
+        select {
+        case foo &lt;- &lt;-bar:
+        default:
+            println(&#34;default&#34;)
+        }
+    }()
+    wg.Wait()
 }
 A：default
 B：panic
@@ -102,19 +102,19 @@ package main
 import &#34;sync&#34;
 
 func main() {
-	var wg sync.WaitGroup
-	foo := make(chan int)
-	bar := make(chan int)
-	wg.Add(1)
-	go func() {
-		defer wg.Done()
-		select {
-		case foo &lt;- &lt;-bar:
-		default:
-			println(&#34;default&#34;)
-		}
-	}()
-	wg.Wait()
+    var wg sync.WaitGroup
+    foo := make(chan int)
+    bar := make(chan int)
+    wg.Add(1)
+    go func() {
+        defer wg.Done()
+        select {
+        case foo &lt;- &lt;-bar:
+        default:
+            println(&#34;default&#34;)
+        }
+    }()
+    wg.Wait()
 }
 A：default
 B：panic
@@ -265,19 +265,19 @@ For all the cases in the statement, the channel operands of receive operations a
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;sync&#34;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">foo</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">bar</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">select</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">foo</span> <span style="color:#f92672">&lt;-</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">bar</span>:
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">default</span>:
-</span></span><span style="display:flex;"><span>			println(<span style="color:#e6db74">&#34;default&#34;</span>)
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}()
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">foo</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">bar</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">foo</span> <span style="color:#f92672">&lt;-</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">bar</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>            println(<span style="color:#e6db74">&#34;default&#34;</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>A：default
 B：panic

@@ -13,31 +13,31 @@ package main
 import &#34;fmt&#34;
 
 type Student struct {
-	Name string
+    Name string
 }
 
 var list map[string]Student
 
 func main() {
 
-	list = make(map[string]Student)
+    list = make(map[string]Student)
 
-	student := Student{&#34;Aceld&#34;}
+    student := Student{&#34;Aceld&#34;}
 
-	list[&#34;student&#34;] = student
-	list[&#34;student&#34;].Name = &#34;LDB&#34;
+    list[&#34;student&#34;] = student
+    list[&#34;student&#34;].Name = &#34;LDB&#34;
 
-	fmt.Println(list[&#34;student&#34;])
+    fmt.Println(list[&#34;student&#34;])
 }
 🔑 答案解析：
 
   答：编译失败。
 map[string]Student  的 value 是一个 Student 结构值，所以当list[&quot;student&quot;] = student,是一个值拷贝过程。而list[&ldquo;student&rdquo;]则是一个值引用。那么值引用的特点是只读。所以对list[&ldquo;student&rdquo;].Name = &ldquo;LDB&quot;的修改是不允许的。
 如果真要修改需要New一个新的结构体，修改内容后重新赋值
-	//list[&#34;student&#34;].Name = &#34;LDB&#34;
-	newStudent := list[&#34;student&#34;]
-	newStudent.Name = &#34;LDB&#34;
-	list[&#34;student&#34;] = newStudent
+    //list[&#34;student&#34;].Name = &#34;LDB&#34;
+    newStudent := list[&#34;student&#34;]
+    newStudent.Name = &#34;LDB&#34;
+    list[&#34;student&#34;] = newStudent
 或者将map value 改为一个 Student 结构值指针
 map[string]*Student
 package main
@@ -45,21 +45,21 @@ package main
 import &#34;fmt&#34;
 
 type Student struct {
-	Name string
+    Name string
 }
 
 var list map[string]*Student
 
 func main() {
 
-	list = make(map[string]*Student)
+    list = make(map[string]*Student)
 
-	student := Student{&#34;Aceld&#34;}
+    student := Student{&#34;Aceld&#34;}
 
-	list[&#34;student&#34;] = &amp;student
-	list[&#34;student&#34;].Name = &#34;LDB&#34;
+    list[&#34;student&#34;] = &amp;student
+    list[&#34;student&#34;].Name = &#34;LDB&#34;
 
-	fmt.Println(list[&#34;student&#34;])
+    fmt.Println(list[&#34;student&#34;])
 }
 
 
@@ -132,31 +132,31 @@ package main
 import &#34;fmt&#34;
 
 type Student struct {
-	Name string
+    Name string
 }
 
 var list map[string]Student
 
 func main() {
 
-	list = make(map[string]Student)
+    list = make(map[string]Student)
 
-	student := Student{&#34;Aceld&#34;}
+    student := Student{&#34;Aceld&#34;}
 
-	list[&#34;student&#34;] = student
-	list[&#34;student&#34;].Name = &#34;LDB&#34;
+    list[&#34;student&#34;] = student
+    list[&#34;student&#34;].Name = &#34;LDB&#34;
 
-	fmt.Println(list[&#34;student&#34;])
+    fmt.Println(list[&#34;student&#34;])
 }
 🔑 答案解析：
 
   答：编译失败。
 map[string]Student  的 value 是一个 Student 结构值，所以当list[&quot;student&quot;] = student,是一个值拷贝过程。而list[&ldquo;student&rdquo;]则是一个值引用。那么值引用的特点是只读。所以对list[&ldquo;student&rdquo;].Name = &ldquo;LDB&quot;的修改是不允许的。
 如果真要修改需要New一个新的结构体，修改内容后重新赋值
-	//list[&#34;student&#34;].Name = &#34;LDB&#34;
-	newStudent := list[&#34;student&#34;]
-	newStudent.Name = &#34;LDB&#34;
-	list[&#34;student&#34;] = newStudent
+    //list[&#34;student&#34;].Name = &#34;LDB&#34;
+    newStudent := list[&#34;student&#34;]
+    newStudent.Name = &#34;LDB&#34;
+    list[&#34;student&#34;] = newStudent
 或者将map value 改为一个 Student 结构值指针
 map[string]*Student
 package main
@@ -164,21 +164,21 @@ package main
 import &#34;fmt&#34;
 
 type Student struct {
-	Name string
+    Name string
 }
 
 var list map[string]*Student
 
 func main() {
 
-	list = make(map[string]*Student)
+    list = make(map[string]*Student)
 
-	student := Student{&#34;Aceld&#34;}
+    student := Student{&#34;Aceld&#34;}
 
-	list[&#34;student&#34;] = &amp;student
-	list[&#34;student&#34;].Name = &#34;LDB&#34;
+    list[&#34;student&#34;] = &amp;student
+    list[&#34;student&#34;].Name = &#34;LDB&#34;
 
-	fmt.Println(list[&#34;student&#34;])
+    fmt.Println(list[&#34;student&#34;])
 }
 
 
@@ -324,31 +324,31 @@ func main() {
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Student</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">list</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">Student</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">list</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">Student</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">list</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#a6e22e">Student</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">student</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Student</span>{<span style="color:#e6db74">&#34;Aceld&#34;</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">student</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Student</span>{<span style="color:#e6db74">&#34;Aceld&#34;</span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>] = <span style="color:#a6e22e">student</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>].<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;LDB&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>] = <span style="color:#a6e22e">student</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>].<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;LDB&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>])
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
 <div class="toggle-content">
   <p>答：编译失败。
 <code>map[string]Student</code>  的 value 是一个 Student 结构值，所以当<code>list[&quot;student&quot;] = student</code>,是一个值拷贝过程。而list[&ldquo;student&rdquo;]则是一个值引用。那么值引用的特点是<code>只读</code>。所以对list[&ldquo;student&rdquo;].Name = &ldquo;LDB&quot;的修改是不允许的。</p>
 <p>如果真要修改需要New一个新的结构体，修改内容后重新赋值</p>
-<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>	<span style="color:#75715e">//list[&#34;student&#34;].Name = &#34;LDB&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">newStudent</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>]
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">newStudent</span>.<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;LDB&#34;</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>] = <span style="color:#a6e22e">newStudent</span>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>    <span style="color:#75715e">//list[&#34;student&#34;].Name = &#34;LDB&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">newStudent</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>]
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">newStudent</span>.<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;LDB&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>] = <span style="color:#a6e22e">newStudent</span>
 </span></span></code></pre></div><p>或者将map value 改为一个 Student 结构值指针
 map[string]*Student</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
@@ -356,21 +356,21 @@ map[string]*Student</p>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Student</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Name</span> <span style="color:#66d9ef">string</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">list</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">Student</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">list</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">Student</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">list</span> = make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#f92672">*</span><span style="color:#a6e22e">Student</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">student</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Student</span>{<span style="color:#e6db74">&#34;Aceld&#34;</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">student</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Student</span>{<span style="color:#e6db74">&#34;Aceld&#34;</span>}
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">student</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>].<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;LDB&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">student</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>].<span style="color:#a6e22e">Name</span> = <span style="color:#e6db74">&#34;LDB&#34;</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">list</span>[<span style="color:#e6db74">&#34;student&#34;</span>])
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
 </div>

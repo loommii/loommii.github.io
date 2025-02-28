@@ -299,39 +299,39 @@
   <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">maxPreferred</span> = <span style="color:#ae81ff">1_000_0000</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">closestRoom</span>(<span style="color:#a6e22e">rooms</span> [][]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">queries</span> [][]<span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 从大到小 排序</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">slices</span>.<span style="color:#a6e22e">SortFunc</span>(<span style="color:#a6e22e">rooms</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">k</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">k</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">i</span>[<span style="color:#ae81ff">1</span>] })
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 从大到小 排序</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">slices</span>.<span style="color:#a6e22e">SortFunc</span>(<span style="color:#a6e22e">rooms</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">k</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">k</span>[<span style="color:#ae81ff">1</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">i</span>[<span style="color:#ae81ff">1</span>] })
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">queries</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">n</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">ansI</span>, <span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">queries</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// _ = q[0] // id</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// _ = q[1] // 最小面积</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">queries</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">n</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">ansI</span>, <span style="color:#a6e22e">q</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">queries</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// _ = q[0] // id</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// _ = q[1] // 最小面积</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">minID</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">maxPreferred</span> <span style="color:#75715e">// 这里记录最小的ID差值</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">minID</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">maxPreferred</span> <span style="color:#75715e">// 这里记录最小的ID差值</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">rooms</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">rooms</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">q</span>[<span style="color:#ae81ff">1</span>]; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// rooms[i][0] = 房间ID</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// rooms[i][1] = 房间面积</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">idGap</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">rooms</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">q</span>[<span style="color:#ae81ff">0</span>])
-</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">minID</span> &gt; <span style="color:#a6e22e">idGap</span> {
-</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">minID</span> = <span style="color:#a6e22e">idGap</span>
-</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">ansI</span>] = <span style="color:#a6e22e">rooms</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">0</span>]
-</span></span><span style="display:flex;"><span>			} <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">minID</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">idGap</span> { <span style="color:#75715e">// 如果差相同 选小的ID</span>
-</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">ansI</span>] = min(<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">ansI</span>], <span style="color:#a6e22e">rooms</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">0</span>])
-</span></span><span style="display:flex;"><span>			}
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">minID</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">maxPreferred</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">ansI</span>] = <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#75715e">// 默认为-1</span>
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; len(<span style="color:#a6e22e">rooms</span>) <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">rooms</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">1</span>] <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">q</span>[<span style="color:#ae81ff">1</span>]; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// rooms[i][0] = 房间ID</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// rooms[i][1] = 房间面积</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">idGap</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">rooms</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">0</span>] <span style="color:#f92672">-</span> <span style="color:#a6e22e">q</span>[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">minID</span> &gt; <span style="color:#a6e22e">idGap</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">minID</span> = <span style="color:#a6e22e">idGap</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">ansI</span>] = <span style="color:#a6e22e">rooms</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">0</span>]
+</span></span><span style="display:flex;"><span>            } <span style="color:#66d9ef">else</span> <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">minID</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">idGap</span> { <span style="color:#75715e">// 如果差相同 选小的ID</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">ansI</span>] = min(<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">ansI</span>], <span style="color:#a6e22e">rooms</span>[<span style="color:#a6e22e">i</span>][<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">minID</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">maxPreferred</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">ansI</span>] = <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#75715e">// 默认为-1</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">abs</span>(<span style="color:#a6e22e">a</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span> &lt; <span style="color:#ae81ff">0</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">a</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">a</span> &lt; <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#a6e22e">a</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
 </div>

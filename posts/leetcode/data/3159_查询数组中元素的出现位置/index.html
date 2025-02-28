@@ -291,33 +291,33 @@
 </span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析： 👈点击</button>
 <div class="toggle-content">
   <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">occurrencesOfElement</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#a6e22e">queries</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">x</span> <span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">queryLen</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">queries</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">queryLen</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">queryLen</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">queries</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">queryLen</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 定义一个切片 indexList，用于存储目标元素 x 在 nums 数组中的所有索引位置</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">indexList</span> []<span style="color:#66d9ef">int</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 遍历 nums 数组</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 如果当前元素 v 等于目标元素 x</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">x</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// 将当前元素的索引 i 添加到 indexList 切片中</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">indexList</span> = append(<span style="color:#a6e22e">indexList</span>, <span style="color:#a6e22e">i</span>)
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 定义一个切片 indexList，用于存储目标元素 x 在 nums 数组中的所有索引位置</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">indexList</span> []<span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 遍历 nums 数组</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 如果当前元素 v 等于目标元素 x</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">x</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 将当前元素的索引 i 添加到 indexList 切片中</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">indexList</span> = append(<span style="color:#a6e22e">indexList</span>, <span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 遍历查询数组 queries</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">queries</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 如果查询值 v 大于 indexList 切片的长度，说明查询的位置超出了目标元素 x 出现的次数</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> &gt; len(<span style="color:#a6e22e">indexList</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// 在结果数组 ans 的对应位置存入 -1</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
-</span></span><span style="display:flex;"><span>			<span style="color:#75715e">// 在结果数组 ans 的对应位置存入 indexList 中索引为 v-1 的值</span>
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">indexList</span>[<span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
-</span></span><span style="display:flex;"><span>		}
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 遍历查询数组 queries</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">queries</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 如果查询值 v 大于 indexList 切片的长度，说明查询的位置超出了目标元素 x 出现的次数</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> &gt; len(<span style="color:#a6e22e">indexList</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 在结果数组 ans 的对应位置存入 -1</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 在结果数组 ans 的对应位置存入 indexList 中索引为 v-1 的值</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">ans</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">indexList</span>[<span style="color:#a6e22e">v</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
 </div>

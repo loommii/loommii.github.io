@@ -13,12 +13,12 @@ package main
 import &#34;fmt&#34;
 
 func main() {
-	var i interface{}
-	if i == nil {
-		fmt.Println(&#34;nil&#34;)
-		return
-	}
-	fmt.Println(&#34;not nil&#34;)
+    var i interface{}
+    if i == nil {
+        fmt.Println(&#34;nil&#34;)
+        return
+    }
+    fmt.Println(&#34;not nil&#34;)
 }
 
 A. nil
@@ -35,7 +35,7 @@ interface共有2种表现形式
 var MyInterface interface{}
 // 2 非空接口
 type MyInterface interface {
-	function()
+    function()
 }
 对应的2种底层结构
 
@@ -46,19 +46,19 @@ type eface struct {      // 空接口
     data  unsafe.Pointer // 指向数据的指针(go 语言中特殊的指针类型 unsafe.Pointer 类似于 c 语言中的void*)
 }
 type _type struct {
-	size       uintptr // 类型大小
-	ptrdata    uintptr // 前缀持有所有指针的内存大小
-	hash       uint32  // 数据 hash 值
-	tflag      tflag
-	align      uint8   // 对齐
-	fieldalign uint8   // 嵌入结构体时的对齐
-	kind       uint8   // kind 有些枚举值 kind 等于 0 是无效的
-	// function for comparing objects of this type
-	// (ptr to object A, ptr to object B) -&gt; ==?
-	equal     func(unsafe.Pointer, unsafe.Pointer) bool
-	gcdata    *byte
-	str       nameOff
-	ptrToThis typeOff
+    size       uintptr // 类型大小
+    ptrdata    uintptr // 前缀持有所有指针的内存大小
+    hash       uint32  // 数据 hash 值
+    tflag      tflag
+    align      uint8   // 对齐
+    fieldalign uint8   // 嵌入结构体时的对齐
+    kind       uint8   // kind 有些枚举值 kind 等于 0 是无效的
+    // function for comparing objects of this type
+    // (ptr to object A, ptr to object B) -&gt; ==?
+    equal     func(unsafe.Pointer, unsafe.Pointer) bool
+    gcdata    *byte
+    str       nameOff
+    ptrToThis typeOff
 }
 _type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成 _type，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作
 data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.Pointer类型，相当于一个 C 的万能指针void*。">
@@ -131,12 +131,12 @@ package main
 import &#34;fmt&#34;
 
 func main() {
-	var i interface{}
-	if i == nil {
-		fmt.Println(&#34;nil&#34;)
-		return
-	}
-	fmt.Println(&#34;not nil&#34;)
+    var i interface{}
+    if i == nil {
+        fmt.Println(&#34;nil&#34;)
+        return
+    }
+    fmt.Println(&#34;not nil&#34;)
 }
 
 A. nil
@@ -153,7 +153,7 @@ interface共有2种表现形式
 var MyInterface interface{}
 // 2 非空接口
 type MyInterface interface {
-	function()
+    function()
 }
 对应的2种底层结构
 
@@ -164,19 +164,19 @@ type eface struct {      // 空接口
     data  unsafe.Pointer // 指向数据的指针(go 语言中特殊的指针类型 unsafe.Pointer 类似于 c 语言中的void*)
 }
 type _type struct {
-	size       uintptr // 类型大小
-	ptrdata    uintptr // 前缀持有所有指针的内存大小
-	hash       uint32  // 数据 hash 值
-	tflag      tflag
-	align      uint8   // 对齐
-	fieldalign uint8   // 嵌入结构体时的对齐
-	kind       uint8   // kind 有些枚举值 kind 等于 0 是无效的
-	// function for comparing objects of this type
-	// (ptr to object A, ptr to object B) -&gt; ==?
-	equal     func(unsafe.Pointer, unsafe.Pointer) bool
-	gcdata    *byte
-	str       nameOff
-	ptrToThis typeOff
+    size       uintptr // 类型大小
+    ptrdata    uintptr // 前缀持有所有指针的内存大小
+    hash       uint32  // 数据 hash 值
+    tflag      tflag
+    align      uint8   // 对齐
+    fieldalign uint8   // 嵌入结构体时的对齐
+    kind       uint8   // kind 有些枚举值 kind 等于 0 是无效的
+    // function for comparing objects of this type
+    // (ptr to object A, ptr to object B) -&gt; ==?
+    equal     func(unsafe.Pointer, unsafe.Pointer) bool
+    gcdata    *byte
+    str       nameOff
+    ptrToThis typeOff
 }
 _type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成 _type，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作
 data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.Pointer类型，相当于一个 C 的万能指针void*。">
@@ -321,12 +321,12 @@ data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.P
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">interface</span>{}
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;nil&#34;</span>)
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span>
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;not nil&#34;</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">interface</span>{}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;nil&#34;</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;not nil&#34;</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><ul>
 <li>A. nil</li>
@@ -343,7 +343,7 @@ if 接口 时,值和类型都为零值时,接口live() == nil 判断才为T</p>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">MyInterface</span> <span style="color:#66d9ef">interface</span>{}
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// 2 非空接口</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">MyInterface</span> <span style="color:#66d9ef">interface</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">function</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">function</span>()
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>对应的2种底层结构</p>
 <ul>
@@ -354,19 +354,19 @@ if 接口 时,值和类型都为零值时,接口live() == nil 判断才为T</p>
 </span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">data</span>  <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// 指向数据的指针(go 语言中特殊的指针类型 unsafe.Pointer 类似于 c 语言中的void*)</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">_type</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">size</span>       <span style="color:#66d9ef">uintptr</span> <span style="color:#75715e">// 类型大小</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ptrdata</span>    <span style="color:#66d9ef">uintptr</span> <span style="color:#75715e">// 前缀持有所有指针的内存大小</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">hash</span>       <span style="color:#66d9ef">uint32</span>  <span style="color:#75715e">// 数据 hash 值</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">tflag</span>      <span style="color:#a6e22e">tflag</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">align</span>      <span style="color:#66d9ef">uint8</span>   <span style="color:#75715e">// 对齐</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fieldalign</span> <span style="color:#66d9ef">uint8</span>   <span style="color:#75715e">// 嵌入结构体时的对齐</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">kind</span>       <span style="color:#66d9ef">uint8</span>   <span style="color:#75715e">// kind 有些枚举值 kind 等于 0 是无效的</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// function for comparing objects of this type</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// (ptr to object A, ptr to object B) -&gt; ==?</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">equal</span>     <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>, <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>) <span style="color:#66d9ef">bool</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">gcdata</span>    <span style="color:#f92672">*</span><span style="color:#66d9ef">byte</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">str</span>       <span style="color:#a6e22e">nameOff</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ptrToThis</span> <span style="color:#a6e22e">typeOff</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">size</span>       <span style="color:#66d9ef">uintptr</span> <span style="color:#75715e">// 类型大小</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ptrdata</span>    <span style="color:#66d9ef">uintptr</span> <span style="color:#75715e">// 前缀持有所有指针的内存大小</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">hash</span>       <span style="color:#66d9ef">uint32</span>  <span style="color:#75715e">// 数据 hash 值</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tflag</span>      <span style="color:#a6e22e">tflag</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">align</span>      <span style="color:#66d9ef">uint8</span>   <span style="color:#75715e">// 对齐</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fieldalign</span> <span style="color:#66d9ef">uint8</span>   <span style="color:#75715e">// 嵌入结构体时的对齐</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">kind</span>       <span style="color:#66d9ef">uint8</span>   <span style="color:#75715e">// kind 有些枚举值 kind 等于 0 是无效的</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// function for comparing objects of this type</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// (ptr to object A, ptr to object B) -&gt; ==?</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">equal</span>     <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>, <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span>) <span style="color:#66d9ef">bool</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">gcdata</span>    <span style="color:#f92672">*</span><span style="color:#66d9ef">byte</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">str</span>       <span style="color:#a6e22e">nameOff</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ptrToThis</span> <span style="color:#a6e22e">typeOff</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>_type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成 _type，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作
 data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.Pointer类型，相当于一个 C 的万能指针void*。</p>

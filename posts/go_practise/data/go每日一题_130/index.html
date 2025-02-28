@@ -11,7 +11,7 @@
 package main
 
 import (
-	&#34;sync&#34;
+    &#34;sync&#34;
 )
 
 const N = 10
@@ -19,14 +19,14 @@ const N = 10
 var wg = &amp;sync.WaitGroup{}
 
 func main() {
-	for i := 0; i &lt; N; i&#43;&#43; {
-		go func(i int) {
-			wg.Add(1)
-			println(i)
-			defer wg.Done()
-		}(i)
-	}
-	wg.Wait()
+    for i := 0; i &lt; N; i&#43;&#43; {
+        go func(i int) {
+            wg.Add(1)
+            println(i)
+            defer wg.Done()
+        }(i)
+    }
+    wg.Wait()
 }
 🔑 答案解析：
 
@@ -42,14 +42,14 @@ Wait方法阻塞直到WaitGroup计数器减为0。
 因此子goroutine没有输出内容
 修改：
 func main() {
-	for i := 0; i &lt; N; i&#43;&#43; {
+    for i := 0; i &lt; N; i&#43;&#43; {
         wg.Add(1) // 1. ADD放到主goroutine中
-		go func(i int) {
-			defer wg.Done() // 2. 建议一进来就执行defer wg.Done(),预防panic导致Done方法未执行
-			println(i)
-		}(i)
-	}
-	wg.Wait()
+        go func(i int) {
+            defer wg.Done() // 2. 建议一进来就执行defer wg.Done(),预防panic导致Done方法未执行
+            println(i)
+        }(i)
+    }
+    wg.Wait()
 }
 
 
@@ -121,7 +121,7 @@ func main() { for i := 0; i &lt; N; i&#43;&#43; { wg.Add(1) // 1. ADD放到主go
 package main
 
 import (
-	&#34;sync&#34;
+    &#34;sync&#34;
 )
 
 const N = 10
@@ -129,14 +129,14 @@ const N = 10
 var wg = &amp;sync.WaitGroup{}
 
 func main() {
-	for i := 0; i &lt; N; i&#43;&#43; {
-		go func(i int) {
-			wg.Add(1)
-			println(i)
-			defer wg.Done()
-		}(i)
-	}
-	wg.Wait()
+    for i := 0; i &lt; N; i&#43;&#43; {
+        go func(i int) {
+            wg.Add(1)
+            println(i)
+            defer wg.Done()
+        }(i)
+    }
+    wg.Wait()
 }
 🔑 答案解析：
 
@@ -152,14 +152,14 @@ Wait方法阻塞直到WaitGroup计数器减为0。
 因此子goroutine没有输出内容
 修改：
 func main() {
-	for i := 0; i &lt; N; i&#43;&#43; {
+    for i := 0; i &lt; N; i&#43;&#43; {
         wg.Add(1) // 1. ADD放到主goroutine中
-		go func(i int) {
-			defer wg.Done() // 2. 建议一进来就执行defer wg.Done(),预防panic导致Done方法未执行
-			println(i)
-		}(i)
-	}
-	wg.Wait()
+        go func(i int) {
+            defer wg.Done() // 2. 建议一进来就执行defer wg.Done(),预防panic导致Done方法未执行
+            println(i)
+        }(i)
+    }
+    wg.Wait()
 }
 
 
@@ -303,7 +303,7 @@ func main() {
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
-</span></span><span style="display:flex;"><span>	<span style="color:#e6db74">&#34;sync&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;sync&#34;</span>
 </span></span><span style="display:flex;"><span>)
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">const</span> <span style="color:#a6e22e">N</span> = <span style="color:#ae81ff">10</span>
@@ -311,14 +311,14 @@ func main() {
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>{}
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
-</span></span><span style="display:flex;"><span>			println(<span style="color:#a6e22e">i</span>)
-</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
-</span></span><span style="display:flex;"><span>		}(<span style="color:#a6e22e">i</span>)
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>            println(<span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+</span></span><span style="display:flex;"><span>        }(<span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
 <div class="toggle-content">
@@ -334,14 +334,14 @@ Wait方法阻塞直到WaitGroup计数器减为0。</p>
 因此子goroutine没有输出内容</p>
 <p>修改：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">N</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
 </span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>) <span style="color:#75715e">// 1. ADD放到主goroutine中</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span>) {
-</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>() <span style="color:#75715e">// 2. 建议一进来就执行defer wg.Done(),预防panic导致Done方法未执行</span>
-</span></span><span style="display:flex;"><span>			println(<span style="color:#a6e22e">i</span>)
-</span></span><span style="display:flex;"><span>		}(<span style="color:#a6e22e">i</span>)
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">i</span> <span style="color:#66d9ef">int</span>) {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>() <span style="color:#75715e">// 2. 建议一进来就执行defer wg.Done(),预防panic导致Done方法未执行</span>
+</span></span><span style="display:flex;"><span>            println(<span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>        }(<span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
 </div>
