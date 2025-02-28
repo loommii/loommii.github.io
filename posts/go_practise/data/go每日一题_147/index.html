@@ -26,7 +26,7 @@ func main() {
 
   5
 在线运行
-Go传递只有值传递 
+Go传递只有值传递
 运行到defer hello(i)的时候就已经确定i的值了
 下方是defer的结构
 type _defer struct {
@@ -93,7 +93,8 @@ defer 的注册本质上是调用了内置函数 runtime.deferproc">
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="Go每日一题_147">
   <meta property="og:description" content="下面这段代码输出什么?
-package main import ( &#34;fmt&#34; ) func hello(i int) { fmt.Println(i) } func main() { i := 5 defer hello(i) i = i &#43; 10 } 🔑 答案解析： 5 在线运行 Go传递只有值传递 运行到defer hello(i)的时候就已经确定i的值了
+package main import ( &#34;fmt&#34; ) func hello(i int) { fmt.Println(i) } func main() { i := 5 defer hello(i) i = i &#43; 10 } 🔑 答案解析： 5 在线运行 Go传递只有值传递
+运行到defer hello(i)的时候就已经确定i的值了
 下方是defer的结构
 type _defer struct { heap bool rangefunc bool // true for rangefunc list sp uintptr // sp at time of defer pc uintptr // pc at time of defer fn func() // can be nil for open-coded defers link *_defer // next defer on G; can point to either heap or stack! // If rangefunc is true, *head is the head of the atomic linked list // during a range-over-func execution. head *atomic.Pointer[_defer] } defer 的注册本质上是调用了内置函数 runtime.deferproc">
   <meta property="og:locale" content="zh">
@@ -122,7 +123,7 @@ func main() {
 
   5
 在线运行
-Go传递只有值传递 
+Go传递只有值传递
 运行到defer hello(i)的时候就已经确定i的值了
 下方是defer的结构
 type _defer struct {
@@ -166,11 +167,11 @@ defer 的注册本质上是调用了内置函数 runtime.deferproc">
   "@type": "BlogPosting",
   "headline": "Go每日一题_147",
   "name": "Go每日一题_147",
-  "description": "下面这段代码输出什么?\npackage main import ( \u0026#34;fmt\u0026#34; ) func hello(i int) { fmt.Println(i) } func main() { i := 5 defer hello(i) i = i + 10 } 🔑 答案解析： 5 在线运行 Go传递只有值传递 运行到defer hello(i)的时候就已经确定i的值了\n下方是defer的结构\ntype _defer struct { heap bool rangefunc bool // true for rangefunc list sp uintptr // sp at time of defer pc uintptr // pc at time of defer fn func() // can be nil for open-coded defers link *_defer // next defer on G; can point to either heap or stack! // If rangefunc is true, *head is the head of the atomic linked list // during a range-over-func execution. head *atomic.Pointer[_defer] } defer 的注册本质上是调用了内置函数 runtime.deferproc\n",
+  "description": "下面这段代码输出什么?\npackage main import ( \u0026#34;fmt\u0026#34; ) func hello(i int) { fmt.Println(i) } func main() { i := 5 defer hello(i) i = i + 10 } 🔑 答案解析： 5 在线运行 Go传递只有值传递\n运行到defer hello(i)的时候就已经确定i的值了\n下方是defer的结构\ntype _defer struct { heap bool rangefunc bool // true for rangefunc list sp uintptr // sp at time of defer pc uintptr // pc at time of defer fn func() // can be nil for open-coded defers link *_defer // next defer on G; can point to either heap or stack! // If rangefunc is true, *head is the head of the atomic linked list // during a range-over-func execution. head *atomic.Pointer[_defer] } defer 的注册本质上是调用了内置函数 runtime.deferproc\n",
   "keywords": [
     
   ],
-  "articleBody": "下面这段代码输出什么?\npackage main import ( \"fmt\" ) func hello(i int) { fmt.Println(i) } func main() { i := 5 defer hello(i) i = i + 10 } 🔑 答案解析： 5 在线运行 Go传递只有值传递 运行到defer hello(i)的时候就已经确定i的值了\n下方是defer的结构\ntype _defer struct { heap bool rangefunc bool // true for rangefunc list sp uintptr // sp at time of defer pc uintptr // pc at time of defer fn func() // can be nil for open-coded defers link *_defer // next defer on G; can point to either heap or stack! // If rangefunc is true, *head is the head of the atomic linked list // during a range-over-func execution. head *atomic.Pointer[_defer] } defer 的注册本质上是调用了内置函数 runtime.deferproc\nfunc deferproc(siz int32, fn *funcval) siz int32： 表示 defer 函数的参数总大小（以字节为单位）。 用于在栈上分配足够的空间来保存参数。 fn *funcval： 表示 defer 函数的函数值（包括函数指针和捕获的参数）。 funcval 是一个运行时内部结构体，用于表示函数的元数据。 因此我们可以得知 注册时就已经确定了捕获的参数\n",
+  "articleBody": "下面这段代码输出什么?\npackage main import ( \"fmt\" ) func hello(i int) { fmt.Println(i) } func main() { i := 5 defer hello(i) i = i + 10 } 🔑 答案解析： 5 在线运行 Go传递只有值传递\n运行到defer hello(i)的时候就已经确定i的值了\n下方是defer的结构\ntype _defer struct { heap bool rangefunc bool // true for rangefunc list sp uintptr // sp at time of defer pc uintptr // pc at time of defer fn func() // can be nil for open-coded defers link *_defer // next defer on G; can point to either heap or stack! // If rangefunc is true, *head is the head of the atomic linked list // during a range-over-func execution. head *atomic.Pointer[_defer] } defer 的注册本质上是调用了内置函数 runtime.deferproc\nfunc deferproc(siz int32, fn *funcval) siz int32： 表示 defer 函数的参数总大小（以字节为单位）。 用于在栈上分配足够的空间来保存参数。 fn *funcval： 表示 defer 函数的函数值（包括函数指针和捕获的参数）。 funcval 是一个运行时内部结构体，用于表示函数的元数据。 因此我们可以得知 注册时就已经确定了捕获的参数\n",
   "wordCount" : "132",
   "inLanguage": "zh",
   "datePublished": "2024-12-30T20:54:49+08:00",
@@ -292,7 +293,7 @@ defer 的注册本质上是调用了内置函数 runtime.deferproc">
 <div class="toggle-content">
   <p>5
 <a href="https://go.dev/play/p/hMcMm9tJw2k">在线运行</a>
-Go传递只有值传递 <br>
+Go传递只有值传递<br>
 运行到defer hello(i)的时候就已经确定i的值了</p>
 <p>下方是defer的结构</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">_defer</span> <span style="color:#66d9ef">struct</span> {

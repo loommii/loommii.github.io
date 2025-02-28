@@ -1715,8 +1715,8 @@ increaseB() 是具名&lt;/p&gt;
 Go 语言的&lt;a href=&#34;https://golang.google.cn/ref/spec#Operators&#34;&gt;运算符&lt;/a&gt;优先级规则&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;unary_op   = &amp;ldquo;+&amp;rdquo; | &amp;ldquo;-&amp;rdquo; | &amp;ldquo;!&amp;rdquo; | &amp;ldquo;^&amp;rdquo; | &amp;ldquo;*&amp;rdquo; | &amp;ldquo;&amp;amp;&amp;rdquo; | &amp;ldquo;&amp;lt;-&amp;rdquo; .&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;题中一元运算符(+、-、* )
-+、- 和 * 同时也是算术运算符中的加、减和乘。&lt;/p&gt;
+&lt;p&gt;题中一元运算符(+、-、* )&lt;/p&gt;
+&lt;p&gt;+、- 和 * 同时也是算术运算符中的加、减和乘。&lt;/p&gt;
 &lt;p&gt;表达式: 5/+-*v。5 后面 /，很显然，这是除法。
 而 + 前面没有操作数，因此是一个一元运算符；同理 - 和 * 也是一元运算符。而一元运算符有最高的优先级，因此这个表达式优先计算 +-*v 的值。&lt;/p&gt;
 &lt;p&gt;在规范中有这么一句话：&lt;/p&gt;
@@ -2098,7 +2098,7 @@ c 长度和容量 1 2&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//yes nil&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//no nil&lt;/span&gt;
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h1 id=&#34;切片slice--nil-与空切片&#34;&gt;切片（Slice）  &lt;code&gt;nil&lt;/code&gt; 与空切片&lt;/h1&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;切片slice--nil-与空切片&#34;&gt;切片（Slice）  &lt;code&gt;nil&lt;/code&gt; 与空切片&lt;/h2&gt;
 &lt;p&gt;在 &lt;a href=&#34;https://golang.google.cn/ref/spec#Slice_types&#34;&gt;Go 文档 - Slice types&lt;/a&gt; 中有这样一段描述：&lt;/p&gt;</description>
     </item>
     <item>
@@ -2129,9 +2129,9 @@ c 长度和容量 1 2&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 2. 带键的元素（键是索引）&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;slice2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; []&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;{&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;a&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;b&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;: &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;c&amp;#34;&lt;/span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;本题中是一种带有显式索引和隐式索引的混合初始化方式。&lt;/p&gt;
-&lt;h4 id=&#34;解析-int4-44-55-66-1-77-88-的初始化过程&#34;&gt;解析 []int{4: 44, 55, 66, 1: 77, 88} 的初始化过程：&lt;/h4&gt;
+&lt;h4 id=&#34;解析-int4-44-55-66-1-77-88-的初始化过程&#34;&gt;解析 []int{4: 44, 55, 66, 1: 77, 88} 的初始化过程&lt;/h4&gt;
 &lt;ol&gt;
-&lt;li&gt;4: 44,显式指定索引下标 4 处的值为 44。  &lt;br&gt;
+&lt;li&gt;4: 44,显式指定索引下标 4 处的值为 44。
 [0, 0, 0, 0, 44]&lt;/li&gt;
 &lt;li&gt;55 和 66 ,未指定索引,则从上一个索引位置开始依次放置。&lt;br&gt;
 [0, 0, 0, 0, 44, 55, 66]&lt;/li&gt;
@@ -2365,7 +2365,7 @@ c 长度和容量 1 2&lt;/p&gt;
 &lt;div class=&#34;toggle-content&#34;&gt;
   &lt;p&gt;5
 &lt;a href=&#34;https://go.dev/play/p/hMcMm9tJw2k&#34;&gt;在线运行&lt;/a&gt;
-Go传递只有值传递 &lt;br&gt;
+Go传递只有值传递&lt;br&gt;
 运行到defer hello(i)的时候就已经确定i的值了&lt;/p&gt;
 &lt;p&gt;下方是defer的结构&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;_defer&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
@@ -2636,8 +2636,8 @@ C 赋值,不是定义&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
 &lt;div class=&#34;toggle-content&#34;&gt;
-  &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;teacher showB
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/dnitHoT5yHi&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;
+  &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;teacher showB
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/dnitHoT5yHi&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;
 &lt;h3 id=&#34;知识点结构体嵌套&#34;&gt;知识点：结构体嵌套&lt;/h3&gt;
 &lt;p&gt;Teacher struct 内嵌套了People struct
 在嵌套结构体中，People 称为内部类型，Teacher 称为外部类型；通过嵌套，内部类型的属性、方法，可以为外部类型所有，就好像是外部类型自己的一样。此外，外部类型还可以定义自己的属性和方法，甚至可以定义与内部相同的方法，这样内部类型的方法就会被“屏蔽”。这个例子中的 ShowB() 就是同名方法。&lt;/p&gt;
@@ -2688,21 +2688,21 @@ C 赋值,不是定义&lt;/p&gt;
   &lt;p&gt;A
 &lt;a href=&#34;https://go.dev/play/p/vDR1EXgEiDa&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;根据官方文档:https://pkg.go.dev/fmt&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;%b 二进制
-%c 对应 Unicode 码位所表示的字符
-%d 十进制
-%o 八进制
-%O 带 0o 前缀的八进制
-%q 使用 Go 语法安全转义的单引号括起来的字符字面量
-%x 十六进制，a - f 用小写字母
-%X 十六进制，A - F 用大写字母
-%U Unicode 格式：U+1234；等同于 &amp;#34;U+%04X&amp;#34;
-&lt;/code&gt;&lt;/pre&gt;&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;+：始终为数值打印符号；对于 %q（%+q），保证仅输出 ASCII 字符。
--：在右侧而非左侧填充空格（使字段左对齐）。
-#：备用格式：二进制（%#b）添加前导 0b，八进制（%#o）添加前导 0，十六进制（%#x 或 %#X）添加前导 0x 或 0X；对于 %p（%#p），不显示前导 0x；对于 %q，如果 [strconv.CanBackquote] 返回 true，则打印原始（反引号包围）的字符串；对于 %e、%E、%f、%F、%g 和 %G，始终打印小数点；对于 %g 和 %G，不删除末尾的零；对于 %U（%#U），如果字符是可打印的，例如写成 U+0078 &amp;#39;x&amp;#39;。
-（空格）：对于数字，为省略的符号留出一个空格（% d）；以十六进制打印字符串或切片时，在字节之间添加空格（% x，% X）。
-0：用前导零而非空格填充；对于数字，这会将填充移到符号之后 。
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;回到本题目中 %+d 。 d 十进制 和 +：始终为数值打印符号&lt;br&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;%b 二进制
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;%c 对应 Unicode 码位所表示的字符
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;%d 十进制
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;%o 八进制
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;%O 带 0o 前缀的八进制
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;%q 使用 Go 语法安全转义的单引号括起来的字符字面量
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;%x 十六进制，a - f 用小写字母
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;%X 十六进制，A - F 用大写字母
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;%U Unicode 格式：U+1234；等同于 &amp;#34;U+%04X&amp;#34;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;+：始终为数值打印符号；对于 %q（%+q），保证仅输出 ASCII 字符。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;-：在右侧而非左侧填充空格（使字段左对齐）。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;#：备用格式：二进制（%#b）添加前导 0b，八进制（%#o）添加前导 0，十六进制（%#x 或 %#X）添加前导 0x 或 0X；对于 %p（%#p），不显示前导 0x；对于 %q，如果 [strconv.CanBackquote] 返回 true，则打印原始（反引号包围）的字符串；对于 %e、%E、%f、%F、%g 和 %G，始终打印小数点；对于 %g 和 %G，不删除末尾的零；对于 %U（%#U），如果字符是可打印的，例如写成 U+0078 &amp;#39;x&amp;#39;。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;（空格）：对于数字，为省略的符号留出一个空格（% d）；以十六进制打印字符串或切片时，在字节之间添加空格（% x，% X）。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0：用前导零而非空格填充；对于数字，这会将填充移到符号之后 。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;回到本题目中 %+d 。 d 十进制 和 +：始终为数值打印符号&lt;br&gt;
 组合在一起就是 打印带符号位的十进制因此输出为&lt;br&gt;
 A. -5 +5&lt;/p&gt;</description>
     </item>
@@ -2735,11 +2735,7 @@ A. -5 +5&lt;/p&gt;</description>
       <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_142/</link>
       <pubDate>Wed, 25 Dec 2024 00:24:33 +0800</pubDate>
       <guid>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_142/</guid>
-      <description>&lt;hr&gt;
-&lt;h2 id=&#34;title-go每日一题_141&#34;&gt;date: &amp;lsquo;2024-12-25T00:09:11+08:00&amp;rsquo;
-draft: false
-title: &amp;lsquo;Go每日一题_141&amp;rsquo;&lt;/h2&gt;
-&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
@@ -2885,7 +2881,7 @@ if 接口 时,值和类型都为零值时,接口live() == nil 判断才为T&lt;/
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;str&lt;/span&gt;       &lt;span style=&#34;color:#a6e22e&#34;&gt;nameOff&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;ptrToThis&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;typeOff&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;_type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成 _type，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;_type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成 &lt;code&gt;_type&lt;/code&gt;，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作
 data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.Pointer类型，相当于一个 C 的万能指针void*。&lt;/p&gt;</description>
     </item>
     <item>
@@ -2904,9 +2900,9 @@ data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.P
 &lt;div class=&#34;toggle-content&#34;&gt;
   &lt;p&gt;ABD
 &lt;a href=&#34;https://pkg.go.dev/builtin#cap&#34;&gt;官方文档&lt;/a&gt;&lt;/p&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;func cap(v Type) int
-// cap 内建函数根据 v 的类型返回 v 的容量：
-&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; cap(&lt;span style=&#34;color:#a6e22e&#34;&gt;v&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Type&lt;/span&gt;) &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// cap 内建函数根据 v 的类型返回 v 的容量：&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;blockquote&gt;
 &lt;ul&gt;
 &lt;li&gt;数组 array：v 中元素的数量（与 len(v) 相同）。&lt;/li&gt;
 &lt;li&gt;数组指针 *array：*v 中元素的数量（与 len(v) 相同）。&lt;/li&gt;
@@ -3133,7 +3129,7 @@ a[3:5:5]  // [4 5]&lt;/p&gt;
 &lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
 &lt;div class=&#34;toggle-content&#34;&gt;
   &lt;p&gt;答: A  &lt;a href=&#34;https://go.dev/play/p/RSSWTD3otlJ&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;
-&lt;h1 id=&#34;01&#34;&gt;01&lt;/h1&gt;
+&lt;h2 id=&#34;01&#34;&gt;01&lt;/h2&gt;
 &lt;p&gt;我们都知晓 Go 没有继承，但可以通过内嵌类型模拟部分继承的功能。大家要记住，接口也是类型，自然也将它作为嵌入类型。如果题目的 person 接口体改为：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;person&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;name&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;
@@ -3143,7 +3139,7 @@ a[3:5:5]  // [4 5]&lt;/p&gt;
 &lt;p&gt;将接口作为嵌入类型可能让人感觉有些奇怪：那这个类型不是默认就实现了这个接口？！确实是这样的，所以才有了题目中这一句能编译通过：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;w&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;worker&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;person&lt;/span&gt;{}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;只不过，因为实例化 person 时，没有给 worker 指定值，因此 person 中的 worker 是 nil，调用它的话会报错，但编译是没问题的。&lt;/p&gt;
-&lt;h1 id=&#34;02&#34;&gt;02&lt;/h1&gt;
+&lt;h2 id=&#34;02&#34;&gt;02&lt;/h2&gt;
 &lt;p&gt;有人可能要问，嵌入接口有实际用途吗？我找一个标准库中的例子。&lt;/p&gt;
 &lt;p&gt;在 sort 包中，有一个接口：Interface&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Interface&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;interface&lt;/span&gt; {

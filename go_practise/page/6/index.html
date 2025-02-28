@@ -196,7 +196,7 @@ A. -5 &#43;5
     </h2>
   </header>
   <div class="entry-content">
-    <p> date: ‘2024-12-25T00:09:11&#43;08:00’ draft: false title: ‘Go每日一题_141’ 下面这段代码输出什么？
+    <p>下面这段代码输出什么？
 package main import &#34;fmt&#34; func main() { var s map[string]int delete(s, &#34;h&#34;) fmt.Println(s[&#34;h&#34;]) } A. runtime panic B. 0 C. compilation error 🔑 答案解析： B 在线运行
 对未初始化make的map使用delete是不会报错的 访问未初始化,返回值类型对应的零值 扩展 对未初始化的map赋值会panic
 package main import &#34;fmt&#34; func main() { var s map[string]int s[&#34;h&#34;] = 1 // panic: assignment to entry in nil map fmt.Println(s[&#34;h&#34;]) } 在线运行

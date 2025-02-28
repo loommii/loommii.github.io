@@ -302,21 +302,21 @@ A. -5 &#43;5">
   <p>A
 <a href="https://go.dev/play/p/vDR1EXgEiDa">在线运行</a></p>
 <p>根据官方文档:https://pkg.go.dev/fmt</p>
-<pre tabindex="0"><code>%b 二进制
-%c 对应 Unicode 码位所表示的字符
-%d 十进制
-%o 八进制
-%O 带 0o 前缀的八进制
-%q 使用 Go 语法安全转义的单引号括起来的字符字面量
-%x 十六进制，a - f 用小写字母
-%X 十六进制，A - F 用大写字母
-%U Unicode 格式：U+1234；等同于 &#34;U+%04X&#34;
-</code></pre><pre tabindex="0"><code>+：始终为数值打印符号；对于 %q（%+q），保证仅输出 ASCII 字符。
--：在右侧而非左侧填充空格（使字段左对齐）。
-#：备用格式：二进制（%#b）添加前导 0b，八进制（%#o）添加前导 0，十六进制（%#x 或 %#X）添加前导 0x 或 0X；对于 %p（%#p），不显示前导 0x；对于 %q，如果 [strconv.CanBackquote] 返回 true，则打印原始（反引号包围）的字符串；对于 %e、%E、%f、%F、%g 和 %G，始终打印小数点；对于 %g 和 %G，不删除末尾的零；对于 %U（%#U），如果字符是可打印的，例如写成 U+0078 &#39;x&#39;。
-（空格）：对于数字，为省略的符号留出一个空格（% d）；以十六进制打印字符串或切片时，在字节之间添加空格（% x，% X）。
-0：用前导零而非空格填充；对于数字，这会将填充移到符号之后 。
-</code></pre><p>回到本题目中 %+d 。 d 十进制 和 +：始终为数值打印符号<br>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>%b 二进制
+</span></span><span style="display:flex;"><span>%c 对应 Unicode 码位所表示的字符
+</span></span><span style="display:flex;"><span>%d 十进制
+</span></span><span style="display:flex;"><span>%o 八进制
+</span></span><span style="display:flex;"><span>%O 带 0o 前缀的八进制
+</span></span><span style="display:flex;"><span>%q 使用 Go 语法安全转义的单引号括起来的字符字面量
+</span></span><span style="display:flex;"><span>%x 十六进制，a - f 用小写字母
+</span></span><span style="display:flex;"><span>%X 十六进制，A - F 用大写字母
+</span></span><span style="display:flex;"><span>%U Unicode 格式：U+1234；等同于 &#34;U+%04X&#34;
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>+：始终为数值打印符号；对于 %q（%+q），保证仅输出 ASCII 字符。
+</span></span><span style="display:flex;"><span>-：在右侧而非左侧填充空格（使字段左对齐）。
+</span></span><span style="display:flex;"><span>#：备用格式：二进制（%#b）添加前导 0b，八进制（%#o）添加前导 0，十六进制（%#x 或 %#X）添加前导 0x 或 0X；对于 %p（%#p），不显示前导 0x；对于 %q，如果 [strconv.CanBackquote] 返回 true，则打印原始（反引号包围）的字符串；对于 %e、%E、%f、%F、%g 和 %G，始终打印小数点；对于 %g 和 %G，不删除末尾的零；对于 %U（%#U），如果字符是可打印的，例如写成 U+0078 &#39;x&#39;。
+</span></span><span style="display:flex;"><span>（空格）：对于数字，为省略的符号留出一个空格（% d）；以十六进制打印字符串或切片时，在字节之间添加空格（% x，% X）。
+</span></span><span style="display:flex;"><span>0：用前导零而非空格填充；对于数字，这会将填充移到符号之后 。
+</span></span></code></pre></div><p>回到本题目中 %+d 。 d 十进制 和 +：始终为数值打印符号<br>
 组合在一起就是 打印带符号位的十进制因此输出为<br>
 A. -5 +5</p>
 
