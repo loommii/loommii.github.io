@@ -10,20 +10,20 @@
 <meta name="description" content="底层结构
 // map(集合)
 type hmap struct {
-	// Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.
-	// Make sure this stays in sync with the compiler&#39;s definition.
-	count     int // # live cells == size of map.  Must be first (used by len() builtin)
-	flags     uint8
-	B         uint8  // log_2 of # of buckets (can hold up to loadFactor * 2^B items)
-	noverflow uint16 // approximate number of overflow buckets; see incrnoverflow for details
-	hash0     uint32 // hash seed
+    // Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.
+    // Make sure this stays in sync with the compiler&#39;s definition.
+    count     int // # live cells == size of map.  Must be first (used by len() builtin)
+    flags     uint8
+    B         uint8  // log_2 of # of buckets (can hold up to loadFactor * 2^B items)
+    noverflow uint16 // approximate number of overflow buckets; see incrnoverflow for details
+    hash0     uint32 // hash seed
 
-	buckets    unsafe.Pointer // array of 2^B Buckets. may be nil if count==0.
-	oldbuckets unsafe.Pointer // previous bucket array of half the size, non-nil only when growing
-	nevacuate  uintptr        // progress counter for evacuation (buckets less than this have been evacuated)
-	clearSeq   uint64
+    buckets    unsafe.Pointer // array of 2^B Buckets. may be nil if count==0.
+    oldbuckets unsafe.Pointer // previous bucket array of half the size, non-nil only when growing
+    nevacuate  uintptr        // progress counter for evacuation (buckets less than this have been evacuated)
+    clearSeq   uint64
 
-	extra *mapextra // optional fields
+    extra *mapextra // optional fields
 }
 // buckets的结构
 type bmap struct {
@@ -96,20 +96,20 @@ Map中的数据存储在buckets和oldbuckets中,在发生扩容时,会创建新�
 <meta name="twitter:description" content="底层结构
 // map(集合)
 type hmap struct {
-	// Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.
-	// Make sure this stays in sync with the compiler&#39;s definition.
-	count     int // # live cells == size of map.  Must be first (used by len() builtin)
-	flags     uint8
-	B         uint8  // log_2 of # of buckets (can hold up to loadFactor * 2^B items)
-	noverflow uint16 // approximate number of overflow buckets; see incrnoverflow for details
-	hash0     uint32 // hash seed
+    // Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.
+    // Make sure this stays in sync with the compiler&#39;s definition.
+    count     int // # live cells == size of map.  Must be first (used by len() builtin)
+    flags     uint8
+    B         uint8  // log_2 of # of buckets (can hold up to loadFactor * 2^B items)
+    noverflow uint16 // approximate number of overflow buckets; see incrnoverflow for details
+    hash0     uint32 // hash seed
 
-	buckets    unsafe.Pointer // array of 2^B Buckets. may be nil if count==0.
-	oldbuckets unsafe.Pointer // previous bucket array of half the size, non-nil only when growing
-	nevacuate  uintptr        // progress counter for evacuation (buckets less than this have been evacuated)
-	clearSeq   uint64
+    buckets    unsafe.Pointer // array of 2^B Buckets. may be nil if count==0.
+    oldbuckets unsafe.Pointer // previous bucket array of half the size, non-nil only when growing
+    nevacuate  uintptr        // progress counter for evacuation (buckets less than this have been evacuated)
+    clearSeq   uint64
 
-	extra *mapextra // optional fields
+    extra *mapextra // optional fields
 }
 // buckets的结构
 type bmap struct {
@@ -153,7 +153,7 @@ Map中的数据存储在buckets和oldbuckets中,在发生扩容时,会创建新�
   "keywords": [
     
   ],
-  "articleBody": "底层结构 // map(集合) type hmap struct { // Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go. // Make sure this stays in sync with the compiler's definition. count int // # live cells == size of map. Must be first (used by len() builtin) flags uint8 B uint8 // log_2 of # of buckets (can hold up to loadFactor * 2^B items) noverflow uint16 // approximate number of overflow buckets; see incrnoverflow for details hash0 uint32 // hash seed buckets unsafe.Pointer // array of 2^B Buckets. may be nil if count==0. oldbuckets unsafe.Pointer // previous bucket array of half the size, non-nil only when growing nevacuate uintptr // progress counter for evacuation (buckets less than this have been evacuated) clearSeq uint64 extra *mapextra // optional fields } // buckets的结构 type bmap struct { topbits [8]uint8 keys [8]keytype values [8]valuetype pad uintptr overflow uintptr } 解释 Map中的数据存储在buckets和oldbuckets中,在发生扩容时,会创建新的buckets,并将老的buckets地址写入到oldbuckets中。\n因此发生扩容后,存储数据会发生改变\n疑问：那不发生扩容的情况下，我们遍历map为什么输出的顺序都不一致呢？ 这是特意去设计的，Go在range遍历Map中元素的时候，从随机的一个位置开始迭代。\n在Go1.0后的版本，Go遍历加入了随机数,输出的顺序将无序 源码连接：https://github.com/golang/go/blob/18b5435fc84225ca303da7a110c7e8065dc4bbda/src/runtime/map_noswiss.go#L912\nfunc mapiterinit(t *maptype, h *hmap, it *hiter) { // ... // decide where to start r := uintptr(rand()) // ... } ",
+  "articleBody": "底层结构 // map(集合) type hmap struct { // Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go. // Make sure this stays in sync with the compiler's definition. count int // # live cells == size of map. Must be first (used by len() builtin) flags uint8 B uint8 // log_2 of # of buckets (can hold up to loadFactor * 2^B items) noverflow uint16 // approximate number of overflow buckets; see incrnoverflow for details hash0 uint32 // hash seed buckets unsafe.Pointer // array of 2^B Buckets. may be nil if count==0. oldbuckets unsafe.Pointer // previous bucket array of half the size, non-nil only when growing nevacuate uintptr // progress counter for evacuation (buckets less than this have been evacuated) clearSeq uint64 extra *mapextra // optional fields } // buckets的结构 type bmap struct { topbits [8]uint8 keys [8]keytype values [8]valuetype pad uintptr overflow uintptr } 解释 Map中的数据存储在buckets和oldbuckets中,在发生扩容时,会创建新的buckets,并将老的buckets地址写入到oldbuckets中。\n因此发生扩容后,存储数据会发生改变\n疑问：那不发生扩容的情况下，我们遍历map为什么输出的顺序都不一致呢？ 这是特意去设计的，Go在range遍历Map中元素的时候，从随机的一个位置开始迭代。\n在Go1.0后的版本，Go遍历加入了随机数,输出的顺序将无序 源码链接：https://github.com/golang/go/blob/18b5435fc84225ca303da7a110c7e8065dc4bbda/src/runtime/map_noswiss.go#L912\nfunc mapiterinit(t *maptype, h *hmap, it *hiter) { // ... // decide where to start r := uintptr(rand()) // ... } ",
   "wordCount" : "175",
   "inLanguage": "zh",
   "datePublished": "2024-12-16T19:47:30+08:00",
@@ -259,20 +259,20 @@ Map中的数据存储在buckets和oldbuckets中,在发生扩容时,会创建新�
   <div class="post-content"><h3 id="底层结构">底层结构<a hidden class="anchor" aria-hidden="true" href="#底层结构">#</a></h3>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// map(集合)</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">hmap</span> <span style="color:#66d9ef">struct</span> {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// Make sure this stays in sync with the compiler&#39;s definition.</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">count</span>     <span style="color:#66d9ef">int</span> <span style="color:#75715e">// # live cells == size of map.  Must be first (used by len() builtin)</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">flags</span>     <span style="color:#66d9ef">uint8</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">B</span>         <span style="color:#66d9ef">uint8</span>  <span style="color:#75715e">// log_2 of # of buckets (can hold up to loadFactor * 2^B items)</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">noverflow</span> <span style="color:#66d9ef">uint16</span> <span style="color:#75715e">// approximate number of overflow buckets; see incrnoverflow for details</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">hash0</span>     <span style="color:#66d9ef">uint32</span> <span style="color:#75715e">// hash seed</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// Make sure this stays in sync with the compiler&#39;s definition.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">count</span>     <span style="color:#66d9ef">int</span> <span style="color:#75715e">// # live cells == size of map.  Must be first (used by len() builtin)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">flags</span>     <span style="color:#66d9ef">uint8</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">B</span>         <span style="color:#66d9ef">uint8</span>  <span style="color:#75715e">// log_2 of # of buckets (can hold up to loadFactor * 2^B items)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">noverflow</span> <span style="color:#66d9ef">uint16</span> <span style="color:#75715e">// approximate number of overflow buckets; see incrnoverflow for details</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">hash0</span>     <span style="color:#66d9ef">uint32</span> <span style="color:#75715e">// hash seed</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">buckets</span>    <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// array of 2^B Buckets. may be nil if count==0.</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">oldbuckets</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// previous bucket array of half the size, non-nil only when growing</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">nevacuate</span>  <span style="color:#66d9ef">uintptr</span>        <span style="color:#75715e">// progress counter for evacuation (buckets less than this have been evacuated)</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">clearSeq</span>   <span style="color:#66d9ef">uint64</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">buckets</span>    <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// array of 2^B Buckets. may be nil if count==0.</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">oldbuckets</span> <span style="color:#a6e22e">unsafe</span>.<span style="color:#a6e22e">Pointer</span> <span style="color:#75715e">// previous bucket array of half the size, non-nil only when growing</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">nevacuate</span>  <span style="color:#66d9ef">uintptr</span>        <span style="color:#75715e">// progress counter for evacuation (buckets less than this have been evacuated)</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">clearSeq</span>   <span style="color:#66d9ef">uint64</span>
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">extra</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">mapextra</span> <span style="color:#75715e">// optional fields</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">extra</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">mapextra</span> <span style="color:#75715e">// optional fields</span>
 </span></span><span style="display:flex;"><span>}
 </span></span><span style="display:flex;"><span><span style="color:#75715e">// buckets的结构</span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">bmap</span> <span style="color:#66d9ef">struct</span> {
@@ -288,12 +288,12 @@ Map中的数据存储在buckets和oldbuckets中,在发生扩容时,会创建新�
 <h4 id="疑问那不发生扩容的情况下我们遍历map为什么输出的顺序都不一致呢">疑问：那不发生扩容的情况下，我们遍历map为什么输出的顺序都不一致呢？<a hidden class="anchor" aria-hidden="true" href="#疑问那不发生扩容的情况下我们遍历map为什么输出的顺序都不一致呢">#</a></h4>
 <p>这是特意去设计的，Go在range遍历Map中元素的时候，从随机的一个位置开始迭代。</p>
 <p>在Go1.0后的版本，Go遍历加入了随机数,输出的顺序将无序
-源码连接：https://github.com/golang/go/blob/18b5435fc84225ca303da7a110c7e8065dc4bbda/src/runtime/map_noswiss.go#L912</p>
+源码链接：<a href="https://github.com/golang/go/blob/18b5435fc84225ca303da7a110c7e8065dc4bbda/src/runtime/map_noswiss.go#L912">https://github.com/golang/go/blob/18b5435fc84225ca303da7a110c7e8065dc4bbda/src/runtime/map_noswiss.go#L912</a></p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">mapiterinit</span>(<span style="color:#a6e22e">t</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">maptype</span>, <span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">hmap</span>, <span style="color:#a6e22e">it</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">hiter</span>) {
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ...</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// decide where to start</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> uintptr(<span style="color:#a6e22e">rand</span>())
-</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// ...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// decide where to start</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">r</span> <span style="color:#f92672">:=</span> uintptr(<span style="color:#a6e22e">rand</span>())
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// ...</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div>
 

@@ -9,11 +9,11 @@
 <meta name="keywords" content="">
 <meta name="description" content="如果 Add() 函数的调用代码为：
 func main() {
-	var a Integer = 1
-	var b Integer = 2
-	var i interface{} = &amp;a
-	sum := i.(*Integer).Add(b)
-	fmt.Println(sum)
+    var a Integer = 1
+    var b Integer = 2
+    var i interface{} = &amp;a
+    sum := i.(*Integer).Add(b)
+    fmt.Println(sum)
 }
 则Add函数定义正确的是：
 A.
@@ -43,7 +43,7 @@ func (a *Integer) Add(b *Integer) Integer {
 
   A C
 从代码i.(*Integer).Add(b) 就可以得出C答案是一定符合的。
-A代码 接收者类型：值类型 Integer，但可通过指针调用（Go 自动解引用 *Integer 为 Integer）。
+A代码 接收者类型：值类型 Integer，但可通过指针调用（Go 自动解引用*Integer为 Integer）。
 因此A代码也合法。
 Go官方文档-Method_values
 
@@ -103,8 +103,7 @@ Go官方文档-Method_values
 func main() { var a Integer = 1 var b Integer = 2 var i interface{} = &amp;a sum := i.(*Integer).Add(b) fmt.Println(sum) } 则Add函数定义正确的是：
 A. type Integer int func (a Integer) Add(b Integer) Integer { return a &#43; b } B. type Integer int func (a Integer) Add(b *Integer) Integer { return a &#43; *b } C. type Integer int func (a *Integer) Add(b Integer) Integer { return *a &#43; b } D. type Integer int func (a *Integer) Add(b *Integer) Integer { return *a &#43; *b } 🔑 答案解析： A C
 从代码i.(*Integer).Add(b) 就可以得出C答案是一定符合的。
-A代码 接收者类型：值类型 Integer，但可通过指针调用（Go 自动解引用 *Integer 为 Integer）。
-因此A代码也合法。
+A代码 接收者类型：值类型 Integer，但可通过指针调用（Go 自动解引用*Integer为 Integer）。 因此A代码也合法。
 Go官方文档-Method_values">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
@@ -115,11 +114,11 @@ Go官方文档-Method_values">
 <meta name="twitter:title" content="Go每日一题_189">
 <meta name="twitter:description" content="如果 Add() 函数的调用代码为：
 func main() {
-	var a Integer = 1
-	var b Integer = 2
-	var i interface{} = &amp;a
-	sum := i.(*Integer).Add(b)
-	fmt.Println(sum)
+    var a Integer = 1
+    var b Integer = 2
+    var i interface{} = &amp;a
+    sum := i.(*Integer).Add(b)
+    fmt.Println(sum)
 }
 则Add函数定义正确的是：
 A.
@@ -149,7 +148,7 @@ func (a *Integer) Add(b *Integer) Integer {
 
   A C
 从代码i.(*Integer).Add(b) 就可以得出C答案是一定符合的。
-A代码 接收者类型：值类型 Integer，但可通过指针调用（Go 自动解引用 *Integer 为 Integer）。
+A代码 接收者类型：值类型 Integer，但可通过指针调用（Go 自动解引用*Integer为 Integer）。
 因此A代码也合法。
 Go官方文档-Method_values
 
@@ -183,12 +182,12 @@ Go官方文档-Method_values
   "@type": "BlogPosting",
   "headline": "Go每日一题_189",
   "name": "Go每日一题_189",
-  "description": "如果 Add() 函数的调用代码为：\nfunc main() { var a Integer = 1 var b Integer = 2 var i interface{} = \u0026amp;a sum := i.(*Integer).Add(b) fmt.Println(sum) } 则Add函数定义正确的是：\nA. type Integer int func (a Integer) Add(b Integer) Integer { return a + b } B. type Integer int func (a Integer) Add(b *Integer) Integer { return a + *b } C. type Integer int func (a *Integer) Add(b Integer) Integer { return *a + b } D. type Integer int func (a *Integer) Add(b *Integer) Integer { return *a + *b } 🔑 答案解析： A C\n从代码i.(*Integer).Add(b) 就可以得出C答案是一定符合的。\nA代码 接收者类型：值类型 Integer，但可通过指针调用（Go 自动解引用 *Integer 为 Integer）。\n因此A代码也合法。\nGo官方文档-Method_values\n",
+  "description": "如果 Add() 函数的调用代码为：\nfunc main() { var a Integer = 1 var b Integer = 2 var i interface{} = \u0026amp;a sum := i.(*Integer).Add(b) fmt.Println(sum) } 则Add函数定义正确的是：\nA. type Integer int func (a Integer) Add(b Integer) Integer { return a + b } B. type Integer int func (a Integer) Add(b *Integer) Integer { return a + *b } C. type Integer int func (a *Integer) Add(b Integer) Integer { return *a + b } D. type Integer int func (a *Integer) Add(b *Integer) Integer { return *a + *b } 🔑 答案解析： A C\n从代码i.(*Integer).Add(b) 就可以得出C答案是一定符合的。\nA代码 接收者类型：值类型 Integer，但可通过指针调用（Go 自动解引用*Integer为 Integer）。 因此A代码也合法。\nGo官方文档-Method_values\n",
   "keywords": [
     
   ],
-  "articleBody": "如果 Add() 函数的调用代码为：\nfunc main() { var a Integer = 1 var b Integer = 2 var i interface{} = \u0026a sum := i.(*Integer).Add(b) fmt.Println(sum) } 则Add函数定义正确的是：\nA. type Integer int func (a Integer) Add(b Integer) Integer { return a + b } B. type Integer int func (a Integer) Add(b *Integer) Integer { return a + *b } C. type Integer int func (a *Integer) Add(b Integer) Integer { return *a + b } D. type Integer int func (a *Integer) Add(b *Integer) Integer { return *a + *b } 🔑 答案解析： A C\n从代码i.(*Integer).Add(b) 就可以得出C答案是一定符合的。\nA代码 接收者类型：值类型 Integer，但可通过指针调用（Go 自动解引用 *Integer 为 Integer）。\n因此A代码也合法。\nGo官方文档-Method_values\n",
-  "wordCount" : "106",
+  "articleBody": "如果 Add() 函数的调用代码为：\nfunc main() { var a Integer = 1 var b Integer = 2 var i interface{} = \u0026a sum := i.(*Integer).Add(b) fmt.Println(sum) } 则Add函数定义正确的是：\nA. type Integer int func (a Integer) Add(b Integer) Integer { return a + b } B. type Integer int func (a Integer) Add(b *Integer) Integer { return a + *b } C. type Integer int func (a *Integer) Add(b Integer) Integer { return *a + b } D. type Integer int func (a *Integer) Add(b *Integer) Integer { return *a + *b } 🔑 答案解析： A C\n从代码i.(*Integer).Add(b) 就可以得出C答案是一定符合的。\nA代码 接收者类型：值类型 Integer，但可通过指针调用（Go 自动解引用*Integer为 Integer）。 因此A代码也合法。\nGo官方文档-Method_values\n",
+  "wordCount" : "104",
   "inLanguage": "zh",
   "datePublished": "2025-02-18T00:15:12+08:00",
   "dateModified": "2025-02-18T00:15:12+08:00",
@@ -292,11 +291,11 @@ Go官方文档-Method_values
   </header> 
   <div class="post-content"><p>如果 Add() 函数的调用代码为：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">Integer</span> = <span style="color:#ae81ff">1</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#a6e22e">Integer</span> = <span style="color:#ae81ff">2</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">interface</span>{} = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">sum</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">Integer</span>).<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">b</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">sum</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> <span style="color:#a6e22e">Integer</span> = <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> <span style="color:#a6e22e">Integer</span> = <span style="color:#ae81ff">2</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">i</span> <span style="color:#66d9ef">interface</span>{} = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">a</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sum</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span>.(<span style="color:#f92672">*</span><span style="color:#a6e22e">Integer</span>).<span style="color:#a6e22e">Add</span>(<span style="color:#a6e22e">b</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">sum</span>)
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>则Add函数定义正确的是：</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#a6e22e">A</span>.
@@ -326,7 +325,7 @@ Go官方文档-Method_values
 <div class="toggle-content">
   <p>A C</p>
 <p>从代码i.(*Integer).Add(b) 就可以得出C答案是一定符合的。<br>
-A代码 接收者类型：值类型 Integer，但可通过指针调用（Go 自动解引用 *Integer 为 Integer）。<br>
+A代码 接收者类型：值类型 Integer，但可通过指针调用（Go 自动解引用<code>*Integer</code>为 Integer）。
 因此A代码也合法。</p>
 <p><a href="https://go.dev/ref/spec#Method_values">Go官方文档-Method_values</a></p>
 
