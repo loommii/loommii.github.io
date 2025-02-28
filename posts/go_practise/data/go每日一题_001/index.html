@@ -9,16 +9,16 @@
 <meta name="keywords" content="">
 <meta name="description" content="下面这段代码输出什么，说明原因。
 func main() {
-	slice := []int{0,1,2,3}
-	m := make(map[int]*int)
+    slice := []int{0,1,2,3}
+    m := make(map[int]*int)
 
-	for key,val := range slice {
-		m[key] = &amp;val
-	}
+    for key,val := range slice {
+        m[key] = &amp;val
+    }
 
-	for k,v := range m {
-		fmt.Println(k,&#34;-&gt;&#34;,*v)
-	}
+    for k,v := range m {
+        fmt.Println(k,&#34;-&gt;&#34;,*v)
+    }
 }
 🔑 答案解析：
 
@@ -37,16 +37,16 @@ package main
 import &#34;fmt&#34;
 
 func main() {
-	slice := []int{0, 1, 2, 3}
-	m := make(map[int]*int)
-	for key, val := range slice {
-		m[key] = &amp;val
-		fmt.Println(&#34;key的值&#34;, key, &#34;key的地址&#34;, &amp;key, &#34;slice[&#34;, key, &#34;] 的地址&#34;, &amp;slice[key], &#34;val 的地址&#34;, &amp;val)
-	}
-	fmt.Println(&#34;m集合的内容&#34;, m)
-	for k, v := range m {
-		fmt.Println(k, &#34;-&gt;&#34;, *v)
-	}
+    slice := []int{0, 1, 2, 3}
+    m := make(map[int]*int)
+    for key, val := range slice {
+        m[key] = &amp;val
+        fmt.Println(&#34;key的值&#34;, key, &#34;key的地址&#34;, &amp;key, &#34;slice[&#34;, key, &#34;] 的地址&#34;, &amp;slice[key], &#34;val 的地址&#34;, &amp;val)
+    }
+    fmt.Println(&#34;m集合的内容&#34;, m)
+    for k, v := range m {
+        fmt.Println(k, &#34;-&gt;&#34;, *v)
+    }
 }
 //GO版本 1.22.4
 key的值 0 key的地址 0xc00000a0e0 slice[ 0 ] 的地址 0xc000014200 val 的地址 0xc00000a0c8
@@ -125,16 +125,16 @@ package main import &#34;fmt&#34; func main() { slice := []int{0, 1, 2, 3} m := 
 <meta name="twitter:title" content="Go每日一题_001">
 <meta name="twitter:description" content="下面这段代码输出什么，说明原因。
 func main() {
-	slice := []int{0,1,2,3}
-	m := make(map[int]*int)
+    slice := []int{0,1,2,3}
+    m := make(map[int]*int)
 
-	for key,val := range slice {
-		m[key] = &amp;val
-	}
+    for key,val := range slice {
+        m[key] = &amp;val
+    }
 
-	for k,v := range m {
-		fmt.Println(k,&#34;-&gt;&#34;,*v)
-	}
+    for k,v := range m {
+        fmt.Println(k,&#34;-&gt;&#34;,*v)
+    }
 }
 🔑 答案解析：
 
@@ -153,16 +153,16 @@ package main
 import &#34;fmt&#34;
 
 func main() {
-	slice := []int{0, 1, 2, 3}
-	m := make(map[int]*int)
-	for key, val := range slice {
-		m[key] = &amp;val
-		fmt.Println(&#34;key的值&#34;, key, &#34;key的地址&#34;, &amp;key, &#34;slice[&#34;, key, &#34;] 的地址&#34;, &amp;slice[key], &#34;val 的地址&#34;, &amp;val)
-	}
-	fmt.Println(&#34;m集合的内容&#34;, m)
-	for k, v := range m {
-		fmt.Println(k, &#34;-&gt;&#34;, *v)
-	}
+    slice := []int{0, 1, 2, 3}
+    m := make(map[int]*int)
+    for key, val := range slice {
+        m[key] = &amp;val
+        fmt.Println(&#34;key的值&#34;, key, &#34;key的地址&#34;, &amp;key, &#34;slice[&#34;, key, &#34;] 的地址&#34;, &amp;slice[key], &#34;val 的地址&#34;, &amp;val)
+    }
+    fmt.Println(&#34;m集合的内容&#34;, m)
+    for k, v := range m {
+        fmt.Println(k, &#34;-&gt;&#34;, *v)
+    }
 }
 //GO版本 1.22.4
 key的值 0 key的地址 0xc00000a0e0 slice[ 0 ] 的地址 0xc000014200 val 的地址 0xc00000a0c8
@@ -313,16 +313,16 @@ Go &lt;1.22">
   </header> 
   <div class="post-content"><p>下面这段代码输出什么，说明原因。</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">slice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">slice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>,<span style="color:#ae81ff">1</span>,<span style="color:#ae81ff">2</span>,<span style="color:#ae81ff">3</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>)
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">key</span>,<span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">slice</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">key</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">val</span>
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">key</span>,<span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">slice</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">key</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">val</span>
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span>,<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">m</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">k</span>,<span style="color:#e6db74">&#34;-&gt;&#34;</span>,<span style="color:#f92672">*</span><span style="color:#a6e22e">v</span>)
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span>,<span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">m</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">k</span>,<span style="color:#e6db74">&#34;-&gt;&#34;</span>,<span style="color:#f92672">*</span><span style="color:#a6e22e">v</span>)
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
 <div class="toggle-content">
@@ -341,28 +341,28 @@ Go &lt;1.22">
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">slice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">slice</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">key</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">val</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;key的值&#34;</span>, <span style="color:#a6e22e">key</span>, <span style="color:#e6db74">&#34;key的地址&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">key</span>, <span style="color:#e6db74">&#34;slice[&#34;</span>, <span style="color:#a6e22e">key</span>, <span style="color:#e6db74">&#34;] 的地址&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice</span>[<span style="color:#a6e22e">key</span>], <span style="color:#e6db74">&#34;val 的地址&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">val</span>)
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;m集合的内容&#34;</span>, <span style="color:#a6e22e">m</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">m</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">k</span>, <span style="color:#e6db74">&#34;-&gt;&#34;</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">v</span>)
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">slice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">slice</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">key</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">val</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;key的值&#34;</span>, <span style="color:#a6e22e">key</span>, <span style="color:#e6db74">&#34;key的地址&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">key</span>, <span style="color:#e6db74">&#34;slice[&#34;</span>, <span style="color:#a6e22e">key</span>, <span style="color:#e6db74">&#34;] 的地址&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice</span>[<span style="color:#a6e22e">key</span>], <span style="color:#e6db74">&#34;val 的地址&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">val</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;m集合的内容&#34;</span>, <span style="color:#a6e22e">m</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">m</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">k</span>, <span style="color:#e6db74">&#34;-&gt;&#34;</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">v</span>)
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><pre tabindex="0"><code>//GO版本 1.22.4
-key的值 0 key的地址 0xc00000a0e0 slice[ 0 ] 的地址 0xc000014200 val 的地址 0xc00000a0c8
-key的值 1 key的地址 0xc00000a110 slice[ 1 ] 的地址 0xc000014208 val 的地址 0xc00000a0e8
-key的值 2 key的地址 0xc00000a120 slice[ 2 ] 的地址 0xc000014210 val 的地址 0xc00000a118
-key的值 3 key的地址 0xc00000a130 slice[ 3 ] 的地址 0xc000014218 val 的地址 0xc00000a128
-m集合的内容 map[0:0xc00000a0c8 1:0xc00000a0e8 2:0xc00000a118 3:0xc00000a128]
-0 -&gt; 0
-1 -&gt; 1
-2 -&gt; 2
-3 -&gt; 3
-</code></pre><blockquote>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>//GO版本 1.22.4
+</span></span><span style="display:flex;"><span>key的值 0 key的地址 0xc00000a0e0 slice[ 0 ] 的地址 0xc000014200 val 的地址 0xc00000a0c8
+</span></span><span style="display:flex;"><span>key的值 1 key的地址 0xc00000a110 slice[ 1 ] 的地址 0xc000014208 val 的地址 0xc00000a0e8
+</span></span><span style="display:flex;"><span>key的值 2 key的地址 0xc00000a120 slice[ 2 ] 的地址 0xc000014210 val 的地址 0xc00000a118
+</span></span><span style="display:flex;"><span>key的值 3 key的地址 0xc00000a130 slice[ 3 ] 的地址 0xc000014218 val 的地址 0xc00000a128
+</span></span><span style="display:flex;"><span>m集合的内容 map[0:0xc00000a0c8 1:0xc00000a0e8 2:0xc00000a118 3:0xc00000a128]
+</span></span><span style="display:flex;"><span>0 -&gt; 0
+</span></span><span style="display:flex;"><span>1 -&gt; 1
+</span></span><span style="display:flex;"><span>2 -&gt; 2
+</span></span><span style="display:flex;"><span>3 -&gt; 3
+</span></span></code></pre></div><blockquote>
 <p>Go &lt;1.22</p></blockquote>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#ae81ff">0</span> <span style="color:#f92672">-</span>&gt; <span style="color:#ae81ff">3</span>
 </span></span><span style="display:flex;"><span><span style="color:#ae81ff">1</span> <span style="color:#f92672">-</span>&gt; <span style="color:#ae81ff">3</span>
@@ -375,28 +375,28 @@ m集合的内容 map[0:0xc00000a0c8 1:0xc00000a0e8 2:0xc00000a118 3:0xc00000a128
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">slice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">slice</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">key</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">val</span>
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;key的值&#34;</span>, <span style="color:#a6e22e">key</span>, <span style="color:#e6db74">&#34;key的地址&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">key</span>, <span style="color:#e6db74">&#34;slice[&#34;</span>, <span style="color:#a6e22e">key</span>, <span style="color:#e6db74">&#34;] 的地址&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice</span>[<span style="color:#a6e22e">key</span>], <span style="color:#e6db74">&#34;val 的地址&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">val</span>)
-</span></span><span style="display:flex;"><span>	}
-</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;m集合的内容&#34;</span>, <span style="color:#a6e22e">m</span>)
-</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">m</span> {
-</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">k</span>, <span style="color:#e6db74">&#34;-&gt;&#34;</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">v</span>)
-</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">slice</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#ae81ff">0</span>, <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">int</span>]<span style="color:#f92672">*</span><span style="color:#66d9ef">int</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">key</span>, <span style="color:#a6e22e">val</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">slice</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">m</span>[<span style="color:#a6e22e">key</span>] = <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">val</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;key的值&#34;</span>, <span style="color:#a6e22e">key</span>, <span style="color:#e6db74">&#34;key的地址&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">key</span>, <span style="color:#e6db74">&#34;slice[&#34;</span>, <span style="color:#a6e22e">key</span>, <span style="color:#e6db74">&#34;] 的地址&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">slice</span>[<span style="color:#a6e22e">key</span>], <span style="color:#e6db74">&#34;val 的地址&#34;</span>, <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">val</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;m集合的内容&#34;</span>, <span style="color:#a6e22e">m</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">m</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#a6e22e">k</span>, <span style="color:#e6db74">&#34;-&gt;&#34;</span>, <span style="color:#f92672">*</span><span style="color:#a6e22e">v</span>)
+</span></span><span style="display:flex;"><span>    }
 </span></span><span style="display:flex;"><span>}
-</span></span></code></pre></div><pre tabindex="0"><code>//GO版本 1.20.5
-key的值 0 key的地址 0xc00000a0c8 slice[ 0 ] 的地址 0xc00000e220 val 的地址 0xc00000a0e0
-key的值 1 key的地址 0xc00000a0c8 slice[ 1 ] 的地址 0xc00000e228 val 的地址 0xc00000a0e0
-key的值 2 key的地址 0xc00000a0c8 slice[ 2 ] 的地址 0xc00000e230 val 的地址 0xc00000a0e0
-key的值 3 key的地址 0xc00000a0c8 slice[ 3 ] 的地址 0xc00000e238 val 的地址 0xc00000a0e0
-m集合的内容 map[0:0xc00000a0e0 1:0xc00000a0e0 2:0xc00000a0e0 3:0xc00000a0e0]
-0 -&gt; 3
-1 -&gt; 3
-2 -&gt; 3
-3 -&gt; 3
-</code></pre><p>知识点: for range 循环的时候会创建每个元素的副本，而不是元素的引用</p>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>//GO版本 1.20.5
+</span></span><span style="display:flex;"><span>key的值 0 key的地址 0xc00000a0c8 slice[ 0 ] 的地址 0xc00000e220 val 的地址 0xc00000a0e0
+</span></span><span style="display:flex;"><span>key的值 1 key的地址 0xc00000a0c8 slice[ 1 ] 的地址 0xc00000e228 val 的地址 0xc00000a0e0
+</span></span><span style="display:flex;"><span>key的值 2 key的地址 0xc00000a0c8 slice[ 2 ] 的地址 0xc00000e230 val 的地址 0xc00000a0e0
+</span></span><span style="display:flex;"><span>key的值 3 key的地址 0xc00000a0c8 slice[ 3 ] 的地址 0xc00000e238 val 的地址 0xc00000a0e0
+</span></span><span style="display:flex;"><span>m集合的内容 map[0:0xc00000a0e0 1:0xc00000a0e0 2:0xc00000a0e0 3:0xc00000a0e0]
+</span></span><span style="display:flex;"><span>0 -&gt; 3
+</span></span><span style="display:flex;"><span>1 -&gt; 3
+</span></span><span style="display:flex;"><span>2 -&gt; 3
+</span></span><span style="display:flex;"><span>3 -&gt; 3
+</span></span></code></pre></div><p>知识点: for range 循环的时候会创建每个元素的副本，而不是元素的引用</p>
 <p>参考资料：</p>
 <ul>
 <li>🔗:<a href="https://blog.csdn.net/idwtwt/article/details/87378419">【golang】for range中取地址操作的陷阱</a></li>
