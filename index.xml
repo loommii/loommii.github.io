@@ -897,18 +897,18 @@ s2[i] = &amp;amp;value 记录的地址都是同一个地址。
 2
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/3owhzDo5QeG&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;&lt;strong&gt;代码解析：&lt;/strong&gt;&lt;/p&gt;
-&lt;h3 id=&#34;第一个-const-块&#34;&gt;第一个 &lt;code&gt;const&lt;/code&gt; 块：&lt;/h3&gt;
+&lt;h3 id=&#34;第一个-const-块&#34;&gt;第一个 &lt;code&gt;const&lt;/code&gt; 块&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;a = iota&lt;/code&gt;: &lt;code&gt;iota&lt;/code&gt; 在 &lt;code&gt;const&lt;/code&gt; 块中从 &lt;code&gt;0&lt;/code&gt; 开始计数，因此 &lt;code&gt;a = 0&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;b = iota&lt;/code&gt;: &lt;code&gt;iota&lt;/code&gt; 自增到 &lt;code&gt;1&lt;/code&gt;，因此 &lt;code&gt;b = 1&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;第二个-const-块&#34;&gt;第二个 &lt;code&gt;const&lt;/code&gt; 块：&lt;/h3&gt;
+&lt;h3 id=&#34;第二个-const-块&#34;&gt;第二个 &lt;code&gt;const&lt;/code&gt; 块&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;name = &amp;quot;name&amp;quot;&lt;/code&gt;: 未使用 &lt;code&gt;iota&lt;/code&gt;，但 &lt;code&gt;iota&lt;/code&gt; 初始值为 &lt;code&gt;0&lt;/code&gt;，声明后自增到 &lt;code&gt;1&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;c = iota&lt;/code&gt;: 当前 &lt;code&gt;iota&lt;/code&gt; 值为 &lt;code&gt;1&lt;/code&gt;，因此 &lt;code&gt;c = 1&lt;/code&gt;&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;d = iota&lt;/code&gt;: &lt;code&gt;iota&lt;/code&gt; 继续自增到 &lt;code&gt;2&lt;/code&gt;，因此 &lt;code&gt;d = 2&lt;/code&gt;&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h3 id=&#34;关键规则&#34;&gt;关键规则：&lt;/h3&gt;
+&lt;h3 id=&#34;关键规则&#34;&gt;关键规则&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;iota&lt;/code&gt; 在每个 &lt;code&gt;const&lt;/code&gt; 块中从 &lt;code&gt;0&lt;/code&gt; 开始计数&lt;/li&gt;
 &lt;li&gt;每行常量声明（无论是否使用 &lt;code&gt;iota&lt;/code&gt;）都会使 &lt;code&gt;iota&lt;/code&gt; 自增 &lt;code&gt;1&lt;/code&gt;&lt;/li&gt;
@@ -951,7 +951,7 @@ s2[i] = &amp;amp;value 记录的地址都是同一个地址。
   &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;]
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;7&lt;/span&gt;]
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/XL6Vb0mzsEs&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;
-&lt;h2 id=&#34;切片共享底层数组&#34;&gt;切片共享底层数组：&lt;/h2&gt;
+&lt;h2 id=&#34;切片共享底层数组&#34;&gt;切片共享底层数组&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;s1&lt;/code&gt; 初始化为 &lt;code&gt;[]int{1, 2, 3}&lt;/code&gt;，底层数组为 &lt;code&gt;[1, 2, 3]&lt;/code&gt;，长度和容量均为 3。&lt;/li&gt;
 &lt;li&gt;&lt;code&gt;s2 := s1[1:]&lt;/code&gt; 创建了 &lt;code&gt;s1&lt;/code&gt; 的子切片。此时：
@@ -961,11 +961,11 @@ s2[i] = &amp;amp;value 记录的地址都是同一个地址。
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;修改共享元素&#34;&gt;修改共享元素：&lt;/h2&gt;
+&lt;h2 id=&#34;修改共享元素&#34;&gt;修改共享元素&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;s2[1] = 4&lt;/code&gt; 修改的是底层数组的第三个元素（索引 2）。由于 &lt;code&gt;s1&lt;/code&gt; 和 &lt;code&gt;s2&lt;/code&gt; 共享底层数组，&lt;code&gt;s1&lt;/code&gt; 变为 &lt;code&gt;[1, 2, 4]&lt;/code&gt;。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;h2 id=&#34;append-触发扩容&#34;&gt;append 触发扩容：&lt;/h2&gt;
+&lt;h2 id=&#34;append-触发扩容&#34;&gt;append 触发扩容&lt;/h2&gt;
 &lt;ul&gt;
 &lt;li&gt;&lt;code&gt;s2 = append(s2, 5, 6, 7)&lt;/code&gt; 时，原容量 2 不足以容纳 5 个元素（原长度 2 + 3 个新增元素），触发扩容。&lt;/li&gt;
 &lt;li&gt;扩容后，&lt;code&gt;s2&lt;/code&gt; 的底层数组变为全新的数组，与原 &lt;code&gt;s1&lt;/code&gt; 完全独立。&lt;/li&gt;
@@ -1058,10 +1058,10 @@ s2[i] = &amp;amp;value 记录的地址都是同一个地址。
 &lt;div class=&#34;toggle-content&#34;&gt;
   &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;./prog.go:8:17: cannot use nil as string value in variable declaration
 ./prog.go:9:10: invalid operation: x == nil (mismatched types string and untyped nil)
-&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;var-x-string--nil-错误&#34;&gt;&lt;code&gt;var x string = nil&lt;/code&gt; 错误：&lt;/h3&gt;
+&lt;/code&gt;&lt;/pre&gt;&lt;h3 id=&#34;var-x-string--nil-错误&#34;&gt;&lt;code&gt;var x string = nil&lt;/code&gt; 错误&lt;/h3&gt;
 &lt;p&gt;在 Go 语言中，&lt;code&gt;string&lt;/code&gt; 类型的零值是空字符串 &lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt;，而不是 &lt;code&gt;nil&lt;/code&gt;。&lt;code&gt;nil&lt;/code&gt; 通常用于指针、切片、映射、通道、接口等类型。因此，将 &lt;code&gt;nil&lt;/code&gt; 赋值给 &lt;code&gt;string&lt;/code&gt; 类型的变量 &lt;code&gt;x&lt;/code&gt; 会导致编译错误。&lt;/p&gt;
 &lt;p&gt;正确的写法应该是：&lt;code&gt;var x string&lt;/code&gt; 或 &lt;code&gt;var x string = &amp;quot;&amp;quot;&lt;/code&gt;。&lt;/p&gt;
-&lt;h3 id=&#34;if-x--nil-错误&#34;&gt;&lt;code&gt;if x == nil&lt;/code&gt; 错误：&lt;/h3&gt;
+&lt;h3 id=&#34;if-x--nil-错误&#34;&gt;&lt;code&gt;if x == nil&lt;/code&gt; 错误&lt;/h3&gt;
 &lt;p&gt;由于 &lt;code&gt;x&lt;/code&gt; 是 &lt;code&gt;string&lt;/code&gt; 类型，不能与 &lt;code&gt;nil&lt;/code&gt; 进行比较。&lt;code&gt;string&lt;/code&gt; 类型的变量应该与空字符串 &lt;code&gt;&amp;quot;&amp;quot;&lt;/code&gt; 进行比较。&lt;/p&gt;</description>
     </item>
     <item>
@@ -1624,9 +1624,14 @@ increaseB() 是具名&lt;/p&gt;
 4）错&lt;/p&gt;
 &lt;h3 id=&#34;1-x-_--f&#34;&gt;1. &lt;code&gt;x, _ := f()&lt;/code&gt;&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;错误&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;原因&lt;/strong&gt;：&lt;code&gt;:=&lt;/code&gt; 是短变量声明操作符，要求左侧的所有变量都必须是未声明的。由于 &lt;code&gt;x&lt;/code&gt; 已经声明，因此不能使用 &lt;code&gt;:=&lt;/code&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;修正&lt;/strong&gt;：如果 &lt;code&gt;x&lt;/code&gt; 已经声明，应该使用 &lt;code&gt;=&lt;/code&gt; 赋值操作符：
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;错误&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;原因&lt;/strong&gt;：&lt;code&gt;:=&lt;/code&gt; 是短变量声明操作符，要求左侧的所有变量都必须是未声明的。由于 &lt;code&gt;x&lt;/code&gt; 已经声明，因此不能使用 &lt;code&gt;:=&lt;/code&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;修正&lt;/strong&gt;：如果 &lt;code&gt;x&lt;/code&gt; 已经声明，应该使用 &lt;code&gt;=&lt;/code&gt; 赋值操作符：&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;_&lt;/span&gt; = &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;()
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
 &lt;/ul&gt;
@@ -1642,22 +1647,14 @@ increaseB() 是具名&lt;/p&gt;
 &lt;/ul&gt;
 &lt;h3 id=&#34;4-x-y--f&#34;&gt;4. &lt;code&gt;x, y = f()&lt;/code&gt;&lt;/h3&gt;
 &lt;ul&gt;
-&lt;li&gt;&lt;strong&gt;错误&lt;/strong&gt;。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;原因&lt;/strong&gt;：&lt;code&gt;=&lt;/code&gt; 是赋值操作符，要求左侧的所有变量都必须是已声明的。由于 &lt;code&gt;y&lt;/code&gt; 未声明，因此这条语句会编译失败。&lt;/li&gt;
-&lt;li&gt;&lt;strong&gt;修正&lt;/strong&gt;：如果 &lt;code&gt;y&lt;/code&gt; 未声明，应该使用 &lt;code&gt;:=&lt;/code&gt;：
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;x&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;y&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f&lt;/span&gt;()
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/div&gt;
-&lt;style&gt;
-  .toggle-content {
-    display: none;
-    margin-top: 10px;
-  }
-  .toggle-content.show {
-    display: block;
-  }
-&lt;/style&gt;</description>
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;错误&lt;/strong&gt;。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;原因&lt;/strong&gt;：&lt;code&gt;=&lt;/code&gt; 是赋值操作符，要求左侧的所有变量都必须是已声明的。由于 &lt;code&gt;y&lt;/code&gt; 未声明，因此这条语句会编译失败。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;修正&lt;/strong&gt;：如果 &lt;code&gt;y&lt;/code&gt; 未声明，应该使用 &lt;code&gt;:=&lt;/code&gt;：&lt;/p&gt;</description>
     </item>
     <item>
       <title>Go每日一题_160</title>
@@ -1716,8 +1713,8 @@ Go 语言的&lt;a href=&#34;https://golang.google.cn/ref/spec#Operators&#34;&gt;
 &lt;p&gt;unary_op   = &amp;ldquo;+&amp;rdquo; | &amp;ldquo;-&amp;rdquo; | &amp;ldquo;!&amp;rdquo; | &amp;ldquo;^&amp;rdquo; | &amp;ldquo;*&amp;rdquo; | &amp;ldquo;&amp;amp;&amp;rdquo; | &amp;ldquo;&amp;lt;-&amp;rdquo; .&lt;/p&gt;&lt;/blockquote&gt;
 &lt;p&gt;题中一元运算符(+、-、* )&lt;/p&gt;
 &lt;p&gt;+、- 和 * 同时也是算术运算符中的加、减和乘。&lt;/p&gt;
-&lt;p&gt;表达式: 5/+-*v。5 后面 /，很显然，这是除法。
-而 + 前面没有操作数，因此是一个一元运算符；同理 - 和 * 也是一元运算符。而一元运算符有最高的优先级，因此这个表达式优先计算 +-*v 的值。&lt;/p&gt;
+&lt;p&gt;表达式: 5/+-&lt;em&gt;v。5 后面 /，很显然，这是除法。
+而 + 前面没有操作数，因此是一个一元运算符；同理 - 和&lt;/em&gt; 也是一元运算符。而一元运算符有最高的优先级，因此这个表达式优先计算 +-*v 的值。&lt;/p&gt;
 &lt;p&gt;在规范中有这么一句话：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;对于整数操作数，一元运算符 + , - 和 ^ 有如下定义：（省略了 ^ 的解释）
@@ -2001,7 +1998,7 @@ c 长度和容量 1 2&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;输入：s = &amp;ldquo;aAbBcC&amp;rdquo;&lt;br&gt;
 输出：2&lt;br&gt;
-解释：&lt;br&gt;
+解释：
 从 s[0] = &amp;lsquo;a&amp;rsquo; 到 s[1] = &amp;lsquo;A&amp;rsquo;，不存在按键变更，因为不计入 caps lock 或 shift 。&lt;br&gt;
 从 s[1] = &amp;lsquo;A&amp;rsquo; 到 s[2] = &amp;lsquo;b&amp;rsquo;，按键变更。&lt;br&gt;
 从 s[2] = &amp;lsquo;b&amp;rsquo; 到 s[3] = &amp;lsquo;B&amp;rsquo;，不存在按键变更，因为不计入 caps lock 或 shift 。&lt;br&gt;
@@ -2686,7 +2683,7 @@ C 赋值,不是定义&lt;/p&gt;
 &lt;div class=&#34;toggle-content&#34;&gt;
   &lt;p&gt;A
 &lt;a href=&#34;https://go.dev/play/p/vDR1EXgEiDa&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;
-&lt;p&gt;根据官方文档:https://pkg.go.dev/fmt&lt;/p&gt;
+&lt;p&gt;根据官方文档:&lt;a href=&#34;https://pkg.go.dev/fmt&#34;&gt;https://pkg.go.dev/fmt&lt;/a&gt;&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;%b 二进制
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;%c 对应 Unicode 码位所表示的字符
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;%d 十进制
@@ -2996,8 +2993,8 @@ A  [2]int 和 [3]int 在Go中是不同的类型 不能通过 == 运算符对比&
 &lt;p&gt;示例 1：
 &lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/leetcode/data/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/image.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;输入：score = [[10,6,9,1],[7,5,11,2],[4,8,3,15]], k = 2 &lt;br&gt;
-输出：[[7,5,11,2],[10,6,9,1],[4,8,3,15]]&lt;br&gt;
+&lt;p&gt;输入：score = [[10,6,9,1],[7,5,11,2],[4,8,3,15]], k = 2
+输出：[[7,5,11,2],[10,6,9,1],[4,8,3,15]]
 解释：在上图中，S 表示学生，E 表示考试。&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;下标为 1 的学生在第 2 场考试取得的分数为 11 ，这是考试的最高分，所以 TA 需要排在第一。&lt;/li&gt;
@@ -3060,11 +3057,11 @@ a[3:5:5]  // [4 5]&lt;/p&gt;
       <guid>https://loommii.github.io/posts/leetcode/data/3138_%E5%90%8C%E4%BD%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%9C%80%E5%B0%8F%E9%95%BF%E5%BA%A6/</guid>
       <description>&lt;p&gt;力扣链接:&lt;a href=&#34;https://leetcode.cn/problems/minimum-length-of-anagram-concatenation/description/?envType=daily-question&amp;amp;envId=2024-12-20&#34;&gt;3138. 同位字符串连接的最小长度&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
-&lt;p&gt;力扣难度 &lt;code&gt;中等&lt;/code&gt;&lt;br&gt;
+&lt;p&gt;力扣难度 &lt;code&gt;中等&lt;/code&gt;
 算法评级: 5      熟练掌握常用数据结构和算法，初步了解高级数据结构
 难度分 1979&lt;/p&gt;&lt;/blockquote&gt;
 &lt;hr&gt;
-&lt;p&gt;题目:&lt;br&gt;
+&lt;p&gt;题目:
 给你一个字符串 s ，它由某个字符串 t 和若干 t  的 同位字符串 连接而成。&lt;/p&gt;
 &lt;p&gt;请你返回字符串 t 的 最小 可能长度。&lt;/p&gt;
 &lt;p&gt;同位字符串 指的是重新排列一个单词得到的另外一个字符串，原来字符串中的每个字符在新字符串中都恰好只使用一次。&lt;/p&gt;
@@ -3268,7 +3265,7 @@ a[3:5:5]  // [4 5]&lt;/p&gt;
 &lt;/ul&gt;
 &lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
 &lt;div class=&#34;toggle-content&#34;&gt;
-  &lt;p&gt;答 C 在线运行:https://go.dev/play/p/VDTgpXoukTb&lt;/p&gt;
+  &lt;p&gt;答 C 在线运行:&lt;a href=&#34;https://go.dev/play/p/VDTgpXoukTb&#34;&gt;https://go.dev/play/p/VDTgpXoukTb&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;在Go中，变量之间没有隐式类型转换。但是，编译器可以进行变量和常量之间的隐式类型转换&lt;/p&gt;
 &lt;p&gt;题目中 a为 int变量 b为 float64变量\&lt;/p&gt;
 &lt;p&gt;不同类型不能使用 + 运算符&lt;/p&gt;
@@ -3278,21 +3275,21 @@ a[3:5:5]  // [4 5]&lt;/p&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;8.1&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;// 13.1&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在线运行 ：https://go.dev/play/p/4KXch9jes-y&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在线运行 ：&lt;a href=&#34;https://go.dev/play/p/4KXch9jes-y&#34;&gt;https://go.dev/play/p/4KXch9jes-y&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;类型的优先级为： 整数(int)&amp;lt;符文数(rune)&amp;lt;浮点数(float)&amp;lt;复数(Imag)&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;8.1&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;// 报错&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在线运行：https://go.dev/play/p/sIINDSsakdz
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在线运行：&lt;a href=&#34;https://go.dev/play/p/sIINDSsakdz&#34;&gt;https://go.dev/play/p/sIINDSsakdz&lt;/a&gt;
 变量A int 变量b不能被推断为int&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;8.1&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;a&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;+&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;b&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;// 13.1&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在线运行：https://go.dev/play/p/JNhNXc1OErN&lt;/p&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;在线运行：&lt;a href=&#34;https://go.dev/play/p/JNhNXc1OErN&#34;&gt;https://go.dev/play/p/JNhNXc1OErN&lt;/a&gt;&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;style&gt;
@@ -3859,17 +3856,18 @@ Wait方法阻塞直到WaitGroup计数器减为0。&lt;/p&gt;
       <guid>https://loommii.github.io/posts/leetcode/data/2931_%E8%B4%AD%E4%B9%B0%E7%89%A9%E5%93%81%E7%9A%84%E6%9C%80%E5%A4%A7%E5%BC%80%E9%94%80/</guid>
       <description>&lt;p&gt;力扣链接:&lt;a href=&#34;https://leetcode.cn/problems/maximum-spending-after-buying-items/description/?envType=daily-question&amp;amp;envId=2024-12-12&#34;&gt;2931. 购买物品的最大开销&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;力扣难度 &lt;code&gt;困难&lt;/code&gt;
-算法评级: 6   &lt;br&gt;
+算法评级: 6
 难度分 1822&lt;/p&gt;
 &lt;hr&gt;
 &lt;p&gt;题目:&lt;/p&gt;
-&lt;p&gt;给你一个下标从 0 开始大小为 m * n 的整数矩阵 values ，表示 m 个不同商店里 m * n 件不同的物品。每个商店有 n 件物品，第 i 个商店的第 j 件物品的价值为 values[i][j] 。除此以外，第 i 个商店的物品已经按照价值非递增排好序了，也就是说对于所有 0 &amp;lt;= j &amp;lt; n - 1 都有 values[i][j] &amp;gt;= values[i][j + 1] 。&lt;/p&gt;
+&lt;p&gt;给你一个下标从 0 开始大小为 m &lt;em&gt;n 的整数矩阵 values ，表示 m 个不同商店里 m&lt;/em&gt; n 件不同的物品。每个商店有 n 件物品，第 i 个商店的第 j 件物品的价值为 values[i][j] 。除此以外，第 i 个商店的物品已经按照价值非递增排好序了，也就是说对于所有 0 &amp;lt;= j &amp;lt; n - 1 都有 values[i][j] &amp;gt;= values[i][j + 1] 。&lt;/p&gt;
 &lt;p&gt;每一天，你可以在一个商店里购买一件物品。具体来说，在第 d 天，你可以：&lt;/p&gt;
 &lt;ul&gt;
 &lt;li&gt;选择商店 i 。&lt;/li&gt;
-&lt;li&gt;购买数组中最右边的物品 j ，开销为 values[i][j] * d 。换句话说，选择该商店中还没购买过的物品中最大的下标 j ，并且花费 values[i][j] * d 去购买。&lt;/li&gt;
+&lt;li&gt;购买数组中最右边的物品 j ，开销为 values[i][j] &lt;em&gt;d 。换句话说，选择该商店中还没购买过的物品中最大的下标 j ，并且花费 values[i][j]&lt;/em&gt; d 去购买。&lt;/li&gt;
 &lt;/ul&gt;
-&lt;p&gt;注意，所有物品都视为不同的物品。比方说如果你已经从商店 1 购买了物品 0 ，你还可以在别的商店里购买其他商店的物品 0 。&lt;/p&gt;</description>
+&lt;p&gt;注意，所有物品都视为不同的物品。比方说如果你已经从商店 1 购买了物品 0 ，你还可以在别的商店里购买其他商店的物品 0 。&lt;/p&gt;
+&lt;p&gt;请你返回购买所有 m * n 件物品需要的 最大开销 。&lt;/p&gt;</description>
     </item>
     <item>
       <title>Go每日一题_129</title>
@@ -3953,7 +3951,7 @@ goroutine 6 [running]:
   编译失败
 i.(type)
 类型断言的语法形如：i.(type)，其中 i 是接口，type 是固定关键字，需要注意的是，只有接口类型才可以使用类型断言。
-官方：https://go.dev/tour/methods/16
+官方：&lt;a href=&#34;https://go.dev/tour/methods/16&#34;&gt;https://go.dev/tour/methods/16&lt;/a&gt;
 &lt;/div&gt;
 &lt;style&gt;
   .toggle-content {
@@ -4754,7 +4752,7 @@ if 接口 时,值和类型都为零值时,接口live() == nil 判断才为T&lt;/
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;str&lt;/span&gt;       &lt;span style=&#34;color:#a6e22e&#34;&gt;nameOff&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;ptrToThis&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;typeOff&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;_type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成 _type，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;_type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成_type，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作
 data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.Pointer类型，相当于一个 C 的万能指针void*。&lt;/p&gt;</description>
     </item>
     <item>
@@ -5208,7 +5206,7 @@ D. add([]int{1, 3, 7}&amp;hellip;)
   &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;13
 23
 &lt;/code&gt;&lt;/pre&gt;&lt;p&gt;参考答案及解析：A。&lt;/p&gt;
-&lt;h3 id=&#34;知识点类型断言&#34;&gt;知识点：类型断言。&lt;/h3&gt;
+&lt;h3 id=&#34;知识点类型断言&#34;&gt;知识点：类型断言&lt;/h3&gt;
 &lt;p&gt;这道题可以和第 15 天的第三题 和第 16 天的第三题结合起来看。&lt;/p&gt;
 
 &lt;/div&gt;
@@ -5877,7 +5875,7 @@ p, err := foo() 这里是一个新的p 局部变量 与全局的p无关
 B：panic
 &lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
 &lt;div class=&#34;toggle-content&#34;&gt;
-  &lt;p&gt;按常规理解，go func 中的 select 应该执行 default 分支，程序正常运行。但结果却不是，而是死锁。可以通过该链接测试：https://play.studygolang.com/p/kF4pOjYXbXf。&lt;/p&gt;
+  &lt;p&gt;按常规理解，go func 中的 select 应该执行 default 分支，程序正常运行。但结果却不是，而是死锁。可以通过该链接测试：&lt;a href=&#34;https://play.studygolang.com/p/kF4pOjYXbXf%E3%80%82&#34;&gt;https://play.studygolang.com/p/kF4pOjYXbXf。&lt;/a&gt;&lt;/p&gt;
 &lt;p&gt;原因文章也解释了，Go 语言规范中有这么一句：&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;For all the cases in the statement, the channel operands of receive operations and the channel and right-hand-side expressions of send statements are evaluated exactly once, in source order, upon entering the “select” statement. The result is a set of channels to receive from or send to, and the corresponding values to send. Any side effects in that evaluation will occur irrespective of which (if any) communication operation is selected to proceed. Expressions on the left-hand side of a RecvStmt with a short variable declaration or assignment are not yet evaluated.&lt;/p&gt;</description>
@@ -6403,7 +6401,7 @@ string 不能与nil 比较
 &lt;div class=&#34;toggle-content&#34;&gt;
   &lt;p&gt;A. &amp;amp;S{&amp;ldquo;foo&amp;rdquo;}
 B. *f() 或者 f()&lt;/p&gt;
-&lt;p&gt;f() 函数返回参数是指针类型，所以可以用 &amp;amp; 取结构体的指针；B 处，如果填 *f()，则 p 是 S 类型；如果填 f()，则 p 是 *S 类型，不过都可以使用 p.m 取得结构体的成员。&lt;/p&gt;
+&lt;p&gt;f() 函数返回参数是指针类型，所以可以用 &amp;amp; 取结构体的指针；B 处，如果填 &lt;em&gt;f()，则 p 是 S 类型；如果填 f()，则 p 是&lt;/em&gt;S 类型，不过都可以使用 p.m 取得结构体的成员。&lt;/p&gt;
 
 &lt;/div&gt;
 &lt;style&gt;
@@ -6801,8 +6799,8 @@ increaseA  return r 已经将r的值 返回了 r再改变并不影响&lt;/p&gt;
       <pubDate>Fri, 06 Dec 2024 20:44:53 +0800</pubDate>
       <guid>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_070/</guid>
       <description>&lt;p&gt;下面代码中，x 已声明，y 没有声明，判断每条语句的对错。&lt;/p&gt;
-&lt;p&gt;x, _ := f()
-x, _ = f()
+&lt;p&gt;x, &lt;em&gt;:= f()
+x,&lt;/em&gt; = f()
 x, y := f()
 x, y = f()&lt;/p&gt;
 &lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
@@ -8416,7 +8414,7 @@ if 接口类型 == nil
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;问题1&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;：&lt;/span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;声明变量不能使用&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;问题2&lt;/span&gt;:  &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;只能在函数内使用&lt;/span&gt;&lt;span style=&#34;color:#960050;background-color:#1e0010&#34;&gt;，&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;本题在声明全局变量中使用&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;参考解析：这道题的主要知识点是变量声明的简短模式，形如：x := 100.&lt;/p&gt;
-&lt;h4 id=&#34;但这种声明方式有限制&#34;&gt;但这种声明方式有限制：&lt;/h4&gt;
+&lt;h4 id=&#34;但这种声明方式有限制&#34;&gt;但这种声明方式有限制&lt;/h4&gt;
 &lt;ul&gt;
 &lt;li&gt;必须使用显示初始化；&lt;/li&gt;
 &lt;li&gt;不能提供数据类型，编译器会自动推导；&lt;/li&gt;
@@ -8448,8 +8446,8 @@ D.p-&amp;gt;name
 &lt;div class=&#34;toggle-content&#34;&gt;
   答:
 AC
-&amp;amp; 取址运算符，* 指针解引用。
-p 是指针变量, 因此可以使用 *指针解引用
+&amp;amp; 取址运算符，&lt;em&gt;指针解引用。
+p 是指针变量, 因此可以使用&lt;/em&gt;指针解引用
 Go有语法糖,直接使用 指针变量.成员变量 也是可以访问的
 &lt;/div&gt;
 &lt;style&gt;
@@ -8488,7 +8486,7 @@ Go有语法糖,直接使用 指针变量.成员变量 也是可以访问的
 类型别名&lt;code&gt;type MyInt2 = int&lt;/code&gt;
 类型定义&lt;code&gt;type MyInt1 int&lt;/code&gt;
 Go 赋值 = 左右的类型需要一致。
-MyInt1 是基于int定义的新类型,因此不能直接赋值。如果需要赋值，需要类型转换&lt;code&gt;   var i1 MyInt1 = MyInt1(i) &lt;/code&gt;
+MyInt1 是基于int定义的新类型,因此不能直接赋值。如果需要赋值，需要类型转换&lt;code&gt;var i1 MyInt1 = MyInt1(i)&lt;/code&gt;
 &lt;/div&gt;
 &lt;style&gt;
   .toggle-content {

@@ -94,10 +94,8 @@ func minAnagramLength(s string) int {
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="3138_同位字符串连接的最小长度">
   <meta property="og:description" content="力扣链接:3138. 同位字符串连接的最小长度
-力扣难度 中等
-算法评级: 5 熟练掌握常用数据结构和算法，初步了解高级数据结构 难度分 1979
-题目:
-给你一个字符串 s ，它由某个字符串 t 和若干 t 的 同位字符串 连接而成。
+力扣难度 中等 算法评级: 5 熟练掌握常用数据结构和算法，初步了解高级数据结构 难度分 1979
+题目: 给你一个字符串 s ，它由某个字符串 t 和若干 t 的 同位字符串 连接而成。
 请你返回字符串 t 的 最小 可能长度。
 同位字符串 指的是重新排列一个单词得到的另外一个字符串，原来字符串中的每个字符在新字符串中都恰好只使用一次。
 示例 1：
@@ -183,11 +181,11 @@ func minAnagramLength(s string) int {
   "@type": "BlogPosting",
   "headline": "3138_同位字符串连接的最小长度",
   "name": "3138_同位字符串连接的最小长度",
-  "description": "力扣链接:3138. 同位字符串连接的最小长度\n力扣难度 中等\n算法评级: 5 熟练掌握常用数据结构和算法，初步了解高级数据结构 难度分 1979\n题目:\n给你一个字符串 s ，它由某个字符串 t 和若干 t 的 同位字符串 连接而成。\n请你返回字符串 t 的 最小 可能长度。\n同位字符串 指的是重新排列一个单词得到的另外一个字符串，原来字符串中的每个字符在新字符串中都恰好只使用一次。\n示例 1：\n输入：s = \u0026ldquo;abba\u0026rdquo;\n输出：2\n解释：\n一个可能的字符串 t 为 \u0026ldquo;ba\u0026rdquo; 。\n示例 2：\n输入：s = \u0026ldquo;cdef\u0026rdquo;\n输出：4\n解释：\n一个可能的字符串 t 为 \u0026ldquo;cdef\u0026rdquo; ，注意 t 可能等于 s 。\n提示：\n1 \u0026lt;= s.length \u0026lt;= 105 s 只包含小写英文字母。 func minAnagramLength(s string) int { } 🧠思路: 👈点击 枚举 设 s字符串的长度为n,阅读题目可得提供的s一定是由 字符串 t构成的。(有确定的结)\n",
+  "description": "力扣链接:3138. 同位字符串连接的最小长度\n力扣难度 中等 算法评级: 5 熟练掌握常用数据结构和算法，初步了解高级数据结构 难度分 1979\n题目: 给你一个字符串 s ，它由某个字符串 t 和若干 t 的 同位字符串 连接而成。\n请你返回字符串 t 的 最小 可能长度。\n同位字符串 指的是重新排列一个单词得到的另外一个字符串，原来字符串中的每个字符在新字符串中都恰好只使用一次。\n示例 1：\n输入：s = \u0026ldquo;abba\u0026rdquo;\n输出：2\n解释：\n一个可能的字符串 t 为 \u0026ldquo;ba\u0026rdquo; 。\n示例 2：\n输入：s = \u0026ldquo;cdef\u0026rdquo;\n输出：4\n解释：\n一个可能的字符串 t 为 \u0026ldquo;cdef\u0026rdquo; ，注意 t 可能等于 s 。\n提示：\n1 \u0026lt;= s.length \u0026lt;= 105 s 只包含小写英文字母。 func minAnagramLength(s string) int { } 🧠思路: 👈点击 枚举 设 s字符串的长度为n,阅读题目可得提供的s一定是由 字符串 t构成的。(有确定的结)\n",
   "keywords": [
     
   ],
-  "articleBody": "力扣链接:3138. 同位字符串连接的最小长度\n力扣难度 中等\n算法评级: 5 熟练掌握常用数据结构和算法，初步了解高级数据结构 难度分 1979\n题目:\n给你一个字符串 s ，它由某个字符串 t 和若干 t 的 同位字符串 连接而成。\n请你返回字符串 t 的 最小 可能长度。\n同位字符串 指的是重新排列一个单词得到的另外一个字符串，原来字符串中的每个字符在新字符串中都恰好只使用一次。\n示例 1：\n输入：s = “abba”\n输出：2\n解释：\n一个可能的字符串 t 为 “ba” 。\n示例 2：\n输入：s = “cdef”\n输出：4\n解释：\n一个可能的字符串 t 为 “cdef” ，注意 t 可能等于 s 。\n提示：\n1 \u003c= s.length \u003c= 105 s 只包含小写英文字母。 func minAnagramLength(s string) int { } 🧠思路: 👈点击 枚举 设 s字符串的长度为n,阅读题目可得提供的s一定是由 字符串 t构成的。(有确定的结)\n因此我们输出的结果可能是 n ~ 1,中的其中一个\n假设字符串的t的长度为k,k的长度为 1,2,3,4,5,n/2,n\n因此我们只要枚举字符串的t的长度为k，然后判断是否符合条件。\n题目要求请你返回字符串 t 的 最小 可能长度。因此从小到大遍历,符合条件就退出\n🔑 答案解析： 👈点击 func minAnagramLength(s string) int { n := len(s) k := 1 record := make(map[byte]int) for ; k \u003c= n/2; k++ { record[s[k-1]]++ // // 到这里就要检测剩下的字符串 是否都是按照 长度 k 来划分了 // K = 1 时 剩下的字符串 为 n - 1 从下标k出发 { // 不能整除 一点机会都没有 if n%k != 0 { continue } } sig := 1 for i := k; i \u003c n; i += k { // 这里面就是按照k去划分 back := copymap(record) // i 为k下标 加一 // 按照长度为k去划分 for j := 0; j \u003c k; j++ { back[s[i+j]]-- } if checkmap(back) { // 存在不符合的 sig++ } } if k*sig == n { return k } } if k \u003e n/2 { return n } return k } func copymap(in map[byte]int) map[byte]int { out := make(map[byte]int) for k, v := range in { out[k] = v } return out } func checkmap(in map[byte]int) bool { ans := true for _, v := range in { if v != 0 { return false } } return ans } 优化 都是小写字母储存 因此不用map 直接用长度为26的字母去存储\nfunc minAnagramLength(s string) int { n := len(s) record := [26]int{} for k := 1; k \u003c= n/2; k++ { record[s[k-1]-'a']++ // 到这里就要检测剩下的字符串 是否都是按照 长度 k 来划分了 // K = 1 时 剩下的字符串 为 n - 1 从下标k出发 { // 不能整除 一点机会都没有 if n%k != 0 { continue } } sig := 1 for i := k; i \u003c n; i += k { // 这里面就是按照k去划分 back := record // i 为k下标 加一 // 按照长度为k去划分 for j := 0; j \u003c k; j++ { back[s[i+j]-'a']-- } if check(back) { // 存在不符合的 sig++ } } if k*sig == n { return k } } return n } func check(in [26]int) bool { ans := true for _, v := range in { if v != 0 { return false } } return ans } ",
+  "articleBody": "力扣链接:3138. 同位字符串连接的最小长度\n力扣难度 中等 算法评级: 5 熟练掌握常用数据结构和算法，初步了解高级数据结构 难度分 1979\n题目: 给你一个字符串 s ，它由某个字符串 t 和若干 t 的 同位字符串 连接而成。\n请你返回字符串 t 的 最小 可能长度。\n同位字符串 指的是重新排列一个单词得到的另外一个字符串，原来字符串中的每个字符在新字符串中都恰好只使用一次。\n示例 1：\n输入：s = “abba”\n输出：2\n解释：\n一个可能的字符串 t 为 “ba” 。\n示例 2：\n输入：s = “cdef”\n输出：4\n解释：\n一个可能的字符串 t 为 “cdef” ，注意 t 可能等于 s 。\n提示：\n1 \u003c= s.length \u003c= 105 s 只包含小写英文字母。 func minAnagramLength(s string) int { } 🧠思路: 👈点击 枚举 设 s字符串的长度为n,阅读题目可得提供的s一定是由 字符串 t构成的。(有确定的结)\n因此我们输出的结果可能是 n ~ 1,中的其中一个\n假设字符串的t的长度为k,k的长度为 1,2,3,4,5,n/2,n\n因此我们只要枚举字符串的t的长度为k，然后判断是否符合条件。\n题目要求请你返回字符串 t 的 最小 可能长度。因此从小到大遍历,符合条件就退出\n🔑 答案解析： 👈点击 func minAnagramLength(s string) int { n := len(s) k := 1 record := make(map[byte]int) for ; k \u003c= n/2; k++ { record[s[k-1]]++ // // 到这里就要检测剩下的字符串 是否都是按照 长度 k 来划分了 // K = 1 时 剩下的字符串 为 n - 1 从下标k出发 { // 不能整除 一点机会都没有 if n%k != 0 { continue } } sig := 1 for i := k; i \u003c n; i += k { // 这里面就是按照k去划分 back := copymap(record) // i 为k下标 加一 // 按照长度为k去划分 for j := 0; j \u003c k; j++ { back[s[i+j]]-- } if checkmap(back) { // 存在不符合的 sig++ } } if k*sig == n { return k } } if k \u003e n/2 { return n } return k } func copymap(in map[byte]int) map[byte]int { out := make(map[byte]int) for k, v := range in { out[k] = v } return out } func checkmap(in map[byte]int) bool { ans := true for _, v := range in { if v != 0 { return false } } return ans } 优化 都是小写字母储存 因此不用map 直接用长度为26的字母去存储\nfunc minAnagramLength(s string) int { n := len(s) record := [26]int{} for k := 1; k \u003c= n/2; k++ { record[s[k-1]-'a']++ // 到这里就要检测剩下的字符串 是否都是按照 长度 k 来划分了 // K = 1 时 剩下的字符串 为 n - 1 从下标k出发 { // 不能整除 一点机会都没有 if n%k != 0 { continue } } sig := 1 for i := k; i \u003c n; i += k { // 这里面就是按照k去划分 back := record // i 为k下标 加一 // 按照长度为k去划分 for j := 0; j \u003c k; j++ { back[s[i+j]-'a']-- } if check(back) { // 存在不符合的 sig++ } } if k*sig == n { return k } } return n } func check(in [26]int) bool { ans := true for _, v := range in { if v != 0 { return false } } return ans } ",
   "wordCount" : "392",
   "inLanguage": "zh",
   "datePublished": "2024-12-20T23:57:43+08:00",
@@ -292,11 +290,11 @@ func minAnagramLength(s string) int {
   </header> 
   <div class="post-content"><p>力扣链接:<a href="https://leetcode.cn/problems/minimum-length-of-anagram-concatenation/description/?envType=daily-question&amp;envId=2024-12-20">3138. 同位字符串连接的最小长度</a></p>
 <blockquote>
-<p>力扣难度 <code>中等</code><br>
+<p>力扣难度 <code>中等</code>
 算法评级: 5      熟练掌握常用数据结构和算法，初步了解高级数据结构
 难度分 1979</p></blockquote>
 <hr>
-<p>题目:<br>
+<p>题目:
 给你一个字符串 s ，它由某个字符串 t 和若干 t  的 同位字符串 连接而成。</p>
 <p>请你返回字符串 t 的 最小 可能长度。</p>
 <p>同位字符串 指的是重新排列一个单词得到的另外一个字符串，原来字符串中的每个字符在新字符串中都恰好只使用一次。</p>
