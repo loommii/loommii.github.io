@@ -315,14 +315,14 @@ s2[i] = &amp;value 记录的地址都是同一个地址。
 <div class="toggle-content">
   <p><a href="https://go.dev/play/p/4uuNEdJyZAC">Go在线运行</a></p>
 <p>这个问题要看Go版本，在Go版本&lt;1.22时输出的结果为</p>
-<pre tabindex="0"><code>// 输出：
-// {A} {B} {C}
-// &amp;{C} &amp;{C} &amp;{C}
-</code></pre><p>而1.22以后的版本输出的结果是</p>
-<pre tabindex="0"><code>// 输出：
-// {A} {B} {C}
-// &amp;{A} &amp;{B} &amp;{C}
-</code></pre><p>在1.22以前 for i, value := range s1 中会复用value的地址。<br>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// 输出：</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// {A} {B} {C}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// &amp;{C} &amp;{C} &amp;{C}</span>
+</span></span></code></pre></div><p>而1.22以后的版本输出的结果是</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#75715e">// 输出：</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// {A} {B} {C}</span>
+</span></span><span style="display:flex;"><span><span style="color:#75715e">// &amp;{A} &amp;{B} &amp;{C}</span>
+</span></span></code></pre></div><p>在1.22以前 for i, value := range s1 中会复用value的地址。<br>
 s2[i] = &amp;value 记录的地址都是同一个地址。
 每次循环迭代中value的内容不断的变换，直到遍历到最后一个值即{C}</p>
 
