@@ -9430,20 +9430,18 @@ append() 的第二个参数不能直接使用 slice，需使用 … 操作符，
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 2.&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; make([]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt; = append(&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; make([]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt; = append(&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt;)
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
 &lt;div class=&#34;toggle-content&#34;&gt;
-  &lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;// 1
-
-[0 0 0 0 0 1 2 3]
-
-// 2
-
-[1 2 3 4]
-&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;解析: 首先了解一下切片的结构。&lt;/p&gt;
+  &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;0&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// 2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;[&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;解析：首先了解一下切片的结构。&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// runtime/slice.go&lt;/span&gt;
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;slice&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;array&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unsafe&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Pointer&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// 元素指针&lt;/span&gt;
@@ -9453,7 +9451,7 @@ append() 的第二个参数不能直接使用 slice，需使用 … 操作符，
 &lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;img alt=&#34;slice结构&#34; loading=&#34;lazy&#34; src=&#34;slice%E7%BB%93%E6%9E%84.png&#34;&gt;&lt;/p&gt;
 &lt;blockquote&gt;
 &lt;p&gt;slice 实际上是一个结构体，包含三个字段：长度、容量、底层数组。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;p&gt;&lt;code&gt;make([]int, 5)&lt;/code&gt; 等价于 &lt;code&gt;make([]int, 5 , 5)&lt;/code&gt;,会创建一个len = 5 cap = 5 的切片。&lt;code&gt;s = append(s, 1, 2, 3)&lt;/code&gt; 会在切片长度(5)的后面增加1, 2, 3。&lt;/p&gt;</description>
+&lt;p&gt;&lt;code&gt;make([]int, 5)&lt;/code&gt; 等价于 &lt;code&gt;make([]int, 5, 5)&lt;/code&gt;，会创建一个 len = 5 cap = 5 的切片。&lt;code&gt;s = append(s, 1, 2, 3)&lt;/code&gt; 会在切片长度(5)的后面增加 1, 2, 3。&lt;/p&gt;</description>
     </item>
     <item>
       <title></title>
