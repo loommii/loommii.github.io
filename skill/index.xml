@@ -402,23 +402,23 @@ STW期间，程序会进行垃圾回收&lt;/p&gt;
 &lt;/ul&gt;
 &lt;p&gt;读写锁可以分为 &lt;code&gt;读优先锁&lt;/code&gt;      &lt;code&gt;写优先锁&lt;/code&gt;  &lt;code&gt;公平读写锁&lt;/code&gt;&lt;/p&gt;
 &lt;ul&gt;
-&lt;li&gt;
-&lt;p&gt;读优先锁
-学生看到有老师在等待改写数据时，不理会老师继续读数据&lt;/p&gt;
-&lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;写优先锁&lt;/p&gt;
+&lt;li&gt;读优先锁
+学生看到有老师在等待改写数据时，不理会老师继续读数据&lt;/li&gt;
+&lt;li&gt;写优先锁
 &lt;ul&gt;
-&lt;li&gt;读数据还需要满足无在等待的写锁&lt;/li&gt;
-&lt;/ul&gt;
+&lt;li&gt;
+&lt;p&gt;读数据还需要满足无在等待的写锁&lt;/p&gt;
 &lt;p&gt;学生看到有老师在等待改写数据时，会主动让老师写数据。&lt;/p&gt;
 &lt;/li&gt;
-&lt;li&gt;
-&lt;p&gt;公平读写锁&lt;/p&gt;
-&lt;ul&gt;
-&lt;li&gt;将读学请求放入一个队列，排队的去读写&lt;/li&gt;
 &lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;公平读写锁
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;将读学请求放入一个队列，排队的去读写&lt;/p&gt;
 &lt;p&gt;学生和老师排个队伍&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;h2 id=&#34;乐观锁与悲观锁&#34;&gt;乐观锁与悲观锁&lt;/h2&gt;
@@ -443,7 +443,7 @@ STW期间，程序会进行垃圾回收&lt;/p&gt;
 &lt;li&gt;操作系统把代码分成四个区&lt;/li&gt;
 &lt;li&gt;操作系统找到main函数入口执行&lt;/li&gt;
 &lt;/ol&gt;
-&lt;h3 id=&#34;内存四区&#34;&gt;内存四区:&lt;/h3&gt;
+&lt;h3 id=&#34;内存四区&#34;&gt;内存四区&lt;/h3&gt;
 &lt;ul&gt;
 &lt;li&gt;栈区(Stack) :空间较小，要求数据读写性能高，数据存放时间较短暂。由编译器自动分配和释放，存放函数的参数值、函数的调用流程方法地址、局部变量等(局部变量如果产生逃逸现象，可能会挂在在堆区)&lt;/li&gt;
 &lt;li&gt;堆区(heap):空间充裕，数据存放时间较久。一般由开发者分配及释放(但是Golang中会根据变量的逃逸现象来选择是否分配到栈上或堆上)，启动Golang的GC由GC清除机制自动回收。&lt;/li&gt;
@@ -511,34 +511,34 @@ CPU 电力
 &lt;ol&gt;
 &lt;li&gt;原码为正数&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;整数 +1
-0000 0001  // 原码
-0000 0001  // 反码  // 正数的 反码 = 原码
-0000 0001  // 补码  // 正数的 补码 = 反码 = 原码
-1000 0001  // 移码  // 移码 = 补码的符号位取反
-&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;2&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;整数 +1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0001  // 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0001  // 反码  // 正数的 反码 = 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0001  // 补码  // 正数的 补码 = 反码 = 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1000 0001  // 移码  // 移码 = 补码的符号位取反
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
 &lt;li&gt;原码为0&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;整数 +0
-0000 0000  // 原码
-0000 0000  // 反码  // 正数的 反码 = 原码
-0000 0000  // 补码  // 正数的 补码 = 反码 = 原码
-1000 0000  // 移码  // 移码 = 补码的符号位取反
-
-整数 -0
-1000 0000  // 原码
-1111 1111  // 反码  // 负数的 反码 = 原码除符号位不变 其他全取反
-0000 0000  // 补码  // 负数的 补码 = 反码+1 //这里由于越界,取后8位则结果为8个0
-1000 0000  // 移码  // 移码 = 补码的符号位取反
-&lt;/code&gt;&lt;/pre&gt;&lt;ol start=&#34;4&#34;&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;整数 +0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0000  // 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0000  // 反码  // 正数的 反码 = 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0000  // 补码  // 正数的 补码 = 反码 = 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1000 0000  // 移码  // 移码 = 补码的符号位取反
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;整数 -0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1000 0000  // 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1111 1111  // 反码  // 负数的 反码 = 原码除符号位不变 其他全取反
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0000  // 补码  // 负数的 补码 = 反码+1 //这里由于越界,取后8位则结果为8个0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1000 0000  // 移码  // 移码 = 补码的符号位取反
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;4&#34;&gt;
 &lt;li&gt;原码为负数&lt;/li&gt;
 &lt;/ol&gt;
-&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;整数 -1
-1000 0001  // 原码
-1111 1110  // 反码  // 负数的 反码 = 原码除符号位不变 其他全取反
-1111 1111  // 补码  // 负数的 补码 = 反码+1
-0110 1111  // 移码  // 移码 = 补码的符号位取反
-&lt;/code&gt;&lt;/pre&gt;&lt;h2 id=&#34;应用场景&#34;&gt;应用场景&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;整数 -1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1000 0001  // 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1111 1110  // 反码  // 负数的 反码 = 原码除符号位不变 其他全取反
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1111 1111  // 补码  // 负数的 补码 = 反码+1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0110 1111  // 移码  // 移码 = 补码的符号位取反
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;应用场景&#34;&gt;应用场景&lt;/h2&gt;
 &lt;p&gt;原码：符合人类直觉，是最简单的整数表示方法&lt;/p&gt;</description>
     </item>
   </channel>
