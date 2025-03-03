@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>Go每日一题_008 | loommii</title>
+<title>Go每日一题_198 | loommii</title>
 <meta name="keywords" content="">
 <meta name="description" content="如何确认两个 map 是否相等？
 🔑 答案解析：
@@ -31,28 +31,25 @@ func main() {
 }
 方案一: 遍历（比较麻烦）
 遍历 map 的每个元素，比较元素是否都是深度相等。
-方案二: 反射
-package main
-
-import( 
-    &#34;fmt&#34;
-    &#34;relflect&#34;
-)
 func main() {
-    var m map[string]int
-    var n map[string]int
+    var m = map[string]int{}
+    var n = map[string]int{}
 
-    fmt.Println(reflect.DeepEqual(m,n))
+    m[&#34;1&#34;], m[&#34;2&#34;], m[&#34;3&#34;] = 1, 2, 3
+    n[&#34;1&#34;], n[&#34;2&#34;], n[&#34;3&#34;] = 1, 2, 3
+
+    if len(m) == len(n) {
+        for mk, mv := range m {
+            nv, ok := n[mk]
+            if ok &amp;&amp; nv == mv {
+                    
+            }
+        }
+    }
 }
-参考资料：
-
-🔗:reflect.DeepEqual函数：判断两个值是否一致
-
-
-
-">
+方案二: 反射">
 <meta name="author" content="">
-<link rel="canonical" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_008/">
+<link rel="canonical" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_198/">
 <link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
 <link rel="icon" href="https://loommii.github.io/favicon.ico">
 <link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
@@ -61,7 +58,7 @@ func main() {
 <link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
 <meta name="theme-color" content="#2e2e33">
 <meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_008/">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_198/">
 <noscript>
     <style>
         #theme-toggle,
@@ -98,23 +95,22 @@ func main() {
         }
 
     </style>
-</noscript><meta property="og:url" content="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_008/">
+</noscript><meta property="og:url" content="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_198/">
   <meta property="og:site_name" content="loommii">
-  <meta property="og:title" content="Go每日一题_008">
+  <meta property="og:title" content="Go每日一题_198">
   <meta property="og:description" content="如何确认两个 map 是否相等？
 🔑 答案解析： map 深度相等的条件：
 都为 nil 非空、长度相等，指向同一个 map 实体对象 相应的 key 指向的 value “深度”相等
 直接将使用 map1 == map2 是错误的。这种写法只能比较 map 是否为 nil。
-package main import &#34;fmt&#34; func main() { var m map[string]int var n map[string]int fmt.Println(m == nil) fmt.Println(n == nil) // 不能通过编译 //fmt.Println(m == n) } 方案一: 遍历（比较麻烦） 遍历 map 的每个元素，比较元素是否都是深度相等。 方案二: 反射
-package main import( &#34;fmt&#34; &#34;relflect&#34; ) func main() { var m map[string]int var n map[string]int fmt.Println(reflect.DeepEqual(m,n)) } 参考资料：
-🔗:reflect.DeepEqual函数：判断两个值是否一致 ">
+package main import &#34;fmt&#34; func main() { var m map[string]int var n map[string]int fmt.Println(m == nil) fmt.Println(n == nil) // 不能通过编译 //fmt.Println(m == n) } 方案一: 遍历（比较麻烦） 遍历 map 的每个元素，比较元素是否都是深度相等。
+func main() { var m = map[string]int{} var n = map[string]int{} m[&#34;1&#34;], m[&#34;2&#34;], m[&#34;3&#34;] = 1, 2, 3 n[&#34;1&#34;], n[&#34;2&#34;], n[&#34;3&#34;] = 1, 2, 3 if len(m) == len(n) { for mk, mv := range m { nv, ok := n[mk] if ok &amp;&amp; nv == mv { } } } } 方案二: 反射">
   <meta property="og:locale" content="zh">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2024-12-06T19:40:52+08:00">
-    <meta property="article:modified_time" content="2024-12-06T19:40:52+08:00">
+    <meta property="article:published_time" content="2025-02-27T02:02:47+08:00">
+    <meta property="article:modified_time" content="2025-02-27T02:02:47+08:00">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Go每日一题_008">
+<meta name="twitter:title" content="Go每日一题_198">
 <meta name="twitter:description" content="如何确认两个 map 是否相等？
 🔑 答案解析：
 
@@ -139,26 +135,23 @@ func main() {
 }
 方案一: 遍历（比较麻烦）
 遍历 map 的每个元素，比较元素是否都是深度相等。
-方案二: 反射
-package main
-
-import( 
-    &#34;fmt&#34;
-    &#34;relflect&#34;
-)
 func main() {
-    var m map[string]int
-    var n map[string]int
+    var m = map[string]int{}
+    var n = map[string]int{}
 
-    fmt.Println(reflect.DeepEqual(m,n))
+    m[&#34;1&#34;], m[&#34;2&#34;], m[&#34;3&#34;] = 1, 2, 3
+    n[&#34;1&#34;], n[&#34;2&#34;], n[&#34;3&#34;] = 1, 2, 3
+
+    if len(m) == len(n) {
+        for mk, mv := range m {
+            nv, ok := n[mk]
+            if ok &amp;&amp; nv == mv {
+                    
+            }
+        }
+    }
 }
-参考资料：
-
-🔗:reflect.DeepEqual函数：判断两个值是否一致
-
-
-
-">
+方案二: 反射">
 
 
 <script type="application/ld+json">
@@ -175,8 +168,8 @@ func main() {
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "Go每日一题_008",
-      "item": "https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_008/"
+      "name": "Go每日一题_198",
+      "item": "https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_198/"
     }
   ]
 }
@@ -185,20 +178,20 @@ func main() {
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "Go每日一题_008",
-  "name": "Go每日一题_008",
-  "description": "如何确认两个 map 是否相等？\n🔑 答案解析： map 深度相等的条件：\n都为 nil 非空、长度相等，指向同一个 map 实体对象 相应的 key 指向的 value “深度”相等\n直接将使用 map1 == map2 是错误的。这种写法只能比较 map 是否为 nil。\npackage main import \u0026#34;fmt\u0026#34; func main() { var m map[string]int var n map[string]int fmt.Println(m == nil) fmt.Println(n == nil) // 不能通过编译 //fmt.Println(m == n) } 方案一: 遍历（比较麻烦） 遍历 map 的每个元素，比较元素是否都是深度相等。 方案二: 反射\npackage main import( \u0026#34;fmt\u0026#34; \u0026#34;relflect\u0026#34; ) func main() { var m map[string]int var n map[string]int fmt.Println(reflect.DeepEqual(m,n)) } 参考资料：\n🔗:reflect.DeepEqual函数：判断两个值是否一致 ",
+  "headline": "Go每日一题_198",
+  "name": "Go每日一题_198",
+  "description": "如何确认两个 map 是否相等？\n🔑 答案解析： map 深度相等的条件：\n都为 nil 非空、长度相等，指向同一个 map 实体对象 相应的 key 指向的 value “深度”相等\n直接将使用 map1 == map2 是错误的。这种写法只能比较 map 是否为 nil。\npackage main import \u0026#34;fmt\u0026#34; func main() { var m map[string]int var n map[string]int fmt.Println(m == nil) fmt.Println(n == nil) // 不能通过编译 //fmt.Println(m == n) } 方案一: 遍历（比较麻烦） 遍历 map 的每个元素，比较元素是否都是深度相等。\nfunc main() { var m = map[string]int{} var n = map[string]int{} m[\u0026#34;1\u0026#34;], m[\u0026#34;2\u0026#34;], m[\u0026#34;3\u0026#34;] = 1, 2, 3 n[\u0026#34;1\u0026#34;], n[\u0026#34;2\u0026#34;], n[\u0026#34;3\u0026#34;] = 1, 2, 3 if len(m) == len(n) { for mk, mv := range m { nv, ok := n[mk] if ok \u0026amp;\u0026amp; nv == mv { } } } } 方案二: 反射\n",
   "keywords": [
     
   ],
-  "articleBody": "如何确认两个 map 是否相等？\n🔑 答案解析： map 深度相等的条件：\n都为 nil 非空、长度相等，指向同一个 map 实体对象 相应的 key 指向的 value “深度”相等\n直接将使用 map1 == map2 是错误的。这种写法只能比较 map 是否为 nil。\npackage main import \"fmt\" func main() { var m map[string]int var n map[string]int fmt.Println(m == nil) fmt.Println(n == nil) // 不能通过编译 //fmt.Println(m == n) } 方案一: 遍历（比较麻烦） 遍历 map 的每个元素，比较元素是否都是深度相等。 方案二: 反射\npackage main import( \"fmt\" \"relflect\" ) func main() { var m map[string]int var n map[string]int fmt.Println(reflect.DeepEqual(m,n)) } 参考资料：\n🔗:reflect.DeepEqual函数：判断两个值是否一致 ",
-  "wordCount" : "76",
+  "articleBody": "如何确认两个 map 是否相等？\n🔑 答案解析： map 深度相等的条件：\n都为 nil 非空、长度相等，指向同一个 map 实体对象 相应的 key 指向的 value “深度”相等\n直接将使用 map1 == map2 是错误的。这种写法只能比较 map 是否为 nil。\npackage main import \"fmt\" func main() { var m map[string]int var n map[string]int fmt.Println(m == nil) fmt.Println(n == nil) // 不能通过编译 //fmt.Println(m == n) } 方案一: 遍历（比较麻烦） 遍历 map 的每个元素，比较元素是否都是深度相等。\nfunc main() { var m = map[string]int{} var n = map[string]int{} m[\"1\"], m[\"2\"], m[\"3\"] = 1, 2, 3 n[\"1\"], n[\"2\"], n[\"3\"] = 1, 2, 3 if len(m) == len(n) { for mk, mv := range m { nv, ok := n[mk] if ok \u0026\u0026 nv == mv { } } } } 方案二: 反射\npackage main import( \"fmt\" \"relflect\" ) func main() { var m map[string]int var n map[string]int fmt.Println(reflect.DeepEqual(m,n)) } 参考资料：\n🔗:reflect.DeepEqual函数：判断两个值是否一致 ",
+  "wordCount" : "128",
   "inLanguage": "zh",
-  "datePublished": "2024-12-06T19:40:52+08:00",
-  "dateModified": "2024-12-06T19:40:52+08:00",
+  "datePublished": "2025-02-27T02:02:47+08:00",
+  "dateModified": "2025-02-27T02:02:47+08:00",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_008/"
+    "@id": "https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_198/"
   },
   "publisher": {
     "@type": "Organization",
@@ -288,9 +281,9 @@ func main() {
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/go_practise/">Golang练习</a></div>
     <h1 class="post-title entry-hint-parent">
-      Go每日一题_008
+      Go每日一题_198
     </h1>
-    <div class="post-meta"><span title='2024-12-06 19:40:52 +0800 CST'>十二月 6, 2024</span>
+    <div class="post-meta"><span title='2025-02-27 02:02:47 +0800 CST'>二月 27, 2025</span>
 
 </div>
   </header> 
@@ -317,8 +310,24 @@ func main() {
 </span></span><span style="display:flex;"><span>    <span style="color:#75715e">//fmt.Println(m == n)</span>
 </span></span><span style="display:flex;"><span>}
 </span></span></code></pre></div><p>方案一: 遍历（比较麻烦）
-遍历 map 的每个元素，比较元素是否都是深度相等。
-方案二: 反射</p>
+遍历 map 的每个元素，比较元素是否都是深度相等。</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">m</span> = <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>{}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">n</span> = <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">string</span>]<span style="color:#66d9ef">int</span>{}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">m</span>[<span style="color:#e6db74">&#34;1&#34;</span>], <span style="color:#a6e22e">m</span>[<span style="color:#e6db74">&#34;2&#34;</span>], <span style="color:#a6e22e">m</span>[<span style="color:#e6db74">&#34;3&#34;</span>] = <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">n</span>[<span style="color:#e6db74">&#34;1&#34;</span>], <span style="color:#a6e22e">n</span>[<span style="color:#e6db74">&#34;2&#34;</span>], <span style="color:#a6e22e">n</span>[<span style="color:#e6db74">&#34;3&#34;</span>] = <span style="color:#ae81ff">1</span>, <span style="color:#ae81ff">2</span>, <span style="color:#ae81ff">3</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">m</span>) <span style="color:#f92672">==</span> len(<span style="color:#a6e22e">n</span>) {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">mk</span>, <span style="color:#a6e22e">mv</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">m</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">nv</span>, <span style="color:#a6e22e">ok</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">n</span>[<span style="color:#a6e22e">mk</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ok</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">nv</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">mv</span> {
+</span></span><span style="display:flex;"><span>                    
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>方案二: 反射</p>
 <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
 </span></span><span style="display:flex;"><span>
 </span></span><span style="display:flex;"><span><span style="color:#f92672">import</span>( 
