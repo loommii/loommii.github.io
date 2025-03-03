@@ -6,8 +6,49 @@
     <description>Recent content on loommii</description>
     <generator>Hugo -- 0.143.1</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 26 Feb 2025 01:01:24 +0800</lastBuildDate>
+    <lastBuildDate>Sun, 02 Mar 2025 19:15:44 +0800</lastBuildDate>
     <atom:link href="https://loommii.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>160_相交链表</title>
+      <link>https://loommii.github.io/posts/leetcode/data/160_%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/</link>
+      <pubDate>Sun, 02 Mar 2025 19:15:44 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/leetcode/data/160_%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/</guid>
+      <description>&lt;h2 id=&#34;160-相交链表httpsleetcodecnproblemsintersection-of-two-linked-lists&#34;&gt;&lt;a href=&#34;https://leetcode.cn/problems/intersection-of-two-linked-lists/&#34;&gt;160. 相交链表&lt;/a&gt;&lt;/h2&gt;
+&lt;p&gt;给你两个单链表的头节点 &lt;code&gt;headA&lt;/code&gt; 和 &lt;code&gt;headB&lt;/code&gt; ，请你找出并返回两个单链表相交的起始节点。如果两个链表不存在相交节点，返回 &lt;code&gt;null&lt;/code&gt; 。&lt;/p&gt;
+&lt;p&gt;图示两个链表在节点 &lt;code&gt;c1&lt;/code&gt; 开始相交**：**&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;160_statement.png&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/leetcode/data/160_%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;题目数据 &lt;strong&gt;保证&lt;/strong&gt; 整个链式结构中不存在环。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;注意&lt;/strong&gt;，函数返回结果后，链表必须 &lt;strong&gt;保持其原始结构&lt;/strong&gt; 。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;自定义评测：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;评测系统&lt;/strong&gt; 的输入如下（你设计的程序 &lt;strong&gt;不适用&lt;/strong&gt; 此输入）：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;intersectVal&lt;/code&gt; - 相交的起始节点的值。如果不存在相交节点，这一值为 &lt;code&gt;0&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;listA&lt;/code&gt; - 第一个链表&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;listB&lt;/code&gt; - 第二个链表&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;skipA&lt;/code&gt; - 在 &lt;code&gt;listA&lt;/code&gt; 中（从头节点开始）跳到交叉节点的节点数&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;code&gt;skipB&lt;/code&gt; - 在 &lt;code&gt;listB&lt;/code&gt; 中（从头节点开始）跳到交叉节点的节点数&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;评测系统将根据这些输入创建链式数据结构，并将两个头节点 &lt;code&gt;headA&lt;/code&gt; 和 &lt;code&gt;headB&lt;/code&gt; 传递给你的程序。如果程序能够正确返回相交节点，那么你的解决方案将被 &lt;strong&gt;视作正确答案&lt;/strong&gt; 。&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;示例 1：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/leetcode/data/160_%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/image-1.png&#34;&gt;&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;**输入：**intersectVal = 8, listA = [4,1,8,4,5], listB = [5,6,1,8,4,5], skipA = 2, skipB = 3
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;**输出：**Intersected at &amp;#39;8&amp;#39;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;**解释：**相交节点的值为 8 （注意，如果两个链表相交则不能为 0）。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;从各自的表头开始算起，链表 A 为 [4,1,8,4,5]，链表 B 为 [5,6,1,8,4,5]。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;在 A 中，相交节点前有 2 个节点；在 B 中，相交节点前有 3 个节点。
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;— 请注意相交节点的值不为 1，因为在链表 A 和链表 B 之中值为 1 的节点 (A 中第二个节点和 B 中第三个节点) 是不同的节点。换句话说，它们在内存中指向两个不同的位置，而链表 A 和链表 B 中值为 8 的节点 (A 中第三个节点，B 中第四个节点) 在内存中指向相同的位置。
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;strong&gt;示例 2：&lt;/strong&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Go每日一题_197</title>
       <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_197/</link>
