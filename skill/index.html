@@ -167,6 +167,24 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Go函数类型是否可以比较,为什么？
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Go函数类型是否可以比较？ 比较运算符 在Go官方文档比较运算符中有这一段话
+Slice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.
+切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 nil 进行比较。指针、通道（channel）和接口值与 nil 的比较也是允许的，并且遵循上述一般规则。
+因此我们可以看到，Go函数类型之间是不能使用比较运算符的，但是可以和nil进行比较。
+例 1:
+package main import &#34;fmt&#34; func foo() {} func main() { f1 := foo f2 := f1 if f1 == f2 { // 编译错误：invalid operation: f1 == f2 (func can only be compared to nil) fmt.Println(&#34;函数相等&#34;) } } 在线运行
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-03-05 16:41:19 +0800 CST'>三月 5, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go函数类型是否可以比较,为什么？" href="https://loommii.github.io/posts/skill/data/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Go: GPM的数量限制
     </h2>
   </header>
@@ -321,23 +339,6 @@ const cl = 10 cl是字面量10的对等符号。
   </div>
   <footer class="entry-footer"><span title='2024-12-08 00:28:20 +0800 CST'>十二月 8, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 程序与内存之间的关系" href="https://loommii.github.io/posts/skill/data/%E7%A8%8B%E5%BA%8F%E4%B8%8E%E5%86%85%E5%AD%98%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">进程、线程、协程
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p> 从计算机的发展上,这概念从大到小的顺序是程序-&gt;进程-&gt;线程-&gt;协程
-基础概念 进程：系统进行资源调度和分配的的基本单位 线程：线程是操作系统调度与执行的基础单位 协程：又称为用户级线程、微线程 核心点 进程 是操作系统资源调度的基础单位单元； 进程是能独立运行、独立获取资源的基本单位 线程 是操作系统最小调度单元； 创建、销毁、调度交由内核完成，cpu 需完成用户态与内核态间的切换； 可充分利用多核，实现并行. 协程 与线程存在映射关系，为 M：1； 创建、销毁、调度在用户态完成，对内核透明，所以更轻； 从属同一个内核级线程，无法并行；一个协程阻塞会导致从属同一线程的所有协程无法执行. 生活例子 CPU 电力 进程 工厂 线程 工厂部门
-假设这个城市就一个工厂(进程)、 一个工厂部门(线程)、一条电线(单核)的情况。 这时候工厂(进程) 中的一个工厂部门(线程)，电线(单核)可以完全为他工作。
-但是现在出现问题了，现在任务量太大了，工厂就划分了2个工厂部门(线程)，让这2个部门同时干活，但是现在只有一条电线(单核)，因此这2个部门不得不轮流用电（CPU时间片）。
-但是现在又出现问题了，老板发现切换电源需要有资质的电工来操作（内核），每次切换的开销太大了。因此把这些让一个工厂部门(线程)长期通电，自己内部让原先2个部门的人轮流进去通电的工厂部门内工作。应为这是工厂内部的人员（用户态）调度，不涉及电工（内核态）。切换的代价相对较小，这就是协程
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-08 00:28:02 +0800 CST'>十二月 8, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to 进程、线程、协程" href="https://loommii.github.io/posts/skill/data/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

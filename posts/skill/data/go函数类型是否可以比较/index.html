@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Go函数类型是否可以比较,为什么？ | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="Go函数类型是否可以比较？
+比较运算符
+在Go官方文档比较运算符中有这一段话
+
+
+Slice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.
+
+切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 nil 进行比较。指针、通道（channel）和接口值与 nil 的比较也是允许的，并且遵循上述一般规则。
+因此我们可以看到，Go函数类型之间是不能使用比较运算符的，但是可以和nil进行比较。
+例 1:
+package main
+
+import &#34;fmt&#34;
+
+func foo() {}
+
+func main() {
+    f1 := foo
+    f2 := f1
+    if f1 == f2 { // 编译错误：invalid operation: f1 == f2 (func can only be compared to nil)
+        fmt.Println(&#34;函数相等&#34;)
+    }
+}
+在线运行">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/posts/skill/data/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/skill/data/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/posts/skill/data/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="Go函数类型是否可以比较,为什么？">
+  <meta property="og:description" content="Go函数类型是否可以比较？ 比较运算符 在Go官方文档比较运算符中有这一段话
+Slice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.
+切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 nil 进行比较。指针、通道（channel）和接口值与 nil 的比较也是允许的，并且遵循上述一般规则。
+因此我们可以看到，Go函数类型之间是不能使用比较运算符的，但是可以和nil进行比较。
+例 1:
+package main import &#34;fmt&#34; func foo() {} func main() { f1 := foo f2 := f1 if f1 == f2 { // 编译错误：invalid operation: f1 == f2 (func can only be compared to nil) fmt.Println(&#34;函数相等&#34;) } } 在线运行">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-05T16:41:19+08:00">
+    <meta property="article:modified_time" content="2025-03-05T16:41:19+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go函数类型是否可以比较,为什么？">
+<meta name="twitter:description" content="Go函数类型是否可以比较？
+比较运算符
+在Go官方文档比较运算符中有这一段话
+
+
+Slice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.
+
+切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 nil 进行比较。指针、通道（channel）和接口值与 nil 的比较也是允许的，并且遵循上述一般规则。
+因此我们可以看到，Go函数类型之间是不能使用比较运算符的，但是可以和nil进行比较。
+例 1:
+package main
+
+import &#34;fmt&#34;
+
+func foo() {}
+
+func main() {
+    f1 := foo
+    f2 := f1
+    if f1 == f2 { // 编译错误：invalid operation: f1 == f2 (func can only be compared to nil)
+        fmt.Println(&#34;函数相等&#34;)
+    }
+}
+在线运行">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "文章",
+      "item": "https://loommii.github.io/skill/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Go函数类型是否可以比较,为什么？",
+      "item": "https://loommii.github.io/posts/skill/data/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Go函数类型是否可以比较,为什么？",
+  "name": "Go函数类型是否可以比较,为什么？",
+  "description": "Go函数类型是否可以比较？ 比较运算符 在Go官方文档比较运算符中有这一段话\nSlice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.\n切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 nil 进行比较。指针、通道（channel）和接口值与 nil 的比较也是允许的，并且遵循上述一般规则。\n因此我们可以看到，Go函数类型之间是不能使用比较运算符的，但是可以和nil进行比较。\n例 1:\npackage main import \u0026#34;fmt\u0026#34; func foo() {} func main() { f1 := foo f2 := f1 if f1 == f2 { // 编译错误：invalid operation: f1 == f2 (func can only be compared to nil) fmt.Println(\u0026#34;函数相等\u0026#34;) } } 在线运行\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "Go函数类型是否可以比较？ 比较运算符 在Go官方文档比较运算符中有这一段话\nSlice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.\n切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 nil 进行比较。指针、通道（channel）和接口值与 nil 的比较也是允许的，并且遵循上述一般规则。\n因此我们可以看到，Go函数类型之间是不能使用比较运算符的，但是可以和nil进行比较。\n例 1:\npackage main import \"fmt\" func foo() {} func main() { f1 := foo f2 := f1 if f1 == f2 { // 编译错误：invalid operation: f1 == f2 (func can only be compared to nil) fmt.Println(\"函数相等\") } } 在线运行\n例 2:\npackage main import \"fmt\" func main() { var f1 func() if f1 == nil { // 函数类型是可以和`nil`进行比较 fmt.Println(\"f1 is nil\") } } 在线运行\nreflect.DeepEqual 上面是使用比较运算符来进行二者的比较,我们知道在Go中，还可以使用reflect包中DeepEqual来比较。\nfunc DeepEqual(x, y any) bool\n功能：判断两个值是否“深度相等”\nFunc values are deeply equal if both are nil; otherwise they are not deeply equal.\n函数值只有在两者都为 nil 时才深度相等；否则，它们不深度相等。\n例 3:\npackage main import ( \"fmt\" \"reflect\" ) func foo() {} func main() { f1 := foo f2 := f1 if reflect.DeepEqual(f1, f2) { // 返回 false fmt.Println(\"函数相等\") }else{ fmt.Println(\"函数不相等\") // 输出 函数不相等 } } 在线运行\n我们还能通过reflect.DeepEqual的源码\ncase Func: if v1.IsNil() \u0026\u0026 v2.IsNil() { return true } // Can't do better than this: return false 总结 Go函数类型之间是不能使用比较,但是可以和nil进行比较。\n为什么？ 从上文我们了解到,Go团队在设计Go语言时就限制了函数类型之间对比。但是这样设计是为了什么？\n猜想一 (编译器内联优化) package main var a = func() int { return 1 }() var b = func() int { return 1 }() func main() { sun := add(a, b) print(sun) } func add(a, b int) int { return a + b } 编译并通过objdump工具查看汇编\ngo build .\\main.go go tool objdump -s main.main .\\main.exe TEXT main.main(SB) C:/Code/Github/Go_T/main.go main.go:6 0x469960 493b6610 CMPQ SP, 0x10(R14) main.go:6 0x469964 7635 JBE 0x46999b main.go:6 0x469966 55 PUSHQ BP main.go:6 0x469967 4889e5 MOVQ SP, BP main.go:6 0x46996a 4883ec10 SUBQ $0x10, SP main.go:7 0x46996e 488b05f3490800 MOVQ main.a(SB), AX main.go:11 0x469975 480305f4490800 ADDQ main.b(SB), AX main.go:11 0x46997c 4889442408 MOVQ AX, 0x8(SP) main.go:8 0x469981 e81a8afcff CALL runtime.printlock(SB) main.go:8 0x469986 488b442408 MOVQ 0x8(SP), AX main.go:8 0x46998b e8b090fcff CALL runtime.printint(SB) main.go:8 0x469990 e86b8afcff CALL runtime.printunlock(SB) main.go:9 0x469995 4883c410 ADDQ $0x10, SP main.go:9 0x469999 5d POPQ BP main.go:9 0x46999a c3 RET main.go:6 0x46999b 0f1f440000 NOPL 0(AX)(AX*1) main.go:6 0x4699a0 e8bb88ffff CALL runtime.morestack_noctxt.abi0(SB) main.go:6 0x4699a5 ebb9 JMP main.main(SB) 作为对比我们也可以在编译是禁止内联优化\ngo build -gcflags=\"all=-l\" .\\main.go PS C:\\Code\\Github\\Go_T\u003e go tool objdump -s main.main .\\main.exe main.go:6 0x470000 493b6610 CMPQ SP, 0x10(R14) main.go:6 0x470004 763e JBE 0x470044 main.go:6 0x470006 55 PUSHQ BP main.go:6 0x470007 4889e5 MOVQ SP, BP main.go:6 0x47000a 4883ec18 SUBQ $0x18, SP main.go:7 0x47000e 488b1d9bfc0b00 MOVQ main.b(SB), BX main.go:7 0x470015 488b058cfc0b00 MOVQ main.a(SB), AX main.go:7 0x47001c 0f1f4000 NOPL 0(AX) main.go:7 0x470020 e83b000000 CALL main.add(SB) main.go:7 0x470025 4889442410 MOVQ AX, 0x10(SP) main.go:8 0x47002a e8517cfcff CALL runtime.printlock(SB) main.go:8 0x47002f 488b442410 MOVQ 0x10(SP), AX main.go:8 0x470034 e8e782fcff CALL runtime.printint(SB) main.go:8 0x470039 e8a27cfcff CALL runtime.printunlock(SB) main.go:9 0x47003e 4883c418 ADDQ $0x18, SP main.go:9 0x470042 5d POPQ BP main.go:9 0x470043 c3 RET main.go:6 0x470044 e83786ffff CALL runtime.morestack_noctxt.abi0(SB) main.go:6 0x470049 ebb5 JMP main.main(SB) 编译器内联优化 禁止编译器内联优化 猜想一 总结 我们可以看出编译器内联优化会优化一些代码。add函数会展开内联到main函数中了。 在默认情况下，编译器内联优化导致有些函数调用会被替换为函数体的实际代码。函数都消失了，那就很不用说拿函数之间进行比较。\n需要函数对比的场景，如何解决？ 监听者模式 package main import \"fmt\" type Listener func() var Listeners []Listener func AddListener(l Listener) { Listeners = append(Listeners, l) } func CallListeners() { for _, l := range Listeners { l() } } func RmListener(l Listener) { // TODO 删除监听器 } func main() { AddListener(func() { fmt.Println(\"Hello\") }) AddListener(func() { fmt.Println(\"world\") }) CallListeners() } 从上述代码中我们需要为Listener添加一个删除监听器函数。 由于Go中函数不能进行比较。因此下面这种写法是错误的\nfunc RmListener(l Listener) { Listeners = slices.DeleteFunc(Listeners, func(x Listener) bool { return x == l }) // invalid operation: x == l (func can only be compared to nil)compilerUndefinedOp } 解决方案一 使用结构体为函数添加一个可比较的标签 package main import ( \"fmt\" \"slices\" ) type Tag struct{ *int } type Listener func() type taggedListener struct { tag Tag listener Listener } var Listeners []taggedListener func AddListener(l Listener) Tag { tag := Tag{new(int)} Listeners = append(Listeners, taggedListener{tag, l}) return tag } func CallListeners() { for _, l := range Listeners { l.listener() } } func RmListener(tag Tag) { Listeners = slices.DeleteFunc(Listeners, func(x taggedListener) bool { return x.tag == tag }) } func main() { HelloTag := AddListener(func() { fmt.Println(\"Hello\") }) AddListener(func() { fmt.Println(\"world\") }) CallListeners() // 删除Hello RmListener(HelloTag) CallListeners() } ",
+  "wordCount" : "660",
+  "inLanguage": "zh",
+  "datePublished": "2025-03-05T16:41:19+08:00",
+  "dateModified": "2025-03-05T16:41:19+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://loommii.github.io/posts/skill/data/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "loommii",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://loommii.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/skill/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span>Golang练习</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                    <span>力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/skill/">文章</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Go函数类型是否可以比较,为什么？
+    </h1>
+    <div class="post-meta"><span title='2025-03-05 16:41:19 +0800 CST'>三月 5, 2025</span>
+
+</div>
+  </header> 
+  <div class="post-content"><h2 id="go函数类型是否可以比较">Go函数类型是否可以比较？<a hidden class="anchor" aria-hidden="true" href="#go函数类型是否可以比较">#</a></h2>
+<h3 id="比较运算符">比较运算符<a hidden class="anchor" aria-hidden="true" href="#比较运算符">#</a></h3>
+<p>在<a href="https://go.dev/ref/spec#Comparison_operators">Go官方文档</a>比较运算符中有这一段话</p>
+<blockquote>
+<blockquote>
+<p>Slice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.</p></blockquote>
+<blockquote>
+<p>切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 <code>nil</code> 进行比较。指针、通道（channel）和接口值与 <code>nil</code> 的比较也是允许的，并且遵循上述一般规则。</p></blockquote></blockquote>
+<p>因此我们可以看到，Go函数类型之间是不能使用比较运算符的，但是可以和<code>nil</code>进行比较。<br>
+例 1:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">foo</span>() {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">f1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">foo</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">f2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">f1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">f1</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">f2</span> { <span style="color:#75715e">// 编译错误：invalid operation: f1 == f2 (func can only be compared to nil)</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;函数相等&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><a href="https://go.dev/play/p/-MKUWeDBml7">在线运行</a></p>
+<p>例 2:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">var</span> <span style="color:#a6e22e">f1</span> <span style="color:#66d9ef">func</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">f1</span> <span style="color:#f92672">==</span> <span style="color:#66d9ef">nil</span> { <span style="color:#75715e">// 函数类型是可以和`nil`进行比较</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;f1 is nil&#34;</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><a href="https://go.dev/play/p/QkKEt_KQwUd">在线运行</a></p>
+<h3 id="reflectdeepequal">reflect.DeepEqual<a hidden class="anchor" aria-hidden="true" href="#reflectdeepequal">#</a></h3>
+<p>上面是使用比较运算符来进行二者的比较,我们知道在Go中，还可以使用<code>reflect</code>包中<a href="https://pkg.go.dev/reflect#DeepEqual"><code>DeepEqual</code></a>来比较。</p>
+<blockquote>
+<p>func DeepEqual(x, y any) bool<br>
+功能：判断两个值是否“深度相等”</p>
+<blockquote>
+<p>Func values are deeply equal if both are nil; otherwise they are not deeply equal.</p></blockquote>
+<blockquote>
+<p>函数值只有在两者都为 nil 时才深度相等；否则，它们不深度相等。</p></blockquote></blockquote>
+<p>例 3:</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;reflect&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">foo</span>() {}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">f1</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">foo</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">f2</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">f1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">reflect</span>.<span style="color:#a6e22e">DeepEqual</span>(<span style="color:#a6e22e">f1</span>, <span style="color:#a6e22e">f2</span>) { <span style="color:#75715e">// 返回 false</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;函数相等&#34;</span>)
+</span></span><span style="display:flex;"><span>    }<span style="color:#66d9ef">else</span>{
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;函数不相等&#34;</span>) <span style="color:#75715e">// 输出 函数不相等</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p><a href="https://go.dev/play/p/ta02lmtw1Vf">在线运行</a></p>
+<p>我们还能通过<code>reflect.DeepEqual</code>的<a href="https://github.com/golang/go/blob/2c1604142324be55a9274bc13a5a143bb3cde809/src/reflect/deepequal.go#L155">源码</a></p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span>    <span style="color:#66d9ef">case</span> <span style="color:#a6e22e">Func</span>:
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v1</span>.<span style="color:#a6e22e">IsNil</span>() <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">v2</span>.<span style="color:#a6e22e">IsNil</span>() {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// Can&#39;t do better than this:</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span></code></pre></div><h3 id="总结">总结<a hidden class="anchor" aria-hidden="true" href="#总结">#</a></h3>
+<p>Go函数类型之间是不能使用比较,但是可以和<code>nil</code>进行比较。</p>
+<h2 id="为什么">为什么？<a hidden class="anchor" aria-hidden="true" href="#为什么">#</a></h2>
+<p>从上文我们了解到,Go团队在设计Go语言时就限制了函数类型之间对比。但是这样设计是为了什么？</p>
+<h3 id="猜想一-编译器内联优化">猜想一 (编译器内联优化)<a hidden class="anchor" aria-hidden="true" href="#猜想一-编译器内联优化">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">a</span> = <span style="color:#66d9ef">func</span>() <span style="color:#66d9ef">int</span> { <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span> }()
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">b</span> = <span style="color:#66d9ef">func</span>() <span style="color:#66d9ef">int</span> { <span style="color:#66d9ef">return</span> <span style="color:#ae81ff">1</span> }()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sun</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span>)
+</span></span><span style="display:flex;"><span>    print(<span style="color:#a6e22e">sun</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">add</span>(<span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span> <span style="color:#f92672">+</span> <span style="color:#a6e22e">b</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>编译并通过<code>objdump</code>工具查看汇编</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>go build .\main.go
+</span></span><span style="display:flex;"><span>go tool objdump -s main.main .\main.exe
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span><span style="color:#a6e22e">TEXT</span> <span style="color:#66d9ef">main.main</span>(<span style="color:#66d9ef">SB</span>) <span style="color:#66d9ef">C</span>:<span style="color:#960050;background-color:#1e0010">/</span><span style="color:#66d9ef">Code</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#66d9ef">Github</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#66d9ef">Go_T</span><span style="color:#960050;background-color:#1e0010">/</span><span style="color:#66d9ef">main.go</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">6</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x469960</span>                <span style="color:#ae81ff">493</span><span style="color:#66d9ef">b6610</span>                <span style="color:#66d9ef">CMPQ</span> <span style="color:#66d9ef">SP</span>, <span style="color:#ae81ff">0x10</span>(<span style="color:#66d9ef">R14</span>)  
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">main.go</span>:<span style="color:#ae81ff">6</span>             <span style="color:#ae81ff">0x469964</span>                <span style="color:#ae81ff">7635</span>                    <span style="color:#66d9ef">JBE</span> <span style="color:#ae81ff">0x46999b</span>        
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">main.go</span>:<span style="color:#ae81ff">6</span>             <span style="color:#ae81ff">0x469966</span>                <span style="color:#ae81ff">55</span>                      <span style="color:#66d9ef">PUSHQ</span> <span style="color:#66d9ef">BP</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">6</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x469967</span>                <span style="color:#ae81ff">4889</span><span style="color:#66d9ef">e5</span>                  <span style="color:#66d9ef">MOVQ</span> <span style="color:#66d9ef">SP</span>, <span style="color:#66d9ef">BP</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">6</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x46996a</span>                <span style="color:#ae81ff">4883</span><span style="color:#66d9ef">ec10</span>                <span style="color:#66d9ef">SUBQ</span> <span style="color:#66d9ef">$0x10</span>, <span style="color:#66d9ef">SP</span>      
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">main.go</span>:<span style="color:#ae81ff">7</span>             <span style="color:#ae81ff">0x46996e</span>                <span style="color:#ae81ff">488</span><span style="color:#66d9ef">b05f3490800</span>          <span style="color:#66d9ef">MOVQ</span> <span style="color:#66d9ef">main.a</span>(<span style="color:#66d9ef">SB</span>), <span style="color:#66d9ef">AX</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">main.go</span>:<span style="color:#ae81ff">11</span>            <span style="color:#ae81ff">0x469975</span>                <span style="color:#ae81ff">480305</span><span style="color:#66d9ef">f4490800</span>          <span style="color:#66d9ef">ADDQ</span> <span style="color:#66d9ef">main.b</span>(<span style="color:#66d9ef">SB</span>), <span style="color:#66d9ef">AX</span> 
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">main.go</span>:<span style="color:#ae81ff">11</span>            <span style="color:#ae81ff">0x46997c</span>                <span style="color:#ae81ff">4889442408</span>              <span style="color:#66d9ef">MOVQ</span> <span style="color:#66d9ef">AX</span>, <span style="color:#ae81ff">0x8</span>(<span style="color:#66d9ef">SP</span>)    
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">main.go</span>:<span style="color:#ae81ff">8</span>             <span style="color:#ae81ff">0x469981</span>                <span style="color:#66d9ef">e81a8afcff</span>              <span style="color:#66d9ef">CALL</span> <span style="color:#66d9ef">runtime.printlock</span>(<span style="color:#66d9ef">SB</span>)
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">8</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x469986</span>                <span style="color:#ae81ff">488</span><span style="color:#66d9ef">b442408</span>              <span style="color:#66d9ef">MOVQ</span> <span style="color:#ae81ff">0x8</span>(<span style="color:#66d9ef">SP</span>), <span style="color:#66d9ef">AX</span>    
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">main.go</span>:<span style="color:#ae81ff">8</span>             <span style="color:#ae81ff">0x46998b</span>                <span style="color:#66d9ef">e8b090fcff</span>              <span style="color:#66d9ef">CALL</span> <span style="color:#66d9ef">runtime.printint</span>(<span style="color:#66d9ef">SB</span>)
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">8</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x469990</span>                <span style="color:#66d9ef">e86b8afcff</span>              <span style="color:#66d9ef">CALL</span> <span style="color:#66d9ef">runtime.printunlock</span>(<span style="color:#66d9ef">SB</span>)
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">9</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x469995</span>                <span style="color:#ae81ff">4883</span><span style="color:#66d9ef">c410</span>                <span style="color:#66d9ef">ADDQ</span> <span style="color:#66d9ef">$0x10</span>, <span style="color:#66d9ef">SP</span>      
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">main.go</span>:<span style="color:#ae81ff">9</span>             <span style="color:#ae81ff">0x469999</span>                <span style="color:#ae81ff">5</span><span style="color:#66d9ef">d</span>                      <span style="color:#66d9ef">POPQ</span> <span style="color:#66d9ef">BP</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">9</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x46999a</span>                <span style="color:#66d9ef">c3</span>                      <span style="color:#66d9ef">RET</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">6</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x46999b</span>                <span style="color:#ae81ff">0</span><span style="color:#66d9ef">f1f440000</span>              <span style="color:#66d9ef">NOPL</span> <span style="color:#ae81ff">0</span>(<span style="color:#66d9ef">AX</span>)(<span style="color:#66d9ef">AX</span>*<span style="color:#ae81ff">1</span>)    
+</span></span><span style="display:flex;"><span>  <span style="color:#66d9ef">main.go</span>:<span style="color:#ae81ff">6</span>             <span style="color:#ae81ff">0x4699a0</span>                <span style="color:#66d9ef">e8bb88ffff</span>              <span style="color:#66d9ef">CALL</span> <span style="color:#66d9ef">runtime.morestack_noctxt.abi0</span>(<span style="color:#66d9ef">SB</span>)
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">6</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x4699a5</span>                <span style="color:#66d9ef">ebb9</span>                    <span style="color:#66d9ef">JMP</span> <span style="color:#66d9ef">main.main</span>(<span style="color:#66d9ef">SB</span>)   
+</span></span></code></pre></div><p>作为对比我们也可以在编译是禁止内联优化</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-text" data-lang="text"><span style="display:flex;"><span>go build -gcflags=&#34;all=-l&#34; .\main.go
+</span></span><span style="display:flex;"><span>PS C:\Code\Github\Go_T&gt; go tool objdump -s main.main .\main.exe
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-asm" data-lang="asm"><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">6</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x470000</span>                <span style="color:#ae81ff">493</span><span style="color:#66d9ef">b6610</span>                <span style="color:#66d9ef">CMPQ</span> <span style="color:#66d9ef">SP</span>, <span style="color:#ae81ff">0x10</span>(<span style="color:#66d9ef">R14</span>)
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">6</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x470004</span>                <span style="color:#ae81ff">763</span><span style="color:#66d9ef">e</span>                    <span style="color:#66d9ef">JBE</span> <span style="color:#ae81ff">0x470044</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">6</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x470006</span>                <span style="color:#ae81ff">55</span>                      <span style="color:#66d9ef">PUSHQ</span> <span style="color:#66d9ef">BP</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">6</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x470007</span>                <span style="color:#ae81ff">4889</span><span style="color:#66d9ef">e5</span>                  <span style="color:#66d9ef">MOVQ</span> <span style="color:#66d9ef">SP</span>, <span style="color:#66d9ef">BP</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">6</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x47000a</span>                <span style="color:#ae81ff">4883</span><span style="color:#66d9ef">ec18</span>                <span style="color:#66d9ef">SUBQ</span> <span style="color:#66d9ef">$0x18</span>, <span style="color:#66d9ef">SP</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">7</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x47000e</span>                <span style="color:#ae81ff">488</span><span style="color:#66d9ef">b1d9bfc0b00</span>          <span style="color:#66d9ef">MOVQ</span> <span style="color:#66d9ef">main.b</span>(<span style="color:#66d9ef">SB</span>), <span style="color:#66d9ef">BX</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">7</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x470015</span>                <span style="color:#ae81ff">488</span><span style="color:#66d9ef">b058cfc0b00</span>          <span style="color:#66d9ef">MOVQ</span> <span style="color:#66d9ef">main.a</span>(<span style="color:#66d9ef">SB</span>), <span style="color:#66d9ef">AX</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">7</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x47001c</span>                <span style="color:#ae81ff">0</span><span style="color:#66d9ef">f1f4000</span>                <span style="color:#66d9ef">NOPL</span> <span style="color:#ae81ff">0</span>(<span style="color:#66d9ef">AX</span>)
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">7</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x470020</span>                <span style="color:#66d9ef">e83b000000</span>              <span style="color:#66d9ef">CALL</span> <span style="color:#66d9ef">main.add</span>(<span style="color:#66d9ef">SB</span>)
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">7</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x470025</span>                <span style="color:#ae81ff">4889442410</span>              <span style="color:#66d9ef">MOVQ</span> <span style="color:#66d9ef">AX</span>, <span style="color:#ae81ff">0x10</span>(<span style="color:#66d9ef">SP</span>)
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">8</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x47002a</span>                <span style="color:#66d9ef">e8517cfcff</span>              <span style="color:#66d9ef">CALL</span> <span style="color:#66d9ef">runtime.printlock</span>(<span style="color:#66d9ef">SB</span>)
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">8</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x47002f</span>                <span style="color:#ae81ff">488</span><span style="color:#66d9ef">b442410</span>              <span style="color:#66d9ef">MOVQ</span> <span style="color:#ae81ff">0x10</span>(<span style="color:#66d9ef">SP</span>), <span style="color:#66d9ef">AX</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">8</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x470034</span>                <span style="color:#66d9ef">e8e782fcff</span>              <span style="color:#66d9ef">CALL</span> <span style="color:#66d9ef">runtime.printint</span>(<span style="color:#66d9ef">SB</span>)
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">8</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x470039</span>                <span style="color:#66d9ef">e8a27cfcff</span>              <span style="color:#66d9ef">CALL</span> <span style="color:#66d9ef">runtime.printunlock</span>(<span style="color:#66d9ef">SB</span>)
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">9</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x47003e</span>                <span style="color:#ae81ff">4883</span><span style="color:#66d9ef">c418</span>                <span style="color:#66d9ef">ADDQ</span> <span style="color:#66d9ef">$0x18</span>, <span style="color:#66d9ef">SP</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">9</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x470042</span>                <span style="color:#ae81ff">5</span><span style="color:#66d9ef">d</span>                      <span style="color:#66d9ef">POPQ</span> <span style="color:#66d9ef">BP</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">9</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x470043</span>                <span style="color:#66d9ef">c3</span>                      <span style="color:#66d9ef">RET</span>
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">6</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x470044</span>                <span style="color:#66d9ef">e83786ffff</span>              <span style="color:#66d9ef">CALL</span> <span style="color:#66d9ef">runtime.morestack_noctxt.abi0</span>(<span style="color:#66d9ef">SB</span>)
+</span></span><span style="display:flex;"><span>  main.go:<span style="color:#960050;background-color:#1e0010">6</span>             <span style="color:#960050;background-color:#1e0010">0</span><span style="color:#a6e22e">x470049</span>                <span style="color:#66d9ef">ebb5</span>                    <span style="color:#66d9ef">JMP</span> <span style="color:#66d9ef">main.main</span>(<span style="color:#66d9ef">SB</span>)
+</span></span></code></pre></div><h4 id="编译器内联优化">编译器内联优化<a hidden class="anchor" aria-hidden="true" href="#编译器内联优化">#</a></h4>
+<p><img alt="alt text" loading="lazy" src="/posts/skill/data/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/image.png"></p>
+<h4 id="禁止编译器内联优化">禁止编译器内联优化<a hidden class="anchor" aria-hidden="true" href="#禁止编译器内联优化">#</a></h4>
+<p><img alt="alt text" loading="lazy" src="/posts/skill/data/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/image-1.png"></p>
+<h3 id="猜想一-总结">猜想一 总结<a hidden class="anchor" aria-hidden="true" href="#猜想一-总结">#</a></h3>
+<p>我们可以看出编译器内联优化会优化一些代码。add函数会展开内联到main函数中了。
+在默认情况下，编译器内联优化导致有些函数调用会被替换为函数体的实际代码。函数都消失了，那就很不用说拿函数之间进行比较。</p>
+<h2 id="需要函数对比的场景如何解决">需要函数对比的场景，如何解决？<a hidden class="anchor" aria-hidden="true" href="#需要函数对比的场景如何解决">#</a></h2>
+<h3 id="监听者模式">监听者模式<a hidden class="anchor" aria-hidden="true" href="#监听者模式">#</a></h3>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Listener</span> <span style="color:#66d9ef">func</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Listeners</span> []<span style="color:#a6e22e">Listener</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">AddListener</span>(<span style="color:#a6e22e">l</span> <span style="color:#a6e22e">Listener</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Listeners</span> = append(<span style="color:#a6e22e">Listeners</span>, <span style="color:#a6e22e">l</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">CallListeners</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">l</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">Listeners</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">l</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">RmListener</span>(<span style="color:#a6e22e">l</span> <span style="color:#a6e22e">Listener</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// TODO 删除监听器</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">AddListener</span>(<span style="color:#66d9ef">func</span>() { <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Hello&#34;</span>) })
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">AddListener</span>(<span style="color:#66d9ef">func</span>() { <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;world&#34;</span>) })
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">CallListeners</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><p>从上述代码中我们需要为Listener添加一个删除监听器函数。
+由于Go中函数不能进行比较。因此下面这种写法是错误的</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">RmListener</span>(<span style="color:#a6e22e">l</span> <span style="color:#a6e22e">Listener</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Listeners</span> = <span style="color:#a6e22e">slices</span>.<span style="color:#a6e22e">DeleteFunc</span>(<span style="color:#a6e22e">Listeners</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">x</span> <span style="color:#a6e22e">Listener</span>) <span style="color:#66d9ef">bool</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">l</span> })
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// invalid operation: x == l (func can only be compared to nil)compilerUndefinedOp</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h4 id="解决方案一-使用结构体为函数添加一个可比较的标签">解决方案一 使用结构体为函数添加一个可比较的标签<a hidden class="anchor" aria-hidden="true" href="#解决方案一-使用结构体为函数添加一个可比较的标签">#</a></h4>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> (
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;fmt&#34;</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#e6db74">&#34;slices&#34;</span>
+</span></span><span style="display:flex;"><span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Tag</span> <span style="color:#66d9ef">struct</span>{ <span style="color:#f92672">*</span><span style="color:#66d9ef">int</span> }
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">Listener</span> <span style="color:#66d9ef">func</span>()
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">taggedListener</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tag</span>      <span style="color:#a6e22e">Tag</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">listener</span> <span style="color:#a6e22e">Listener</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">var</span> <span style="color:#a6e22e">Listeners</span> []<span style="color:#a6e22e">taggedListener</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">AddListener</span>(<span style="color:#a6e22e">l</span> <span style="color:#a6e22e">Listener</span>) <span style="color:#a6e22e">Tag</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">tag</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">Tag</span>{new(<span style="color:#66d9ef">int</span>)}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Listeners</span> = append(<span style="color:#a6e22e">Listeners</span>, <span style="color:#a6e22e">taggedListener</span>{<span style="color:#a6e22e">tag</span>, <span style="color:#a6e22e">l</span>})
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">tag</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">CallListeners</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">l</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">Listeners</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">l</span>.<span style="color:#a6e22e">listener</span>()
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">RmListener</span>(<span style="color:#a6e22e">tag</span> <span style="color:#a6e22e">Tag</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">Listeners</span> = <span style="color:#a6e22e">slices</span>.<span style="color:#a6e22e">DeleteFunc</span>(<span style="color:#a6e22e">Listeners</span>, <span style="color:#66d9ef">func</span>(<span style="color:#a6e22e">x</span> <span style="color:#a6e22e">taggedListener</span>) <span style="color:#66d9ef">bool</span> { <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">x</span>.<span style="color:#a6e22e">tag</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">tag</span> })
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">HelloTag</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">AddListener</span>(<span style="color:#66d9ef">func</span>() { <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;Hello&#34;</span>) })
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">AddListener</span>(<span style="color:#66d9ef">func</span>() { <span style="color:#a6e22e">fmt</span>.<span style="color:#a6e22e">Println</span>(<span style="color:#e6db74">&#34;world&#34;</span>) })
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">CallListeners</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#75715e">// 删除Hello</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">RmListener</span>(<span style="color:#a6e22e">HelloTag</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">CallListeners</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer><div>    
+    
+    <script src="https://utteranc.es/client.js"
+        repo="loommii/blog-review"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
