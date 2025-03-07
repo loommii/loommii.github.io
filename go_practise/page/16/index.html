@@ -174,6 +174,92 @@ Go 中文网、思否、博客园等平台，内容主要以问答形式记录�
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_057
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下列选项正确的是？
+func main() { str := &#34;hello&#34; str[0] = &#39;x&#39; fmt.Println(str) } A. hello B. xello C. compilation error 🔑 答案解析： 参考代码及解析：C。
+知识点：Go 语言中的字符串是只读的。
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 20:44:38 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_057" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_057/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_056
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码输出什么？
+type People struct{} func (p *People) ShowA() { fmt.Println(&#34;showA&#34;) p.ShowB() } func (p *People) ShowB() { fmt.Println(&#34;showB&#34;) } type Teacher struct { People } func (t *Teacher) ShowB() { fmt.Println(&#34;teacher showB&#34;) } func main() { t := Teacher{} t.ShowA() } 🔑 答案解析： 答 “showA” “showB”
+t.ShowA() 会优先调用t自己的ShowA，但是题中未定义着调用父 struct的showA。运行到p.ShowB()时，这里注意是p *People p是父 struct，他会调用p自己的ShowB 因此输出 “showA” “showB”
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 20:44:36 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_056" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_056/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_055
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码输出什么?
+func hello(i int) { fmt.Println(i) } func main() { i := 5 defer hello(i) i = i &#43; 10 } 🔑 答案解析： 答 5 hello() 函数的参数在执行 defer 语句的时候会保存一份副本，在实际调用 hello() 函数时用，所以是 5.
+&gt;Golang中的Defer必掌握的7知识点
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 20:44:35 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_055" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_055/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_054
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>以下代码输出什么？
+package main import ( &#34;encoding/json&#34; &#34;fmt&#34; &#34;time&#34; ) func main() { t := struct { time.Time N int }{ time.Date(2020, 12, 20, 0, 0, 0, 0, time.UTC), 5, } m, _ := json.Marshal(t) fmt.Printf(&#34;%s&#34;, m) } A：{“Time”: “2020-12-20T00:00:00Z”, “N”: 5 }；B：“2020-12-20T00:00:00Z”；C：{“N”: 5}；D：&lt;nil&gt;
+🔑 答案解析： 答 B 题中time.Time 是内嵌到匿名struct 中的，也就是继承了time.Time 。 time.Time 的重写了MarshalJSON 方法因此会按照time.Time 的MarshalJSON 规定的格式输出 </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 20:44:34 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_054" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_054/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_053
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>定义一个包内全局字符串变量，下面语法正确的是（多选）：
+A. var str string B. str := &#34;&#34; C. str = &#34;&#34; D. var str = &#34;&#34;
+🔑 答案解析： A D 关键在 包内全局 B := 只能用到函数没 C 是赋值并不是声明 </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 20:44:33 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_053" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_053/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_052
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码输出什么？
+type People struct{} func (p *People) ShowA() { fmt.Println(&#34;showA&#34;) p.ShowB() } func (p *People) ShowB() { fmt.Println(&#34;showB&#34;) } type Teacher struct { People } func (t *Teacher) ShowB() { fmt.Println(&#34;teacher showB&#34;) } func main() { t := Teacher{} t.ShowB() } 🔑 答案解析： 答 ：teacher showB t.ShowB() 会使用自己已有的ShowB() ， 若要使用父struct（People）的ShowB() 需要改为 t.People.ShowB() </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 20:44:31 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_052" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_052/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Go每日一题_051
     </h2>
   </header>
@@ -227,92 +313,6 @@ A. array B. slice C. map D. channel
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:44:27 +0800 CST'>十二月 6, 2024</span></footer>
   <a class="entry-link" aria-label="post link to Go每日一题_048" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_048/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_047
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>下面这段代码输出什么？
-func main() { a := [2]int{5, 6} b := [3]int{5, 6} if a == b { fmt.Println(&#34;equal&#34;) } else { fmt.Println(&#34;not equal&#34;) } } A. compilation error B. equal C. not equal 🔑 答案解析： A 只有同容量，同类型的数组才能比较 </p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-06 20:44:26 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_047" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_047/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_046
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>下面这段代码输出什么？
-package main import ( &#34;fmt&#34; ) func main() { a := [5]int{1, 2, 3, 4, 5} t := a[3:4:4] fmt.Println(t[0]) } A.3 B.4 C.compilation error 🔑 答案解析： 答B 解析 t := a[3:4:4] 基于a切片生成一个新切片t ,该t的起始指向a[3]的位置,到a[4]停止 </p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-06 20:44:24 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_046" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_046/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_045
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>以下代码能否通过编译？
-package main import ( &#34;fmt&#34; ) type worker interface { work() } type person struct { name string worker } func main() { var w worker = person{} fmt.Println(w) } A: 能；B: 不能；C: 不知道
-🔑 答案解析： A
-Go结构体中是可以嵌套接口类型的
-嵌入接口有实际用途。 例：标准库中 sort 包中，有一个接口：Interface
-type Interface interface { // Len is the number of elements in the collection. Len() int // Less reports whether the element with // index i should sort before the element with index j. Less(i, j int) bool // Swap swaps the elements with indexes i and j. Swap(i, j int) } type reverse struct { // This embedded Interface permits Reverse to use the methods of // another Interface implementation. Interface } 它就内嵌了一个 Interface，用于排序的反转。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-06 20:44:23 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_045" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_045/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_044
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>以下代码有什么问题，怎么解决？
-total, sum := 0, 0 for i := 1; i &lt;= 10; i&#43;&#43; { sum &#43;= i go func() { total &#43;= i }() } fmt.Printf(&#34;total:%d sum %d&#34;, total, sum) 🔑 答案解析： sum 的值 55 total 的值 55 - 100 之前
-考点一： 知道输出的效果是什么，且知道如何解决。 考点二： data race。因为存在多 goroutine 同时写 total 变量的问题，所以有数据竞争。 考点三： main 函数先退出了，开启的 goroutine 根本没有机会执行。
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-06 20:44:22 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_044" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_044/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_043
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>以下代码输出什么？
-package main import ( &#34;encoding/json&#34; &#34;fmt&#34; ) type AutoGenerated struct { Age int `json:&#34;age&#34;` Name string `json:&#34;name&#34;` Child []int `json:&#34;child&#34;` } func main() { jsonStr1 := `{&#34;age&#34;: 14,&#34;name&#34;: &#34;potter&#34;, &#34;child&#34;:[1,2,3]}` a := AutoGenerated{} json.Unmarshal([]byte(jsonStr1), &amp;a) aa := a.Child fmt.Println(aa) jsonStr2 := `{&#34;age&#34;: 12,&#34;name&#34;: &#34;potter&#34;, &#34;child&#34;:[3,4,5,7,8,9]}` json.Unmarshal([]byte(jsonStr2), &amp;a) fmt.Println(aa) } A：[1 2 3] [1 2 3] B：[1 2 3] [3 4 5] C：[1 2 3] [3 4 5 6 7 8 9] D：[1 2 3] [3 4 5 0 0 0] 🔑 答案解析： 答： B 解析： Json反序列化时,切片的处理方式是将切片的len值改为0后append数据。 因为 aa := a.Child aa 和 a.Child 切片指向同一个数组，append 到6时，因为a.Child未扩容，所以修改底层数组等同于修改aa的数据。但是在append到7时，a.Child 切片发生了切片扩容指向了新的数组。 因此aa的数据为 [3 4 5] </p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-06 20:44:21 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_043" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_043/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_042
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>下面这段代码输出什么？
-func main() { a := 5 b := 8.1 fmt.Println(a &#43; b) } A.13.1 B.13 C.compilation error
-🔑 答案解析： 参考答案及解析：C。a 的类型是 int，b 的类型是 float，两个不同类型的数值不能相加，编译报错。 </p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-06 20:44:20 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_042" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_042/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

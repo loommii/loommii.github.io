@@ -6,8 +6,58 @@
     <description>Recent content in 文章 on loommii</description>
     <generator>Hugo -- 0.143.1</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 05 Mar 2025 16:41:19 +0800</lastBuildDate>
+    <lastBuildDate>Fri, 07 Mar 2025 14:12:02 +0800</lastBuildDate>
     <atom:link href="https://loommii.github.io/skill/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Channel_可能会引发_goroutine_泄漏</title>
+      <link>https://loommii.github.io/posts/skill/data/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/</link>
+      <pubDate>Fri, 07 Mar 2025 14:12:02 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/</guid>
+      <description>&lt;h2 id=&#34;go-中-channel-可能会引发-goroutine-泄漏&#34;&gt;Go 中 Channel 可能会引发 Goroutine 泄漏&lt;/h2&gt;
+&lt;h3 id=&#34;疑问&#34;&gt;疑问&lt;/h3&gt;
+&lt;h4 id=&#34;什么是-goroutine-泄漏&#34;&gt;什么是 Goroutine 泄漏？&lt;/h4&gt;
+&lt;p&gt;Goroutine 泄漏是指 Goroutine 在程序中被创建后，由于某种原因无法正常结束，并且永远不会被垃圾回收（GC）。这会导致 Goroutine 占用的资源（如内存、栈空间等）无法释放，随着时间的推移，可能会耗尽系统资源，导致程序崩溃。&lt;/p&gt;
+&lt;h4 id=&#34;channel-如何导致-goroutine-泄漏&#34;&gt;Channel 如何导致 Goroutine 泄漏？&lt;/h4&gt;
+&lt;p&gt;Channel 是 Goroutine 之间同步和通信的重要机制。但是，如果 Channel 的使用不当，就可能导致 Goroutine 阻塞并最终泄漏。以下是导致泄漏的常见场景：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;发送阻塞: Goroutine 尝试向一个已满的无缓冲 Channel 或已满的有缓冲 Channel 发送数据，如果没有其他 Goroutine 接收数据，发送操作会阻塞。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;接收阻塞:  Goroutine 尝试从一个空的无缓冲 Channel 或空的有缓冲 Channel 接收数据，如果没有其他 Goroutine 发送数据，接收操作会阻塞。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;泄漏的原因是 goroutine 操作 channel 后，处于发送或接收阻塞状态，而 channel 处于满或空的状态，一直得不到改变。同时，垃圾回收器也不会回收此类资源，进而导致 gouroutine 会一直处于等待队列中，不见天日。&lt;/p&gt;
+&lt;h3 id=&#34;代码示例&#34;&gt;代码示例&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;runtime&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; make(&lt;span style=&#34;color:#66d9ef&#34;&gt;chan&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;// 无缓冲 Channel&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;go&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// 第一次发送成功（Channel 未满）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;第一次发送成功&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// 第二次发送永久阻塞（Channel 已满且无接收者）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;第二次发送成功（永远不会执行）&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Sleep&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Millisecond&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;接收到:&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;// 只消费一次数据&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// 监控 Goroutine 数量&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;当前 Goroutine 数量: %d\n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;runtime&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;NumGoroutine&lt;/span&gt;()) &lt;span style=&#34;color:#75715e&#34;&gt;// 2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Sleep&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Second&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/ZY9038_1BYW&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
     <item>
       <title>Go函数类型是否可以比较,为什么？</title>
       <link>https://loommii.github.io/posts/skill/data/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/</link>
