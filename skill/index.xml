@@ -93,17 +93,17 @@
       <link>https://loommii.github.io/posts/skill/data/go_gpm%E7%9A%84%E6%95%B0%E9%87%8F%E9%99%90%E5%88%B6/</link>
       <pubDate>Wed, 18 Dec 2024 14:16:42 +0800</pubDate>
       <guid>https://loommii.github.io/posts/skill/data/go_gpm%E7%9A%84%E6%95%B0%E9%87%8F%E9%99%90%E5%88%B6/</guid>
-      <description>&lt;h1 id=&#34;g&#34;&gt;G&lt;/h1&gt;
+      <description>&lt;h2 id=&#34;g&#34;&gt;G&lt;/h2&gt;
 &lt;p&gt;协程的抽象&lt;/p&gt;
 &lt;p&gt;Goroutine  (go /ruːˈtiːn/  谐音 Go 如 听) 经 Golang 优化后的特殊“协程”&lt;/p&gt;
-&lt;h3 id=&#34;限制&#34;&gt;限制&lt;/h3&gt;
+&lt;h3 id=&#34;g限制&#34;&gt;G限制&lt;/h3&gt;
 &lt;p&gt;语言上无任何的限制,但是理论上会受到机器的内存限制,每个G创建时会占用4KB左右的内存空间&lt;/p&gt;
 &lt;p&gt;注：Goroutine 创建所需申请的 2-4KB 是需要连续的内存块。&lt;/p&gt;
-&lt;h1 id=&#34;m&#34;&gt;M&lt;/h1&gt;
+&lt;h2 id=&#34;m&#34;&gt;M&lt;/h2&gt;
 &lt;p&gt;系统线程的抽象&lt;/p&gt;
 &lt;p&gt;在 Go 的并发模型中，G（Goroutine）是一个轻量级的执行单元，它需要通过系统线程（M）来执行。
 每个 G 都会被映射到一个可用的 M 上，M 是操作系统层面的线程，负责实际的 CPU 执行。&lt;/p&gt;
-&lt;h3 id=&#34;限制-1&#34;&gt;限制&lt;/h3&gt;
+&lt;h3 id=&#34;m限制&#34;&gt;M限制&lt;/h3&gt;
 &lt;p&gt;M 是可以通过runtime下的 debug包SetMaxThreads函数去设置的。默认值为10,000 个线程
 &lt;a href=&#34;https://pkg.go.dev/runtime/debug#SetMaxThreads&#34;&gt;官方文档&lt;/a&gt;&lt;/p&gt;
 &lt;blockquote&gt;
@@ -111,7 +111,7 @@
 ?
 这个限制控制的是操作系统线程的数量，而不是 goroutine 的数量。只有当 goroutine 准备运行，但所有现有的线程都因系统调用、cgo 调用被阻塞，或者由于使用了 runtime.LockOSThread 被锁定给其他 goroutine 时，Go 程序才会创建一个新的线程。&lt;/p&gt;
 &lt;p&gt;SetMaxThreads 主要用于限制那些创建无限数量线程的程序的影响。其目的是在程序把操作系统拖垮之前先把程序本身终止掉。&lt;/p&gt;&lt;/blockquote&gt;
-&lt;h1 id=&#34;p&#34;&gt;P&lt;/h1&gt;
+&lt;h2 id=&#34;p&#34;&gt;P&lt;/h2&gt;
 &lt;p&gt;p即 processor，是 golang 中的调度器；&lt;/p&gt;
 &lt;p&gt;p 是 gmp 的中枢，借由 p 承上启下，实现 g 和 m 之间的动态有机结合；&lt;/p&gt;</description>
     </item>
@@ -588,17 +588,13 @@ CPU 电力
 移码:移码是一种不常见的整数表示方法，在计算机领域中较少使用。它与补码类似，但是所有的数值都被偏移了一个固定的值，通常是一个中间值，以使得正数的表示始终比负数的表示更大。这种表示方法在某些特殊的硬件设计中可能会使用。
 &lt;img alt=&#34;关系&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/%E5%85%B3%E7%B3%BB.png&#34;&gt;&lt;/p&gt;
 &lt;h2 id=&#34;例子&#34;&gt;例子&lt;/h2&gt;
-&lt;ol&gt;
-&lt;li&gt;原码为正数&lt;/li&gt;
-&lt;/ol&gt;
+&lt;p&gt;1.原码为正数&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;整数 +1
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0001  // 原码
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0001  // 反码  // 正数的 反码 = 原码
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0001  // 补码  // 正数的 补码 = 反码 = 原码
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1000 0001  // 移码  // 移码 = 补码的符号位取反
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;2&#34;&gt;
-&lt;li&gt;原码为0&lt;/li&gt;
-&lt;/ol&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2.原码为0&lt;/p&gt;
 &lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;整数 +0
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0000  // 原码
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0000  // 反码  // 正数的 反码 = 原码
@@ -610,16 +606,7 @@ CPU 电力
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1111 1111  // 反码  // 负数的 反码 = 原码除符号位不变 其他全取反
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0000  // 补码  // 负数的 补码 = 反码+1 //这里由于越界,取后8位则结果为8个0
 &lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1000 0000  // 移码  // 移码 = 补码的符号位取反
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;ol start=&#34;4&#34;&gt;
-&lt;li&gt;原码为负数&lt;/li&gt;
-&lt;/ol&gt;
-&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;整数 -1
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1000 0001  // 原码
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1111 1110  // 反码  // 负数的 反码 = 原码除符号位不变 其他全取反
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1111 1111  // 补码  // 负数的 补码 = 反码+1
-&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0110 1111  // 移码  // 移码 = 补码的符号位取反
-&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h2 id=&#34;应用场景&#34;&gt;应用场景&lt;/h2&gt;
-&lt;p&gt;原码：符合人类直觉，是最简单的整数表示方法&lt;/p&gt;</description>
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;3.原码为负数&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>
