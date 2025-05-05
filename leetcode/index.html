@@ -167,6 +167,40 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">11_盛最多水的容器
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>力扣链接:11. 盛最多水的容器
+力扣难度 中等
+给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
+找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+返回容器可以储存的最大水量。
+说明： 你不能倾斜容器。
+示例 示例 1： 输入：[1,8,6,2,5,4,8,3,7] 输出：49 解释：&gt; 图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。 示例 2： 输入：height = [1,1] 输出：1 提示： n == height.length 2 &lt;= n &lt;= 10^5 0 &lt;= height[i] &lt;= 10^4 func maxArea(height []int) int { } func maxArea(height []int) int { ans := 0 i := 0 // 左指针下标 j := len(height) - 1 // 右指针下标 // 循环 for i &lt; j { // 目前的面积 ans = max(ans, min(height[j], height[i])*(j-i)) // 最小的高 * 相距的宽 if height[i] &lt;= height[j] { i&#43;&#43; } else { j-- } } return ans } </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-05-05 16:31:16 +0800 CST'>五月 5, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 11_盛最多水的容器" href="https://loommii.github.io/posts/leetcode/data/11_%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">15_三数之和
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>力扣链接:15. 三数之和
+力扣难度 中等
+给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] &#43; nums[j] &#43; nums[k] == 0 。请你返回所有和为 0 且不重复的三元组。
+注意： 答案中不可以包含重复的三元组。
+示例 示例 1： 输入：nums = [-1,0,1,2,-1,-4] 输出：[[-1,-1,2],[-1,0,1]] 解释： nums[0] &#43; nums[1] &#43; nums[2] = (-1) &#43; 0 &#43; 1 = 0 。 nums[1] &#43; nums[2] &#43; nums[4] = 0 &#43; 1 &#43; (-1) = 0 。 nums[0] &#43; nums[3] &#43; nums[4] = (-1) &#43; 2 &#43; (-1) = 0 。 不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。 注意，输出的顺序和三元组的顺序并不重要。 示例 2： 输入：nums = [0,1,1] 输出：[] 解释：&gt; 唯一可能的三元组和不为 0 。 示例 3： 输入：nums = [0,0,0] 输出：[[0,0,0]] 解释：&gt; 唯一可能的三元组和为 0 。 提示： 3 &lt;= nums.length &lt;= 3000 -10^5 &lt;= nums[i] &lt;= 10^5 func threeSum(nums []int) [][]int { } func threeSum(nums []int) [][]int { ans := make([][]int, 0) // 数组排序 // 因为 输出的顺序和三元组的顺序并不重要，因此我们将原数组顺序打乱，按照从小到大排序方便后续处理 sort.Ints(nums) // 便利选择第一个数数 K 使得后面两边的数 J L 两个数加起来 等于 K的倒数 J &#43; L = - K n := len(nums) for i := 0; i &lt; len(nums)-2; i&#43;&#43; { // 后面至少还有2个数，因此需要遍历到len(nums)-2 if i &gt; 0 &amp;&amp; nums[i] == nums[i-1] { // 重复要跳过 i == 0 时前面没有数 continue } j := i &#43; 1 l := n - 1 for j &lt; l { s := nums[i] &#43; nums[j] &#43; nums[l] if s &gt; 0 { l-- } else if s &lt; 0 { j&#43;&#43; } else { // 找到目标 ans = append(ans, []int{nums[i], nums[j], nums[l]}) // 避免重复 继续看一下相临的数是否重复，是的话都跳过 j&#43;&#43; for j &lt; l &amp;&amp; nums[j] == nums[j-1] { j&#43;&#43; } l-- for j &lt; l &amp;&amp; nums[l] == nums[l&#43;1] { l-- } } } } return ans } func threeSum(nums []int) [][]int { ans := make([][]int, 0) // 数组排序 // 因为 输出的顺序和三元组的顺序并不重要，因此我们将原数组顺序打乱，按照从小到大排序方便后续处理 sort.Ints(nums) // 便利选择第一个数数 K 使得后面两边的数 J L 两个数加起来 等于 K的倒数 J &#43; L = - K n := len(nums) for i := 0; i &lt; len(nums)-2; i&#43;&#43; { // 后面至少还有2个数，因此需要遍历到len(nums)-2 if i &gt; 0 &amp;&amp; nums[i] == nums[i-1] { // 重复要跳过 i == 0 时前面没有数 continue } // 优化 一 最小的2个数和nums[i]加起来都&gt;0 这不用进入 if nums[i]&#43;nums[i&#43;1]&#43;nums[i&#43;2] &gt; 0 { continue } // 优化 一 最大的2个数和nums[i]加起来都&lt;0 这不用进入 if nums[i]&#43;nums[n-1]&#43;nums[n-2] &lt; 0 { continue } j := i &#43; 1 l := n - 1 for j &lt; l { s := nums[i] &#43; nums[j] &#43; nums[l] if s &gt; 0 { l-- } else if s &lt; 0 { j&#43;&#43; } else { // 找到目标 ans = append(ans, []int{nums[i], nums[j], nums[l]}) // 避免重复 继续看一下相临的数是否重复，是的话都跳过 j&#43;&#43; for j &lt; l &amp;&amp; nums[j] == nums[j-1] { j&#43;&#43; } l-- for j &lt; l &amp;&amp; nums[l] == nums[l&#43;1] { l-- } } } } return ans } </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-05-05 15:38:02 +0800 CST'>五月 5, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 15_三数之和" href="https://loommii.github.io/posts/leetcode/data/15_%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">167._两数之和_II_ _输入有序数组
     </h2>
   </header>
@@ -358,56 +392,6 @@ func isSubstringPresent(s string) bool { } 🔑 答案解析： 👈点击 // is
   </div>
   <footer class="entry-footer"><span title='2024-12-28 18:04:37 +0800 CST'>十二月 28, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 3083_字符串及其反转中是否存在同一子字符串" href="https://loommii.github.io/posts/leetcode/data/3083_%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%8F%8A%E5%85%B6%E5%8F%8D%E8%BD%AC%E4%B8%AD%E6%98%AF%E5%90%A6%E5%AD%98%E5%9C%A8%E5%90%8C%E4%B8%80%E5%AD%90%E5%AD%97%E7%AC%A6%E4%B8%B2/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">3159_查询数组中元素的出现位置
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>力扣链接:3159. 查询数组中元素的出现位置
-力扣难度 中等
-算法评级: 2 知道常用数据结构和算法并简单使用
-难度分 1263
-题目： 给你一个整数数组 nums ，一个整数数组 queries 和一个整数 x 。
-对于每个查询 queries[i] ，你需要找到 nums 中第 queries[i] 个 x 的位置，并返回它的下标。如果数组中 x 的出现次数少于 queries[i] ，该查询的答案为 -1 。
-请你返回一个整数数组 answer ，包含所有查询的答案。
-示例 1：
-输入：nums = [1,3,1,7], queries = [1,3,2,4], x = 1
-输出：[0,-1,2,-1]
-解释：
-第 1 个查询，第一个 1 出现在下标 0 处。 第 2 个查询，nums 中只有两个 1 ，所以答案为 -1 。 第 3 个查询，第二个 1 出现在下标 2 处。 第 4 个查询，nums 中只有两个 1 ，所以答案为 -1 。 示例 2：
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-28 14:28:22 +0800 CST'>十二月 28, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to 3159_查询数组中元素的出现位置" href="https://loommii.github.io/posts/leetcode/data/3159_%E6%9F%A5%E8%AF%A2%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E5%87%BA%E7%8E%B0%E4%BD%8D%E7%BD%AE/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">3046_分割数组
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>力扣链接:3046. 分割数组
-力扣难度 简单
-算法评级: 2 知道常用数据结构和算法并简单使用
-难度分 1212
-题目： 给你一个长度为 偶数 的整数数组 nums 。你需要将这个数组分割成 nums1 和 nums2 两部分，要求：
-nums1.length == nums2.length == nums.length / 2 。 nums1 应包含 互不相同 的元素。 nums2也应包含 互不相同 的元素。 如果能够分割数组就返回 true ，否则返回 false 。
-示例 1：
-输入：nums = [1,1,2,2,3,4]
-输出：true
-解释：分割 nums 的可行方案之一是 nums1 = [1,2,3] 和 nums2 = [1,2,4] 。
-示例 2：
-输入：nums = [1,1,1,1]
-输出：false
-解释：分割 nums 的唯一可行方案是 nums1 = [1,1] 和 nums2 = [1,1] 。但 nums1 和 nums2 都不是由互不相同的元素构成。因此，返回 false 。
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-28 13:02:42 +0800 CST'>十二月 28, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to 3046_分割数组" href="https://loommii.github.io/posts/leetcode/data/3046_%E5%88%86%E5%89%B2%E6%95%B0%E7%BB%84/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
