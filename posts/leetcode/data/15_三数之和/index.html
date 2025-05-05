@@ -5,7 +5,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="robots" content="index, follow">
-<title>15_三数之和 | loommii</title>
+<title>15. 三数之和 | loommii</title>
 <meta name="keywords" content="">
 <meta name="description" content="力扣链接:15. 三数之和
 
@@ -182,7 +182,7 @@ func threeSum(nums []int) [][]int {
     </style>
 </noscript><meta property="og:url" content="https://loommii.github.io/posts/leetcode/data/15_%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/">
   <meta property="og:site_name" content="loommii">
-  <meta property="og:title" content="15_三数之和">
+  <meta property="og:title" content="15. 三数之和">
   <meta property="og:description" content="力扣链接:15. 三数之和
 力扣难度 中等
 给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] &#43; nums[j] &#43; nums[k] == 0 。请你返回所有和为 0 且不重复的三元组。
@@ -194,7 +194,7 @@ func threeSum(nums []int) [][]int {
     <meta property="article:published_time" content="2025-05-05T15:38:02+08:00">
     <meta property="article:modified_time" content="2025-05-05T15:38:02+08:00">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="15_三数之和">
+<meta name="twitter:title" content="15. 三数之和">
 <meta name="twitter:description" content="力扣链接:15. 三数之和
 
 力扣难度 中等
@@ -337,7 +337,7 @@ func threeSum(nums []int) [][]int {
     {
       "@type": "ListItem",
       "position":  2 ,
-      "name": "15_三数之和",
+      "name": "15. 三数之和",
       "item": "https://loommii.github.io/posts/leetcode/data/15_%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/"
     }
   ]
@@ -347,8 +347,8 @@ func threeSum(nums []int) [][]int {
 {
   "@context": "https://schema.org",
   "@type": "BlogPosting",
-  "headline": "15_三数之和",
-  "name": "15_三数之和",
+  "headline": "15. 三数之和",
+  "name": "15. 三数之和",
   "description": "力扣链接:15. 三数之和\n力扣难度 中等\n给你一个整数数组 nums ，判断是否存在三元组 [nums[i], nums[j], nums[k]] 满足 i != j、i != k 且 j != k ，同时还满足 nums[i] + nums[j] + nums[k] == 0 。请你返回所有和为 0 且不重复的三元组。\n注意： 答案中不可以包含重复的三元组。\n示例 示例 1： 输入：nums = [-1,0,1,2,-1,-4] 输出：[[-1,-1,2],[-1,0,1]] 解释： nums[0] + nums[1] + nums[2] = (-1) + 0 + 1 = 0 。 nums[1] + nums[2] + nums[4] = 0 + 1 + (-1) = 0 。 nums[0] + nums[3] + nums[4] = (-1) + 2 + (-1) = 0 。 不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。 注意，输出的顺序和三元组的顺序并不重要。 示例 2： 输入：nums = [0,1,1] 输出：[] 解释：\u0026gt; 唯一可能的三元组和不为 0 。 示例 3： 输入：nums = [0,0,0] 输出：[[0,0,0]] 解释：\u0026gt; 唯一可能的三元组和为 0 。 提示： 3 \u0026lt;= nums.length \u0026lt;= 3000 -10^5 \u0026lt;= nums[i] \u0026lt;= 10^5 func threeSum(nums []int) [][]int { } func threeSum(nums []int) [][]int { ans := make([][]int, 0) // 数组排序 // 因为 输出的顺序和三元组的顺序并不重要，因此我们将原数组顺序打乱，按照从小到大排序方便后续处理 sort.Ints(nums) // 便利选择第一个数数 K 使得后面两边的数 J L 两个数加起来 等于 K的倒数 J + L = - K n := len(nums) for i := 0; i \u0026lt; len(nums)-2; i++ { // 后面至少还有2个数，因此需要遍历到len(nums)-2 if i \u0026gt; 0 \u0026amp;\u0026amp; nums[i] == nums[i-1] { // 重复要跳过 i == 0 时前面没有数 continue } j := i + 1 l := n - 1 for j \u0026lt; l { s := nums[i] + nums[j] + nums[l] if s \u0026gt; 0 { l-- } else if s \u0026lt; 0 { j++ } else { // 找到目标 ans = append(ans, []int{nums[i], nums[j], nums[l]}) // 避免重复 继续看一下相临的数是否重复，是的话都跳过 j++ for j \u0026lt; l \u0026amp;\u0026amp; nums[j] == nums[j-1] { j++ } l-- for j \u0026lt; l \u0026amp;\u0026amp; nums[l] == nums[l+1] { l-- } } } } return ans } func threeSum(nums []int) [][]int { ans := make([][]int, 0) // 数组排序 // 因为 输出的顺序和三元组的顺序并不重要，因此我们将原数组顺序打乱，按照从小到大排序方便后续处理 sort.Ints(nums) // 便利选择第一个数数 K 使得后面两边的数 J L 两个数加起来 等于 K的倒数 J + L = - K n := len(nums) for i := 0; i \u0026lt; len(nums)-2; i++ { // 后面至少还有2个数，因此需要遍历到len(nums)-2 if i \u0026gt; 0 \u0026amp;\u0026amp; nums[i] == nums[i-1] { // 重复要跳过 i == 0 时前面没有数 continue } // 优化 一 最小的2个数和nums[i]加起来都\u0026gt;0 这不用进入 if nums[i]+nums[i+1]+nums[i+2] \u0026gt; 0 { continue } // 优化 一 最大的2个数和nums[i]加起来都\u0026lt;0 这不用进入 if nums[i]+nums[n-1]+nums[n-2] \u0026lt; 0 { continue } j := i + 1 l := n - 1 for j \u0026lt; l { s := nums[i] + nums[j] + nums[l] if s \u0026gt; 0 { l-- } else if s \u0026lt; 0 { j++ } else { // 找到目标 ans = append(ans, []int{nums[i], nums[j], nums[l]}) // 避免重复 继续看一下相临的数是否重复，是的话都跳过 j++ for j \u0026lt; l \u0026amp;\u0026amp; nums[j] == nums[j-1] { j++ } l-- for j \u0026lt; l \u0026amp;\u0026amp; nums[l] == nums[l+1] { l-- } } } } return ans } ",
   "keywords": [
     
@@ -450,7 +450,7 @@ func threeSum(nums []int) [][]int {
   <header class="post-header">
     <div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/leetcode/">力扣</a></div>
     <h1 class="post-title entry-hint-parent">
-      15_三数之和
+      15. 三数之和
     </h1>
     <div class="post-meta"><span title='2025-05-05 15:38:02 +0800 CST'>五月 5, 2025</span>
 

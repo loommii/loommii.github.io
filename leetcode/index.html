@@ -167,7 +167,7 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">209_长度最小的子数组
+    <h2 class="entry-hint-parent">209. 长度最小的子数组
     </h2>
   </header>
   <div class="entry-content">
@@ -178,12 +178,12 @@
 示例 示例 1： 输入：target = 7, nums = [2,3,1,2,4,3] 输出：2 解释：&gt; 子数组 [4,3] 是该条件下的长度最小的子数组。 示例 2： 输入：target = 4, nums = [1,4,4] 输出：1 示例 3： 输入：target = 11, nums = [1,1,1,1,1,1,1,1] 输出：0 提示： 1 &lt;= target &lt;= 10^9 1 &lt;= nums.length &lt;= 10^5 1 &lt;= nums[i] &lt;= 10^4 进阶： 如果你已经实现 O(n) 时间复杂度的解法, 请尝试设计一个 O(n log(n)) 时间复杂度的解法。 func minSubArrayLen(target int, nums []int) int { } func minSubArrayLen(target int, nums []int) int { n := len(nums) ans := n &#43; 1 s := 0 left := 0 // 左边下标 for right, num := range nums { // 右边下标 s &#43;= num for s-nums[left] &gt;= target { s -= nums[left] left&#43;&#43; } if s &gt;= target { ans = min(ans, right-left&#43;1) } } if ans == n&#43;1 { return 0 } return ans } func minSubArrayLen(target int, nums []int) int { n := len(nums) ans := n &#43; 1 s := 0 left := 0 // 左边下标 for right, num := range nums { // 右边下标 s &#43;= num for s &gt;= target { ans = min(ans, right-left&#43;1) s -= nums[left] left&#43;&#43; } } if ans == n&#43;1 { return 0 } return ans } </p>
   </div>
   <footer class="entry-footer"><span title='2025-05-05 20:19:46 +0800 CST'>五月 5, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 209_长度最小的子数组" href="https://loommii.github.io/posts/leetcode/data/209_%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/"></a>
+  <a class="entry-link" aria-label="post link to 209. 长度最小的子数组" href="https://loommii.github.io/posts/leetcode/data/209_%E9%95%BF%E5%BA%A6%E6%9C%80%E5%B0%8F%E7%9A%84%E5%AD%90%E6%95%B0%E7%BB%84/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">42_接雨水
+    <h2 class="entry-hint-parent">42. 接雨水
     </h2>
   </header>
   <div class="entry-content">
@@ -193,12 +193,12 @@
 示例 示例 1： 输入：height = [0,1,0,2,1,0,1,3,2,1,2,1] 输出：6 解释：&gt; 上面是由数组 [0,1,0,2,1,0,1,3,2,1,2,1] 表示的高度图，在这种情况下，可以接 6 个单位的雨水（蓝色部分表示雨水）。 示例 2： 输入：height = [4,2,0,3,2,5] 输出：9 提示： n == height.length 1 &lt;= n &lt;= 2 * 10^4 0 &lt;= height[i] &lt;= 10^5 func trap(height []int) int { } func trap(height []int) int { ans := 0 n := len(height) prefixMaxNum := make([]int, n) suffixMaxNum := make([]int, n) prefixMaxNum[0] = height[0] for i := 1; i &lt; n; i&#43;&#43; { prefixMaxNum[i] = max(height[i], prefixMaxNum[i-1]) } suffixMaxNum[n-1] = height[n-1] for i := n - 2; i &gt;= 0; i-- { suffixMaxNum[i] = max(height[i], suffixMaxNum[i&#43;1]) } for i := 0; i &lt; n; i&#43;&#43; { ans &#43;= min(prefixMaxNum[i], suffixMaxNum[i]) - height[i] } return ans } func trap(height []int) int { ans := 0 n := len(height) left := 0 // 指向最左边 right := n - 1 // 指向最右边 pro_max := 0 // 前缀最大值 suf_max := 0 // 后缀最大值 for left &lt;= right { pro_max = max(pro_max, height[left]) suf_max = max(suf_max, height[right]) if pro_max &lt; suf_max { ans &#43;= pro_max - height[left] left&#43;&#43; } else { ans &#43;= suf_max - height[right] right-- } } return ans } </p>
   </div>
   <footer class="entry-footer"><span title='2025-05-05 17:11:10 +0800 CST'>五月 5, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 42_接雨水" href="https://loommii.github.io/posts/leetcode/data/42_%E6%8E%A5%E9%9B%A8%E6%B0%B4/"></a>
+  <a class="entry-link" aria-label="post link to 42. 接雨水" href="https://loommii.github.io/posts/leetcode/data/42_%E6%8E%A5%E9%9B%A8%E6%B0%B4/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">11_盛最多水的容器
+    <h2 class="entry-hint-parent">11. 盛最多水的容器
     </h2>
   </header>
   <div class="entry-content">
@@ -211,12 +211,12 @@
 示例 示例 1： 输入：[1,8,6,2,5,4,8,3,7] 输出：49 解释：&gt; 图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。 示例 2： 输入：height = [1,1] 输出：1 提示： n == height.length 2 &lt;= n &lt;= 10^5 0 &lt;= height[i] &lt;= 10^4 func maxArea(height []int) int { } func maxArea(height []int) int { ans := 0 i := 0 // 左指针下标 j := len(height) - 1 // 右指针下标 // 循环 for i &lt; j { // 目前的面积 ans = max(ans, min(height[j], height[i])*(j-i)) // 最小的高 * 相距的宽 if height[i] &lt;= height[j] { i&#43;&#43; } else { j-- } } return ans } </p>
   </div>
   <footer class="entry-footer"><span title='2025-05-05 16:31:16 +0800 CST'>五月 5, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 11_盛最多水的容器" href="https://loommii.github.io/posts/leetcode/data/11_%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/"></a>
+  <a class="entry-link" aria-label="post link to 11. 盛最多水的容器" href="https://loommii.github.io/posts/leetcode/data/11_%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">15_三数之和
+    <h2 class="entry-hint-parent">15. 三数之和
     </h2>
   </header>
   <div class="entry-content">
@@ -227,12 +227,12 @@
 示例 示例 1： 输入：nums = [-1,0,1,2,-1,-4] 输出：[[-1,-1,2],[-1,0,1]] 解释： nums[0] &#43; nums[1] &#43; nums[2] = (-1) &#43; 0 &#43; 1 = 0 。 nums[1] &#43; nums[2] &#43; nums[4] = 0 &#43; 1 &#43; (-1) = 0 。 nums[0] &#43; nums[3] &#43; nums[4] = (-1) &#43; 2 &#43; (-1) = 0 。 不同的三元组是 [-1,0,1] 和 [-1,-1,2] 。 注意，输出的顺序和三元组的顺序并不重要。 示例 2： 输入：nums = [0,1,1] 输出：[] 解释：&gt; 唯一可能的三元组和不为 0 。 示例 3： 输入：nums = [0,0,0] 输出：[[0,0,0]] 解释：&gt; 唯一可能的三元组和为 0 。 提示： 3 &lt;= nums.length &lt;= 3000 -10^5 &lt;= nums[i] &lt;= 10^5 func threeSum(nums []int) [][]int { } func threeSum(nums []int) [][]int { ans := make([][]int, 0) // 数组排序 // 因为 输出的顺序和三元组的顺序并不重要，因此我们将原数组顺序打乱，按照从小到大排序方便后续处理 sort.Ints(nums) // 便利选择第一个数数 K 使得后面两边的数 J L 两个数加起来 等于 K的倒数 J &#43; L = - K n := len(nums) for i := 0; i &lt; len(nums)-2; i&#43;&#43; { // 后面至少还有2个数，因此需要遍历到len(nums)-2 if i &gt; 0 &amp;&amp; nums[i] == nums[i-1] { // 重复要跳过 i == 0 时前面没有数 continue } j := i &#43; 1 l := n - 1 for j &lt; l { s := nums[i] &#43; nums[j] &#43; nums[l] if s &gt; 0 { l-- } else if s &lt; 0 { j&#43;&#43; } else { // 找到目标 ans = append(ans, []int{nums[i], nums[j], nums[l]}) // 避免重复 继续看一下相临的数是否重复，是的话都跳过 j&#43;&#43; for j &lt; l &amp;&amp; nums[j] == nums[j-1] { j&#43;&#43; } l-- for j &lt; l &amp;&amp; nums[l] == nums[l&#43;1] { l-- } } } } return ans } func threeSum(nums []int) [][]int { ans := make([][]int, 0) // 数组排序 // 因为 输出的顺序和三元组的顺序并不重要，因此我们将原数组顺序打乱，按照从小到大排序方便后续处理 sort.Ints(nums) // 便利选择第一个数数 K 使得后面两边的数 J L 两个数加起来 等于 K的倒数 J &#43; L = - K n := len(nums) for i := 0; i &lt; len(nums)-2; i&#43;&#43; { // 后面至少还有2个数，因此需要遍历到len(nums)-2 if i &gt; 0 &amp;&amp; nums[i] == nums[i-1] { // 重复要跳过 i == 0 时前面没有数 continue } // 优化 一 最小的2个数和nums[i]加起来都&gt;0 这不用进入 if nums[i]&#43;nums[i&#43;1]&#43;nums[i&#43;2] &gt; 0 { continue } // 优化 一 最大的2个数和nums[i]加起来都&lt;0 这不用进入 if nums[i]&#43;nums[n-1]&#43;nums[n-2] &lt; 0 { continue } j := i &#43; 1 l := n - 1 for j &lt; l { s := nums[i] &#43; nums[j] &#43; nums[l] if s &gt; 0 { l-- } else if s &lt; 0 { j&#43;&#43; } else { // 找到目标 ans = append(ans, []int{nums[i], nums[j], nums[l]}) // 避免重复 继续看一下相临的数是否重复，是的话都跳过 j&#43;&#43; for j &lt; l &amp;&amp; nums[j] == nums[j-1] { j&#43;&#43; } l-- for j &lt; l &amp;&amp; nums[l] == nums[l&#43;1] { l-- } } } } return ans } </p>
   </div>
   <footer class="entry-footer"><span title='2025-05-05 15:38:02 +0800 CST'>五月 5, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 15_三数之和" href="https://loommii.github.io/posts/leetcode/data/15_%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/"></a>
+  <a class="entry-link" aria-label="post link to 15. 三数之和" href="https://loommii.github.io/posts/leetcode/data/15_%E4%B8%89%E6%95%B0%E4%B9%8B%E5%92%8C/"></a>
 </article>
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">167._两数之和_II_ _输入有序数组
+    <h2 class="entry-hint-parent">167. 两数之和 II - 输入有序数组
     </h2>
   </header>
   <div class="entry-content">
@@ -245,7 +245,7 @@
 示例 示例 1： 输入：numbers = [2,7,11,15], target = 9 输出：[1,2] 解释：&gt; 2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。返回 [1, 2] 。 示例 2： 输入：numbers = [2,3,4], target = 6 输出：[1,3] 解释：&gt; 2 与 4 之和等于目标数 6 。因此 index1 = 1, index2 = 3 。返回 [1, 3] 。 示例 3： 输入：numbers = [-1,0], target = -1 输出：[1,2] 解释：&gt; -1 与 0 之和等于目标数 -1 。因此 index1 = 1, index2 = 2 。返回 [1, 2] 。 提示： 2 &lt;= numbers.length &lt;= 3 * 104 -1000 &lt;= numbers[i] &lt;= 1000 numbers 按 非递减顺序 排列 -1000 &lt;= target &lt;= 1000 仅存在一个有效答案 func twoSum(numbers []int, target int) []int { } func twoSum(numbers []int, target int) (ans []int) { // 双指针 头指向最小 尾指向最大 // 头 &#43; 尾 &lt; 目标数 头指针就要往尾移动 // 头 &#43; 尾 &gt; 目标数 尾指针就要往头移动 // 头 &#43; 尾 = 目标数 返回答案 // 双指针 相遇 返回 nil j := 0 k := len(numbers) - 1 for j &lt; k { f := target - (numbers[j] &#43; numbers[k]) if f == 0 { return []int{j &#43; 1, k &#43; 1} } else if f &gt; 0 { j&#43;&#43; } else if f &lt; 0 { k-- } } return } </p>
   </div>
   <footer class="entry-footer"><span title='2025-05-01 17:40:06 +0800 CST'>五月 1, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 167._两数之和_II_ _输入有序数组" href="https://loommii.github.io/posts/leetcode/data/167._%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C_ii_-_%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/"></a>
+  <a class="entry-link" aria-label="post link to 167. 两数之和 II - 输入有序数组" href="https://loommii.github.io/posts/leetcode/data/167._%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C_ii_-_%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/"></a>
 </article>
 
 <article class="post-entry"> 
@@ -268,7 +268,7 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
-    <h2 class="entry-hint-parent">160_相交链表
+    <h2 class="entry-hint-parent">160. 相交链表
     </h2>
   </header>
   <div class="entry-content">
@@ -289,7 +289,7 @@ skipB - 在 listB 中（从头节点开始）跳到交叉节点的节点数
 ...</p>
   </div>
   <footer class="entry-footer"><span title='2025-03-02 19:15:44 +0800 CST'>三月 2, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 160_相交链表" href="https://loommii.github.io/posts/leetcode/data/160_%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/"></a>
+  <a class="entry-link" aria-label="post link to 160. 相交链表" href="https://loommii.github.io/posts/leetcode/data/160_%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/"></a>
 </article>
 
 <article class="post-entry"> 
