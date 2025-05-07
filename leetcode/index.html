@@ -167,6 +167,23 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">34_在排序数组中查找元素的第一个和最后一个位置
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>力扣链接:34. 在排序数组中查找元素的第一个和最后一个位置
+力扣难度 中等
+给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。
+如果数组中不存在目标值 target，返回 [-1, -1]。
+你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。
+示例 示例 1： 输入：nums = [5,7,7,8,8,10], target = 8 输出：[3,4] 示例 2： 输入：nums = [5,7,7,8,8,10], target = 6 输出：[-1,-1] 示例 3： 输入：nums = [], target = 0 输出：[-1,-1] 提示： 0 &lt;= nums.length &lt;= 10^5 -10^9 &lt;= nums[i] &lt;= 10^9 nums 是一个非递减数组 -10^9 &lt;= target &lt;= 10^9 func searchRange(nums []int, target int) []int { } func searchRange(nums []int, target int) []int { // 暴力遍历 // 时间复杂度 On // 空间复杂度 O1 ans := []int{-1, -1} for i, num := range nums { if target == num { if ans[0] == -1 { ans[0] = i } ans[1] = max(ans[1], i) } } return ans } func searchRange(nums []int, target int) []int { // 二分查找 &#43; 遍历 // 时间复杂度 O(Logn) // 空间复杂度 O(1) ans := []int{-1, -1} // 二分查找 // 找到了目标数以后左右扩展下标 n := len(nums) // // 折半查找法 index := binSearch(nums, target, 0, n-1) if index == -1 { return ans } // 下标存在的 for i := index; i &gt; -1 &amp;&amp; nums[i] == target; i-- { // 左扩张 ans[0] = i } for i := index; i &lt; n &amp;&amp; nums[i] == target; i&#43;&#43; { // 右扩张 ans[1] = i } return ans } func binSearch(nums []int, target int, j, y int) int { // j 是头 // y 是尾 // 查找到的话就返回下标 否者就是-1 if y &lt; j { return -1 } // 获取中间数 // midIndex := (j &#43; y) / 2 midIndex := j &#43; (y - j) / 2 if nums[midIndex] == target { return midIndex } // 左边 index := binSearch(nums, target, j, midIndex-1) if index != -1 { return index } // 左边 index = binSearch(nums, target, midIndex&#43;1, y) if index != -1 { return index } return -1 } func searchRange(nums []int, target int) []int { // 二分查找 红蓝染色法 // 目的是符合 大于等于target的最小下标 // 蓝色部分一定是 大于等于 目标值的 // 红色部分一定是 小于 目标值的 // 时间复杂度 O(Logn) // 空间复杂度 O(1) start := lowerBound(nums, target) if start == len(nums) || nums[start] != target { return []int{-1, -1} // nums 中没有 target } end := lowerBound(nums, target&#43;1) - 1 return []int{start, end} } func lowerBound(nums []int, target int) int { left, right := 0, len(nums)-1 // 闭区间 [left, right] for left &lt;= right { // 区间不为空 mid := left &#43; (right-left)/2 // 区中间值 if nums[mid] &gt;= target { // 若中间值大了, 中间值右边部分会被染成蓝色 right = mid - 1 } else { left = mid &#43; 1 } } // left 指向的就是红色 &#43; 1 // right 指向的就是蓝色 - 1 return left } </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-05-07 15:38:31 +0800 CST'>五月 7, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 34_在排序数组中查找元素的第一个和最后一个位置" href="https://loommii.github.io/posts/leetcode/data/34_%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">3. 无重复字符的最长子串
     </h2>
   </header>
@@ -322,28 +339,6 @@ skipB - 在 listB 中（从头节点开始）跳到交叉节点的节点数
   </div>
   <footer class="entry-footer"><span title='2025-03-02 19:15:44 +0800 CST'>三月 2, 2025</span></footer>
   <a class="entry-link" aria-label="post link to 160. 相交链表" href="https://loommii.github.io/posts/leetcode/data/160_%E7%9B%B8%E4%BA%A4%E9%93%BE%E8%A1%A8/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">1287_有序数组中出现次数超过25%的元素
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>力扣链接: 1287. 有序数组中出现次数超过25%的元素
-力扣难度 简单
-算法评级: 3 理解常用数据结构和算法
-难度分 1179
-题目: 给你一个非递减的 有序 整数数组，已知这个数组中恰好有一个整数，它的出现次数超过数组元素总数的 25%。
-请你找到并返回这个整数
-示例：
-输入：arr = [1,2,2,6,6,6,6,7,10]
-输出：6
-提示：
-1 &lt;= arr.length &lt;= 10^4 0 &lt;= arr[i] &lt;= 10^5 func findSpecialInteger(arr []int) int { } 👈点击 func findSpecialInteger(arr []int) (ans int) { n := len(arr) / 4 f := arr[0] i := 0 for _, v := range arr { if v == f { i&#43;&#43; } else { f = v i = 1 } if i &gt; n { ans = f break } } return } </p>
-  </div>
-  <footer class="entry-footer"><span title='2025-02-17 17:56:19 +0800 CST'>二月 17, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to 1287_有序数组中出现次数超过25%的元素" href="https://loommii.github.io/posts/leetcode/data/1287_%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E5%87%BA%E7%8E%B0%E6%AC%A1%E6%95%B0%E8%B6%85%E8%BF%8725%E7%9A%84%E5%85%83%E7%B4%A0/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

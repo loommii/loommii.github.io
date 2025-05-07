@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>34_在排序数组中查找元素的第一个和最后一个位置 | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="力扣链接:34. 在排序数组中查找元素的第一个和最后一个位置
+
+力扣难度 中等
+
+给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。
+如果数组中不存在目标值 target，返回 [-1, -1]。
+你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。
+示例
+示例 1：
+
+输入：nums = [5,7,7,8,8,10], target = 8
+输出：[3,4]
+
+示例 2：
+
+输入：nums = [5,7,7,8,8,10], target = 6
+输出：[-1,-1]
+
+示例 3：
+
+输入：nums = [], target = 0
+输出：[-1,-1]
+
+提示：
+
+0 &lt;= nums.length &lt;= 10^5
+-10^9 &lt;= nums[i] &lt;= 10^9
+nums 是一个非递减数组
+-10^9 &lt;= target &lt;= 10^9
+
+
+func searchRange(nums []int, target int) []int {
+    
+}
+
+func searchRange(nums []int, target int) []int {
+	// 暴力遍历
+	// 时间复杂度 On
+	// 空间复杂度 O1
+	ans := []int{-1, -1}
+	for i, num := range nums {
+		if target == num {
+			if ans[0] == -1 {
+				ans[0] = i
+			}
+			ans[1] = max(ans[1], i)
+		}
+	}
+	return ans
+}
+func searchRange(nums []int, target int) []int {
+	// 二分查找 &#43; 遍历
+	// 时间复杂度 O(Logn)
+	// 空间复杂度 O(1)
+
+	ans := []int{-1, -1}
+	// 二分查找
+	// 找到了目标数以后左右扩展下标
+
+	n := len(nums) //
+	// 折半查找法
+	index := binSearch(nums, target, 0, n-1)
+	if index == -1 {
+		return ans
+	}
+	// 下标存在的
+	for i := index; i &gt; -1 &amp;&amp; nums[i] == target; i-- { // 左扩张
+		ans[0] = i
+	}
+	for i := index; i &lt; n &amp;&amp; nums[i] == target; i&#43;&#43; { // 右扩张
+		ans[1] = i
+	}
+	return ans
+}
+func binSearch(nums []int, target int, j, y int) int {
+	// j 是头
+	// y 是尾
+	// 查找到的话就返回下标 否者就是-1
+	if y &lt; j {
+		return -1
+	}
+	// 获取中间数
+	// midIndex := (j &#43; y) / 2 
+    midIndex := j &#43; (y - j) / 2 
+	if nums[midIndex] == target {
+		return midIndex
+	}
+	// 左边
+	index := binSearch(nums, target, j, midIndex-1)
+	if index != -1 {
+		return index
+	}
+	// 左边
+	index = binSearch(nums, target, midIndex&#43;1, y)
+	if index != -1 {
+		return index
+	}
+	return -1
+}
+func searchRange(nums []int, target int) []int {
+	// 二分查找 红蓝染色法
+	// 目的是符合 大于等于target的最小下标
+
+	// 蓝色部分一定是 大于等于 目标值的
+	// 红色部分一定是 小于 目标值的
+
+	// 时间复杂度 O(Logn)
+	// 空间复杂度 O(1)
+
+	start := lowerBound(nums, target)
+	if start == len(nums) || nums[start] != target {
+		return []int{-1, -1} // nums 中没有 target
+	}
+	end := lowerBound(nums, target&#43;1) - 1
+	return []int{start, end}
+}
+func lowerBound(nums []int, target int) int {
+	left, right := 0, len(nums)-1 // 闭区间 [left, right]
+	for left &lt;= right {           // 区间不为空
+		mid := left &#43; (right-left)/2 // 区中间值
+		if nums[mid] &gt;= target {     // 若中间值大了, 中间值右边部分会被染成蓝色
+			right = mid - 1
+		} else {
+			left = mid &#43; 1
+		}
+	}
+	// left 指向的就是红色 &#43; 1
+	// right 指向的就是蓝色 - 1
+	return left
+}
+">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/posts/leetcode/data/34_%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/leetcode/data/34_%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/posts/leetcode/data/34_%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="34_在排序数组中查找元素的第一个和最后一个位置">
+  <meta property="og:description" content="力扣链接:34. 在排序数组中查找元素的第一个和最后一个位置
+力扣难度 中等
+给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。
+如果数组中不存在目标值 target，返回 [-1, -1]。
+你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。
+示例 示例 1： 输入：nums = [5,7,7,8,8,10], target = 8 输出：[3,4] 示例 2： 输入：nums = [5,7,7,8,8,10], target = 6 输出：[-1,-1] 示例 3： 输入：nums = [], target = 0 输出：[-1,-1] 提示： 0 &lt;= nums.length &lt;= 10^5 -10^9 &lt;= nums[i] &lt;= 10^9 nums 是一个非递减数组 -10^9 &lt;= target &lt;= 10^9 func searchRange(nums []int, target int) []int { } func searchRange(nums []int, target int) []int { // 暴力遍历 // 时间复杂度 On // 空间复杂度 O1 ans := []int{-1, -1} for i, num := range nums { if target == num { if ans[0] == -1 { ans[0] = i } ans[1] = max(ans[1], i) } } return ans } func searchRange(nums []int, target int) []int { // 二分查找 &#43; 遍历 // 时间复杂度 O(Logn) // 空间复杂度 O(1) ans := []int{-1, -1} // 二分查找 // 找到了目标数以后左右扩展下标 n := len(nums) // // 折半查找法 index := binSearch(nums, target, 0, n-1) if index == -1 { return ans } // 下标存在的 for i := index; i &gt; -1 &amp;&amp; nums[i] == target; i-- { // 左扩张 ans[0] = i } for i := index; i &lt; n &amp;&amp; nums[i] == target; i&#43;&#43; { // 右扩张 ans[1] = i } return ans } func binSearch(nums []int, target int, j, y int) int { // j 是头 // y 是尾 // 查找到的话就返回下标 否者就是-1 if y &lt; j { return -1 } // 获取中间数 // midIndex := (j &#43; y) / 2 midIndex := j &#43; (y - j) / 2 if nums[midIndex] == target { return midIndex } // 左边 index := binSearch(nums, target, j, midIndex-1) if index != -1 { return index } // 左边 index = binSearch(nums, target, midIndex&#43;1, y) if index != -1 { return index } return -1 } func searchRange(nums []int, target int) []int { // 二分查找 红蓝染色法 // 目的是符合 大于等于target的最小下标 // 蓝色部分一定是 大于等于 目标值的 // 红色部分一定是 小于 目标值的 // 时间复杂度 O(Logn) // 空间复杂度 O(1) start := lowerBound(nums, target) if start == len(nums) || nums[start] != target { return []int{-1, -1} // nums 中没有 target } end := lowerBound(nums, target&#43;1) - 1 return []int{start, end} } func lowerBound(nums []int, target int) int { left, right := 0, len(nums)-1 // 闭区间 [left, right] for left &lt;= right { // 区间不为空 mid := left &#43; (right-left)/2 // 区中间值 if nums[mid] &gt;= target { // 若中间值大了, 中间值右边部分会被染成蓝色 right = mid - 1 } else { left = mid &#43; 1 } } // left 指向的就是红色 &#43; 1 // right 指向的就是蓝色 - 1 return left } ">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-05-07T15:38:31+08:00">
+    <meta property="article:modified_time" content="2025-05-07T15:38:31+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="34_在排序数组中查找元素的第一个和最后一个位置">
+<meta name="twitter:description" content="力扣链接:34. 在排序数组中查找元素的第一个和最后一个位置
+
+力扣难度 中等
+
+给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。
+如果数组中不存在目标值 target，返回 [-1, -1]。
+你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。
+示例
+示例 1：
+
+输入：nums = [5,7,7,8,8,10], target = 8
+输出：[3,4]
+
+示例 2：
+
+输入：nums = [5,7,7,8,8,10], target = 6
+输出：[-1,-1]
+
+示例 3：
+
+输入：nums = [], target = 0
+输出：[-1,-1]
+
+提示：
+
+0 &lt;= nums.length &lt;= 10^5
+-10^9 &lt;= nums[i] &lt;= 10^9
+nums 是一个非递减数组
+-10^9 &lt;= target &lt;= 10^9
+
+
+func searchRange(nums []int, target int) []int {
+    
+}
+
+func searchRange(nums []int, target int) []int {
+	// 暴力遍历
+	// 时间复杂度 On
+	// 空间复杂度 O1
+	ans := []int{-1, -1}
+	for i, num := range nums {
+		if target == num {
+			if ans[0] == -1 {
+				ans[0] = i
+			}
+			ans[1] = max(ans[1], i)
+		}
+	}
+	return ans
+}
+func searchRange(nums []int, target int) []int {
+	// 二分查找 &#43; 遍历
+	// 时间复杂度 O(Logn)
+	// 空间复杂度 O(1)
+
+	ans := []int{-1, -1}
+	// 二分查找
+	// 找到了目标数以后左右扩展下标
+
+	n := len(nums) //
+	// 折半查找法
+	index := binSearch(nums, target, 0, n-1)
+	if index == -1 {
+		return ans
+	}
+	// 下标存在的
+	for i := index; i &gt; -1 &amp;&amp; nums[i] == target; i-- { // 左扩张
+		ans[0] = i
+	}
+	for i := index; i &lt; n &amp;&amp; nums[i] == target; i&#43;&#43; { // 右扩张
+		ans[1] = i
+	}
+	return ans
+}
+func binSearch(nums []int, target int, j, y int) int {
+	// j 是头
+	// y 是尾
+	// 查找到的话就返回下标 否者就是-1
+	if y &lt; j {
+		return -1
+	}
+	// 获取中间数
+	// midIndex := (j &#43; y) / 2 
+    midIndex := j &#43; (y - j) / 2 
+	if nums[midIndex] == target {
+		return midIndex
+	}
+	// 左边
+	index := binSearch(nums, target, j, midIndex-1)
+	if index != -1 {
+		return index
+	}
+	// 左边
+	index = binSearch(nums, target, midIndex&#43;1, y)
+	if index != -1 {
+		return index
+	}
+	return -1
+}
+func searchRange(nums []int, target int) []int {
+	// 二分查找 红蓝染色法
+	// 目的是符合 大于等于target的最小下标
+
+	// 蓝色部分一定是 大于等于 目标值的
+	// 红色部分一定是 小于 目标值的
+
+	// 时间复杂度 O(Logn)
+	// 空间复杂度 O(1)
+
+	start := lowerBound(nums, target)
+	if start == len(nums) || nums[start] != target {
+		return []int{-1, -1} // nums 中没有 target
+	}
+	end := lowerBound(nums, target&#43;1) - 1
+	return []int{start, end}
+}
+func lowerBound(nums []int, target int) int {
+	left, right := 0, len(nums)-1 // 闭区间 [left, right]
+	for left &lt;= right {           // 区间不为空
+		mid := left &#43; (right-left)/2 // 区中间值
+		if nums[mid] &gt;= target {     // 若中间值大了, 中间值右边部分会被染成蓝色
+			right = mid - 1
+		} else {
+			left = mid &#43; 1
+		}
+	}
+	// left 指向的就是红色 &#43; 1
+	// right 指向的就是蓝色 - 1
+	return left
+}
+">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "力扣",
+      "item": "https://loommii.github.io/leetcode/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "34_在排序数组中查找元素的第一个和最后一个位置",
+      "item": "https://loommii.github.io/posts/leetcode/data/34_%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "34_在排序数组中查找元素的第一个和最后一个位置",
+  "name": "34_在排序数组中查找元素的第一个和最后一个位置",
+  "description": "力扣链接:34. 在排序数组中查找元素的第一个和最后一个位置\n力扣难度 中等\n给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。\n如果数组中不存在目标值 target，返回 [-1, -1]。\n你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。\n示例 示例 1： 输入：nums = [5,7,7,8,8,10], target = 8 输出：[3,4] 示例 2： 输入：nums = [5,7,7,8,8,10], target = 6 输出：[-1,-1] 示例 3： 输入：nums = [], target = 0 输出：[-1,-1] 提示： 0 \u0026lt;= nums.length \u0026lt;= 10^5 -10^9 \u0026lt;= nums[i] \u0026lt;= 10^9 nums 是一个非递减数组 -10^9 \u0026lt;= target \u0026lt;= 10^9 func searchRange(nums []int, target int) []int { } func searchRange(nums []int, target int) []int { // 暴力遍历 // 时间复杂度 On // 空间复杂度 O1 ans := []int{-1, -1} for i, num := range nums { if target == num { if ans[0] == -1 { ans[0] = i } ans[1] = max(ans[1], i) } } return ans } func searchRange(nums []int, target int) []int { // 二分查找 + 遍历 // 时间复杂度 O(Logn) // 空间复杂度 O(1) ans := []int{-1, -1} // 二分查找 // 找到了目标数以后左右扩展下标 n := len(nums) // // 折半查找法 index := binSearch(nums, target, 0, n-1) if index == -1 { return ans } // 下标存在的 for i := index; i \u0026gt; -1 \u0026amp;\u0026amp; nums[i] == target; i-- { // 左扩张 ans[0] = i } for i := index; i \u0026lt; n \u0026amp;\u0026amp; nums[i] == target; i++ { // 右扩张 ans[1] = i } return ans } func binSearch(nums []int, target int, j, y int) int { // j 是头 // y 是尾 // 查找到的话就返回下标 否者就是-1 if y \u0026lt; j { return -1 } // 获取中间数 // midIndex := (j + y) / 2 midIndex := j + (y - j) / 2 if nums[midIndex] == target { return midIndex } // 左边 index := binSearch(nums, target, j, midIndex-1) if index != -1 { return index } // 左边 index = binSearch(nums, target, midIndex+1, y) if index != -1 { return index } return -1 } func searchRange(nums []int, target int) []int { // 二分查找 红蓝染色法 // 目的是符合 大于等于target的最小下标 // 蓝色部分一定是 大于等于 目标值的 // 红色部分一定是 小于 目标值的 // 时间复杂度 O(Logn) // 空间复杂度 O(1) start := lowerBound(nums, target) if start == len(nums) || nums[start] != target { return []int{-1, -1} // nums 中没有 target } end := lowerBound(nums, target+1) - 1 return []int{start, end} } func lowerBound(nums []int, target int) int { left, right := 0, len(nums)-1 // 闭区间 [left, right] for left \u0026lt;= right { // 区间不为空 mid := left + (right-left)/2 // 区中间值 if nums[mid] \u0026gt;= target { // 若中间值大了, 中间值右边部分会被染成蓝色 right = mid - 1 } else { left = mid + 1 } } // left 指向的就是红色 + 1 // right 指向的就是蓝色 - 1 return left } ",
+  "keywords": [
+    
+  ],
+  "articleBody": "力扣链接:34. 在排序数组中查找元素的第一个和最后一个位置\n力扣难度 中等\n给你一个按照非递减顺序排列的整数数组 nums，和一个目标值 target。请你找出给定目标值在数组中的开始位置和结束位置。\n如果数组中不存在目标值 target，返回 [-1, -1]。\n你必须设计并实现时间复杂度为 O(log n) 的算法解决此问题。\n示例 示例 1： 输入：nums = [5,7,7,8,8,10], target = 8 输出：[3,4] 示例 2： 输入：nums = [5,7,7,8,8,10], target = 6 输出：[-1,-1] 示例 3： 输入：nums = [], target = 0 输出：[-1,-1] 提示： 0 \u003c= nums.length \u003c= 10^5 -10^9 \u003c= nums[i] \u003c= 10^9 nums 是一个非递减数组 -10^9 \u003c= target \u003c= 10^9 func searchRange(nums []int, target int) []int { } func searchRange(nums []int, target int) []int { // 暴力遍历 // 时间复杂度 On // 空间复杂度 O1 ans := []int{-1, -1} for i, num := range nums { if target == num { if ans[0] == -1 { ans[0] = i } ans[1] = max(ans[1], i) } } return ans } func searchRange(nums []int, target int) []int { // 二分查找 + 遍历 // 时间复杂度 O(Logn) // 空间复杂度 O(1) ans := []int{-1, -1} // 二分查找 // 找到了目标数以后左右扩展下标 n := len(nums) // // 折半查找法 index := binSearch(nums, target, 0, n-1) if index == -1 { return ans } // 下标存在的 for i := index; i \u003e -1 \u0026\u0026 nums[i] == target; i-- { // 左扩张 ans[0] = i } for i := index; i \u003c n \u0026\u0026 nums[i] == target; i++ { // 右扩张 ans[1] = i } return ans } func binSearch(nums []int, target int, j, y int) int { // j 是头 // y 是尾 // 查找到的话就返回下标 否者就是-1 if y \u003c j { return -1 } // 获取中间数 // midIndex := (j + y) / 2 midIndex := j + (y - j) / 2 if nums[midIndex] == target { return midIndex } // 左边 index := binSearch(nums, target, j, midIndex-1) if index != -1 { return index } // 左边 index = binSearch(nums, target, midIndex+1, y) if index != -1 { return index } return -1 } func searchRange(nums []int, target int) []int { // 二分查找 红蓝染色法 // 目的是符合 大于等于target的最小下标 // 蓝色部分一定是 大于等于 目标值的 // 红色部分一定是 小于 目标值的 // 时间复杂度 O(Logn) // 空间复杂度 O(1) start := lowerBound(nums, target) if start == len(nums) || nums[start] != target { return []int{-1, -1} // nums 中没有 target } end := lowerBound(nums, target+1) - 1 return []int{start, end} } func lowerBound(nums []int, target int) int { left, right := 0, len(nums)-1 // 闭区间 [left, right] for left \u003c= right { // 区间不为空 mid := left + (right-left)/2 // 区中间值 if nums[mid] \u003e= target { // 若中间值大了, 中间值右边部分会被染成蓝色 right = mid - 1 } else { left = mid + 1 } } // left 指向的就是红色 + 1 // right 指向的就是蓝色 - 1 return left } ",
+  "wordCount" : "419",
+  "inLanguage": "zh",
+  "datePublished": "2025-05-07T15:38:31+08:00",
+  "dateModified": "2025-05-07T15:38:31+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://loommii.github.io/posts/leetcode/data/34_%E5%9C%A8%E6%8E%92%E5%BA%8F%E6%95%B0%E7%BB%84%E4%B8%AD%E6%9F%A5%E6%89%BE%E5%85%83%E7%B4%A0%E7%9A%84%E7%AC%AC%E4%B8%80%E4%B8%AA%E5%92%8C%E6%9C%80%E5%90%8E%E4%B8%80%E4%B8%AA%E4%BD%8D%E7%BD%AE/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "loommii",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://loommii.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/skill/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span>Golang练习</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                    <span>力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/leetcode/">力扣</a></div>
+    <h1 class="post-title entry-hint-parent">
+      34_在排序数组中查找元素的第一个和最后一个位置
+    </h1>
+    <div class="post-meta"><span title='2025-05-07 15:38:31 +0800 CST'>五月 7, 2025</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>力扣链接:<a href="https://leetcode.cn/problems/find-first-and-last-position-of-element-in-sorted-array/description/">34. 在排序数组中查找元素的第一个和最后一个位置</a></p>
+<blockquote>
+<p>力扣难度 <code>中等</code></p></blockquote>
+<hr>
+<p>给你一个按照非递减顺序排列的整数数组 <code>nums</code>，和一个目标值 <code>target</code>。请你找出给定目标值在数组中的开始位置和结束位置。</p>
+<p>如果数组中不存在目标值 <code>target</code>，返回 <code>[-1, -1]</code>。</p>
+<p>你必须设计并实现时间复杂度为 <strong>O(log n)</strong> 的算法解决此问题。</p>
+<h2 id="示例">示例<a hidden class="anchor" aria-hidden="true" href="#示例">#</a></h2>
+<h3 id="示例-1">示例 1：<a hidden class="anchor" aria-hidden="true" href="#示例-1">#</a></h3>
+<ul>
+<li><strong>输入：</strong><code>nums = [5,7,7,8,8,10]</code>, <code>target = 8</code></li>
+<li><strong>输出：</strong><code>[3,4]</code></li>
+</ul>
+<h3 id="示例-2">示例 2：<a hidden class="anchor" aria-hidden="true" href="#示例-2">#</a></h3>
+<ul>
+<li><strong>输入：</strong><code>nums = [5,7,7,8,8,10]</code>, <code>target = 6</code></li>
+<li><strong>输出：</strong><code>[-1,-1]</code></li>
+</ul>
+<h3 id="示例-3">示例 3：<a hidden class="anchor" aria-hidden="true" href="#示例-3">#</a></h3>
+<ul>
+<li><strong>输入：</strong><code>nums = []</code>, <code>target = 0</code></li>
+<li><strong>输出：</strong><code>[-1,-1]</code></li>
+</ul>
+<h2 id="提示">提示：<a hidden class="anchor" aria-hidden="true" href="#提示">#</a></h2>
+<ul>
+<li><code>0 &lt;= nums.length &lt;= 10^5</code></li>
+<li><code>-10^9 &lt;= nums[i] &lt;= 10^9</code></li>
+<li><code>nums</code> 是一个非递减数组</li>
+<li><code>-10^9 &lt;= target &lt;= 10^9</code></li>
+</ul>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">searchRange</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">searchRange</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 暴力遍历</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 时间复杂度 On</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 空间复杂度 O1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">num</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">nums</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">target</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">num</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ans</span>[<span style="color:#ae81ff">0</span>] <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>				<span style="color:#a6e22e">ans</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#a6e22e">i</span>
+</span></span><span style="display:flex;"><span>			}
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">ans</span>[<span style="color:#ae81ff">1</span>] = max(<span style="color:#a6e22e">ans</span>[<span style="color:#ae81ff">1</span>], <span style="color:#a6e22e">i</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">searchRange</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 二分查找 + 遍历</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 时间复杂度 O(Logn)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 空间复杂度 O(1)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> []<span style="color:#66d9ef">int</span>{<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 二分查找</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 找到了目标数以后左右扩展下标</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">nums</span>) <span style="color:#75715e">//</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 折半查找法</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">index</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">binSearch</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#a6e22e">target</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">n</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">index</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 下标存在的</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">index</span>; <span style="color:#a6e22e">i</span> &gt; <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">==</span> <span style="color:#a6e22e">target</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">--</span> { <span style="color:#75715e">// 左扩张</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">ans</span>[<span style="color:#ae81ff">0</span>] = <span style="color:#a6e22e">i</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">index</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span> <span style="color:#f92672">&amp;&amp;</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">==</span> <span style="color:#a6e22e">target</span>; <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> { <span style="color:#75715e">// 右扩张</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">ans</span>[<span style="color:#ae81ff">1</span>] = <span style="color:#a6e22e">i</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">binSearch</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">y</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// j 是头</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// y 是尾</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 查找到的话就返回下标 否者就是-1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">y</span> &lt; <span style="color:#a6e22e">j</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 获取中间数</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// midIndex := (j + y) / 2 </span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">midIndex</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">y</span> <span style="color:#f92672">-</span> <span style="color:#a6e22e">j</span>) <span style="color:#f92672">/</span> <span style="color:#ae81ff">2</span> 
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">midIndex</span>] <span style="color:#f92672">==</span> <span style="color:#a6e22e">target</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">midIndex</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 左边</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">index</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">binSearch</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">j</span>, <span style="color:#a6e22e">midIndex</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">index</span> <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">index</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 左边</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">index</span> = <span style="color:#a6e22e">binSearch</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#a6e22e">target</span>, <span style="color:#a6e22e">midIndex</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>, <span style="color:#a6e22e">y</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">index</span> <span style="color:#f92672">!=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">index</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">searchRange</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">int</span>) []<span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 二分查找 红蓝染色法</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 目的是符合 大于等于target的最小下标</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 蓝色部分一定是 大于等于 目标值的</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 红色部分一定是 小于 目标值的</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 时间复杂度 O(Logn)</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 空间复杂度 O(1)</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">start</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">lowerBound</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#a6e22e">target</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">start</span> <span style="color:#f92672">==</span> len(<span style="color:#a6e22e">nums</span>) <span style="color:#f92672">||</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">start</span>] <span style="color:#f92672">!=</span> <span style="color:#a6e22e">target</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">return</span> []<span style="color:#66d9ef">int</span>{<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>, <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>} <span style="color:#75715e">// nums 中没有 target</span>
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">end</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">lowerBound</span>(<span style="color:#a6e22e">nums</span>, <span style="color:#a6e22e">target</span><span style="color:#f92672">+</span><span style="color:#ae81ff">1</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> []<span style="color:#66d9ef">int</span>{<span style="color:#a6e22e">start</span>, <span style="color:#a6e22e">end</span>}
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">lowerBound</span>(<span style="color:#a6e22e">nums</span> []<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">target</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">left</span>, <span style="color:#a6e22e">right</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>, len(<span style="color:#a6e22e">nums</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> <span style="color:#75715e">// 闭区间 [left, right]</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">left</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">right</span> {           <span style="color:#75715e">// 区间不为空</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">mid</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">left</span> <span style="color:#f92672">+</span> (<span style="color:#a6e22e">right</span><span style="color:#f92672">-</span><span style="color:#a6e22e">left</span>)<span style="color:#f92672">/</span><span style="color:#ae81ff">2</span> <span style="color:#75715e">// 区中间值</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">nums</span>[<span style="color:#a6e22e">mid</span>] <span style="color:#f92672">&gt;=</span> <span style="color:#a6e22e">target</span> {     <span style="color:#75715e">// 若中间值大了, 中间值右边部分会被染成蓝色</span>
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">right</span> = <span style="color:#a6e22e">mid</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">left</span> = <span style="color:#a6e22e">mid</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// left 指向的就是红色 + 1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// right 指向的就是蓝色 - 1</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">left</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer><div>    
+    
+    <script src="https://utteranc.es/client.js"
+        repo="loommii/blog-review"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>
