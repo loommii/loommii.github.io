@@ -174,6 +174,46 @@ Go 中文网、思否、博客园等平台，内容主要以问答形式记录�
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_106
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>关于循环语句，下面说法正确的有（）
+A. 循环语句既支持 for 关键字，也支持 while 和 do-while； B. 关键字 for 的基本使用方法与 C/C&#43;&#43; 中没有任何差异； C. for 循环支持 continue 和 break 来控制循环，但是它提供了一个更高级的 break，可以选择中断哪一个循环； D. for 循环不支持以逗号为间隔的多个赋值语句，必须使用平行赋值的方式来初始化多个变量；
+🔑 答案解析： CD 平行赋值a[i], a[j] = a[j], a[i] </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 23:42:45 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_106" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_106/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_105
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面代码里的 counter 的输出值？
+func main() { var m = map[string]int{ &#34;A&#34;: 21, &#34;B&#34;: 22, &#34;C&#34;: 23, } counter := 0 for k, v := range m { if counter == 0 { delete(m, &#34;A&#34;) } counter&#43;&#43; fmt.Println(k, v) } fmt.Println(&#34;counter is &#34;, counter) } A. 2 B. 3 C. 2 或 3 🔑 答案解析： C map是引用类型 会影响原map </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 23:42:44 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_105" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_105/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_104
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码输出结果正确吗？
+type Foo struct { bar string } func main() { s1 := []Foo{ {&#34;A&#34;}, {&#34;B&#34;}, {&#34;C&#34;}, } s2 := make([]*Foo, len(s1)) for i, value := range s1 { s2[i] = &amp;value } fmt.Println(s1[0], s1[1], s1[2]) fmt.Println(s2[0], s2[1], s2[2]) } 输出： {A} {B} {C} &amp;{A} &amp;{B} &amp;{C} 🔑 答案解析： go 1.22 后输出是正常的 go &lt; 1.22 for range 循环会重复使用value变量 value的地址都是同一个，因此输出s2 会变成CCC </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 23:42:43 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_104" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_104/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Go每日一题_103
     </h2>
   </header>
@@ -271,54 +311,6 @@ var p *int func foo() (*int, error) { var i int = 5 return &amp;i, nil } func ba
   </div>
   <footer class="entry-footer"><span title='2024-12-06 20:45:25 +0800 CST'>十二月 6, 2024</span></footer>
   <a class="entry-link" aria-label="post link to Go每日一题_097" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_097/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_096
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>下面的代码有什么问题？
-func main() { fmt.Println([...]int{1} == [2]int{1}) fmt.Println([]int{1} == []int{1}) } 🔑 答案解析： 有两处错误
-go 中不同类型是不能比较的，而数组长度是数组类型的一部分，所以 […]int{1} 和 [2]int{1} 是两种不同的类型，不能比较； 切片是不能比较的；
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-06 20:45:24 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_096" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_096/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_095
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>以下代码的输出结果：
-package main import &#34;sync&#34; func main() { var wg sync.WaitGroup foo := make(chan int) bar := make(chan int) wg.Add(1) go func() { defer wg.Done() select { case foo &lt;- &lt;-bar: default: println(&#34;default&#34;) } }() wg.Wait() } A：default B：panic 🔑 答案解析： 按常规理解，go func 中的 select 应该执行 default 分支，程序正常运行。但结果却不是，而是死锁。可以通过该链接测试：https://play.studygolang.com/p/kF4pOjYXbXf。
-原因文章也解释了，Go 语言规范中有这么一句：
-For all the cases in the statement, the channel operands of receive operations and the channel and right-hand-side expressions of send statements are evaluated exactly once, in source order, upon entering the “select” statement. The result is a set of channels to receive from or send to, and the corresponding values to send. Any side effects in that evaluation will occur irrespective of which (if any) communication operation is selected to proceed. Expressions on the left-hand side of a RecvStmt with a short variable declaration or assignment are not yet evaluated.
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-06 20:45:23 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_095" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_095/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_094
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>下面代码输出什么？
-type Math struct { x, y int } var m = map[string]Math{ &#34;foo&#34;: Math{2, 3}, } func main() { m[&#34;foo&#34;].x = 4 fmt.Println(m[&#34;foo&#34;].x) } A. 4 B. compilation error
-🔑 答案解析： 参考答案及解析：B，编译报错 cannot assign to struct field m[“foo”].x in map。错误原因：对于类似 X = Y的赋值操作，必须知道 X 的地址，才能够将 Y 的值赋给 X，但 go 中的 map 的 value 本身是不可寻址的。
-有两个解决办法：
-a.使用临时变量
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-06 20:45:22 +0800 CST'>十二月 6, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_094" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_094/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
