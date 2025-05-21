@@ -167,6 +167,24 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">167. 两数之和 II - 输入有序数组
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>力扣链接:167. 两数之和 II - 输入有序数组
+力扣难度 中等
+给你一个下标从 1 开始的整数数组 numbers ，该数组已按 非递减顺序排列 ，请你从数组中找出满足相加之和等于目标数 target 的两个数。如果设这两个数分别是 numbers[index1] 和 numbers[index2] ，则 1 &lt;= index1 &lt; index2 &lt;= numbers.length 。
+以长度为 2 的整数数组 [index1, index2] 的形式返回这两个整数的下标 index1 和 index2。
+你可以假设每个输入 只对应唯一的答案 ，而且你 不可以 重复使用相同的元素。
+你所设计的解决方案必须只使用 常量级的额外空间。
+示例 示例 1： 输入：numbers = [2,7,11,15], target = 9 输出：[1,2] 解释：&gt; 2 与 7 之和等于目标数 9 。因此 index1 = 1, index2 = 2 。返回 [1, 2] 。 示例 2： 输入：numbers = [2,3,4], target = 6 输出：[1,3] 解释：&gt; 2 与 4 之和等于目标数 6 。因此 index1 = 1, index2 = 3 。返回 [1, 3] 。 示例 3： 输入：numbers = [-1,0], target = -1 输出：[1,2] 解释：&gt; -1 与 0 之和等于目标数 -1 。因此 index1 = 1, index2 = 2 。返回 [1, 2] 。 提示： 2 &lt;= numbers.length &lt;= 3 * 104 -1000 &lt;= numbers[i] &lt;= 1000 numbers 按 非递减顺序 排列 -1000 &lt;= target &lt;= 1000 仅存在一个有效答案 func twoSum(numbers []int, target int) []int { } func twoSum(numbers []int, target int) (ans []int) { // 双指针 头指向最小 尾指向最大 // 头 &#43; 尾 &lt; 目标数 头指针就要往尾移动 // 头 &#43; 尾 &gt; 目标数 尾指针就要往头移动 // 头 &#43; 尾 = 目标数 返回答案 // 双指针 相遇 返回 nil j := 0 k := len(numbers) - 1 for j &lt; k { f := target - (numbers[j] &#43; numbers[k]) if f == 0 { return []int{j &#43; 1, k &#43; 1} } else if f &gt; 0 { j&#43;&#43; } else if f &lt; 0 { k-- } } return } </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-05-01 17:40:06 +0800 CST'>五月 1, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 167. 两数之和 II - 输入有序数组" href="https://loommii.github.io/posts/leetcode/data/167._%E4%B8%A4%E6%95%B0%E4%B9%8B%E5%92%8C_ii_-_%E8%BE%93%E5%85%A5%E6%9C%89%E5%BA%8F%E6%95%B0%E7%BB%84/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">1295_统计位数为偶数的数字
     </h2>
   </header>
@@ -390,31 +408,6 @@ nums1.length == nums2.length == nums.length / 2 。 nums1 应包含 互不相同
   </div>
   <footer class="entry-footer"><span title='2024-12-28 13:02:42 +0800 CST'>十二月 28, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 3046_分割数组" href="https://loommii.github.io/posts/leetcode/data/3046_%E5%88%86%E5%89%B2%E6%95%B0%E7%BB%84/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">3285_找到稳定山的下标
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>力扣链接:3285. 找到稳定山的下标
-力扣难度 简单
-算法评级: 1 无算法要求
-难度分 1166
-有 n 座山排成一列，每座山都有一个高度。给你一个整数数组 height ，其中 height[i] 表示第 i 座山的高度，再给你一个整数 threshold 。
-对于下标不为 0 的一座山，如果它左侧相邻的山的高度 严格大于 threshold ，那么我们称它是 稳定 的。我们定义下标为 0 的山 不是 稳定的。
-请你返回一个数组，包含所有 稳定 山的下标，你可以以 任意 顺序返回下标数组。
-示例 1：
-输入：height = [1,2,3,4,5], threshold = 2
-输出：[3,4]
-解释：
-下标为 3 的山是稳定的，因为 height[2] == 3 大于 threshold == 2 。 下标为 4 的山是稳定的，因为 height[3] == 4 大于 threshold == 2.
-示例 2：
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-25 15:05:58 +0800 CST'>十二月 25, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to 3285_找到稳定山的下标" href="https://loommii.github.io/posts/leetcode/data/3285_%E6%89%BE%E5%88%B0%E7%A8%B3%E5%AE%9A%E5%B1%B1%E7%9A%84%E4%B8%8B%E6%A0%87/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
