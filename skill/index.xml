@@ -6,8 +6,38 @@
     <description>Recent content in 文章 on loommii</description>
     <generator>Hugo -- 0.145.0</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 11 Apr 2025 21:58:44 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 28 May 2025 13:31:12 +0800</lastBuildDate>
     <atom:link href="https://loommii.github.io/skill/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>系统中有大量用户导致的数据库查询慢</title>
+      <link>https://loommii.github.io/posts/skill/data/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/</link>
+      <pubDate>Wed, 28 May 2025 13:31:12 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;问题分析：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;数据过多导致树高增加&lt;/strong&gt;
+MySQL 的默认存储引擎 InnoDB 采用了 B+树的数据结构。3 层树大概能存储 2KW 行数据量，超过了这个数会导致 3 层树变为 4 层树，增加了一次硬盘 IO 读取导致 SQL 变慢。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;并发连接数不够&lt;/strong&gt;
+MySQL 的默认最大连接数是 151，可以在 &lt;code&gt;/etc/my.conf&lt;/code&gt; 更改。具体可以看文档 &lt;code&gt;max_connections&lt;/code&gt; 参数。
+超过连接数会出现 &lt;code&gt;too many connections&lt;/code&gt; 报错。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;解决方案：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;分库分表：&lt;/strong&gt;
+将数据按照某个维度水平的切割。&lt;/p&gt;
+&lt;h3 id=&#34;range-范围&#34;&gt;range 范围&lt;/h3&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用户 ID [0, 500W) 放库 1 表 1&lt;/li&gt;
+&lt;li&gt;用户 ID [500W, 1000W) 放库 2 表 2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;👆这样会导致例外一个问题。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;你会发现用户 ID 小的老用户很多都不上线了，用户 ID 新的用户还是很多，依旧导致了库 2 的连接数还是超了。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;因此不能这么简单的通过 ID 的大小去分库分表。
+这时候就可以引入了哈希（hash）。&lt;/p&gt;
+&lt;h3 id=&#34;哈希hash&#34;&gt;哈希（hash）&lt;/h3&gt;
+&lt;p&gt;哈希的方式可以使得用户 ID 分散到多个库、表上。&lt;/p&gt;</description>
+    </item>
     <item>
       <title>mac版本 Joplin 笔记与配置信息存储更改</title>
       <link>https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/</link>

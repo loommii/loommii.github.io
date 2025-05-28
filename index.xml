@@ -6,8 +6,188 @@
     <description>Recent content on loommii</description>
     <generator>Hugo -- 0.145.0</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 23 May 2025 15:37:19 +0800</lastBuildDate>
+    <lastBuildDate>Wed, 28 May 2025 13:31:12 +0800</lastBuildDate>
     <atom:link href="https://loommii.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>系统中有大量用户导致的数据库查询慢</title>
+      <link>https://loommii.github.io/posts/skill/data/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/</link>
+      <pubDate>Wed, 28 May 2025 13:31:12 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;问题分析：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;数据过多导致树高增加&lt;/strong&gt;
+MySQL 的默认存储引擎 InnoDB 采用了 B+树的数据结构。3 层树大概能存储 2KW 行数据量，超过了这个数会导致 3 层树变为 4 层树，增加了一次硬盘 IO 读取导致 SQL 变慢。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;并发连接数不够&lt;/strong&gt;
+MySQL 的默认最大连接数是 151，可以在 &lt;code&gt;/etc/my.conf&lt;/code&gt; 更改。具体可以看文档 &lt;code&gt;max_connections&lt;/code&gt; 参数。
+超过连接数会出现 &lt;code&gt;too many connections&lt;/code&gt; 报错。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;解决方案：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;分库分表：&lt;/strong&gt;
+将数据按照某个维度水平的切割。&lt;/p&gt;
+&lt;h3 id=&#34;range-范围&#34;&gt;range 范围&lt;/h3&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用户 ID [0, 500W) 放库 1 表 1&lt;/li&gt;
+&lt;li&gt;用户 ID [500W, 1000W) 放库 2 表 2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;👆这样会导致例外一个问题。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;你会发现用户 ID 小的老用户很多都不上线了，用户 ID 新的用户还是很多，依旧导致了库 2 的连接数还是超了。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;因此不能这么简单的通过 ID 的大小去分库分表。
+这时候就可以引入了哈希（hash）。&lt;/p&gt;
+&lt;h3 id=&#34;哈希hash&#34;&gt;哈希（hash）&lt;/h3&gt;
+&lt;p&gt;哈希的方式可以使得用户 ID 分散到多个库、表上。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_20250528</title>
+      <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250528/</link>
+      <pubDate>Wed, 28 May 2025 12:23:23 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250528/</guid>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Direction&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;North&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Direction&lt;/span&gt; = &lt;span style=&#34;color:#66d9ef&#34;&gt;iota&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;East&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;South&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;West&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; (&lt;span style=&#34;color:#a6e22e&#34;&gt;d&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;Direction&lt;/span&gt;) &lt;span style=&#34;color:#a6e22e&#34;&gt;String&lt;/span&gt;() &lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#66d9ef&#34;&gt;return&lt;/span&gt; [&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;string&lt;/span&gt;{&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;North&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;East&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;South&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;West&amp;#34;&lt;/span&gt;}[&lt;span style=&#34;color:#a6e22e&#34;&gt;d&lt;/span&gt;]
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;	&lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#a6e22e&#34;&gt;South&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
+&lt;div class=&#34;toggle-content&#34;&gt;
+  &lt;p&gt;参考答案及解析：South。知识点：iota 的用法、类型的 String() 方法。&lt;/p&gt;
+&lt;p&gt;根据 iota 的用法推断出 South 的值是 2；另外，如果类型定义了 String() 方法，当使用 fmt.Printf()、fmt.Print() 和 fmt.Println() 会自动使用 String() 方法，实现字符串的打印。&lt;/p&gt;
+
+&lt;/div&gt;
+&lt;style&gt;
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+&lt;/style&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_20250527</title>
+      <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250527/</link>
+      <pubDate>Tue, 27 May 2025 12:23:26 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250527/</guid>
+      <description>&lt;p&gt;channel发送数据和接收数据的过程&lt;/p&gt;
+&lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
+&lt;div class=&#34;toggle-content&#34;&gt;
+  &lt;ul&gt;
+&lt;li&gt;发送数据
+&lt;ul&gt;
+&lt;li&gt;无初始化的channel会死锁&lt;/li&gt;
+&lt;li&gt;已关闭的channel会panic&lt;/li&gt;
+&lt;li&gt;写是存在阻塞的读G，则写入并唤醒&lt;/li&gt;
+&lt;li&gt;如果无存在阻塞的读G，有缓冲就查看是否有空位有的写入空位&lt;/li&gt;
+&lt;li&gt;缓冲都没空位就陷入阻塞&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;接收数据
+&lt;ul&gt;
+&lt;li&gt;无初始化的channel会死锁&lt;/li&gt;
+&lt;li&gt;已关闭的channel会返回空值&lt;/li&gt;
+&lt;li&gt;无缓冲
+&lt;ul&gt;
+&lt;li&gt;存在阻塞的写G，读并唤醒写G&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;有缓冲，会先看是否有空位，无内容就G阻塞并写入读队列，有内容就读缓冲&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+&lt;style&gt;
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+&lt;/style&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_20250526</title>
+      <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250526/</link>
+      <pubDate>Mon, 26 May 2025 12:23:29 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250526/</guid>
+      <description>&lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
+&lt;div class=&#34;toggle-content&#34;&gt;
+  
+&lt;/div&gt;
+&lt;style&gt;
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+&lt;/style&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_20250525</title>
+      <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250525/</link>
+      <pubDate>Sun, 25 May 2025 12:23:32 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250525/</guid>
+      <description>&lt;p&gt;map是线程安全的吗?如何实现一个线程安全的map&lt;/p&gt;
+&lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
+&lt;div class=&#34;toggle-content&#34;&gt;
+  不是并发安全的，有并发写map的场景可以使用官方的sync.Map，自己实现的话上锁，或着通过channel串行化
+&lt;/div&gt;
+&lt;style&gt;
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+&lt;/style&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_20250524</title>
+      <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250524/</link>
+      <pubDate>Sat, 24 May 2025 12:24:40 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250524/</guid>
+      <description>&lt;p&gt;slice是线程安全的吗&lt;/p&gt;
+&lt;button class=&#34;toggle-button&#34; onclick=&#34;this.nextElementSibling.classList.toggle(&#39;show&#39;)&#34;&gt;🔑 答案解析：&lt;/button&gt;
+&lt;div class=&#34;toggle-content&#34;&gt;
+  &lt;ul&gt;
+&lt;li&gt;不是并发安全的，动态扩容会导致指向新的数组。并发写的情况会导致数据丢失的可能。&lt;/li&gt;
+&lt;li&gt;解决方案是上锁，或着通过channel串行化&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;/div&gt;
+&lt;style&gt;
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+&lt;/style&gt;</description>
+    </item>
     <item>
       <title>Go每日一题_20250523</title>
       <link>https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250523/</link>

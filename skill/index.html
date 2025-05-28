@@ -167,6 +167,26 @@
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">系统中有大量用户导致的数据库查询慢
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>问题分析：
+数据过多导致树高增加 MySQL 的默认存储引擎 InnoDB 采用了 B&#43;树的数据结构。3 层树大概能存储 2KW 行数据量，超过了这个数会导致 3 层树变为 4 层树，增加了一次硬盘 IO 读取导致 SQL 变慢。 并发连接数不够 MySQL 的默认最大连接数是 151，可以在 /etc/my.conf 更改。具体可以看文档 max_connections 参数。 超过连接数会出现 too many connections 报错。 解决方案：
+分库分表： 将数据按照某个维度水平的切割。
+range 范围 例如：
+用户 ID [0, 500W) 放库 1 表 1 用户 ID [500W, 1000W) 放库 2 表 2 👆这样会导致例外一个问题。
+你会发现用户 ID 小的老用户很多都不上线了，用户 ID 新的用户还是很多，依旧导致了库 2 的连接数还是超了。
+因此不能这么简单的通过 ID 的大小去分库分表。 这时候就可以引入了哈希（hash）。
+哈希（hash） 哈希的方式可以使得用户 ID 分散到多个库、表上。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-05-28 13:31:12 +0800 CST'>五月 28, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to 系统中有大量用户导致的数据库查询慢" href="https://loommii.github.io/posts/skill/data/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">mac版本 Joplin 笔记与配置信息存储更改
     </h2>
   </header>
@@ -313,27 +333,6 @@ slice(切片) type SliceHeader struct { Data uintptr // 底层数组的地址 Le
   </div>
   <footer class="entry-footer"><span title='2024-12-09 13:57:51 +0800 CST'>十二月 9, 2024</span></footer>
   <a class="entry-link" aria-label="post link to 服务设计_如何设计一个URL短链服务" href="https://loommii.github.io/posts/skill/data/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">浅谈GO GC (垃圾回收)
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>垃圾回收 垃圾回收这里的垃圾指的是什么？为什么要回收？ 在程序运行的时候，进程会在堆内存申请内存空间。但是在函数退出的时候会栈空间会被销毁。因此这一段堆内存空间没有任何的指针指向它（没有被引用）。因此会造成内存的浪费（内存泄露）。这一段的没有被引用的内存就是“垃圾”。，程序员不再需要手动管理内存的分配和释放，从而减少了由于内存管理不当引起的内存泄漏或悬空指针等问题。
-常见的GC有哪几种
-手动垃圾回收，代表语言（C，C&#43;&#43;） 标记-清扫算法 三色标记法 标记-整理算法 移动整理法 复制整理法 分代回收 引用计数 简述常见的GC如何实现，和他们各自的优缺点。
-手动垃圾回收： 实现：程序员自行调用函数销毁 优点：程序员对程序内存的掌控自由。 缺点：容易出现提前释放（悬挂指针）、忘记释放（内存泄漏)等问题。 标记-清扫算法： 实现：标记从根节点（栈内存、数据段）能追踪到的数据为游泳数据，其他未标记的数据就是垃圾数据，将对垃圾数据进行回收 优点：实现相对简单， 缺点：容易造成内存碎片化 标记-整理算法： 实现： 标记阶段与标记-清扫算法一致。 整理阶段： 移动整理法：整理移动有用的数据，使有用的数据尽可能紧凑的放在内存里。 优点：解决了内存碎片化的问题 缺点：多次扫描移动，会带来不小的性能开销 复制整理法：将内存划分为Form和To，将From空间中的有用数据都复制到To空间。并将Form和To空间的角色对换。 优点：解决了多次扫描移动的性能问题 缺点：内存使用率低。只有一半的堆内存空间被使用 分代回收： 实现：基于弱分代假说。将数据分为新生代、老年代。新生代、老年代采用不同的回收算法 引用计数 实现：每次对象应用都会更新对象的引用计数，当引用计数为0就回收该空间 优点：可以及时回收垃圾内存 缺点：高频更新引用计数会有不小性能开销，循环引用会导致引用计数永远不为0 什么是STW，为什么会有STW。 STW（stop the world）简单的就是让用户程序停下来。 STW期间，程序会进行垃圾回收
-STW STW 是 Stop-The-World 的缩写，指的是在垃圾回收或某些系统操作过程中，暂停所有应用程序线程的行为，直到特定任务（通常是垃圾回收）完成。 ![e6d686db23ff699d03219905d8ceb2c1.png].(/e6d686db23ff699d03219905d8ceb2c1.png) 这里会带来一个问题，用户程序接受长时间STW吗？ 为了解决这个问题就出现了增量式垃圾回收
-增量式垃圾回收 实现：将一次GC分为多次，并和用户程序交互进行 优点：解决了STW时间长的问题 缺点：如果在标记后-清理前。创建的内容将会被误删除
-为了避免误删可以采用三色抽象避免 三色抽象:标记数据分为 黑 - 灰 - 白
-黑：已经遍历标记完的数据 灰：还未遍历完的数据 白：未遍历（应用不到）的垃圾数据 因此在清扫阶段发现有黑-&gt;白的数据。着这个白数据是在标记后-清理前创建的 因此Golang官方提出2种条件
-强三色不变式：不允许出现黑色到白色的情况 弱三色不变式：允许黑色到白色的情况，但是这个白色需要被灰色引用 写屏障
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2024-12-09 13:03:08 +0800 CST'>十二月 9, 2024</span></footer>
-  <a class="entry-link" aria-label="post link to 浅谈GO GC (垃圾回收)" href="https://loommii.github.io/posts/skill/data/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">

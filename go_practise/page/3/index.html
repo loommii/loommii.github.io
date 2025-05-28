@@ -174,6 +174,87 @@ Go 中文网、思否、博客园等平台，内容主要以问答形式记录�
 
 <article class="post-entry"> 
   <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_20250508
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>f1()、f2()、f3() 函数分别返回什么？
+package main import ( &#34;fmt&#34; ) func f1() (r int) { defer func() { r&#43;&#43; }() return 0 } func f2() (r int) { t := 5 defer func() { t = t &#43; 5 }() return t } func f3() (r int) { defer func(r int) { r = r &#43; 5 }(r) return 1 } func main() { fmt.Println(f1()) fmt.Println(f2()) fmt.Println(f3()) } 🔑 答案解析： 参考答案及解析：1 5 1。
+知识点：defer、返回值。
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-05-08 00:01:56 +0800 CST'>五月 8, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_20250508" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250508/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_20250507
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面代码输出什么？
+package main import &#34;fmt&#34; type A interface { ShowA() int } type B interface { ShowB() int } type Work struct { i int } func (w Work) ShowA() int { return w.i &#43; 10 } func (w Work) ShowB() int { return w.i &#43; 20 } func main() { var a A = Work{3} s := a.(Work) fmt.Println(s.ShowA()) fmt.Println(s.ShowB()) } A. 13 23 B. compilation error 🔑 答案解析： A 在线运行
+代码分析 接口和结构体定义：
+定义了两个接口 A 和 B，分别包含方法 ShowA() 和 ShowB()。 定义了一个结构体 Work，并为其实现了 ShowA() 和 ShowB() 方法。 接口赋值：
+在 main 函数中，var a A = Work{3} 将 Work{3} 赋值给接口变量 a。此时 a 的动态类型是 Work，动态值是 Work{3}。 类型断言：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-05-07 00:29:12 +0800 CST'>五月 7, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_20250507" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250507/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_20250506
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面代码输出什么？
+package main import ( &#34;fmt&#34; ) func increaseA() int { var i int defer func() { i&#43;&#43; }() return i } func increaseB() (r int) { defer func() { r&#43;&#43; }() return r } func main() { fmt.Println(increaseA()) fmt.Println(increaseB()) } // A. 1 1 // B. 0 1 // C. 1 0 // D. 0 0 🔑 答案解析： B 在线运行
+解析 increaseA() 的返回参数是匿名 increaseB() 是具名
+在 Go 语言中，函数返回值的内存空间会分配到调用者的栈上。先运行return赋值后运行defer。
+1. increaseA 的行为分析 func increaseA() int { var i int defer func() { i&#43;&#43; }() return i } 在 increaseA 的函数栈中，声明了一个局部变量 i，初始值为 0。 执行 return i 时，会将 i 的值（0）复制到调用者（main 函数）的栈上，作为返回值。 然后，defer 语句执行，将局部变量 i 的值从 0 增加到 1。 由于 defer 修改的是局部变量 i，而不是调用者栈上的返回值，因此返回值仍然是 0。 2. increaseB 的行为分析 func increaseB() (r int) { defer func() { r&#43;&#43; }() return r } 在 increaseB 的函数栈中，r 是一个命名返回值，其内存空间直接分配在调用者（main 函数）的栈上。 执行 return r 时，会将 r 的值（0）写入调用者栈上的返回值空间。 然后，defer 语句执行，直接修改调用者栈上的 r，将其值从 0 增加到 1。 由于 r 是命名返回值，defer 的修改会直接影响调用者栈上的值。 因此 正确答案是 B. 0 1。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-05-06 01:09:26 +0800 CST'>五月 6, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_20250506" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250506/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_224
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面代码中，x 已声明，y 没有声明，判断每条语句的对错。
+1 x, _:= f() 2 x,_ = f() 3 x, y := f() 4 x, y = f() 🔑 答案解析： 1 错 2 对 3 对 4 错 变量的声明。1.错，x 已经声明，不能使用 :=；2.对；3.对，当多值赋值时，:= 左边的变量至少要有一个未声明的；4.错，y 没有声明。 </p>
+  </div>
+  <footer class="entry-footer"><span title='2025-05-05 15:15:46 +0800 CST'>五月 5, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_224" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_224/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_223
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>有下面 3 行代码：
+// 32 位机器 1）var x int32 = 32.0 2）var y int = x 3）var z rune = x 它们是否能编译通过？为什么？
+如果面试时问这道题，你需要想想面试官想考察你什么。 🔑 答案解析： 数字字面量 在 Go 语言中，字面量是无类型（untyped）的。无类型是什么意思？无类型意味着可以赋值给类似类型的变量或常量。用上面例子，32.0 是无类型的浮点数字面量，因此它可以赋值给任意数字相关类型变量（或常量）。以下都是合法的：
+var a int64 = 32.0 var b int = 32.0 var c float32 = 32.0 var d complex64 = 32.0 var e byte = 32.0 var f rune = 32.0 所以上题中 1）是正确的。
+不同类型 在目前 Go 1.16 版本中（实际上只有很早期的版本不是），int 类型在 32 位机器占 4 字节，64 位机器占 8 字节。所以，在 32 位机器上，int32 和 int 的内存占用和内存布局是完全一样的。但 Go 语言不会做隐式类型转换，int 和 int32 是不同的类型，因此上题中 2）编译不通过。
+别名 rune 是什么类型？定义如下：
+type rune = int32 很显然，rune 是 int32 的别名，因此题目中 3）也能编译通过。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-05-04 15:50:53 +0800 CST'>五月 4, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_223" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_223/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
     <h2 class="entry-hint-parent">Go每日一题_222
     </h2>
   </header>
@@ -249,88 +330,6 @@ c 下表1 开始
   </div>
   <footer class="entry-footer"><span title='2025-04-30 00:03:19 +0800 CST'>四月 30, 2025</span></footer>
   <a class="entry-link" aria-label="post link to Go每日一题_218" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_218/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_217
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>下面代码输出什么？
-package main import &#34;fmt&#34; type A interface { ShowA() int } type B interface { ShowB() int } type Work struct { i int } func (w Work) ShowA() int { return w.i &#43; 10 } func (w Work) ShowB() int { return w.i &#43; 20 } func main() { c := Work{3} var a A = c var b B = c fmt.Println(a.ShowB()) fmt.Println(b.ShowA()) } A. 23 13 B. compilation error 🔑 答案解析： B 在线运行
-A接口没有ShowB方法 B接口没有ShowA方法
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-04-29 00:10:26 +0800 CST'>四月 29, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_217" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_217/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_216
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>下面这段代码输出什么？
-package main import &#34;fmt&#34; func main() { i := 65 fmt.Println(string(i)) } A. A B. 65 C. compilation error 🔑 答案解析： 参考答案及解析：A。
-在线运行
-UTF-8 编码中，十进制数字 65 对应的符号是 A。
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-04-28 00:31:44 +0800 CST'>四月 28, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_216" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_216/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_215
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>下面代码下划线处可以填入哪个选项？
-package main import &#34;fmt&#34; func main() { var s1 []int var s2 = []int{} if __ == nil { fmt.Println(&#34;yes nil&#34;) } else { fmt.Println(&#34;no nil&#34;) } } A. s1 B. s2 C. s1、s2 都可以 🔑 答案解析： 参考答案及解析：A。
-知识点：nil 切片和空切片。nil 切片和 nil 相等，一般用来表示一个不存在的切片；空切片和 nil 不相等，表示一个空的集合。
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-04-27 23:22:49 +0800 CST'>四月 27, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_215" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_215/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_214
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>unc main() { a := [2]int{5, 6} b := [3]int{5, 6} if a == b { fmt.Println(“equal”) } else { fmt.Println(“not equal”) } }
-- A. compilation error - B. equal - C. not equal 🔑 答案解析： 在线运行 A [2]int 和 [3]int 在Go中是不同的类型 不能通过 == 运算符对比
-./prog.go:8:10: invalid operation: a == b (mismatched types [2]int and [3]int)
-</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-04-12 11:40:26 +0800 CST'>四月 12, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_214" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_214/"></a>
-</article>
-
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Go每日一题_213
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>下面这段代码输出什么？
-package main import ( &#34;fmt&#34; ) func main() { a := [5]int{1, 2, 3, 4, 5} t := a[3:4:4] fmt.Println(t[0]) } A.3 B.4 C.compilation error 🔑 答案解析： B
-在线运行
-答案： B
-知识点： Go 语言切片 (Slice) 操作符 [i:j:k]
-解析：
-数组初始化： a := [5]int{1, 2, 3, 4, 5} 创建了一个包含 5 个整数的数组 a。其内容为 [1, 2, 3, 4, 5]，索引从 0 到 4。
-切片操作 a[i:j:k]： Go 语言允许使用三个索引来从数组或切片创建新的切片：slice := source[i:j:k]。
-i：起始索引（包含）。新切片从 source 的第 i 个元素开始。 j：结束索引（不包含）。新切片包含到 source 的第 j-1 个元素为止。 k：容量限制索引。新切片的容量 (Capacity) 被设置为 k - i。这限制了新切片能访问的底层数组的范围。k 的值不能超过 source 的容量（对于数组，即为其长度）。 新切片的长度 (Length) 计算为 j - i。 新切片的容量 (Capacity) 计算为 k - i。 分析 t := a[3:4:4]：
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-04-11 19:46:59 +0800 CST'>四月 11, 2025</span></footer>
-  <a class="entry-link" aria-label="post link to Go每日一题_213" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_213/"></a>
 </article>
 <footer class="page-footer">
   <nav class="pagination">
