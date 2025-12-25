@@ -1,0 +1,13 @@
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">{{ .Get "label" }}</button>
+<div class="toggle-content">
+  {{ .Inner | markdownify }}
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>

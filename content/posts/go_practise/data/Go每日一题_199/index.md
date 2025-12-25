@@ -1,0 +1,39 @@
+---
+date: '2025-02-28T16:08:33+08:00'
+draft: false
+title: 'Go每日一题_199'
+---
+
+空 struct{} 占多少空间？有什么用途？
+
+{{< togglecontent label="🔑 答案解析：" >}}
+
+答:0 , 用于占位符
+
+例如:
+
+1. map[string]struct{},只关注key是否存在的话可以使用节省内存空间
+2. ch := make(chan struct{}, 1)，使用信道(channel)控制并发时，我们只是需要一个信号，但并不需要传递值，这个时候，也可以使用 struct{} 代替。
+3. type Lamp struct{} ,声明只包含方法的结构体。
+
+```go
+type Lamp struct{}
+
+func (l Lamp) On() {
+        println("On")
+
+}
+func (l Lamp) Off() {
+        println("Off")
+}
+```
+
+解析:
+Go为每一种类型都有全局唯一的类型元数据，元数据记录了该类型大小。因为空结构体内没有任何的类型因此空类型的大小为0。但是因为有创建类型元数据因此可以想正常的类型一样用于占位
+这里建议看一下参考资料`【幼麟实验室】- Go类型系统讲解`
+
+参考资料：
+
+- 🔗📺️:[【幼麟实验室】- Go类型系统讲解](https://www.bilibili.com/video/BV1hv411x7we?p=12&vd_source=2efe9e7b9d8ada5878fa15a7ad28b0dd)
+
+{{< /togglecontent >}}

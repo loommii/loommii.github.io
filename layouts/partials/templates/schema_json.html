@@ -1,0 +1,61 @@
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ .Title }},
+  "name": {{ .Title }},
+  "description": {{ with .Description }}{{ . }}{{ else }}{{if .IsPage}}{{ .Summary }}{{ else }}{{ with site.Params.description }}{{ . }}{{ end }}{{ end }}{{ end -}},
+  "keywords": [
+    {{- range $i, $tag := .Params.tags -}}
+    {{- if $i }}, {{ end -}}
+    "{{- $tag -}}"
+    {{- end -}}
+  ],
+  "articleBody": {{ .Plain | jsonify }},
+  "wordCount" : "{{ .WordCount }}",
+  "inLanguage": {{ .Language.Lang | default "en" }},
+  {{ if .ExpiryDate -}}
+  "expires": {{ .ExpiryDate.Format "2006-01-02T15:04:05Z07:00" }},
+  {{- end }}
+  {{- if .PublishDate }}
+  "datePublished": {{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" }},
+  {{- end }}
+  {{- if .Lastmod }}
+  "dateModified": {{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" }},
+  {{- end }}
+  {{- with .Params.series -}}
+  "articleSection": {{- range $i, $group := . -}}
+    {{- if $i -}},{{ end -}}
+    "{{- $group -}}"
+  {{- end -}},
+  {{- end -}}
+  {{- with .Params.author -}}
+  "author": {
+    "@type": "Person",
+    "name": {{- range $i, $person := . -}}
+      {{- if $i -}},{{ end -}}
+      "{{- $person -}}"
+    {{- end -}}
+  },
+  {{- end -}}
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": {{ .Permalink | jsonify }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ site.Title }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": "{{ (path.Join .RelPermalink (site.Params.assets.favicon | default "favicon.ico") ) | absURL }}"
+    }
+  },
+  {{- $imgs := partial "templates/_funcs/get-page-images" . -}}
+  {{- with index $imgs 0 -}}
+  "image": {
+    "@type": "ImageObject",
+    "url": {{ .Permalink }}
+  }
+  {{- end -}}
+}
+</script>

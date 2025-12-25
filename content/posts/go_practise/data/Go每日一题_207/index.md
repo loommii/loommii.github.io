@@ -1,0 +1,52 @@
+---
+date: '2025-03-08T00:59:04+08:00'
+draft: false
+title: 'Go每日一题_207'
+---
+执行下面的代码会发生什么？
+
+```go
+package main
+
+import (
+    "fmt"
+    "time"
+)
+
+func main() {
+    ch := make(chan int, 1000)
+    go func() {
+        for i := 0; i < 10; i++ {
+            ch <- i
+        }
+    }()
+    go func() {
+        for {
+            a, ok := <-ch
+            if !ok {
+                fmt.Println("close")
+                return
+            }
+            fmt.Println("a: ", a)
+        }
+    }()
+    close(ch)
+    fmt.Println("ok")
+    time.Sleep(time.Second * 100)
+}
+```
+
+{{< togglecontent label="🔑 答案解析：" >}}
+
+```text
+ok
+close
+panic: send on closed channel
+
+goroutine 6 [running]:
+```
+
+对已经关闭的管道写数据会发生panic
+对已经关闭的管道读数据,无已写缓存的情况下读的是零值
+
+{{< /togglecontent >}}
