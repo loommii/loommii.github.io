@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Golang练习 | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="
+Go 中文网、思否、博客园等平台，内容主要以问答形式记录。如果回答中有错误，欢迎大家指出，共同学习、共同进步。">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/go_practise/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://loommii.github.io/go_practise/index.xml">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/go_practise/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/go_practise/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="Golang练习">
+  <meta property="og:description" content=" Go 中文网、思否、博客园等平台，内容主要以问答形式记录。如果回答中有错误，欢迎大家指出，共同学习、共同进步。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Golang练习">
+<meta name="twitter:description" content="">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://loommii.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Golang练习",
+      "item": "https://loommii.github.io/go_practise/"
+    }
+  ]
+}
+</script>
+
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/skill/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span class="active">Golang练习</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                    <span>力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/posts/">Posts</a></div>
+  <h1>
+    Golang练习
+  </h1>
+</header>
+<div class="post-content"><blockquote>
+<p>Go 中文网、思否、博客园等平台，内容主要以问答形式记录。如果回答中有错误，欢迎大家指出，共同学习、共同进步。</p></blockquote>
+
+
+</div>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_161
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面代码中，x 已声明，y 没有声明，判断每条语句的对错。
+1）x, _ := f() 2）x, _ = f() 3）x, y := f() 4）x, y = f() 🔑 答案解析： 1）错 2）对 3）对 4）错
+1. x, _ := f() 错误。
+原因：:= 是短变量声明操作符，要求左侧的所有变量都必须是未声明的。由于 x 已经声明，因此不能使用 :=。
+修正：如果 x 已经声明，应该使用 = 赋值操作符：
+x, _ = f() 2. x, _ = f() 正确。 原因：= 是赋值操作符，可以用于已声明的变量。x 已经声明，_ 是空白标识符，用于忽略返回值，因此这条语句是合法的。 3. x, y := f() 正确。 原因：:= 是短变量声明操作符，要求左侧至少有一个变量是未声明的。虽然 x 已经声明，但 y 是未声明的，因此这条语句是合法的。此时，x 会被重新赋值，y 会被声明并赋值。 4. x, y = f() 错误。
+原因：= 是赋值操作符，要求左侧的所有变量都必须是已声明的。由于 y 未声明，因此这条语句会编译失败。
+修正：如果 y 未声明，应该使用 :=：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-01-14 21:10:21 +0800 CST'>一月 14, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_161" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_161/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_160
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>它们是否能编译通过？为什么？
+// 32 位机器 1）var x int32 = 32. 2）var y int = x 3）var z rune = x 🔑 答案解析： 1 可以 2 不可以 3 可以
+解析 Go 语言类型系统与代码解析 1. 无类型字面量 在 Go 语言中，字面量（如 32.0）是无类型的（untyped）。无类型字面量可以根据上下文自动推断为目标类型。
+示例 var a int64 = 32.0 // 32.0 是无类型浮点数字面量，赋值给 int64 类型 var b int = 32.0 // 32.0 是无类型浮点数字面量，赋值给 int 类型 var c float32 = 32.0 // 32.0 是无类型浮点数字面量，赋值给 float32 类型 var d complex64 = 32.0 // 32.0 是无类型浮点数字面量，赋值给 complex64 类型 var e byte = 32.0 // 32.0 是无类型浮点数字面量，赋值给 byte 类型 var f rune = 32.0 // 32.0 是无类型浮点数字面量，赋值给 rune 类型 2. Go 语言的类型系统 Go 语言的类型系统非常严格，没有隐式类型转换。即使两种类型的底层表示相同，它们仍然是不同的类型，不能直接赋值
+var x int32 = 32 var y int = x // 编译错误：cannot use x (type int32) as type int in assignment 修正方法 必须显式进行类型转换：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-01-13 12:22:18 +0800 CST'>一月 13, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_160" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_160/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_159
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>以下代码是否能正常运行，结果是？
+package main func main() { v := new(int) *v = 2 println(5/&#43;-*v) } 🔑 答案解析： 可以正常运行 运行结果为 -2
+在线运行
+表达式解析 5/&#43;-*v Go 语言的运算符优先级规则
+unary_op = “&#43;” | “-” | “!” | “^” | “*” | “&amp;” | “&lt;-” .
+题中一元运算符(&#43;、-、* )
+&#43;、- 和 * 同时也是算术运算符中的加、减和乘。
+表达式: 5/&#43;-v。5 后面 /，很显然，这是除法。 而 &#43; 前面没有操作数，因此是一个一元运算符；同理 - 和 也是一元运算符。而一元运算符有最高的优先级，因此这个表达式优先计算 &#43;-*v 的值。
+在规范中有这么一句话：
+对于整数操作数，一元运算符 &#43; , - 和 ^ 有如下定义：（省略了 ^ 的解释） &#43;x 是 0 &#43; x -x 取其负值 是 0 - x
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-01-12 15:25:17 +0800 CST'>一月 12, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_159" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_159/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_158
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面代码输出什么？
+package main import &#34;fmt&#34; type A interface { ShowA() int } type B interface { ShowB() int } type Work struct { i int } func (w Work) ShowA() int { return w.i &#43; 10 } func (w Work) ShowB() int { return w.i &#43; 20 } func main() { c := Work{3} var a A = c var b B = c fmt.Println(a.ShowB()) fmt.Println(b.ShowA()) } A. 23 13 B. compilation error 🔑 答案解析： B 在线运行
+A接口没有ShowB方法 B接口没有ShowA方法
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-01-11 23:04:42 +0800 CST'>一月 11, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_158" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_158/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_157
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面代码中 A B 两处应该怎么修改才能顺利编译？
+func main() { var m map[string]int //A m[&#34;a&#34;] = 1 if v := m[&#34;b&#34;]; v != nil { //B fmt.Println(v) } } 🔑 答案解析： // A
+A 处只声明了map m ,并没有分配内存空间未初始化的map，写入会panic，
+因此需要将 var m map[string]int 改为 m := make(map[string]int)
+// B
+key 为 b 的元素不存在的时候，v 会返回值类型对应的零值，类型为int因此v为0。类型int != nil 是不能通过编译的类型不匹配
+因此需要v != nil 改为 v != 0
+package main import ( &#34;fmt&#34; ) func main() { m := make(map[string]int) //A m[&#34;a&#34;] = 1 if v := m[&#34;b&#34;]; v != 0 { //B fmt.Println(v) } } 在线编译
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-01-10 12:46:04 +0800 CST'>一月 10, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_157" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_157/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_156
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>切片 a、b、c 的长度和容量分别是多少？
+package main import ( &#34;fmt&#34; ) func main() { s := [3]int{1, 2, 3} a := s[:0] b := s[:2] c := s[1:2:cap(s)] fmt.Println(len(a), cap(a)) fmt.Println(len(b), cap(b)) fmt.Println(len(c), cap(c)) } 🔑 答案解析： a 长度和容量 0 3 b 长度和容量 2 3 c 长度和容量 1 2
+在线运行
+知识点：数组或切片的截取操作 截取操作有带 2 个或者 3 个参数，形如：[i:j] 和 [i:j:k]，
+1. [i:j] 形式 [i:j] 是最常见的切片截取形式，表示从底层数组的第 i 个元素开始，到第 j 个元素（不包括第 j 个元素）结束。
+语法：s[i:j] 含义： i：切片的起始索引（包含）。 j：切片的结束索引（不包含）。 长度：j - i 容量：从索引 i 开始，到底层数组的末尾。 如果底层数组的长度为 n，则容量为 n - i。 示例 s := [3]int{1, 2, 3} b := s[:2] // 从索引 0 开始，到索引 3（不包含）左闭右开 fmt.Println(a) // 输出: [1 2] fmt.Println(len(a)) // 输出: 2 (长度) 2-0 fmt.Println(cap(a)) // 输出: 3 (容量，因为底层数组长度为 3，从索引 0 开始) 3-0 2. [i:j:k] 形式 [i:j:k] 是更灵活的切片截取形式，除了指定切片的起始和结束索引外，还可以显式指定切片的容量。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-01-09 20:27:59 +0800 CST'>一月 9, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_156" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_156/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_155
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码输出什么？
+package main import ( &#34;fmt&#34; ) type A interface { ShowA() int } type B interface { ShowB() int } type Work struct { i int } func (w Work) ShowA() int { return w.i &#43; 10 } func (w Work) ShowB() int { return w.i &#43; 20 } func main() { c := Work{3} var a A = c var b B = c fmt.Println(a.ShowA()) fmt.Println(b.ShowB()) } 🔑 答案解析： 1323 在线运行
+知识点：接口。
+Go官方文档-Interface_types
+本题代码解析过程 结构体和接口实现：
+Work 结构体实现了接口 A 的 ShowA() 方法，返回 w.i &#43; 10。 Work 结构体也实现了接口 B 的 ShowB() 方法，返回 w.i &#43; 20。 变量赋值：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-01-08 13:03:00 +0800 CST'>一月 8, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_155" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_155/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_154
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码输出什么？
+package main import ( &#34;fmt&#34; ) func main() { i := 65 fmt.Println(string(i)) } A. A B. 65 C. compilation error 🔑 答案解析： A 在线运行
+string(i),在 Go 语言中，string(int) 会将整数解释为 Unicode 码点，并返回对应的字符。
+65 是字符 ‘A’ 的 ASCII 码（也是 Unicode 码点），因此 string(65) 的结果是字符串 “A”。
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-01-07 11:47:02 +0800 CST'>一月 7, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_154" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_154/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_153
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面代码填空cc处可以填入哪个选项？ 且描述一下填入后运行的结果
+package main import &#34;fmt&#34; func main() { var s1 []int var s2 = []int{} _, _ = s1, s2 if 填空 == nil { fmt.Println(&#34;yes nil&#34;) } else { fmt.Println(&#34;no nil&#34;) } } A. s1 B. s2 C. s1、s2 都可以 D. 以上都不可以 🔑 答案解析： C 在线运行
+package main import &#34;fmt&#34; func main() { var s1 []int var s2 = []int{} _, _ = s1, s2 if s1 == nil { fmt.Println(&#34;yes nil&#34;) } else { fmt.Println(&#34;no nil&#34;) } if s2 == nil { fmt.Println(&#34;yes nil&#34;) } else { fmt.Println(&#34;no nil&#34;) } } //yes nil //no nil 切片（Slice） nil 与空切片 在 Go 文档 - Slice types 中有这样一段描述：
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-01-06 12:10:52 +0800 CST'>一月 6, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_153" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_153/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_152
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>以下代码输出什么？
+package main func main() { var x = []int{4: 44, 55, 66, 1: 77, 88} println(len(x), x[2]) } A：5 66 B：5 88 C：7 88 D：以上都不对 🔑 答案解析： C 在线运行
+Go中切片\数组初始化是可以携带索引的。
+// 1. 不带键的元素 slice1 := []int{1, 2, 3} // 2. 带键的元素（键是索引） slice2 := []string{0: &#34;a&#34;, 1: &#34;b&#34;, 2: &#34;c&#34;} 本题中是一种带有显式索引和隐式索引的混合初始化方式。
+解析 []int{4: 44, 55, 66, 1: 77, 88} 的初始化过程 4: 44,显式指定索引下标 4 处的值为 44。 [0, 0, 0, 0, 44] 55 和 66 ,未指定索引,则从上一个索引位置开始依次放置。
+[0, 0, 0, 0, 44, 55, 66] 1: 77,显式指定索引下标 1 处的值为 77。
+[0, 77, 0, 0, 44, 55, 66] 88 ,未指定索引,则从上一个索引位置开始依次放置。
+[0, 77, 88, 0, 44, 55, 66] 因此 x的内容为 [0, 77, 88, 0, 44, 55, 66]
+本题问该切片(len(x), x[2]) ,得出输出结果为答案C 7 88
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2025-01-05 18:03:19 +0800 CST'>一月 5, 2025</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_152" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_152/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://loommii.github.io/go_practise/page/10/">
+      «&nbsp;上一页&nbsp;
+    </a>
+    <a class="next" href="https://loommii.github.io/go_practise/page/12/">下一页&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

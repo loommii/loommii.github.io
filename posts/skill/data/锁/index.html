@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>锁 | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了“锁”用于解决该类问题。
+常见的锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁
+互斥锁
+特点：容易实现，最基础的锁概念
+解释：在使用一个资源时，先上锁使用。上锁后其他线程都无法再上锁。直到解锁后，其他线程才能上锁使用。
+生活例子：公共厕所，谁要上厕所就要先上锁后使用，避免其他人也闯入使用厕所。
+自旋锁
+自旋锁与互斥锁十分类似。
+区别：
+
+自旋锁：加锁失败，线程还是会不断的去申请加锁，直到他拿到锁
+互斥锁：加锁失败，线程会释放CPU资源，等待解锁后在申请上锁。
+
+生活例子 -&gt; 公共厕所
+自旋锁：不断的在门口敲门，直到里面的人出来
+互斥锁：不动了，直到里面的人出来叫你。
+读写锁
+顾名思义就是由读锁和写锁组成的。读数据往往是可以并发的读，并发写数据可能会导致数据不符合预期的情况
+
+读数据需要满足目前无写锁。
+写数据需要满足目前无写锁、读锁。
+生活例子：假设一个班级的考试成绩都写到同一个本子上。而学生会读成绩，老师会写成绩。学生看成绩可以同时看，而语文老师和数学老师不能并发的把成绩写到一页里。
+
+读写锁可以分为 读优先锁      写优先锁  公平读写锁
+
+读优先锁
+学生看到有老师在等待改写数据时，不理会老师继续读数据
+写优先锁
+
+
+读数据还需要满足无在等待的写锁
+学生看到有老师在等待改写数据时，会主动让老师写数据。
+
+
+
+公平读写锁
+
+
+将读学请求放入一个队列，排队的去读写
+学生和老师排个队伍
+
+
+
+
+乐观锁与悲观锁
+互斥锁、自旋锁、读写锁都是悲观锁
+悲观锁：多线程同时修改共享资源的概率比较高，容易发生冲突。因此访问共享资源前需要上锁。
+乐观锁：认为发生冲突的概率比较低。并不会上任何的锁，而是校验该数据是否别修改过，修改过着放弃本次操作">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/posts/skill/data/%E9%94%81/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/skill/data/%E9%94%81/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/posts/skill/data/%E9%94%81/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="锁">
+  <meta property="og:description" content="计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了“锁”用于解决该类问题。 常见的锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁
+互斥锁 特点：容易实现，最基础的锁概念
+解释：在使用一个资源时，先上锁使用。上锁后其他线程都无法再上锁。直到解锁后，其他线程才能上锁使用。
+生活例子：公共厕所，谁要上厕所就要先上锁后使用，避免其他人也闯入使用厕所。
+自旋锁 自旋锁与互斥锁十分类似。 区别：
+自旋锁：加锁失败，线程还是会不断的去申请加锁，直到他拿到锁 互斥锁：加锁失败，线程会释放CPU资源，等待解锁后在申请上锁。 生活例子 -&gt; 公共厕所 自旋锁：不断的在门口敲门，直到里面的人出来 互斥锁：不动了，直到里面的人出来叫你。
+读写锁 顾名思义就是由读锁和写锁组成的。读数据往往是可以并发的读，并发写数据可能会导致数据不符合预期的情况
+读数据需要满足目前无写锁。 写数据需要满足目前无写锁、读锁。 生活例子：假设一个班级的考试成绩都写到同一个本子上。而学生会读成绩，老师会写成绩。学生看成绩可以同时看，而语文老师和数学老师不能并发的把成绩写到一页里。 读写锁可以分为 读优先锁 写优先锁 公平读写锁
+读优先锁 学生看到有老师在等待改写数据时，不理会老师继续读数据 写优先锁 读数据还需要满足无在等待的写锁
+学生看到有老师在等待改写数据时，会主动让老师写数据。
+公平读写锁 将读学请求放入一个队列，排队的去读写
+学生和老师排个队伍
+乐观锁与悲观锁 互斥锁、自旋锁、读写锁都是悲观锁
+悲观锁：多线程同时修改共享资源的概率比较高，容易发生冲突。因此访问共享资源前需要上锁。 乐观锁：认为发生冲突的概率比较低。并不会上任何的锁，而是校验该数据是否别修改过，修改过着放弃本次操作">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-08T00:28:39+08:00">
+    <meta property="article:modified_time" content="2024-12-08T00:28:39+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="锁">
+<meta name="twitter:description" content="计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了“锁”用于解决该类问题。
+常见的锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁
+互斥锁
+特点：容易实现，最基础的锁概念
+解释：在使用一个资源时，先上锁使用。上锁后其他线程都无法再上锁。直到解锁后，其他线程才能上锁使用。
+生活例子：公共厕所，谁要上厕所就要先上锁后使用，避免其他人也闯入使用厕所。
+自旋锁
+自旋锁与互斥锁十分类似。
+区别：
+
+自旋锁：加锁失败，线程还是会不断的去申请加锁，直到他拿到锁
+互斥锁：加锁失败，线程会释放CPU资源，等待解锁后在申请上锁。
+
+生活例子 -&gt; 公共厕所
+自旋锁：不断的在门口敲门，直到里面的人出来
+互斥锁：不动了，直到里面的人出来叫你。
+读写锁
+顾名思义就是由读锁和写锁组成的。读数据往往是可以并发的读，并发写数据可能会导致数据不符合预期的情况
+
+读数据需要满足目前无写锁。
+写数据需要满足目前无写锁、读锁。
+生活例子：假设一个班级的考试成绩都写到同一个本子上。而学生会读成绩，老师会写成绩。学生看成绩可以同时看，而语文老师和数学老师不能并发的把成绩写到一页里。
+
+读写锁可以分为 读优先锁      写优先锁  公平读写锁
+
+读优先锁
+学生看到有老师在等待改写数据时，不理会老师继续读数据
+写优先锁
+
+
+读数据还需要满足无在等待的写锁
+学生看到有老师在等待改写数据时，会主动让老师写数据。
+
+
+
+公平读写锁
+
+
+将读学请求放入一个队列，排队的去读写
+学生和老师排个队伍
+
+
+
+
+乐观锁与悲观锁
+互斥锁、自旋锁、读写锁都是悲观锁
+悲观锁：多线程同时修改共享资源的概率比较高，容易发生冲突。因此访问共享资源前需要上锁。
+乐观锁：认为发生冲突的概率比较低。并不会上任何的锁，而是校验该数据是否别修改过，修改过着放弃本次操作">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "文章",
+      "item": "https://loommii.github.io/skill/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "锁",
+      "item": "https://loommii.github.io/posts/skill/data/%E9%94%81/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "锁",
+  "name": "锁",
+  "description": "计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了“锁”用于解决该类问题。 常见的锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁\n互斥锁 特点：容易实现，最基础的锁概念\n解释：在使用一个资源时，先上锁使用。上锁后其他线程都无法再上锁。直到解锁后，其他线程才能上锁使用。\n生活例子：公共厕所，谁要上厕所就要先上锁后使用，避免其他人也闯入使用厕所。\n自旋锁 自旋锁与互斥锁十分类似。 区别：\n自旋锁：加锁失败，线程还是会不断的去申请加锁，直到他拿到锁 互斥锁：加锁失败，线程会释放CPU资源，等待解锁后在申请上锁。 生活例子 -\u0026gt; 公共厕所 自旋锁：不断的在门口敲门，直到里面的人出来 互斥锁：不动了，直到里面的人出来叫你。\n读写锁 顾名思义就是由读锁和写锁组成的。读数据往往是可以并发的读，并发写数据可能会导致数据不符合预期的情况\n读数据需要满足目前无写锁。 写数据需要满足目前无写锁、读锁。 生活例子：假设一个班级的考试成绩都写到同一个本子上。而学生会读成绩，老师会写成绩。学生看成绩可以同时看，而语文老师和数学老师不能并发的把成绩写到一页里。 读写锁可以分为 读优先锁 写优先锁 公平读写锁\n读优先锁 学生看到有老师在等待改写数据时，不理会老师继续读数据 写优先锁 读数据还需要满足无在等待的写锁\n学生看到有老师在等待改写数据时，会主动让老师写数据。\n公平读写锁 将读学请求放入一个队列，排队的去读写\n学生和老师排个队伍\n乐观锁与悲观锁 互斥锁、自旋锁、读写锁都是悲观锁\n悲观锁：多线程同时修改共享资源的概率比较高，容易发生冲突。因此访问共享资源前需要上锁。 乐观锁：认为发生冲突的概率比较低。并不会上任何的锁，而是校验该数据是否别修改过，修改过着放弃本次操作\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了“锁”用于解决该类问题。 常见的锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁\n互斥锁 特点：容易实现，最基础的锁概念\n解释：在使用一个资源时，先上锁使用。上锁后其他线程都无法再上锁。直到解锁后，其他线程才能上锁使用。\n生活例子：公共厕所，谁要上厕所就要先上锁后使用，避免其他人也闯入使用厕所。\n自旋锁 自旋锁与互斥锁十分类似。 区别：\n自旋锁：加锁失败，线程还是会不断的去申请加锁，直到他拿到锁 互斥锁：加锁失败，线程会释放CPU资源，等待解锁后在申请上锁。 生活例子 -\u003e 公共厕所 自旋锁：不断的在门口敲门，直到里面的人出来 互斥锁：不动了，直到里面的人出来叫你。\n读写锁 顾名思义就是由读锁和写锁组成的。读数据往往是可以并发的读，并发写数据可能会导致数据不符合预期的情况\n读数据需要满足目前无写锁。 写数据需要满足目前无写锁、读锁。 生活例子：假设一个班级的考试成绩都写到同一个本子上。而学生会读成绩，老师会写成绩。学生看成绩可以同时看，而语文老师和数学老师不能并发的把成绩写到一页里。 读写锁可以分为 读优先锁 写优先锁 公平读写锁\n读优先锁 学生看到有老师在等待改写数据时，不理会老师继续读数据 写优先锁 读数据还需要满足无在等待的写锁\n学生看到有老师在等待改写数据时，会主动让老师写数据。\n公平读写锁 将读学请求放入一个队列，排队的去读写\n学生和老师排个队伍\n乐观锁与悲观锁 互斥锁、自旋锁、读写锁都是悲观锁\n悲观锁：多线程同时修改共享资源的概率比较高，容易发生冲突。因此访问共享资源前需要上锁。 乐观锁：认为发生冲突的概率比较低。并不会上任何的锁，而是校验该数据是否别修改过，修改过着放弃本次操作\n",
+  "wordCount" : "37",
+  "inLanguage": "zh",
+  "datePublished": "2024-12-08T00:28:39+08:00",
+  "dateModified": "2024-12-08T00:28:39+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://loommii.github.io/posts/skill/data/%E9%94%81/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "loommii",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://loommii.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/skill/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span>Golang练习</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                    <span>力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/skill/">文章</a></div>
+    <h1 class="post-title entry-hint-parent">
+      锁
+    </h1>
+    <div class="post-meta"><span title='2024-12-08 00:28:39 +0800 CST'>十二月 8, 2024</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了“锁”用于解决该类问题。
+常见的锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁</p>
+<h2 id="互斥锁">互斥锁<a hidden class="anchor" aria-hidden="true" href="#互斥锁">#</a></h2>
+<p>特点：容易实现，最基础的锁概念</p>
+<p>解释：在使用一个资源时，先上锁使用。上锁后其他线程都无法再上锁。直到解锁后，其他线程才能上锁使用。</p>
+<p>生活例子：公共厕所，谁要上厕所就要先上锁后使用，避免其他人也闯入使用厕所。</p>
+<h2 id="自旋锁">自旋锁<a hidden class="anchor" aria-hidden="true" href="#自旋锁">#</a></h2>
+<p>自旋锁与互斥锁十分类似。
+区别：</p>
+<ul>
+<li>自旋锁：加锁失败，线程还是会不断的去申请加锁，直到他拿到锁</li>
+<li>互斥锁：加锁失败，线程会释放CPU资源，等待解锁后在申请上锁。</li>
+</ul>
+<p>生活例子 -&gt; 公共厕所
+自旋锁：不断的在门口敲门，直到里面的人出来
+互斥锁：不动了，直到里面的人出来叫你。</p>
+<h2 id="读写锁">读写锁<a hidden class="anchor" aria-hidden="true" href="#读写锁">#</a></h2>
+<p>顾名思义就是由<code>读锁</code>和<code>写锁</code>组成的。读数据往往是可以并发的读，并发写数据可能会导致数据不符合预期的情况</p>
+<ul>
+<li>读数据需要满足目前无写锁。</li>
+<li>写数据需要满足目前无写锁、读锁。
+生活例子：假设一个班级的考试成绩都写到同一个本子上。而学生会读成绩，老师会写成绩。学生看成绩可以同时看，而语文老师和数学老师不能并发的把成绩写到一页里。</li>
+</ul>
+<p>读写锁可以分为 <code>读优先锁</code>      <code>写优先锁</code>  <code>公平读写锁</code></p>
+<ul>
+<li>读优先锁
+学生看到有老师在等待改写数据时，不理会老师继续读数据</li>
+<li>写优先锁
+<ul>
+<li>
+<p>读数据还需要满足无在等待的写锁</p>
+<p>学生看到有老师在等待改写数据时，会主动让老师写数据。</p>
+</li>
+</ul>
+</li>
+<li>公平读写锁
+<ul>
+<li>
+<p>将读学请求放入一个队列，排队的去读写</p>
+<p>学生和老师排个队伍</p>
+</li>
+</ul>
+</li>
+</ul>
+<h2 id="乐观锁与悲观锁">乐观锁与悲观锁<a hidden class="anchor" aria-hidden="true" href="#乐观锁与悲观锁">#</a></h2>
+<p>互斥锁、自旋锁、读写锁都是悲观锁</p>
+<p>悲观锁：多线程同时修改共享资源的概率比较高，容易发生冲突。因此访问共享资源前需要上锁。
+乐观锁：认为发生冲突的概率比较低。并不会上任何的锁，而是校验该数据是否别修改过，修改过着放弃本次操作</p>
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer><div>    
+    
+    <script src="https://utteranc.es/client.js"
+        repo="loommii/blog-review"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

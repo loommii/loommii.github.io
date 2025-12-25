@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>力扣 | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="力扣 - loommii">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/leetcode/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://loommii.github.io/leetcode/index.xml">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/leetcode/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/leetcode/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="力扣">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="力扣">
+<meta name="twitter:description" content="">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://loommii.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "力扣",
+      "item": "https://loommii.github.io/leetcode/"
+    }
+  ]
+}
+</script>
+
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/skill/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span>Golang练习</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                    <span class="active">力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/posts/">Posts</a></div>
+  <h1>
+    力扣
+  </h1>
+</header>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">2717_半有序排列
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>力扣链接:2717. 半有序排列
+力扣难度 简单 算法评级: 3 理解常用数据结构和算法 难度分 1296
+题目:
+给你一个下标从 0 开始、长度为 n 的整数排列 nums 。
+如果排列的第一个数字等于 1 且最后一个数字等于 n，则称其为 半有序排列 。你可以执行多次下述操作，直到将 nums 变成一个 半有序排列 ：
+示例 1：
+输入：nums = [2,1,4,3] 输出：2 解释：可以依次执行下述操作得到半有序排列： 1 - 交换下标 0 和下标 1 对应元素。排列变为 [1,2,4,3] 。 2 - 交换下标 2 和下标 3 对应元素。排列变为 [1,2,3,4] 。 可以证明，要让 nums 成为半有序排列，不存在执行操作少于 2 次的方案。
+示例 2：
+输入：nums = [2,4,1,3] 输出：3 解释： 可以依次执行下述操作得到半有序排列： 1 - 交换下标 1 和下标 2 对应元素。排列变为 [2,1,4,3] 。 2 - 交换下标 0 和下标 1 对应元素。排列变为 [1,2,4,3] 。 3 - 交换下标 2 和下标 3 对应元素。排列变为 [1,2,3,4] 。 可以证明，要让 nums 成为半有序排列，不存在执行操作少于 3 次的方案。
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-11 00:35:39 +0800 CST'>十二月 11, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to 2717_半有序排列" href="https://loommii.github.io/posts/leetcode/data/2717_%E5%8D%8A%E6%9C%89%E5%BA%8F%E6%8E%92%E5%88%97/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">70.爬楼梯
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>力扣链接:70.爬楼梯
+力扣难度 简单 算法评级: 2 假设你正在爬楼梯。需要 n 阶你才能到达楼顶。
+每次你可以爬 1 或 2 个台阶。你有多少种不同的方法可以爬到楼顶呢？
+示例 1：
+输入：n = 2 输出：2 解释：有两种方法可以爬到楼顶。
+1 阶 &#43; 1 阶 2 阶 示例 2：
+输入：n = 3 输出：3 解释：有三种方法可以爬到楼顶。
+1 阶 &#43; 1 阶 &#43; 1 阶 1 阶 &#43; 2 阶 2 阶 &#43; 1 阶 func climbStairs(n int) int { } 🔑 答案解析： 👈点击 </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-11 00:29:39 +0800 CST'>十二月 11, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to 70.爬楼梯" href="https://loommii.github.io/posts/leetcode/data/70_%E7%88%AC%E6%A5%BC%E6%A2%AF/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">935_骑士拨号器
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>力扣链接:935. 骑士拨号器
+力扣难度 中等 算法评级: 5 熟练掌握常用数据结构和算法，初步了解高级数据结构 难度分 1690 题目:
+象棋骑士有一个独特的移动方式，它可以垂直移动两个方格，水平移动一个方格，或者水平移动两个方格，垂直移动一个方格(两者都形成一个 L 的形状)。
+象棋骑士可能的移动方式如下图所示: 我们有一个象棋骑士和一个电话垫，如下所示，骑士只能站在一个数字单元格上(即蓝色单元格)。 给定一个整数 n，返回我们可以拨多少个长度为 n 的不同电话号码。
+你可以将骑士放置在任何数字单元格上，然后你应该执行 n - 1 次移动来获得长度为 n 的号码。所有的跳跃应该是有效的骑士跳跃。
+因为答案可能很大，所以输出答案模 109 &#43; 7.
+示例 1：
+输入：n = 1 输出：10 解释：我们需要拨一个长度为1的数字，所以把骑士放在10个单元格中的任何一个数字单元格上都能满足条件。
+示例 2：
+输入：n = 2 输出：20 解释：我们可以拨打的所有有效号码为[04, 06, 16, 18, 27, 29, 34, 38, 40, 43, 49, 60, 61, 67, 72, 76, 81, 83, 92, 94]
+示例 3：
+输入：n = 3131 输出：136006598 解释：注意取模
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-10 20:20:24 +0800 CST'>十二月 10, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to 935_骑士拨号器" href="https://loommii.github.io/posts/leetcode/data/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">1812_判断国际象棋棋盘中一个格子的颜色
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>力扣链接:1812. 判断国际象棋棋盘中一个格子的颜色
+力扣难度 简单
+题目: 给你一个坐标 coordinates ，它是一个字符串，表示国际象棋棋盘中一个格子的坐标。下图是国际象棋棋盘示意图。
+如果所给格子的颜色是白色，请你返回 true，如果是黑色，请返回 false 。
+给定坐标一定代表国际象棋棋盘上一个存在的格子。坐标第一个字符是字母，第二个字符是数字。
+示例 1：
+输入：coordinates = “a1” 输出：false 解释：如上图棋盘所示，“a1” 坐标的格子是黑色的，所以返回 false 。
+示例 2：
+输入：coordinates = “h3” 输出：true 解释：如上图棋盘所示，“h3” 坐标的格子是白色的，所以返回 true 。
+示例 3：
+输入：coordinates = “c7” 输出：false
+func squareIsWhite(coordinates string) bool { } 🔑 答案解析： 👈点击 func squareIsWhite(coordinates string) bool { return coordinates[0]%2 != coordinates[1]%2 } </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-09 12:14:07 +0800 CST'>十二月 9, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to 1812_判断国际象棋棋盘中一个格子的颜色" href="https://loommii.github.io/posts/leetcode/data/1812_%E5%88%A4%E6%96%AD%E5%9B%BD%E9%99%85%E8%B1%A1%E6%A3%8B%E6%A3%8B%E7%9B%98%E4%B8%AD%E4%B8%80%E4%B8%AA%E6%A0%BC%E5%AD%90%E7%9A%84%E9%A2%9C%E8%89%B2/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">688_骑士在棋盘上的概率
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>力扣链接:688. 骑士在棋盘上的概率
+力扣难度 中等
+题目:
+在一个 n x n 的国际象棋棋盘上，一个骑士从单元格 (row, column) 开始，并尝试进行 k 次移动。行和列是 从 0 开始 的，所以左上单元格是 (0,0) ，右下单元格是 (n - 1, n - 1) 。
+象棋骑士有8种可能的走法，如下图所示。每次移动在基本方向上是两个单元格，然后在正交方向上是一个单元格 每次骑士要移动时，它都会随机从8种可能的移动中选择一种(即使棋子会离开棋盘)，然后移动到那里。
+骑士继续移动，直到它走了 k 步或离开了棋盘。
+返回 骑士在棋盘停止移动后仍留在棋盘上的概率 。
+示例 1：
+输入: n = 3, k = 2, row = 0, column = 0 输出: 0.0625 解释: 有两步(到(1,2)，(2,1))可以让骑士留在棋盘上。 在每一个位置上，也有两种移动可以让骑士留在棋盘上。 骑士留在棋盘上的总概率是0.0625。
+示例 2：
+输入: n = 1, k = 0, row = 0, column = 0 输出: 1.00000
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-07 01:15:09 +0800 CST'>十二月 7, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to 688_骑士在棋盘上的概率" href="https://loommii.github.io/posts/leetcode/data/688_%E9%AA%91%E5%A3%AB%E5%9C%A8%E6%A3%8B%E7%9B%98%E4%B8%8A%E7%9A%84%E6%A6%82%E7%8E%87/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://loommii.github.io/leetcode/page/3/">
+      «&nbsp;上一页&nbsp;
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>11. 盛最多水的容器 | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="力扣链接:11. 盛最多水的容器
+
+力扣难度 中等
+给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
+找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+返回容器可以储存的最大水量。
+说明： 你不能倾斜容器。
+示例
+示例 1：
+
+
+输入：[1,8,6,2,5,4,8,3,7]
+输出：49
+解释：&gt; 图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。
+
+示例 2：
+
+输入：height = [1,1]
+输出：1
+
+提示：
+
+n == height.length
+2 &lt;= n &lt;= 10^5
+0 &lt;= height[i] &lt;= 10^4
+
+func maxArea(height []int) int {
+    
+}
+
+func maxArea(height []int) int {
+	ans := 0
+
+	i := 0               // 左指针下标
+	j := len(height) - 1 // 右指针下标
+
+	// 循环
+	for i &lt; j {
+		// 目前的面积
+		ans = max(ans, min(height[j], height[i])*(j-i)) // 最小的高 * 相距的宽
+		if height[i] &lt;= height[j] {
+			i&#43;&#43;
+		} else {
+			j--
+		}
+	}
+	return ans
+}
+">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/posts/leetcode/data/11_%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/leetcode/data/11_%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/posts/leetcode/data/11_%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="11. 盛最多水的容器">
+  <meta property="og:description" content="力扣链接:11. 盛最多水的容器
+力扣难度 中等
+给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
+找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+返回容器可以储存的最大水量。
+说明： 你不能倾斜容器。
+示例 示例 1： 输入：[1,8,6,2,5,4,8,3,7] 输出：49 解释：&gt; 图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。 示例 2： 输入：height = [1,1] 输出：1 提示： n == height.length 2 &lt;= n &lt;= 10^5 0 &lt;= height[i] &lt;= 10^4 func maxArea(height []int) int { } func maxArea(height []int) int { ans := 0 i := 0 // 左指针下标 j := len(height) - 1 // 右指针下标 // 循环 for i &lt; j { // 目前的面积 ans = max(ans, min(height[j], height[i])*(j-i)) // 最小的高 * 相距的宽 if height[i] &lt;= height[j] { i&#43;&#43; } else { j-- } } return ans } ">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-05-05T16:31:16+08:00">
+    <meta property="article:modified_time" content="2025-05-05T16:31:16+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="11. 盛最多水的容器">
+<meta name="twitter:description" content="力扣链接:11. 盛最多水的容器
+
+力扣难度 中等
+给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。
+找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。
+返回容器可以储存的最大水量。
+说明： 你不能倾斜容器。
+示例
+示例 1：
+
+
+输入：[1,8,6,2,5,4,8,3,7]
+输出：49
+解释：&gt; 图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。
+
+示例 2：
+
+输入：height = [1,1]
+输出：1
+
+提示：
+
+n == height.length
+2 &lt;= n &lt;= 10^5
+0 &lt;= height[i] &lt;= 10^4
+
+func maxArea(height []int) int {
+    
+}
+
+func maxArea(height []int) int {
+	ans := 0
+
+	i := 0               // 左指针下标
+	j := len(height) - 1 // 右指针下标
+
+	// 循环
+	for i &lt; j {
+		// 目前的面积
+		ans = max(ans, min(height[j], height[i])*(j-i)) // 最小的高 * 相距的宽
+		if height[i] &lt;= height[j] {
+			i&#43;&#43;
+		} else {
+			j--
+		}
+	}
+	return ans
+}
+">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "力扣",
+      "item": "https://loommii.github.io/leetcode/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "11. 盛最多水的容器",
+      "item": "https://loommii.github.io/posts/leetcode/data/11_%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "11. 盛最多水的容器",
+  "name": "11. 盛最多水的容器",
+  "description": "力扣链接:11. 盛最多水的容器\n力扣难度 中等\n给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。\n找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。\n返回容器可以储存的最大水量。\n说明： 你不能倾斜容器。\n示例 示例 1： 输入：[1,8,6,2,5,4,8,3,7] 输出：49 解释：\u0026gt; 图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。 示例 2： 输入：height = [1,1] 输出：1 提示： n == height.length 2 \u0026lt;= n \u0026lt;= 10^5 0 \u0026lt;= height[i] \u0026lt;= 10^4 func maxArea(height []int) int { } func maxArea(height []int) int { ans := 0 i := 0 // 左指针下标 j := len(height) - 1 // 右指针下标 // 循环 for i \u0026lt; j { // 目前的面积 ans = max(ans, min(height[j], height[i])*(j-i)) // 最小的高 * 相距的宽 if height[i] \u0026lt;= height[j] { i++ } else { j-- } } return ans } ",
+  "keywords": [
+    
+  ],
+  "articleBody": "力扣链接:11. 盛最多水的容器\n力扣难度 中等\n给定一个长度为 n 的整数数组 height 。有 n 条垂线，第 i 条线的两个端点是 (i, 0) 和 (i, height[i]) 。\n找出其中的两条线，使得它们与 x 轴共同构成的容器可以容纳最多的水。\n返回容器可以储存的最大水量。\n说明： 你不能倾斜容器。\n示例 示例 1： 输入：[1,8,6,2,5,4,8,3,7] 输出：49 解释：\u003e 图中垂直线代表输入数组 [1,8,6,2,5,4,8,3,7]。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。 示例 2： 输入：height = [1,1] 输出：1 提示： n == height.length 2 \u003c= n \u003c= 10^5 0 \u003c= height[i] \u003c= 10^4 func maxArea(height []int) int { } func maxArea(height []int) int { ans := 0 i := 0 // 左指针下标 j := len(height) - 1 // 右指针下标 // 循环 for i \u003c j { // 目前的面积 ans = max(ans, min(height[j], height[i])*(j-i)) // 最小的高 * 相距的宽 if height[i] \u003c= height[j] { i++ } else { j-- } } return ans } ",
+  "wordCount" : "113",
+  "inLanguage": "zh",
+  "datePublished": "2025-05-05T16:31:16+08:00",
+  "dateModified": "2025-05-05T16:31:16+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://loommii.github.io/posts/leetcode/data/11_%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "loommii",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://loommii.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/skill/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span>Golang练习</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                    <span>力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/leetcode/">力扣</a></div>
+    <h1 class="post-title entry-hint-parent">
+      11. 盛最多水的容器
+    </h1>
+    <div class="post-meta"><span title='2025-05-05 16:31:16 +0800 CST'>五月 5, 2025</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>力扣链接:<a href="https://leetcode.cn/problems/container-with-most-water/description/">11. 盛最多水的容器</a></p>
+<blockquote>
+<p>力扣难度 <code>中等</code></p></blockquote>
+<p>给定一个长度为 <code>n</code> 的整数数组 <code>height</code> 。有 <code>n</code> 条垂线，第 <code>i</code> 条线的两个端点是 <code>(i, 0)</code> 和 <code>(i, height[i])</code> 。</p>
+<p>找出其中的两条线，使得它们与 <code>x</code> 轴共同构成的容器可以容纳<strong>最多</strong>的水。</p>
+<p>返回容器可以储存的最大水量。</p>
+<p><strong>说明：</strong> 你<strong>不能倾斜容器</strong>。</p>
+<h2 id="示例">示例<a hidden class="anchor" aria-hidden="true" href="#示例">#</a></h2>
+<h3 id="示例-1">示例 1：<a hidden class="anchor" aria-hidden="true" href="#示例-1">#</a></h3>
+<p><img alt="alt text" loading="lazy" src="/posts/leetcode/data/11_%E7%9B%9B%E6%9C%80%E5%A4%9A%E6%B0%B4%E7%9A%84%E5%AE%B9%E5%99%A8/image.png"></p>
+<ul>
+<li><strong>输入：</strong><code>[1,8,6,2,5,4,8,3,7]</code></li>
+<li><strong>输出：</strong><code>49</code></li>
+<li><strong>解释：</strong>&gt; 图中垂直线代表输入数组 <code>[1,8,6,2,5,4,8,3,7]</code>。在此情况下，容器能够容纳水（表示为蓝色部分）的最大值为 49。</li>
+</ul>
+<h3 id="示例-2">示例 2：<a hidden class="anchor" aria-hidden="true" href="#示例-2">#</a></h3>
+<ul>
+<li><strong>输入：</strong><code>height = [1,1]</code></li>
+<li><strong>输出：</strong><code>1</code></li>
+</ul>
+<h2 id="提示">提示：<a hidden class="anchor" aria-hidden="true" href="#提示">#</a></h2>
+<ul>
+<li><code>n == height.length</code></li>
+<li><code>2 &lt;= n &lt;= 10^5</code></li>
+<li><code>0 &lt;= height[i] &lt;= 10^4</code></li>
+</ul>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">maxArea</span>(<span style="color:#a6e22e">height</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">maxArea</span>(<span style="color:#a6e22e">height</span> []<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>               <span style="color:#75715e">// 左指针下标</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">height</span>) <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e">// 右指针下标</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>	<span style="color:#75715e">// 循环</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">j</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#75715e">// 目前的面积</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#a6e22e">ans</span> = max(<span style="color:#a6e22e">ans</span>, min(<span style="color:#a6e22e">height</span>[<span style="color:#a6e22e">j</span>], <span style="color:#a6e22e">height</span>[<span style="color:#a6e22e">i</span>])<span style="color:#f92672">*</span>(<span style="color:#a6e22e">j</span><span style="color:#f92672">-</span><span style="color:#a6e22e">i</span>)) <span style="color:#75715e">// 最小的高 * 相距的宽</span>
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">if</span> <span style="color:#a6e22e">height</span>[<span style="color:#a6e22e">i</span>] <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">height</span>[<span style="color:#a6e22e">j</span>] {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">i</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>		} <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>			<span style="color:#a6e22e">j</span><span style="color:#f92672">--</span>
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer><div>    
+    
+    <script src="https://utteranc.es/client.js"
+        repo="loommii/blog-review"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>2931_购买物品的最大开销 | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="力扣链接:2931. 购买物品的最大开销
+力扣难度 困难
+算法评级: 6
+难度分 1822
+
+题目:
+给你一个下标从 0 开始大小为 m n 的整数矩阵 values ，表示 m 个不同商店里 m n 件不同的物品。每个商店有 n 件物品，第 i 个商店的第 j 件物品的价值为 values[i][j] 。除此以外，第 i 个商店的物品已经按照价值非递增排好序了，也就是说对于所有 0 &lt;= j &lt; n - 1 都有 values[i][j] &gt;= values[i][j &#43; 1] 。
+每一天，你可以在一个商店里购买一件物品。具体来说，在第 d 天，你可以：
+
+选择商店 i 。
+购买数组中最右边的物品 j ，开销为 values[i][j] d 。换句话说，选择该商店中还没购买过的物品中最大的下标 j ，并且花费 values[i][j] d 去购买。
+
+注意，所有物品都视为不同的物品。比方说如果你已经从商店 1 购买了物品 0 ，你还可以在别的商店里购买其他商店的物品 0 。
+请你返回购买所有 m * n 件物品需要的 最大开销 。">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/posts/leetcode/data/2931_%E8%B4%AD%E4%B9%B0%E7%89%A9%E5%93%81%E7%9A%84%E6%9C%80%E5%A4%A7%E5%BC%80%E9%94%80/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/leetcode/data/2931_%E8%B4%AD%E4%B9%B0%E7%89%A9%E5%93%81%E7%9A%84%E6%9C%80%E5%A4%A7%E5%BC%80%E9%94%80/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/posts/leetcode/data/2931_%E8%B4%AD%E4%B9%B0%E7%89%A9%E5%93%81%E7%9A%84%E6%9C%80%E5%A4%A7%E5%BC%80%E9%94%80/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="2931_购买物品的最大开销">
+  <meta property="og:description" content="力扣链接:2931. 购买物品的最大开销
+力扣难度 困难 算法评级: 6 难度分 1822
+题目:
+给你一个下标从 0 开始大小为 m n 的整数矩阵 values ，表示 m 个不同商店里 m n 件不同的物品。每个商店有 n 件物品，第 i 个商店的第 j 件物品的价值为 values[i][j] 。除此以外，第 i 个商店的物品已经按照价值非递增排好序了，也就是说对于所有 0 &lt;= j &lt; n - 1 都有 values[i][j] &gt;= values[i][j &#43; 1] 。
+每一天，你可以在一个商店里购买一件物品。具体来说，在第 d 天，你可以：
+选择商店 i 。 购买数组中最右边的物品 j ，开销为 values[i][j] d 。换句话说，选择该商店中还没购买过的物品中最大的下标 j ，并且花费 values[i][j] d 去购买。 注意，所有物品都视为不同的物品。比方说如果你已经从商店 1 购买了物品 0 ，你还可以在别的商店里购买其他商店的物品 0 。
+请你返回购买所有 m * n 件物品需要的 最大开销 。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-12T13:58:44+08:00">
+    <meta property="article:modified_time" content="2024-12-12T13:58:44+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="2931_购买物品的最大开销">
+<meta name="twitter:description" content="力扣链接:2931. 购买物品的最大开销
+力扣难度 困难
+算法评级: 6
+难度分 1822
+
+题目:
+给你一个下标从 0 开始大小为 m n 的整数矩阵 values ，表示 m 个不同商店里 m n 件不同的物品。每个商店有 n 件物品，第 i 个商店的第 j 件物品的价值为 values[i][j] 。除此以外，第 i 个商店的物品已经按照价值非递增排好序了，也就是说对于所有 0 &lt;= j &lt; n - 1 都有 values[i][j] &gt;= values[i][j &#43; 1] 。
+每一天，你可以在一个商店里购买一件物品。具体来说，在第 d 天，你可以：
+
+选择商店 i 。
+购买数组中最右边的物品 j ，开销为 values[i][j] d 。换句话说，选择该商店中还没购买过的物品中最大的下标 j ，并且花费 values[i][j] d 去购买。
+
+注意，所有物品都视为不同的物品。比方说如果你已经从商店 1 购买了物品 0 ，你还可以在别的商店里购买其他商店的物品 0 。
+请你返回购买所有 m * n 件物品需要的 最大开销 。">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "力扣",
+      "item": "https://loommii.github.io/leetcode/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "2931_购买物品的最大开销",
+      "item": "https://loommii.github.io/posts/leetcode/data/2931_%E8%B4%AD%E4%B9%B0%E7%89%A9%E5%93%81%E7%9A%84%E6%9C%80%E5%A4%A7%E5%BC%80%E9%94%80/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "2931_购买物品的最大开销",
+  "name": "2931_购买物品的最大开销",
+  "description": "力扣链接:2931. 购买物品的最大开销\n力扣难度 困难 算法评级: 6 难度分 1822\n题目:\n给你一个下标从 0 开始大小为 m n 的整数矩阵 values ，表示 m 个不同商店里 m n 件不同的物品。每个商店有 n 件物品，第 i 个商店的第 j 件物品的价值为 values[i][j] 。除此以外，第 i 个商店的物品已经按照价值非递增排好序了，也就是说对于所有 0 \u0026lt;= j \u0026lt; n - 1 都有 values[i][j] \u0026gt;= values[i][j + 1] 。\n每一天，你可以在一个商店里购买一件物品。具体来说，在第 d 天，你可以：\n选择商店 i 。 购买数组中最右边的物品 j ，开销为 values[i][j] d 。换句话说，选择该商店中还没购买过的物品中最大的下标 j ，并且花费 values[i][j] d 去购买。 注意，所有物品都视为不同的物品。比方说如果你已经从商店 1 购买了物品 0 ，你还可以在别的商店里购买其他商店的物品 0 。\n请你返回购买所有 m * n 件物品需要的 最大开销 。\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "力扣链接:2931. 购买物品的最大开销\n力扣难度 困难 算法评级: 6 难度分 1822\n题目:\n给你一个下标从 0 开始大小为 m n 的整数矩阵 values ，表示 m 个不同商店里 m n 件不同的物品。每个商店有 n 件物品，第 i 个商店的第 j 件物品的价值为 values[i][j] 。除此以外，第 i 个商店的物品已经按照价值非递增排好序了，也就是说对于所有 0 \u003c= j \u003c n - 1 都有 values[i][j] \u003e= values[i][j + 1] 。\n每一天，你可以在一个商店里购买一件物品。具体来说，在第 d 天，你可以：\n选择商店 i 。 购买数组中最右边的物品 j ，开销为 values[i][j] d 。换句话说，选择该商店中还没购买过的物品中最大的下标 j ，并且花费 values[i][j] d 去购买。 注意，所有物品都视为不同的物品。比方说如果你已经从商店 1 购买了物品 0 ，你还可以在别的商店里购买其他商店的物品 0 。\n请你返回购买所有 m * n 件物品需要的 最大开销 。\n示例 1：\n输入：values = [[8,5,2],[6,4,1],[9,7,3]] 输出：285 解释：第一天，从商店 1 购买物品 2 ，开销为 values[1][2] 1 = 1 。 第二天，从商店 0 购买物品 2 ，开销为 values[0][2] 2 = 4 。 第三天，从商店 2 购买物品 2 ，开销为 values[2][2] 3 = 9 。 第四天，从商店 1 购买物品 1 ，开销为 values[1][1] 4 = 16 。 第五天，从商店 0 购买物品 1 ，开销为 values[0][1] 5 = 25 。 第六天，从商店 1 购买物品 0 ，开销为 values[1][0] 6 = 36 。 第七天，从商店 2 购买物品 1 ，开销为 values[2][1] 7 = 49 。 第八天，从商店 0 购买物品 0 ，开销为 values[0][0] 8 = 64 。 第九天，从商店 2 购买物品 0 ，开销为 values[2][0] 9 = 81 。 所以总开销为 285 。 285 是购买所有 m n 件物品的最大总开销。。\n示例 2：\n输入：values = [[10,8,6,4,2],[9,7,5,3,2]] 输出：386 解释：第一天，从商店 0 购买物品 4 ，开销为 values[0][4] 1 = 2 。 第二天，从商店 1 购买物品 4 ，开销为 values[1][4] 2 = 4 。 第三天，从商店 1 购买物品 3 ，开销为 values[1][3] 3 = 9 。 第四天，从商店 0 购买物品 3 ，开销为 values[0][3] 4 = 16 。 第五天，从商店 1 购买物品 2 ，开销为 values[1][2] 5 = 25 。 第六天，从商店 0 购买物品 2 ，开销为 values[0][2] 6 = 36 。 第七天，从商店 1 购买物品 1 ，开销为 values[1][1] 7 = 49 。 第八天，从商店 0 购买物品 1 ，开销为 values[0][1] 8 = 64 。 第九天，从商店 1 购买物品 0 ，开销为 values[1][0] 9 = 81 。 第十天，从商店 0 购买物品 0 ，开销为 values[0][0] 10 = 100 。 所以总开销为 386 。 386 是购买所有 m * n 件物品的最大总开销。\n提示：\n1 \u003c= m == values.length \u003c= 10 1 \u003c= n == values[i].length \u003c= 104 1 \u003c= values[i][j] \u003c= 106 values[i] 按照非递增顺序排序。 func maxSpending(values [][]int) int64 { } 🧠思路: 👈点击 最大开销，目测是DP问题。但是由于values[i] 按照非递增顺序排序，先考虑能不能用贪心。\n方法一贪心：只买最小的，贵的后面买。 创建一个数组记录每个商店的尾下标(最便宜的商品) 不断找最小，然后购买\n方法二排序： 不需要关心在那个商店购买，我们只关注商品。 例如商店A 商品7元，商店B 商品7元。在那个商店购买都是一个价。 因此可以将全部商品都合并并排序。从便宜的开始买起\n方法三排序优化： 由于Go内置的插入排序,插入排序的时间复杂度为on^2,因此我们可以更换为堆 时间复杂度将可以优化为onlogn\n🔑 答案解析： 👈点击 下标+贪心 func maxSpending(values [][]int) (ans int64) { m := len(values) n := len(values[0]) indexV := make([]int, m) for i, _ := range indexV { indexV[i] = n - 1 // 尾下标 } ruin := 0 day := 0 for { minV := 1000001 minI := -1 day++ // 多一天 for i, v := range indexV { // i 是商铺 v是下标 if v == -1 { ruin++ continue } // 找最小 if values[i][v] \u003c minV { minV = values[i][v] minI = i } } if ruin == m { // 全部买完了 break } else { ruin = 0 } ans += int64(day) * int64(minV) indexV[minI]-- } return } 排序 func maxSpending(values [][]int) (ans int64) { m, n := len(values), len(values[0]) valuesList := make([]int, 0, m*n) for _, v := range values { valuesList = append(valuesList, v...) } valuesSort := sort.IntSlice(valuesList) valuesSort.Sort() for i := 0; i \u003c valuesSort.Len(); i++ { day := i + 1 ans += int64(day) * int64(valuesSort[i]) } return } 堆排序 func maxSpending(values [][]int) (ans int64) { m, n := len(values), len(values[0]) idx := make([]int, m) for i := range idx { idx[i] = i } h := \u0026hp{idx, values} heap.Init(h) for d := 1; d \u003c= m*n; d++ { a := values[idx[0]] ans += int64(a[len(a)-1]) * int64(d) if len(a) \u003e 1 { values[idx[0]] = a[:len(a)-1] heap.Fix(h, 0) } else { heap.Pop(h) } } return } type hp struct { sort.IntSlice values [][]int } func (h hp) Less(i, j int) bool { a, b := h.values[h.IntSlice[i]], h.values[h.IntSlice[j]] return a[len(a)-1] \u003c b[len(b)-1] } func (hp) Push(any) {} func (h *hp) Pop() (_ any) { a := h.IntSlice; h.IntSlice = a[:len(a)-1]; return } ",
+  "wordCount" : "616",
+  "inLanguage": "zh",
+  "datePublished": "2024-12-12T13:58:44+08:00",
+  "dateModified": "2024-12-12T13:58:44+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://loommii.github.io/posts/leetcode/data/2931_%E8%B4%AD%E4%B9%B0%E7%89%A9%E5%93%81%E7%9A%84%E6%9C%80%E5%A4%A7%E5%BC%80%E9%94%80/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "loommii",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://loommii.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/skill/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span>Golang练习</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                    <span>力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/leetcode/">力扣</a></div>
+    <h1 class="post-title entry-hint-parent">
+      2931_购买物品的最大开销
+    </h1>
+    <div class="post-meta"><span title='2024-12-12 13:58:44 +0800 CST'>十二月 12, 2024</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>力扣链接:<a href="https://leetcode.cn/problems/maximum-spending-after-buying-items/description/?envType=daily-question&amp;envId=2024-12-12">2931. 购买物品的最大开销</a></p>
+<p>力扣难度 <code>困难</code>
+算法评级: 6
+难度分 1822</p>
+<hr>
+<p>题目:</p>
+<p>给你一个下标从 0 开始大小为 m <em>n 的整数矩阵 values ，表示 m 个不同商店里 m</em> n 件不同的物品。每个商店有 n 件物品，第 i 个商店的第 j 件物品的价值为 values[i][j] 。除此以外，第 i 个商店的物品已经按照价值非递增排好序了，也就是说对于所有 0 &lt;= j &lt; n - 1 都有 values[i][j] &gt;= values[i][j + 1] 。</p>
+<p>每一天，你可以在一个商店里购买一件物品。具体来说，在第 d 天，你可以：</p>
+<ul>
+<li>选择商店 i 。</li>
+<li>购买数组中最右边的物品 j ，开销为 values[i][j] <em>d 。换句话说，选择该商店中还没购买过的物品中最大的下标 j ，并且花费 values[i][j]</em> d 去购买。</li>
+</ul>
+<p>注意，所有物品都视为不同的物品。比方说如果你已经从商店 1 购买了物品 0 ，你还可以在别的商店里购买其他商店的物品 0 。</p>
+<p>请你返回购买所有 m * n 件物品需要的 最大开销 。</p>
+<hr>
+<p>示例 1：</p>
+<blockquote>
+<p>输入：values = [[8,5,2],[6,4,1],[9,7,3]]
+输出：285
+解释：第一天，从商店 1 购买物品 2 ，开销为 values[1][2] <em>1 = 1 。
+第二天，从商店 0 购买物品 2 ，开销为 values[0][2]</em> 2 = 4 。
+第三天，从商店 2 购买物品 2 ，开销为 values[2][2] <em>3 = 9 。
+第四天，从商店 1 购买物品 1 ，开销为 values[1][1]</em> 4 = 16 。
+第五天，从商店 0 购买物品 1 ，开销为 values[0][1] <em>5 = 25 。
+第六天，从商店 1 购买物品 0 ，开销为 values[1][0]</em> 6 = 36 。
+第七天，从商店 2 购买物品 1 ，开销为 values[2][1] <em>7 = 49 。
+第八天，从商店 0 购买物品 0 ，开销为 values[0][0]</em> 8 = 64 。
+第九天，从商店 2 购买物品 0 ，开销为 values[2][0] <em>9 = 81 。
+所以总开销为 285 。
+285 是购买所有 m</em> n 件物品的最大总开销。。</p></blockquote>
+<p>示例 2：</p>
+<blockquote>
+<p>输入：values = [[10,8,6,4,2],[9,7,5,3,2]]
+输出：386
+解释：第一天，从商店 0 购买物品 4 ，开销为 values[0][4] <em>1 = 2 。
+第二天，从商店 1 购买物品 4 ，开销为 values[1][4]</em> 2 = 4 。
+第三天，从商店 1 购买物品 3 ，开销为 values[1][3] <em>3 = 9 。
+第四天，从商店 0 购买物品 3 ，开销为 values[0][3]</em> 4 = 16 。
+第五天，从商店 1 购买物品 2 ，开销为 values[1][2] <em>5 = 25 。
+第六天，从商店 0 购买物品 2 ，开销为 values[0][2]</em> 6 = 36 。
+第七天，从商店 1 购买物品 1 ，开销为 values[1][1] <em>7 = 49 。
+第八天，从商店 0 购买物品 1 ，开销为 values[0][1]</em> 8 = 64 。
+第九天，从商店 1 购买物品 0 ，开销为 values[1][0] <em>9 = 81 。
+第十天，从商店 0 购买物品 0 ，开销为 values[0][0]</em> 10 = 100 。
+所以总开销为 386 。
+386 是购买所有 m * n 件物品的最大总开销。</p></blockquote>
+<p>提示：</p>
+<ul>
+<li>1 &lt;= m == values.length &lt;= 10</li>
+<li>1 &lt;= n == values[i].length &lt;= 104</li>
+<li>1 &lt;= values[i][j] &lt;= 106</li>
+<li>values[i] 按照非递增顺序排序。</li>
+</ul>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">maxSpending</span>(<span style="color:#a6e22e">values</span> [][]<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">int64</span> {
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🧠思路:  👈点击</button>
+<div class="toggle-content">
+  <p>最大开销，目测是DP问题。但是由于values[i] 按照非递增顺序排序，先考虑能不能用贪心。</p>
+<p>方法一贪心：只买最小的，贵的后面买。
+创建一个数组记录每个商店的尾下标(最便宜的商品)
+不断找最小，然后购买</p>
+<p>方法二排序：
+不需要关心在那个商店购买，我们只关注商品。
+例如商店A 商品7元，商店B 商品7元。在那个商店购买都是一个价。
+因此可以将全部商品都合并并排序。从便宜的开始买起</p>
+<p>方法三排序优化：
+由于Go内置的插入排序,插入排序的时间复杂度为on^2,因此我们可以更换为堆 时间复杂度将可以优化为onlogn</p>
+
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>
+
+<hr>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析： 👈点击</button>
+<div class="toggle-content">
+  <h2 id="下标贪心">下标+贪心<a hidden class="anchor" aria-hidden="true" href="#下标贪心">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">maxSpending</span>(<span style="color:#a6e22e">values</span> [][]<span style="color:#66d9ef">int</span>) (<span style="color:#a6e22e">ans</span> <span style="color:#66d9ef">int64</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">m</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">values</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">values</span>[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">indexV</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">m</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">_</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">indexV</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">indexV</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">n</span> <span style="color:#f92672">-</span> <span style="color:#ae81ff">1</span> <span style="color:#75715e">// 尾下标</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ruin</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">day</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">minV</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1000001</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">minI</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">day</span><span style="color:#f92672">++</span> <span style="color:#75715e">// 多一天</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">indexV</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// i 是商铺 v是下标</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">==</span> <span style="color:#f92672">-</span><span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">ruin</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 找最小</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">values</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">v</span>] &lt; <span style="color:#a6e22e">minV</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">minV</span> = <span style="color:#a6e22e">values</span>[<span style="color:#a6e22e">i</span>][<span style="color:#a6e22e">v</span>]
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">minI</span> = <span style="color:#a6e22e">i</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">ruin</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">m</span> { <span style="color:#75715e">// 全部买完了</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">break</span>
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">ruin</span> = <span style="color:#ae81ff">0</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">ans</span> <span style="color:#f92672">+=</span> int64(<span style="color:#a6e22e">day</span>) <span style="color:#f92672">*</span> int64(<span style="color:#a6e22e">minV</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">indexV</span>[<span style="color:#a6e22e">minI</span>]<span style="color:#f92672">--</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="排序">排序<a hidden class="anchor" aria-hidden="true" href="#排序">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">maxSpending</span>(<span style="color:#a6e22e">values</span> [][]<span style="color:#66d9ef">int</span>) (<span style="color:#a6e22e">ans</span> <span style="color:#66d9ef">int64</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">values</span>), len(<span style="color:#a6e22e">values</span>[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">valuesList</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#ae81ff">0</span>, <span style="color:#a6e22e">m</span><span style="color:#f92672">*</span><span style="color:#a6e22e">n</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">values</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">valuesList</span> = append(<span style="color:#a6e22e">valuesList</span>, <span style="color:#a6e22e">v</span><span style="color:#f92672">...</span>)
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">valuesSort</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">IntSlice</span>(<span style="color:#a6e22e">valuesList</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">valuesSort</span>.<span style="color:#a6e22e">Sort</span>()
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">valuesSort</span>.<span style="color:#a6e22e">Len</span>(); <span style="color:#a6e22e">i</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">day</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">+</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">ans</span> <span style="color:#f92672">+=</span> int64(<span style="color:#a6e22e">day</span>) <span style="color:#f92672">*</span> int64(<span style="color:#a6e22e">valuesSort</span>[<span style="color:#a6e22e">i</span>])
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="堆排序">堆排序<a hidden class="anchor" aria-hidden="true" href="#堆排序">#</a></h2>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">maxSpending</span>(<span style="color:#a6e22e">values</span> [][]<span style="color:#66d9ef">int</span>) (<span style="color:#a6e22e">ans</span> <span style="color:#66d9ef">int64</span>) {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">m</span>, <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">values</span>), len(<span style="color:#a6e22e">values</span>[<span style="color:#ae81ff">0</span>])
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">idx</span> <span style="color:#f92672">:=</span> make([]<span style="color:#66d9ef">int</span>, <span style="color:#a6e22e">m</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">idx</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">idx</span>[<span style="color:#a6e22e">i</span>] = <span style="color:#a6e22e">i</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">h</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&amp;</span><span style="color:#a6e22e">hp</span>{<span style="color:#a6e22e">idx</span>, <span style="color:#a6e22e">values</span>}
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Init</span>(<span style="color:#a6e22e">h</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">d</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">d</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">m</span><span style="color:#f92672">*</span><span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">d</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">values</span>[<span style="color:#a6e22e">idx</span>[<span style="color:#ae81ff">0</span>]]
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">ans</span> <span style="color:#f92672">+=</span> int64(<span style="color:#a6e22e">a</span>[len(<span style="color:#a6e22e">a</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]) <span style="color:#f92672">*</span> int64(<span style="color:#a6e22e">d</span>)
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> len(<span style="color:#a6e22e">a</span>) &gt; <span style="color:#ae81ff">1</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">values</span>[<span style="color:#a6e22e">idx</span>[<span style="color:#ae81ff">0</span>]] = <span style="color:#a6e22e">a</span>[:len(<span style="color:#a6e22e">a</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Fix</span>(<span style="color:#a6e22e">h</span>, <span style="color:#ae81ff">0</span>)
+</span></span><span style="display:flex;"><span>        } <span style="color:#66d9ef">else</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">heap</span>.<span style="color:#a6e22e">Pop</span>(<span style="color:#a6e22e">h</span>)
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">type</span> <span style="color:#a6e22e">hp</span> <span style="color:#66d9ef">struct</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">sort</span>.<span style="color:#a6e22e">IntSlice</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">values</span> [][]<span style="color:#66d9ef">int</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#a6e22e">hp</span>) <span style="color:#a6e22e">Less</span>(<span style="color:#a6e22e">i</span>, <span style="color:#a6e22e">j</span> <span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">a</span>, <span style="color:#a6e22e">b</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">values</span>[<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">IntSlice</span>[<span style="color:#a6e22e">i</span>]], <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">values</span>[<span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">IntSlice</span>[<span style="color:#a6e22e">j</span>]]
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">a</span>[len(<span style="color:#a6e22e">a</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>] &lt; <span style="color:#a6e22e">b</span>[len(<span style="color:#a6e22e">b</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">hp</span>) <span style="color:#a6e22e">Push</span>(<span style="color:#66d9ef">any</span>) {}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> (<span style="color:#a6e22e">h</span> <span style="color:#f92672">*</span><span style="color:#a6e22e">hp</span>) <span style="color:#a6e22e">Pop</span>() (<span style="color:#a6e22e">_</span> <span style="color:#66d9ef">any</span>) { <span style="color:#a6e22e">a</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">IntSlice</span>; <span style="color:#a6e22e">h</span>.<span style="color:#a6e22e">IntSlice</span> = <span style="color:#a6e22e">a</span>[:len(<span style="color:#a6e22e">a</span>)<span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]; <span style="color:#66d9ef">return</span> }
+</span></span></code></pre></div>
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>
+
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer><div>    
+    
+    <script src="https://utteranc.es/client.js"
+        repo="loommii/blog-review"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

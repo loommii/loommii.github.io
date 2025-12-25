@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>3138_同位字符串连接的最小长度 | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="力扣链接:3138. 同位字符串连接的最小长度
+
+力扣难度 中等
+算法评级: 5      熟练掌握常用数据结构和算法，初步了解高级数据结构
+难度分 1979
+
+题目:
+给你一个字符串 s ，它由某个字符串 t 和若干 t  的 同位字符串 连接而成。
+请你返回字符串 t 的 最小 可能长度。
+同位字符串 指的是重新排列一个单词得到的另外一个字符串，原来字符串中的每个字符在新字符串中都恰好只使用一次。
+示例 1：
+
+输入：s = &ldquo;abba&rdquo;
+输出：2
+解释：
+一个可能的字符串 t 为 &ldquo;ba&rdquo; 。
+示例 2：
+
+输入：s = &ldquo;cdef&rdquo;
+输出：4
+解释：
+一个可能的字符串 t 为 &ldquo;cdef&rdquo; ，注意 t 可能等于 s 。
+提示：
+
+1 &lt;= s.length &lt;= 105
+s 只包含小写英文字母。
+
+
+func minAnagramLength(s string) int {
+    
+}
+
+🧠思路:  👈点击
+
+  枚举
+设 s字符串的长度为n,阅读题目可得提供的s一定是由 字符串 t构成的。(有确定的结)">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/posts/leetcode/data/3138_%E5%90%8C%E4%BD%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%9C%80%E5%B0%8F%E9%95%BF%E5%BA%A6/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/leetcode/data/3138_%E5%90%8C%E4%BD%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%9C%80%E5%B0%8F%E9%95%BF%E5%BA%A6/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/posts/leetcode/data/3138_%E5%90%8C%E4%BD%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%9C%80%E5%B0%8F%E9%95%BF%E5%BA%A6/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="3138_同位字符串连接的最小长度">
+  <meta property="og:description" content="力扣链接:3138. 同位字符串连接的最小长度
+力扣难度 中等 算法评级: 5 熟练掌握常用数据结构和算法，初步了解高级数据结构 难度分 1979
+题目: 给你一个字符串 s ，它由某个字符串 t 和若干 t 的 同位字符串 连接而成。
+请你返回字符串 t 的 最小 可能长度。
+同位字符串 指的是重新排列一个单词得到的另外一个字符串，原来字符串中的每个字符在新字符串中都恰好只使用一次。
+示例 1：
+输入：s = “abba”
+输出：2
+解释：
+一个可能的字符串 t 为 “ba” 。
+示例 2：
+输入：s = “cdef”
+输出：4
+解释：
+一个可能的字符串 t 为 “cdef” ，注意 t 可能等于 s 。
+提示：
+1 &lt;= s.length &lt;= 105 s 只包含小写英文字母。 func minAnagramLength(s string) int { } 🧠思路: 👈点击 枚举 设 s字符串的长度为n,阅读题目可得提供的s一定是由 字符串 t构成的。(有确定的结)">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-20T23:57:43+08:00">
+    <meta property="article:modified_time" content="2024-12-20T23:57:43+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="3138_同位字符串连接的最小长度">
+<meta name="twitter:description" content="力扣链接:3138. 同位字符串连接的最小长度
+
+力扣难度 中等
+算法评级: 5      熟练掌握常用数据结构和算法，初步了解高级数据结构
+难度分 1979
+
+题目:
+给你一个字符串 s ，它由某个字符串 t 和若干 t  的 同位字符串 连接而成。
+请你返回字符串 t 的 最小 可能长度。
+同位字符串 指的是重新排列一个单词得到的另外一个字符串，原来字符串中的每个字符在新字符串中都恰好只使用一次。
+示例 1：
+
+输入：s = &ldquo;abba&rdquo;
+输出：2
+解释：
+一个可能的字符串 t 为 &ldquo;ba&rdquo; 。
+示例 2：
+
+输入：s = &ldquo;cdef&rdquo;
+输出：4
+解释：
+一个可能的字符串 t 为 &ldquo;cdef&rdquo; ，注意 t 可能等于 s 。
+提示：
+
+1 &lt;= s.length &lt;= 105
+s 只包含小写英文字母。
+
+
+func minAnagramLength(s string) int {
+    
+}
+
+🧠思路:  👈点击
+
+  枚举
+设 s字符串的长度为n,阅读题目可得提供的s一定是由 字符串 t构成的。(有确定的结)">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "力扣",
+      "item": "https://loommii.github.io/leetcode/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "3138_同位字符串连接的最小长度",
+      "item": "https://loommii.github.io/posts/leetcode/data/3138_%E5%90%8C%E4%BD%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%9C%80%E5%B0%8F%E9%95%BF%E5%BA%A6/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "3138_同位字符串连接的最小长度",
+  "name": "3138_同位字符串连接的最小长度",
+  "description": "力扣链接:3138. 同位字符串连接的最小长度\n力扣难度 中等 算法评级: 5 熟练掌握常用数据结构和算法，初步了解高级数据结构 难度分 1979\n题目: 给你一个字符串 s ，它由某个字符串 t 和若干 t 的 同位字符串 连接而成。\n请你返回字符串 t 的 最小 可能长度。\n同位字符串 指的是重新排列一个单词得到的另外一个字符串，原来字符串中的每个字符在新字符串中都恰好只使用一次。\n示例 1：\n输入：s = \u0026ldquo;abba\u0026rdquo;\n输出：2\n解释：\n一个可能的字符串 t 为 \u0026ldquo;ba\u0026rdquo; 。\n示例 2：\n输入：s = \u0026ldquo;cdef\u0026rdquo;\n输出：4\n解释：\n一个可能的字符串 t 为 \u0026ldquo;cdef\u0026rdquo; ，注意 t 可能等于 s 。\n提示：\n1 \u0026lt;= s.length \u0026lt;= 105 s 只包含小写英文字母。 func minAnagramLength(s string) int { } 🧠思路: 👈点击 枚举 设 s字符串的长度为n,阅读题目可得提供的s一定是由 字符串 t构成的。(有确定的结)\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "力扣链接:3138. 同位字符串连接的最小长度\n力扣难度 中等 算法评级: 5 熟练掌握常用数据结构和算法，初步了解高级数据结构 难度分 1979\n题目: 给你一个字符串 s ，它由某个字符串 t 和若干 t 的 同位字符串 连接而成。\n请你返回字符串 t 的 最小 可能长度。\n同位字符串 指的是重新排列一个单词得到的另外一个字符串，原来字符串中的每个字符在新字符串中都恰好只使用一次。\n示例 1：\n输入：s = “abba”\n输出：2\n解释：\n一个可能的字符串 t 为 “ba” 。\n示例 2：\n输入：s = “cdef”\n输出：4\n解释：\n一个可能的字符串 t 为 “cdef” ，注意 t 可能等于 s 。\n提示：\n1 \u003c= s.length \u003c= 105 s 只包含小写英文字母。 func minAnagramLength(s string) int { } 🧠思路: 👈点击 枚举 设 s字符串的长度为n,阅读题目可得提供的s一定是由 字符串 t构成的。(有确定的结)\n因此我们输出的结果可能是 n ~ 1,中的其中一个\n假设字符串的t的长度为k,k的长度为 1,2,3,4,5,n/2,n\n因此我们只要枚举字符串的t的长度为k，然后判断是否符合条件。\n题目要求请你返回字符串 t 的 最小 可能长度。因此从小到大遍历,符合条件就退出\n🔑 答案解析： 👈点击 func minAnagramLength(s string) int { n := len(s) k := 1 record := make(map[byte]int) for ; k \u003c= n/2; k++ { record[s[k-1]]++ // // 到这里就要检测剩下的字符串 是否都是按照 长度 k 来划分了 // K = 1 时 剩下的字符串 为 n - 1 从下标k出发 { // 不能整除 一点机会都没有 if n%k != 0 { continue } } sig := 1 for i := k; i \u003c n; i += k { // 这里面就是按照k去划分 back := copymap(record) // i 为k下标 加一 // 按照长度为k去划分 for j := 0; j \u003c k; j++ { back[s[i+j]]-- } if checkmap(back) { // 存在不符合的 sig++ } } if k*sig == n { return k } } if k \u003e n/2 { return n } return k } func copymap(in map[byte]int) map[byte]int { out := make(map[byte]int) for k, v := range in { out[k] = v } return out } func checkmap(in map[byte]int) bool { ans := true for _, v := range in { if v != 0 { return false } } return ans } 优化 都是小写字母储存 因此不用map 直接用长度为26的字母去存储\nfunc minAnagramLength(s string) int { n := len(s) record := [26]int{} for k := 1; k \u003c= n/2; k++ { record[s[k-1]-'a']++ // 到这里就要检测剩下的字符串 是否都是按照 长度 k 来划分了 // K = 1 时 剩下的字符串 为 n - 1 从下标k出发 { // 不能整除 一点机会都没有 if n%k != 0 { continue } } sig := 1 for i := k; i \u003c n; i += k { // 这里面就是按照k去划分 back := record // i 为k下标 加一 // 按照长度为k去划分 for j := 0; j \u003c k; j++ { back[s[i+j]-'a']-- } if check(back) { // 存在不符合的 sig++ } } if k*sig == n { return k } } return n } func check(in [26]int) bool { ans := true for _, v := range in { if v != 0 { return false } } return ans } ",
+  "wordCount" : "392",
+  "inLanguage": "zh",
+  "datePublished": "2024-12-20T23:57:43+08:00",
+  "dateModified": "2024-12-20T23:57:43+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://loommii.github.io/posts/leetcode/data/3138_%E5%90%8C%E4%BD%8D%E5%AD%97%E7%AC%A6%E4%B8%B2%E8%BF%9E%E6%8E%A5%E7%9A%84%E6%9C%80%E5%B0%8F%E9%95%BF%E5%BA%A6/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "loommii",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://loommii.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/skill/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span>Golang练习</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                    <span>力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/leetcode/">力扣</a></div>
+    <h1 class="post-title entry-hint-parent">
+      3138_同位字符串连接的最小长度
+    </h1>
+    <div class="post-meta"><span title='2024-12-20 23:57:43 +0800 CST'>十二月 20, 2024</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>力扣链接:<a href="https://leetcode.cn/problems/minimum-length-of-anagram-concatenation/description/?envType=daily-question&amp;envId=2024-12-20">3138. 同位字符串连接的最小长度</a></p>
+<blockquote>
+<p>力扣难度 <code>中等</code>
+算法评级: 5      熟练掌握常用数据结构和算法，初步了解高级数据结构
+难度分 1979</p></blockquote>
+<hr>
+<p>题目:
+给你一个字符串 s ，它由某个字符串 t 和若干 t  的 同位字符串 连接而成。</p>
+<p>请你返回字符串 t 的 最小 可能长度。</p>
+<p>同位字符串 指的是重新排列一个单词得到的另外一个字符串，原来字符串中的每个字符在新字符串中都恰好只使用一次。</p>
+<p>示例 1：</p>
+<blockquote>
+<p>输入：s = &ldquo;abba&rdquo;</p>
+<p>输出：2</p>
+<p>解释：</p>
+<p>一个可能的字符串 t 为 &ldquo;ba&rdquo; 。</p></blockquote>
+<p>示例 2：</p>
+<blockquote>
+<p>输入：s = &ldquo;cdef&rdquo;</p>
+<p>输出：4</p>
+<p>解释：</p>
+<p>一个可能的字符串 t 为 &ldquo;cdef&rdquo; ，注意 t 可能等于 s 。</p></blockquote>
+<p>提示：</p>
+<ul>
+<li>1 &lt;= s.length &lt;= 105</li>
+<li>s 只包含小写英文字母。</li>
+</ul>
+<hr>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">minAnagramLength</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><hr>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🧠思路:  👈点击</button>
+<div class="toggle-content">
+  <h1 id="枚举">枚举<a hidden class="anchor" aria-hidden="true" href="#枚举">#</a></h1>
+<p>设 s字符串的长度为n,阅读题目可得提供的s一定是由 字符串 t构成的。(有确定的结)</p>
+<p>因此我们输出的结果可能是 n ~ 1,中的其中一个</p>
+<p>假设字符串的t的长度为k,k的长度为 1,2,3,4,5,n/2,n</p>
+<p>因此我们只要枚举字符串的t的长度为k，然后判断是否符合条件。</p>
+<p>题目要求请你返回字符串 t 的 最小 可能长度。因此从小到大遍历,符合条件就退出</p>
+
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>
+
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析： 👈点击</button>
+<div class="toggle-content">
+  <div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">minAnagramLength</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">s</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">k</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">record</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">byte</span>]<span style="color:#66d9ef">int</span>)
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> ; <span style="color:#a6e22e">k</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">n</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">k</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">record</span>[<span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">k</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]]<span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">//</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 到这里就要检测剩下的字符串 是否都是按照 长度 k 来划分了</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// K = 1 时 剩下的字符串 为 n - 1 从下标k出发</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        { <span style="color:#75715e">// 不能整除 一点机会都没有</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span><span style="color:#f92672">%</span><span style="color:#a6e22e">k</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">sig</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">k</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">k</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 这里面就是按照k去划分</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">back</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">copymap</span>(<span style="color:#a6e22e">record</span>)
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// i 为k下标 加一</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 按照长度为k去划分</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; <span style="color:#a6e22e">k</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">back</span>[<span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">j</span>]]<span style="color:#f92672">--</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">checkmap</span>(<span style="color:#a6e22e">back</span>) { <span style="color:#75715e">// 存在不符合的</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">sig</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">k</span><span style="color:#f92672">*</span><span style="color:#a6e22e">sig</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">n</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">k</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">k</span> &gt; <span style="color:#a6e22e">n</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">k</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">copymap</span>(<span style="color:#a6e22e">in</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">byte</span>]<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">byte</span>]<span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">out</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">byte</span>]<span style="color:#66d9ef">int</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">in</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">out</span>[<span style="color:#a6e22e">k</span>] = <span style="color:#a6e22e">v</span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">out</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">checkmap</span>(<span style="color:#a6e22e">in</span> <span style="color:#66d9ef">map</span>[<span style="color:#66d9ef">byte</span>]<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">in</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><h2 id="优化">优化<a hidden class="anchor" aria-hidden="true" href="#优化">#</a></h2>
+<p>都是小写字母储存 因此不用map 直接用长度为26的字母去存储</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">minAnagramLength</span>(<span style="color:#a6e22e">s</span> <span style="color:#66d9ef">string</span>) <span style="color:#66d9ef">int</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">n</span> <span style="color:#f92672">:=</span> len(<span style="color:#a6e22e">s</span>)
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">record</span> <span style="color:#f92672">:=</span> [<span style="color:#ae81ff">26</span>]<span style="color:#66d9ef">int</span>{}
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">k</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>; <span style="color:#a6e22e">k</span> <span style="color:#f92672">&lt;=</span> <span style="color:#a6e22e">n</span><span style="color:#f92672">/</span><span style="color:#ae81ff">2</span>; <span style="color:#a6e22e">k</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">record</span>[<span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">k</span><span style="color:#f92672">-</span><span style="color:#ae81ff">1</span>]<span style="color:#f92672">-</span><span style="color:#e6db74">&#39;a&#39;</span>]<span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// 到这里就要检测剩下的字符串 是否都是按照 长度 k 来划分了</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#75715e">// K = 1 时 剩下的字符串 为 n - 1 从下标k出发</span>
+</span></span><span style="display:flex;"><span>        { <span style="color:#75715e">// 不能整除 一点机会都没有</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">n</span><span style="color:#f92672">%</span><span style="color:#a6e22e">k</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#66d9ef">continue</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#a6e22e">sig</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">1</span>
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">i</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">k</span>; <span style="color:#a6e22e">i</span> &lt; <span style="color:#a6e22e">n</span>; <span style="color:#a6e22e">i</span> <span style="color:#f92672">+=</span> <span style="color:#a6e22e">k</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 这里面就是按照k去划分</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#a6e22e">back</span> <span style="color:#f92672">:=</span> <span style="color:#a6e22e">record</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// i 为k下标 加一</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#75715e">// 按照长度为k去划分</span>
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">j</span> <span style="color:#f92672">:=</span> <span style="color:#ae81ff">0</span>; <span style="color:#a6e22e">j</span> &lt; <span style="color:#a6e22e">k</span>; <span style="color:#a6e22e">j</span><span style="color:#f92672">++</span> {
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">back</span>[<span style="color:#a6e22e">s</span>[<span style="color:#a6e22e">i</span><span style="color:#f92672">+</span><span style="color:#a6e22e">j</span>]<span style="color:#f92672">-</span><span style="color:#e6db74">&#39;a&#39;</span>]<span style="color:#f92672">--</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">check</span>(<span style="color:#a6e22e">back</span>) { <span style="color:#75715e">// 存在不符合的</span>
+</span></span><span style="display:flex;"><span>                <span style="color:#a6e22e">sig</span><span style="color:#f92672">++</span>
+</span></span><span style="display:flex;"><span>            }
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">k</span><span style="color:#f92672">*</span><span style="color:#a6e22e">sig</span> <span style="color:#f92672">==</span> <span style="color:#a6e22e">n</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">k</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">n</span>
+</span></span><span style="display:flex;"><span>}
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">check</span>(<span style="color:#a6e22e">in</span> [<span style="color:#ae81ff">26</span>]<span style="color:#66d9ef">int</span>) <span style="color:#66d9ef">bool</span> {
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">ans</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">true</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">for</span> <span style="color:#a6e22e">_</span>, <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#66d9ef">range</span> <span style="color:#a6e22e">in</span> {
+</span></span><span style="display:flex;"><span>        <span style="color:#66d9ef">if</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">!=</span> <span style="color:#ae81ff">0</span> {
+</span></span><span style="display:flex;"><span>            <span style="color:#66d9ef">return</span> <span style="color:#66d9ef">false</span>
+</span></span><span style="display:flex;"><span>        }
+</span></span><span style="display:flex;"><span>    }
+</span></span><span style="display:flex;"><span>    <span style="color:#66d9ef">return</span> <span style="color:#a6e22e">ans</span>
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>
+
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer><div>    
+    
+    <script src="https://utteranc.es/client.js"
+        repo="loommii/blog-review"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

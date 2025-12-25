@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Golang练习 | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="
+Go 中文网、思否、博客园等平台，内容主要以问答形式记录。如果回答中有错误，欢迎大家指出，共同学习、共同进步。">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/go_practise/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" type="application/rss+xml" href="https://loommii.github.io/go_practise/index.xml">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/go_practise/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/go_practise/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="Golang练习">
+  <meta property="og:description" content=" Go 中文网、思否、博客园等平台，内容主要以问答形式记录。如果回答中有错误，欢迎大家指出，共同学习、共同进步。">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Golang练习">
+<meta name="twitter:description" content="">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Posts",
+      "item": "https://loommii.github.io/posts/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Golang练习",
+      "item": "https://loommii.github.io/go_practise/"
+    }
+  ]
+}
+</script>
+
+
+</head>
+
+<body class="list" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/skill/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span class="active">Golang练习</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                    <span>力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main"> 
+<header class="page-header"><div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/posts/">Posts</a></div>
+  <h1>
+    Golang练习
+  </h1>
+</header>
+<div class="post-content"><blockquote>
+<p>Go 中文网、思否、博客园等平台，内容主要以问答形式记录。如果回答中有错误，欢迎大家指出，共同学习、共同进步。</p></blockquote>
+
+
+</div>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_012
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码能否通过编译，不能的话原因是什么；如果通过，输出什么。
+func main() { list := new([]int) list = append(list, 1) fmt.Println(list) } 🔑 答案解析： 不能通过编译，new([]int) 之后的 list 是一个 *[]int 类型的指针，不能对指针执行 append 操作。可以使用 make() 初始化之后再用。同样的，map 和 channel 建议使用 make() 或字面量的方式初始化，不要用 new() 。 </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 19:40:52 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_012" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_012/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_013
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码能否通过编译，如果可以，输出什么？
+func main() { s1 := []int{1, 2, 3} s2 := []int{4, 5} s1 = append(s1, s2) fmt.Println(s1) } 🔑 答案解析： 不能通过编译。append() 的第二个参数不能直接使用 slice，需使用 … 操作符，将一个切片追加到另一个切片上：append(s1,s2…)。或者直接跟上元素，形如：append(s1,1,2,3)。 </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 19:40:51 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_013" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_013/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_014
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p></p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 19:40:51 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_014" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_014/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_015
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Go 1.15 中 var i interface{} = a 会有额外堆内存分配吗？ 具体代码是：
+var a int = 3 // 以下有额外内存分配吗？ var i interface{} = a 🔑 答案解析： 正确答案:不会
+解析: *Go 1.15 发行说明**在 runtime 部分中提到了一个有趣的改进：
+Converting a small integer value into an interface value no longer causes allocation.
+意思是说，将小整数转换为接口值不再需要进行内存分配。小整数是指 0 到 255 之间的数。
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 19:40:51 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_015" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_015/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_016
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Go101 作者发布了一道有意思的题目，这道题主要考察细节点，Go101 这本书也是以抠细节著称。看看这道题，以下程序输出什么？（单选）
+package main const s = &#34;Go101.org&#34; // len(s) == 9 // 1 &lt;&lt; 9 == 512 // 512 / 128 == 4 var a byte = 1 &lt;&lt; len(s) / 128 var b byte = 1 &lt;&lt; len(s[:]) / 128 func main() { println(a, b) } A、0 0 B、0 4 C：4 0 D：4 4 🔑 答案解析： 这里共有2个知识点：
+len(s)
+若s为字符串常量或者简单的数组表达式，则len返回的为int型的常量 若s为不为上述情况（有函数计算、通道等），则len返回的为int型的变量 关于位移操作
+如果常量位移表达式 的左侧操作数是一个无类型常量，那么其结果是一个整数常量；否则就是和左侧操作数同一类型的常量（必须是 整数类型 ） 如果一个非常量位移表达式的左侧的操作数是一个无类型常量，那么它会先被隐式地转换为假如位移表达式被其左侧操作数单独替换后的类型 回到题目 const s = &#34;Go101.org&#34; // 声明了一个string常量s len(s) = 9 // len(string常量s) len返回的为int型的常量 len(s[:]) = 9 // len(string常量s的切片 ) len返回的为int型的变量 1 &lt;&lt; int型的常量 // 常量 位移表达式 1 &lt;&lt; int型的变量 //非 常量 位移表达式 常量 位移表达式的结果为整数常量 非常量 位移表达式 的结果要看左侧的操作数的类型。 如果左侧的操作数有类型,结果为原类型 若左侧的操作数无类型,结果为左侧的类型将被隐式转化为要赋值变量的类型。 该题目为byte 这里 byte 1 &lt;&lt; int 9 结果为 byte 512 越界了, = 0 0 / 9 = 0 因此输出结果 b = 0 </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 18:35:20 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_016" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_016/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_017
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面代码是否可以编译通过？为什么？
+package main import &#34;fmt&#34; func main() { sn1 := struct { age int name string }{age: 11, name: &#34;qq&#34;} sn2 := struct { age int name string }{age: 11, name: &#34;qq&#34;} if sn1 == sn2 { fmt.Println(&#34;sn1 == sn2&#34;) } sm1 := struct { age int m map[string]string }{age: 11, m: map[string]string{&#34;a&#34;: &#34;1&#34;}} sm2 := struct { age int m map[string]string }{age: 11, m: map[string]string{&#34;a&#34;: &#34;1&#34;}} if sm1 == sm2 { fmt.Println(&#34;sm1 == sm2&#34;) } } 🔑 答案解析： 答: 无法通过编译
+结构体比较规则注意1：只有相同类型的结构体才可以比较，结构体是否相同不但与属性类型个数有关，还与属性顺序相关。 sn1 := struct { age int name string }{age: 11, name: &#34;qq&#34;} sn3:= struct { name string age int }{age:11, name:&#34;qq&#34;} sn3与sn1就不是相同的结构体了，不能比较。
+结构体比较规则注意2：结构体是相同的，但是结构体属性中有不可以比较的类型，如map,slice，则结构体不能用==比较。 sm1 := struct { age int m map[string]string }{age: 11, m: map[string]string{&#34;a&#34;: &#34;1&#34;}} sm2 := struct { age int m map[string]string }{age: 11, m: map[string]string{&#34;a&#34;: &#34;1&#34;}} if sm1 == sm2 { fmt.Println(&#34;sm1 == sm2&#34;) } sm1 与 sm2 的结构体属性类型为map 因此不可通过 == 比较 可以使用reflect.DeepEqual进行比较
+...</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 18:34:52 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_017" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_017/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_018
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面代码有什么问题？
+package main const cl = 100 var bl = 123 func main() { println(&amp;bl,bl) println(&amp;cl,cl) } 🔑 答案解析： 答: 编译不通过。 cl为 常量。常量无法获取地址 </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 18:34:52 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_018" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_018/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_019
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码能否通过编译，不能的话原因是什么；如果通过，输出什么。
+func main() { list := new([]int) list = append(list, 1) fmt.Println(list) } 🔑 答案解析： 答: 无法通过编译。 list的类型是 *[]int 类型的指针。 append 第一个参数的类型是切片，不能为切片的地址
+可以使用 make() 初始化之后再用。同样的，map 和 channel 建议使用 make() 或字面量的方式初始化，不要用 new() 。
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 18:34:52 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_019" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_019/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_020
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>下面这段代码能否通过编译，如果可以，输出什么？
+func main() { s1 := []int{1, 2, 3} s2 := []int{4, 5} s1 = append(s1, s2) fmt.Println(s1) } 🔑 答案解析： 答: 无法通过编译。 append() 的第二个参数不能直接使用 slice，需使用 … 操作符，将一个切片追加到另一个切片上：append(s1,s2…)。或者直接跟上元素，形如：append(s1,1,2,3)。 </p>
+  </div>
+  <footer class="entry-footer"><span title='2024-12-06 18:34:52 +0800 CST'>十二月 6, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_020" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_020/"></a>
+</article>
+
+<article class="post-entry"> 
+  <header class="entry-header">
+    <h2 class="entry-hint-parent">Go每日一题_005
+    </h2>
+  </header>
+  <div class="entry-content">
+    <p>Go 的 map 可以边遍历边删除吗？
+🔑 答案解析： 答：理论上可以。 https://go.dev/doc/effective_go#for ， 这个官方例子也展示了可以在遍历的时候删除。 https://go.dev/ref/spec#For_statements ， 同时官方的range迭代也有说着遍历时删除和新增的情况
+但是清注意 map 并不是一个线程安全的数据结构。同时读写一个 map 是未定义的行为，如果被检测到，会直接 panic。 并发的去读写map是十分危险的,建议直接用m=make(map[T]T)生成新的map对象,老的map让GC自动回收内存空间
+</p>
+  </div>
+  <footer class="entry-footer"><span title='2024-01-05 00:00:00 +0800 CST'>一月 5, 2024</span></footer>
+  <a class="entry-link" aria-label="post link to Go每日一题_005" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_005/"></a>
+</article>
+<footer class="page-footer">
+  <nav class="pagination">
+    <a class="prev" href="https://loommii.github.io/go_practise/page/25/">
+      «&nbsp;上一页&nbsp;
+    </a>
+    <a class="next" href="https://loommii.github.io/go_practise/page/27/">下一页&nbsp;&nbsp;»
+    </a>
+  </nav>
+</footer>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

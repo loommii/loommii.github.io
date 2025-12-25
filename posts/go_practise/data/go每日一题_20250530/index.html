@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="zh" dir="auto">
+
+<head><meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="robots" content="index, follow">
+<title>Go每日一题_20250530 | loommii</title>
+<meta name="keywords" content="">
+<meta name="description" content="以下代码的输出结果：
+package main
+
+import &#34;sync&#34;
+
+func main() {
+	var wg sync.WaitGroup
+	foo := make(chan int)
+	bar := make(chan int)
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		select {
+		case foo &lt;- &lt;-bar:
+		default:
+			println(&#34;default&#34;)
+		}
+	}()
+	wg.Wait()
+}
+🔑 答案解析：
+
+  正确答案：** 死锁（无输出，程序卡住）**
+解析：
+这段代码会死锁，不会输出 &ldquo;default&rdquo;，也不会 panic，而是程序会卡住无法继续执行。原因如下：
+
+
+select 语句的求值顺序：
+
+在进入 select 时，Go 会先按顺序评估所有 case 的表达式
+对于 case foo &lt;- &lt;-bar:，会先评估 &lt;-bar（发送操作的右侧表达式）
+
+
+
+通道操作阻塞：
+
+bar 是无缓冲通道，且没有其他 goroutine 向它发送数据
+&lt;-bar 会一直阻塞，等待数据
+由于评估 case 表达式时阻塞了，整个 select 语句无法继续执行
+
+
+
+default 不会执行：
+
+由于 select 在评估 case 表达式时就阻塞了，根本来不及检查是否有 default case
+因此不会执行 default 分支
+
+
+
+死锁形成：">
+<meta name="author" content="">
+<link rel="canonical" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250530/">
+<link crossorigin="anonymous" href="/assets/css/stylesheet.45e028aa8ce0961349adf411b013ee39406be2c0bc80d4ea3fc04555f7f4611a.css" integrity="sha256-ReAoqozglhNJrfQRsBPuOUBr4sC8gNTqP8BFVff0YRo=" rel="preload stylesheet" as="style">
+<link rel="icon" href="https://loommii.github.io/favicon.ico">
+<link rel="icon" type="image/png" sizes="16x16" href="https://loommii.github.io/favicon-16x16.png">
+<link rel="icon" type="image/png" sizes="32x32" href="https://loommii.github.io/favicon-32x32.png">
+<link rel="apple-touch-icon" href="https://loommii.github.io/apple-touch-icon.png">
+<link rel="mask-icon" href="https://loommii.github.io/safari-pinned-tab.svg">
+<meta name="theme-color" content="#2e2e33">
+<meta name="msapplication-TileColor" content="#2e2e33">
+<link rel="alternate" hreflang="zh" href="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250530/">
+<noscript>
+    <style>
+        #theme-toggle,
+        .top-link {
+            display: none;
+        }
+
+    </style>
+    <style>
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --theme: rgb(29, 30, 32);
+                --entry: rgb(46, 46, 51);
+                --primary: rgb(218, 218, 219);
+                --secondary: rgb(155, 156, 157);
+                --tertiary: rgb(65, 66, 68);
+                --content: rgb(196, 196, 197);
+                --code-block-bg: rgb(46, 46, 51);
+                --code-bg: rgb(55, 56, 62);
+                --border: rgb(51, 51, 51);
+            }
+
+            .list {
+                background: var(--theme);
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-track {
+                background: 0 0;
+            }
+
+            .list:not(.dark)::-webkit-scrollbar-thumb {
+                border-color: var(--theme);
+            }
+        }
+
+    </style>
+</noscript><meta property="og:url" content="https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250530/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="Go每日一题_20250530">
+  <meta property="og:description" content="以下代码的输出结果：
+package main import &#34;sync&#34; func main() { var wg sync.WaitGroup foo := make(chan int) bar := make(chan int) wg.Add(1) go func() { defer wg.Done() select { case foo &lt;- &lt;-bar: default: println(&#34;default&#34;) } }() wg.Wait() } 🔑 答案解析： 正确答案：** 死锁（无输出，程序卡住）** 解析： 这段代码会死锁，不会输出 “default”，也不会 panic，而是程序会卡住无法继续执行。原因如下：
+select 语句的求值顺序：
+在进入 select 时，Go 会先按顺序评估所有 case 的表达式 对于 case foo &lt;- &lt;-bar:，会先评估 &lt;-bar（发送操作的右侧表达式） 通道操作阻塞：
+bar 是无缓冲通道，且没有其他 goroutine 向它发送数据 &lt;-bar 会一直阻塞，等待数据 由于评估 case 表达式时阻塞了，整个 select 语句无法继续执行 default 不会执行：
+由于 select 在评估 case 表达式时就阻塞了，根本来不及检查是否有 default case 因此不会执行 default 分支 死锁形成：">
+  <meta property="og:locale" content="zh">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-05-30T15:26:33+08:00">
+    <meta property="article:modified_time" content="2025-05-30T15:26:33+08:00">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Go每日一题_20250530">
+<meta name="twitter:description" content="以下代码的输出结果：
+package main
+
+import &#34;sync&#34;
+
+func main() {
+	var wg sync.WaitGroup
+	foo := make(chan int)
+	bar := make(chan int)
+	wg.Add(1)
+	go func() {
+		defer wg.Done()
+		select {
+		case foo &lt;- &lt;-bar:
+		default:
+			println(&#34;default&#34;)
+		}
+	}()
+	wg.Wait()
+}
+🔑 答案解析：
+
+  正确答案：** 死锁（无输出，程序卡住）**
+解析：
+这段代码会死锁，不会输出 &ldquo;default&rdquo;，也不会 panic，而是程序会卡住无法继续执行。原因如下：
+
+
+select 语句的求值顺序：
+
+在进入 select 时，Go 会先按顺序评估所有 case 的表达式
+对于 case foo &lt;- &lt;-bar:，会先评估 &lt;-bar（发送操作的右侧表达式）
+
+
+
+通道操作阻塞：
+
+bar 是无缓冲通道，且没有其他 goroutine 向它发送数据
+&lt;-bar 会一直阻塞，等待数据
+由于评估 case 表达式时阻塞了，整个 select 语句无法继续执行
+
+
+
+default 不会执行：
+
+由于 select 在评估 case 表达式时就阻塞了，根本来不及检查是否有 default case
+因此不会执行 default 分支
+
+
+
+死锁形成：">
+
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position":  1 ,
+      "name": "Golang练习",
+      "item": "https://loommii.github.io/go_practise/"
+    }, 
+    {
+      "@type": "ListItem",
+      "position":  2 ,
+      "name": "Go每日一题_20250530",
+      "item": "https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250530/"
+    }
+  ]
+}
+</script>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": "Go每日一题_20250530",
+  "name": "Go每日一题_20250530",
+  "description": "以下代码的输出结果：\npackage main import \u0026#34;sync\u0026#34; func main() { var wg sync.WaitGroup foo := make(chan int) bar := make(chan int) wg.Add(1) go func() { defer wg.Done() select { case foo \u0026lt;- \u0026lt;-bar: default: println(\u0026#34;default\u0026#34;) } }() wg.Wait() } 🔑 答案解析： 正确答案：** 死锁（无输出，程序卡住）** 解析： 这段代码会死锁，不会输出 \u0026ldquo;default\u0026rdquo;，也不会 panic，而是程序会卡住无法继续执行。原因如下：\nselect 语句的求值顺序：\n在进入 select 时，Go 会先按顺序评估所有 case 的表达式 对于 case foo \u0026lt;- \u0026lt;-bar:，会先评估 \u0026lt;-bar（发送操作的右侧表达式） 通道操作阻塞：\nbar 是无缓冲通道，且没有其他 goroutine 向它发送数据 \u0026lt;-bar 会一直阻塞，等待数据 由于评估 case 表达式时阻塞了，整个 select 语句无法继续执行 default 不会执行：\n由于 select 在评估 case 表达式时就阻塞了，根本来不及检查是否有 default case 因此不会执行 default 分支 死锁形成：\n",
+  "keywords": [
+    
+  ],
+  "articleBody": "以下代码的输出结果：\npackage main import \"sync\" func main() { var wg sync.WaitGroup foo := make(chan int) bar := make(chan int) wg.Add(1) go func() { defer wg.Done() select { case foo \u003c- \u003c-bar: default: println(\"default\") } }() wg.Wait() } 🔑 答案解析： 正确答案：** 死锁（无输出，程序卡住）** 解析： 这段代码会死锁，不会输出 “default”，也不会 panic，而是程序会卡住无法继续执行。原因如下：\nselect 语句的求值顺序：\n在进入 select 时，Go 会先按顺序评估所有 case 的表达式 对于 case foo \u003c- \u003c-bar:，会先评估 \u003c-bar（发送操作的右侧表达式） 通道操作阻塞：\nbar 是无缓冲通道，且没有其他 goroutine 向它发送数据 \u003c-bar 会一直阻塞，等待数据 由于评估 case 表达式时阻塞了，整个 select 语句无法继续执行 default 不会执行：\n由于 select 在评估 case 表达式时就阻塞了，根本来不及检查是否有 default case 因此不会执行 default 分支 死锁形成：\n主 goroutine 在 wg.Wait() 等待 子 goroutine 在 select 评估时阻塞 没有其他 goroutine 可以解除这种阻塞状态 最终所有 goroutine 都阻塞，形成死锁 验证方法： 你可以运行这个程序，会发现程序没有任何输出，也不会退出，而是卡在那里（死锁状态）。\n正确写法： 如果想避免死锁，应该确保通道操作不会在评估时就阻塞，例如：\nselect { case v := \u003c-bar: // 先单独接收 foo \u003c- v // 然后发送 default: println(\"default\") } ",
+  "wordCount" : "120",
+  "inLanguage": "zh",
+  "datePublished": "2025-05-30T15:26:33+08:00",
+  "dateModified": "2025-05-30T15:26:33+08:00",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://loommii.github.io/posts/go_practise/data/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250530/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "loommii",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://loommii.github.io/favicon.ico"
+    }
+  }
+}
+</script>
+
+
+</head>
+
+<body class="" id="top">
+<script>
+    if (localStorage.getItem("pref-theme") === "dark") {
+        document.body.classList.add('dark');
+    } else if (localStorage.getItem("pref-theme") === "light") {
+        document.body.classList.remove('dark')
+    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        document.body.classList.add('dark');
+    }
+
+</script>
+
+<header class="header">
+    <nav class="nav">
+        <div class="logo">
+            <a href="https://loommii.github.io/" accesskey="h" title="loommii (Alt + H)">loommii</a>
+            <div class="logo-switches">
+                <button id="theme-toggle" accesskey="t" title="(Alt + T)">
+                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+                    </svg>
+                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round">
+                        <circle cx="12" cy="12" r="5"></circle>
+                        <line x1="12" y1="1" x2="12" y2="3"></line>
+                        <line x1="12" y1="21" x2="12" y2="23"></line>
+                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+                        <line x1="1" y1="12" x2="3" y2="12"></line>
+                        <line x1="21" y1="12" x2="23" y2="12"></line>
+                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        <ul id="menu">
+            <li>
+                <a href="https://loommii.github.io/skill/" title="文章">
+                    <span>文章</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/go_practise/" title="Golang练习">
+                    <span>Golang练习</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/leetcode/" title="力扣">
+                    <span>力扣</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/archives/" title="归档">
+                    <span>归档</span>
+                </a>
+            </li>
+            <li>
+                <a href="https://loommii.github.io/search/" title="搜索">
+                    <span>搜索</span>
+                </a>
+            </li>
+        </ul>
+    </nav>
+</header>
+<main class="main">
+
+<article class="post-single">
+  <header class="post-header">
+    <div class="breadcrumbs"><a href="https://loommii.github.io/">主页</a>&nbsp;»&nbsp;<a href="https://loommii.github.io/go_practise/">Golang练习</a></div>
+    <h1 class="post-title entry-hint-parent">
+      Go每日一题_20250530
+    </h1>
+    <div class="post-meta"><span title='2025-05-30 15:26:33 +0800 CST'>五月 30, 2025</span>
+
+</div>
+  </header> 
+  <div class="post-content"><p>以下代码的输出结果：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#f92672">package</span> <span style="color:#a6e22e">main</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#f92672">import</span> <span style="color:#e6db74">&#34;sync&#34;</span>
+</span></span><span style="display:flex;"><span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">func</span> <span style="color:#a6e22e">main</span>() {
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">var</span> <span style="color:#a6e22e">wg</span> <span style="color:#a6e22e">sync</span>.<span style="color:#a6e22e">WaitGroup</span>
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">foo</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">bar</span> <span style="color:#f92672">:=</span> make(<span style="color:#66d9ef">chan</span> <span style="color:#66d9ef">int</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Add</span>(<span style="color:#ae81ff">1</span>)
+</span></span><span style="display:flex;"><span>	<span style="color:#66d9ef">go</span> <span style="color:#66d9ef">func</span>() {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">defer</span> <span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Done</span>()
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">case</span> <span style="color:#a6e22e">foo</span> <span style="color:#f92672">&lt;-</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">bar</span>:
+</span></span><span style="display:flex;"><span>		<span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>			println(<span style="color:#e6db74">&#34;default&#34;</span>)
+</span></span><span style="display:flex;"><span>		}
+</span></span><span style="display:flex;"><span>	}()
+</span></span><span style="display:flex;"><span>	<span style="color:#a6e22e">wg</span>.<span style="color:#a6e22e">Wait</span>()
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div><button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  <h2 id="正确答案-死锁无输出程序卡住">正确答案：** 死锁（无输出，程序卡住）**<a hidden class="anchor" aria-hidden="true" href="#正确答案-死锁无输出程序卡住">#</a></h2>
+<h3 id="解析">解析：<a hidden class="anchor" aria-hidden="true" href="#解析">#</a></h3>
+<p>这段代码会<strong>死锁</strong>，不会输出 &ldquo;default&rdquo;，也不会 panic，而是程序会卡住无法继续执行。原因如下：</p>
+<ol>
+<li>
+<p><strong><code>select</code> 语句的求值顺序</strong>：</p>
+<ul>
+<li>在进入 <code>select</code> 时，Go 会先按顺序评估所有 case 的表达式</li>
+<li>对于 <code>case foo &lt;- &lt;-bar:</code>，会先评估 <code>&lt;-bar</code>（发送操作的右侧表达式）</li>
+</ul>
+</li>
+<li>
+<p><strong>通道操作阻塞</strong>：</p>
+<ul>
+<li><code>bar</code> 是无缓冲通道，且没有其他 goroutine 向它发送数据</li>
+<li><code>&lt;-bar</code> 会一直阻塞，等待数据</li>
+<li>由于评估 case 表达式时阻塞了，整个 <code>select</code> 语句无法继续执行</li>
+</ul>
+</li>
+<li>
+<p><strong><code>default</code> 不会执行</strong>：</p>
+<ul>
+<li>由于 <code>select</code> 在评估 case 表达式时就阻塞了，根本来不及检查是否有 <code>default</code> case</li>
+<li>因此不会执行 <code>default</code> 分支</li>
+</ul>
+</li>
+<li>
+<p><strong>死锁形成</strong>：</p>
+<ul>
+<li>主 goroutine 在 <code>wg.Wait()</code> 等待</li>
+<li>子 goroutine 在 <code>select</code> 评估时阻塞</li>
+<li>没有其他 goroutine 可以解除这种阻塞状态</li>
+<li>最终所有 goroutine 都阻塞，形成死锁</li>
+</ul>
+</li>
+</ol>
+<h3 id="验证方法">验证方法：<a hidden class="anchor" aria-hidden="true" href="#验证方法">#</a></h3>
+<p>你可以运行这个程序，会发现程序没有任何输出，也不会退出，而是卡在那里（死锁状态）。</p>
+<h3 id="正确写法">正确写法：<a hidden class="anchor" aria-hidden="true" href="#正确写法">#</a></h3>
+<p>如果想避免死锁，应该确保通道操作不会在评估时就阻塞，例如：</p>
+<div class="highlight"><pre tabindex="0" style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;"><code class="language-go" data-lang="go"><span style="display:flex;"><span><span style="color:#66d9ef">select</span> {
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">case</span> <span style="color:#a6e22e">v</span> <span style="color:#f92672">:=</span> <span style="color:#f92672">&lt;-</span><span style="color:#a6e22e">bar</span>:  <span style="color:#75715e">// 先单独接收</span>
+</span></span><span style="display:flex;"><span>    <span style="color:#a6e22e">foo</span> <span style="color:#f92672">&lt;-</span> <span style="color:#a6e22e">v</span>      <span style="color:#75715e">// 然后发送</span>
+</span></span><span style="display:flex;"><span><span style="color:#66d9ef">default</span>:
+</span></span><span style="display:flex;"><span>    println(<span style="color:#e6db74">&#34;default&#34;</span>)
+</span></span><span style="display:flex;"><span>}
+</span></span></code></pre></div>
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>
+
+
+
+  </div>
+
+  <footer class="post-footer">
+    <ul class="post-tags">
+    </ul>
+  </footer><div>    
+    
+    <script src="https://utteranc.es/client.js"
+        repo="loommii/blog-review"
+        issue-term="pathname"
+        theme="github-dark"
+        crossorigin="anonymous"
+        async>
+    </script>
+</div>
+
+</article>
+    </main>
+    
+<footer class="footer">
+        <span>&copy; 2025 <a href="https://loommii.github.io/">loommii</a></span> · 
+
+    <span>
+        Powered by
+        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
+        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
+    </span>
+</footer>
+<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
+        <path d="M12 6H0l6-6z" />
+    </svg>
+</a>
+
+<script>
+    let menu = document.getElementById('menu')
+    if (menu) {
+        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
+        menu.onscroll = function () {
+            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
+        }
+    }
+
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener("click", function (e) {
+            e.preventDefault();
+            var id = this.getAttribute("href").substr(1);
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
+                    behavior: "smooth"
+                });
+            } else {
+                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
+            }
+            if (id === "top") {
+                history.replaceState(null, null, " ");
+            } else {
+                history.pushState(null, null, `#${id}`);
+            }
+        });
+    });
+
+</script>
+<script>
+    var mybutton = document.getElementById("top-link");
+    window.onscroll = function () {
+        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
+            mybutton.style.visibility = "visible";
+            mybutton.style.opacity = "1";
+        } else {
+            mybutton.style.visibility = "hidden";
+            mybutton.style.opacity = "0";
+        }
+    };
+
+</script>
+<script>
+    document.getElementById("theme-toggle").addEventListener("click", () => {
+        if (document.body.className.includes("dark")) {
+            document.body.classList.remove('dark');
+            localStorage.setItem("pref-theme", 'light');
+        } else {
+            document.body.classList.add('dark');
+            localStorage.setItem("pref-theme", 'dark');
+        }
+    })
+
+</script>
+</body>
+
+</html>

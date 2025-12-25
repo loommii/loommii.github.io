@@ -1,0 +1,684 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>文章 on loommii</title>
+    <link>https://loommii.github.io/skill/</link>
+    <description>Recent content in 文章 on loommii</description>
+    <generator>Hugo -- 0.145.0</generator>
+    <language>zh</language>
+    <lastBuildDate>Wed, 28 May 2025 13:31:12 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/skill/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>系统中有大量用户导致的数据库查询慢</title>
+      <link>https://loommii.github.io/posts/skill/data/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/</link>
+      <pubDate>Wed, 28 May 2025 13:31:12 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/</guid>
+      <description>&lt;p&gt;&lt;strong&gt;问题分析：&lt;/strong&gt;&lt;/p&gt;
+&lt;ol&gt;
+&lt;li&gt;&lt;strong&gt;数据过多导致树高增加&lt;/strong&gt;
+MySQL 的默认存储引擎 InnoDB 采用了 B+树的数据结构。3 层树大概能存储 2KW 行数据量，超过了这个数会导致 3 层树变为 4 层树，增加了一次硬盘 IO 读取导致 SQL 变慢。&lt;/li&gt;
+&lt;li&gt;&lt;strong&gt;并发连接数不够&lt;/strong&gt;
+MySQL 的默认最大连接数是 151，可以在 &lt;code&gt;/etc/my.conf&lt;/code&gt; 更改。具体可以看文档 &lt;code&gt;max_connections&lt;/code&gt; 参数。
+超过连接数会出现 &lt;code&gt;too many connections&lt;/code&gt; 报错。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;&lt;strong&gt;解决方案：&lt;/strong&gt;&lt;/p&gt;
+&lt;p&gt;&lt;strong&gt;分库分表：&lt;/strong&gt;
+将数据按照某个维度水平的切割。&lt;/p&gt;
+&lt;h3 id=&#34;range-范围&#34;&gt;range 范围&lt;/h3&gt;
+&lt;p&gt;例如：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;用户 ID [0, 500W) 放库 1 表 1&lt;/li&gt;
+&lt;li&gt;用户 ID [500W, 1000W) 放库 2 表 2&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;👆这样会导致例外一个问题。&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;你会发现用户 ID 小的老用户很多都不上线了，用户 ID 新的用户还是很多，依旧导致了库 2 的连接数还是超了。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;因此不能这么简单的通过 ID 的大小去分库分表。
+这时候就可以引入了哈希（hash）。&lt;/p&gt;
+&lt;h3 id=&#34;哈希hash&#34;&gt;哈希（hash）&lt;/h3&gt;
+&lt;p&gt;哈希的方式可以使得用户 ID 分散到多个库、表上。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>mac版本 Joplin 笔记与配置信息存储更改</title>
+      <link>https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/</link>
+      <pubDate>Fri, 11 Apr 2025 21:58:44 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;Joplin 的官方 GUI 并未提供修改存储位置的选项，需要通过启动参数来进行修改。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;p&gt;&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/image.png&#34;&gt;&lt;/p&gt;
+&lt;p&gt;由于笔者购买的是存储仅为 256GB 的”丐版“” Mac mini，而笔记内容占用的空间较大，因此希望将存储路径更改为 NAS 网络卷。&lt;/p&gt;
+&lt;h2 id=&#34;启动命令&#34;&gt;启动命令&lt;/h2&gt;
+&lt;pre tabindex=&#34;0&#34;&gt;&lt;code&gt;open -a /Applications/Joplin.app --args --profile /Volumes/mac_data/joplin/note
+&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;strong&gt;需要修改的部分：&lt;/strong&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;/Applications/Joplin.app：替换为你自己的 Joplin 应用程序路径。&lt;/li&gt;
+&lt;li&gt;/Volumes/mac_data/joplin/note：替换为你希望使用的存储路径。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;在 Mac 的终端中输入修改后的命令并执行时，你会看到它会尝试启动 Joplin 应用并使用指定的存储路径。&lt;/p&gt;
+&lt;h2 id=&#34;创建启动程序&#34;&gt;创建启动程序&lt;/h2&gt;
+&lt;p&gt;打开Mac自带的&lt;code&gt;自动操作&lt;/code&gt;程序&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/image-1.png&#34;&gt;
+选择&lt;code&gt;应用程序&lt;/code&gt;
+&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/image-2.png&#34;&gt;
+在操作中选择&lt;code&gt;运行Shell脚本&lt;/code&gt;
+&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/image-3.png&#34;&gt;
+将启动命令输入右侧输入框
+&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/image-4.png&#34;&gt;
+点击左上角存储
+&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/image-5.png&#34;&gt;
+修改程序名称并存储到&lt;code&gt;应用程序&lt;/code&gt;
+&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/image-6.png&#34;&gt;
+到这里你将看到&lt;code&gt;启动台&lt;/code&gt;中多了刚刚保存的应用程序!&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/image-7.png&#34;&gt;
+点击程序验证一下效果&lt;/p&gt;
+&lt;h2 id=&#34;修改启动程序图标&#34;&gt;修改启动程序图标&lt;/h2&gt;
+&lt;p&gt;在&lt;code&gt;访达&lt;/code&gt; -&amp;gt; 应用程序 中找到刚刚创建的&lt;code&gt;启动程序&lt;/code&gt;
+右键 -&amp;gt; 显示简介
+&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/image-8.png&#34;&gt;
+将下载的图标拖入替代老的机器人图标
+&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/image-9.png&#34;&gt;
+&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/image-10.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;下面是joplin的logo&#34;&gt;下面是Joplin的LOGO&lt;/h3&gt;
+&lt;p&gt;&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/image-11.png&#34;&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go 中 Channel 可能会引发 Goroutine 泄漏</title>
+      <link>https://loommii.github.io/posts/skill/data/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/</link>
+      <pubDate>Fri, 07 Mar 2025 14:12:02 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/</guid>
+      <description>&lt;h2 id=&#34;go-中-channel-可能会引发-goroutine-泄漏&#34;&gt;Go 中 Channel 可能会引发 Goroutine 泄漏&lt;/h2&gt;
+&lt;h3 id=&#34;疑问&#34;&gt;疑问&lt;/h3&gt;
+&lt;h4 id=&#34;什么是-goroutine-泄漏&#34;&gt;什么是 Goroutine 泄漏？&lt;/h4&gt;
+&lt;p&gt;Goroutine 泄漏是指 Goroutine 在程序中被创建后，由于某种原因无法正常结束，并且永远不会被垃圾回收（GC）。这会导致 Goroutine 占用的资源（如内存、栈空间等）无法释放，随着时间的推移，可能会耗尽系统资源，导致程序崩溃。&lt;/p&gt;
+&lt;h4 id=&#34;channel-如何导致-goroutine-泄漏&#34;&gt;Channel 如何导致 Goroutine 泄漏？&lt;/h4&gt;
+&lt;p&gt;Channel 是 Goroutine 之间同步和通信的重要机制。但是，如果 Channel 的使用不当，就可能导致 Goroutine 阻塞并最终泄漏。以下是导致泄漏的常见场景：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;发送阻塞: Goroutine 尝试向一个已满的无缓冲 Channel 或已满的有缓冲 Channel 发送数据，如果没有其他 Goroutine 接收数据，发送操作会阻塞。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;接收阻塞:  Goroutine 尝试从一个空的无缓冲 Channel 或空的有缓冲 Channel 接收数据，如果没有其他 Goroutine 发送数据，接收操作会阻塞。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;泄漏的原因是 goroutine 操作 channel 后，处于发送或接收阻塞状态，而 channel 处于满或空的状态，一直得不到改变。同时，垃圾回收器也不会回收此类资源，进而导致 gouroutine 会一直处于等待队列中，不见天日。&lt;/p&gt;
+&lt;h3 id=&#34;代码示例&#34;&gt;代码示例&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; (
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;runtime&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;time&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; make(&lt;span style=&#34;color:#66d9ef&#34;&gt;chan&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;// 无缓冲 Channel&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;go&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// 第一次发送成功（Channel 未满）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;第一次发送成功&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt; &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// 第二次发送永久阻塞（Channel 已满且无接收者）&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;第二次发送成功（永远不会执行）&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }()
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Sleep&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;500&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Millisecond&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;接收到:&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#f92672&#34;&gt;&amp;lt;-&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;ch&lt;/span&gt;) &lt;span style=&#34;color:#75715e&#34;&gt;// 只消费一次数据&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// 监控 Goroutine 数量&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;for&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Printf&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;当前 Goroutine 数量: %d\n&amp;#34;&lt;/span&gt;, &lt;span style=&#34;color:#a6e22e&#34;&gt;runtime&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;NumGoroutine&lt;/span&gt;()) &lt;span style=&#34;color:#75715e&#34;&gt;// 2&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Sleep&lt;/span&gt;(&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;time&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Second&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/ZY9038_1BYW&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go函数类型是否可以比较,为什么？</title>
+      <link>https://loommii.github.io/posts/skill/data/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/</link>
+      <pubDate>Wed, 05 Mar 2025 16:41:19 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/</guid>
+      <description>&lt;h2 id=&#34;go函数类型是否可以比较&#34;&gt;Go函数类型是否可以比较？&lt;/h2&gt;
+&lt;h3 id=&#34;比较运算符&#34;&gt;比较运算符&lt;/h3&gt;
+&lt;p&gt;在&lt;a href=&#34;https://go.dev/ref/spec#Comparison_operators&#34;&gt;Go官方文档&lt;/a&gt;比较运算符中有这一段话&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;Slice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.&lt;/p&gt;&lt;/blockquote&gt;
+&lt;blockquote&gt;
+&lt;p&gt;切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 &lt;code&gt;nil&lt;/code&gt; 进行比较。指针、通道（channel）和接口值与 &lt;code&gt;nil&lt;/code&gt; 的比较也是允许的，并且遵循上述一般规则。&lt;/p&gt;&lt;/blockquote&gt;&lt;/blockquote&gt;
+&lt;p&gt;因此我们可以看到，Go函数类型之间是不能使用比较运算符的，但是可以和&lt;code&gt;nil&lt;/code&gt;进行比较。&lt;br&gt;
+例 1:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;package&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#f92672&#34;&gt;import&lt;/span&gt; &lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;fmt&amp;#34;&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;foo&lt;/span&gt;() {}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;func&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;main&lt;/span&gt;() {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;f1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;foo&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;f2&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f1&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#66d9ef&#34;&gt;if&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f1&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;==&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;f2&lt;/span&gt; { &lt;span style=&#34;color:#75715e&#34;&gt;// 编译错误：invalid operation: f1 == f2 (func can only be compared to nil)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;        &lt;span style=&#34;color:#a6e22e&#34;&gt;fmt&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Println&lt;/span&gt;(&lt;span style=&#34;color:#e6db74&#34;&gt;&amp;#34;函数相等&amp;#34;&lt;/span&gt;)
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    }
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/-MKUWeDBml7&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go: GPM的数量限制</title>
+      <link>https://loommii.github.io/posts/skill/data/go_gpm%E7%9A%84%E6%95%B0%E9%87%8F%E9%99%90%E5%88%B6/</link>
+      <pubDate>Wed, 18 Dec 2024 14:16:42 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/go_gpm%E7%9A%84%E6%95%B0%E9%87%8F%E9%99%90%E5%88%B6/</guid>
+      <description>&lt;h2 id=&#34;g&#34;&gt;G&lt;/h2&gt;
+&lt;p&gt;协程的抽象&lt;/p&gt;
+&lt;p&gt;Goroutine  (go /ruːˈtiːn/  谐音 Go 如 听) 经 Golang 优化后的特殊“协程”&lt;/p&gt;
+&lt;h3 id=&#34;g限制&#34;&gt;G限制&lt;/h3&gt;
+&lt;p&gt;语言上无任何的限制,但是理论上会受到机器的内存限制,每个G创建时会占用4KB左右的内存空间&lt;/p&gt;
+&lt;p&gt;注：Goroutine 创建所需申请的 2-4KB 是需要连续的内存块。&lt;/p&gt;
+&lt;h2 id=&#34;m&#34;&gt;M&lt;/h2&gt;
+&lt;p&gt;系统线程的抽象&lt;/p&gt;
+&lt;p&gt;在 Go 的并发模型中，G（Goroutine）是一个轻量级的执行单元，它需要通过系统线程（M）来执行。
+每个 G 都会被映射到一个可用的 M 上，M 是操作系统层面的线程，负责实际的 CPU 执行。&lt;/p&gt;
+&lt;h3 id=&#34;m限制&#34;&gt;M限制&lt;/h3&gt;
+&lt;p&gt;M 是可以通过runtime下的 debug包SetMaxThreads函数去设置的。默认值为10,000 个线程
+&lt;a href=&#34;https://pkg.go.dev/runtime/debug#SetMaxThreads&#34;&gt;官方文档&lt;/a&gt;&lt;/p&gt;
+&lt;blockquote&gt;
+&lt;p&gt;SetMaxThreads 设置 Go 程序可以使用的操作系统线程的最大数量。如果程序尝试使用超过这个数量的线程，程序将崩溃。SetMaxThreads 返回之前的设置值。初始设置为 10,000 个线程。
+?
+这个限制控制的是操作系统线程的数量，而不是 goroutine 的数量。只有当 goroutine 准备运行，但所有现有的线程都因系统调用、cgo 调用被阻塞，或者由于使用了 runtime.LockOSThread 被锁定给其他 goroutine 时，Go 程序才会创建一个新的线程。&lt;/p&gt;
+&lt;p&gt;SetMaxThreads 主要用于限制那些创建无限数量线程的程序的影响。其目的是在程序把操作系统拖垮之前先把程序本身终止掉。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;p&#34;&gt;P&lt;/h2&gt;
+&lt;p&gt;p即 processor，是 golang 中的调度器；&lt;/p&gt;
+&lt;p&gt;p 是 gmp 的中枢，借由 p 承上启下，实现 g 和 m 之间的动态有机结合；&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go: Map 是并发安全的吗？</title>
+      <link>https://loommii.github.io/posts/skill/data/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/</link>
+      <pubDate>Mon, 16 Dec 2024 20:06:16 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/</guid>
+      <description>&lt;h2 id=&#34;结论&#34;&gt;结论&lt;/h2&gt;
+&lt;p&gt;并发读安全，并发写不安全&lt;/p&gt;
+&lt;h2 id=&#34;原因&#34;&gt;原因&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// map(集合)底层结构&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;hmap&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// Make sure this stays in sync with the compiler&amp;#39;s definition.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// # live cells == size of map.  Must be first (used by len() builtin)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;flags&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;uint8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;B&lt;/span&gt;         &lt;span style=&#34;color:#66d9ef&#34;&gt;uint8&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// log_2 of # of buckets (can hold up to loadFactor * 2^B items)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;noverflow&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;uint16&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// approximate number of overflow buckets; see incrnoverflow for details&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;hash0&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;uint32&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// hash seed&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;buckets&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;unsafe&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Pointer&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// array of 2^B Buckets. may be nil if count==0.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;oldbuckets&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unsafe&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Pointer&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// previous bucket array of half the size, non-nil only when growing&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;nevacuate&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;uintptr&lt;/span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// progress counter for evacuation (buckets less than this have been evacuated)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;clearSeq&lt;/span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;uint64&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;extra&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mapextra&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// optional fields&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// buckets的结构&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;bmap&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;topbits&lt;/span&gt;  [&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;uint8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;keys&lt;/span&gt;     [&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;]&lt;span style=&#34;color:#a6e22e&#34;&gt;keytype&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;values&lt;/span&gt;   [&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;]&lt;span style=&#34;color:#a6e22e&#34;&gt;valuetype&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;pad&lt;/span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;uintptr&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;overflow&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;uintptr&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;从上方结构可以知道底层结构中存buckets和oldbuckets。发生扩容的时候。会New一个新的buckets地址,并将老的buckets地址写入到oldbuckets中。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go: 为什么Map是无序的</title>
+      <link>https://loommii.github.io/posts/skill/data/go_%E4%B8%BA%E4%BB%80%E4%B9%88map%E6%98%AF%E6%97%A0%E5%BA%8F%E7%9A%84/</link>
+      <pubDate>Mon, 16 Dec 2024 19:47:30 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/go_%E4%B8%BA%E4%BB%80%E4%B9%88map%E6%98%AF%E6%97%A0%E5%BA%8F%E7%9A%84/</guid>
+      <description>&lt;h3 id=&#34;底层结构&#34;&gt;底层结构&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// map(集合)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;hmap&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// Make sure this stays in sync with the compiler&amp;#39;s definition.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// # live cells == size of map.  Must be first (used by len() builtin)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;flags&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;uint8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;B&lt;/span&gt;         &lt;span style=&#34;color:#66d9ef&#34;&gt;uint8&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// log_2 of # of buckets (can hold up to loadFactor * 2^B items)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;noverflow&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;uint16&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// approximate number of overflow buckets; see incrnoverflow for details&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;hash0&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;uint32&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// hash seed&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;buckets&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;unsafe&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Pointer&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// array of 2^B Buckets. may be nil if count==0.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;oldbuckets&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unsafe&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Pointer&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// previous bucket array of half the size, non-nil only when growing&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;nevacuate&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;uintptr&lt;/span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// progress counter for evacuation (buckets less than this have been evacuated)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;clearSeq&lt;/span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;uint64&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;extra&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mapextra&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// optional fields&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// buckets的结构&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;bmap&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;topbits&lt;/span&gt;  [&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;uint8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;keys&lt;/span&gt;     [&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;]&lt;span style=&#34;color:#a6e22e&#34;&gt;keytype&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;values&lt;/span&gt;   [&lt;span style=&#34;color:#ae81ff&#34;&gt;8&lt;/span&gt;]&lt;span style=&#34;color:#a6e22e&#34;&gt;valuetype&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;pad&lt;/span&gt;      &lt;span style=&#34;color:#66d9ef&#34;&gt;uintptr&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;overflow&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;uintptr&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;解释&#34;&gt;解释&lt;/h3&gt;
+&lt;p&gt;Map中的数据存储在buckets和oldbuckets中,在发生扩容时,会创建新的buckets,并将老的buckets地址写入到oldbuckets中。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go: slice(切片) 和 map(集合) 未初始化操作会怎样</title>
+      <link>https://loommii.github.io/posts/skill/data/go_map_slice%E6%9C%AA%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%E4%BC%9A%E6%80%8E%E6%A0%B7/</link>
+      <pubDate>Mon, 16 Dec 2024 19:03:04 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/go_map_slice%E6%9C%AA%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%E4%BC%9A%E6%80%8E%E6%A0%B7/</guid>
+      <description>&lt;h2 id=&#34;底层结构&#34;&gt;底层结构&lt;/h2&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// slice(切片)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;SliceHeader&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;Data&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;uintptr&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// 底层数组的地址&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;Len&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;     &lt;span style=&#34;color:#75715e&#34;&gt;// 长度&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;Cap&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;     &lt;span style=&#34;color:#75715e&#34;&gt;// 容量&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;// map(集合)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;hmap&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#75715e&#34;&gt;// Make sure this stays in sync with the compiler&amp;#39;s definition.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;count&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// # live cells == size of map.  Must be first (used by len() builtin)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;flags&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;uint8&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;B&lt;/span&gt;         &lt;span style=&#34;color:#66d9ef&#34;&gt;uint8&lt;/span&gt;  &lt;span style=&#34;color:#75715e&#34;&gt;// log_2 of # of buckets (can hold up to loadFactor * 2^B items)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;noverflow&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;uint16&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// approximate number of overflow buckets; see incrnoverflow for details&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;hash0&lt;/span&gt;     &lt;span style=&#34;color:#66d9ef&#34;&gt;uint32&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// hash seed&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;buckets&lt;/span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;unsafe&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Pointer&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// array of 2^B Buckets. may be nil if count==0.&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;oldbuckets&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;unsafe&lt;/span&gt;.&lt;span style=&#34;color:#a6e22e&#34;&gt;Pointer&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// previous bucket array of half the size, non-nil only when growing&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;nevacuate&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;uintptr&lt;/span&gt;        &lt;span style=&#34;color:#75715e&#34;&gt;// progress counter for evacuation (buckets less than this have been evacuated)&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;clearSeq&lt;/span&gt;   &lt;span style=&#34;color:#66d9ef&#34;&gt;uint64&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;extra&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;*&lt;/span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;mapextra&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// optional fields&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;这2个类型都属于引用类型,特点是存储的是一个地址,且零值为nil&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go: slice(切片) 和array(数组) 的区别</title>
+      <link>https://loommii.github.io/posts/skill/data/go_slice%E5%92%8Carray%E7%9A%84%E5%8C%BA%E5%88%AB/</link>
+      <pubDate>Mon, 16 Dec 2024 16:10:18 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/go_slice%E5%92%8Carray%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
+      <description>&lt;h2 id=&#34;底层结构&#34;&gt;底层结构&lt;/h2&gt;
+&lt;h3 id=&#34;array数组&#34;&gt;array(数组)&lt;/h3&gt;
+&lt;p&gt;Go数组与C数组十分类似，数组是具有相同唯一类型的一组已编号且长度固定的数据项序列&lt;/p&gt;
+&lt;p&gt;关键字: 相同类型,长度固定，序列&lt;/p&gt;
+&lt;p&gt;&lt;img alt=&#34;alt text&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/go_slice%E5%92%8Carray%E7%9A%84%E5%8C%BA%E5%88%AB/image.png&#34;&gt;&lt;/p&gt;
+&lt;h3 id=&#34;slice切片&#34;&gt;slice(切片)&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;type&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;SliceHeader&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;struct&lt;/span&gt; {
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;Data&lt;/span&gt; &lt;span style=&#34;color:#66d9ef&#34;&gt;uintptr&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// 底层数组的地址&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;Len&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;     &lt;span style=&#34;color:#75715e&#34;&gt;// 长度&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;    &lt;span style=&#34;color:#a6e22e&#34;&gt;Cap&lt;/span&gt;  &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;     &lt;span style=&#34;color:#75715e&#34;&gt;// 容量&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;Go 语言切片是对数组的抽象。结构中包含底层数组、长度、容量&lt;/p&gt;
+&lt;h2 id=&#34;初始化&#34;&gt;初始化&lt;/h2&gt;
+&lt;h3 id=&#34;array数组-1&#34;&gt;array(数组)&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;numbers&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; &lt;span style=&#34;color:#75715e&#34;&gt;// 声明长度为5的数组,数组内容全为默认零值,int的零值为0&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;var&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;numbers&lt;/span&gt; = [&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;} &lt;span style=&#34;color:#75715e&#34;&gt;// 声明长度为5的数组,数组内容全为{}内的值。 [1 2 3 4 5]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;numbers&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;}&lt;span style=&#34;color:#75715e&#34;&gt;// 声明长度为5的数组,数组内容全为{}内的值,少的部分为默认零值。 [1 2 3 0 0]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;numbers&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; [&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;}&lt;span style=&#34;color:#75715e&#34;&gt;// 由于{}内的值超过了数组超度编译不通过&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;numbers&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; [&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;4&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;6&lt;/span&gt;}&lt;span style=&#34;color:#75715e&#34;&gt;// 如果数组长度不确定，可以使用 ... 代替数组的长度，编译器会根据元素个数自行推断数组的长度&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;numbers&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; [&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;{&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;:&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;}&lt;span style=&#34;color:#75715e&#34;&gt;// 如果数组长度不确定，可以使用 ... 代替数组的长度，编译器会根据元素个数自行推断数组的长度&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;numbers&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; [&lt;span style=&#34;color:#f92672&#34;&gt;...&lt;/span&gt;]&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;{&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;11&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//  5: 1, 2, 3 表示 在下标5开始 值为1,2,3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//  1: 11 表示 在下标1开始 值为11&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//  [0 11 0 0 0 1 2 3]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;h3 id=&#34;slice切片-1&#34;&gt;slice(切片)&lt;/h3&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;s&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt;[] &lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt; {&lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;,&lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;} &lt;span style=&#34;color:#75715e&#34;&gt;// 声明长度为3,容量为3的切片,内容是[1 2 3]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#a6e22e&#34;&gt;numbers&lt;/span&gt; &lt;span style=&#34;color:#f92672&#34;&gt;:=&lt;/span&gt; []&lt;span style=&#34;color:#66d9ef&#34;&gt;int&lt;/span&gt;{&lt;span style=&#34;color:#ae81ff&#34;&gt;5&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;2&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;3&lt;/span&gt;, &lt;span style=&#34;color:#ae81ff&#34;&gt;1&lt;/span&gt;: &lt;span style=&#34;color:#ae81ff&#34;&gt;11&lt;/span&gt;}
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//  5: 1, 2, 3 表示 在下标5开始 值为1,2,3&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//  1: 11 表示 在下标1开始 值为11&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#75715e&#34;&gt;//  [0 11 0 0 0 1 2 3]&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;使用 make() 函数来创建切片&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>服务设计_如何设计一个URL短链服务</title>
+      <link>https://loommii.github.io/posts/skill/data/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/</link>
+      <pubDate>Mon, 09 Dec 2024 13:57:51 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/</guid>
+      <description>&lt;h3 id=&#34;什么是url短链服务&#34;&gt;什么是URL短链服务&lt;/h3&gt;
+&lt;p&gt;URL短链服务的本质是通过HTTP 302重定向机制，将一个简短的URL重定向到原始的长URL。&lt;/p&gt;
+&lt;h3 id=&#34;短链服务解决了什么问题&#34;&gt;短链服务解决了什么问题&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;解决消息发送的字数限制问题
+例如，腾讯云SMS限制每条短信的字数为500个字符，而在营销短信中，通常会携带包含大量参数的URL（如邀请平台、邀请人、活动ID等）。这些参数使得URL变得非常冗长。通过URL短链服务，营销短信中的长URL可以被替换为一个简短的短链，节省了字数空间。
+&lt;img alt=&#34;腾讯云SMS&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/image.png&#34;&gt;&lt;/li&gt;
+&lt;li&gt;隐藏请求参数
+以营销活动为例，URL中的常见参数可能包括活动ID等信息。如果我们不希望这些ID被随便修改，可以在参数中添加对应的活动ID KEY，这样只有当ID和KEY匹配时，用户才能进入相应的活动页面。然而，添加了KEY后，原本的URL会变得更加冗长。短链服务可以帮助隐藏这些请求参数，保持URL简洁且安全。&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;最基础的需求&#34;&gt;最基础的需求&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;长链登记&lt;/li&gt;
+&lt;li&gt;短链重定向&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;短链key为什么选择-base62-编码&#34;&gt;短链KEY为什么选择 Base62 编码&lt;/h3&gt;
+&lt;p&gt;根据 RFC3986 标准，URL 由 ASCII 字符组成，以下字符可以安全地在 URL 中使用：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;字母（a-z 和 A-Z）&lt;/li&gt;
+&lt;li&gt;数字（0-9）&lt;/li&gt;
+&lt;li&gt;部分特殊字符：$-_.+!*&amp;rsquo;(),
+虽然RFC3986标准允许一些特殊字符，但有些特殊字符可能会对URL解析、传输或存储造成问题。例如，字符如 &amp;amp;, ?, =, # 等在查询参数或路径中有特定意义，因此它们可能引起冲突或产生解析错误。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;blockquote&gt;
+&lt;p&gt;为了避免这些潜在的麻烦，特别是在需要将复杂的查询参数或密钥编码为 URL 友好的格式时，我们通常会选择 Base62 编码，即只使用字母（大小写）和数字的组合。&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h3 id=&#34;短链key的长度选择&#34;&gt;短链KEY的长度选择&lt;/h3&gt;
+&lt;p&gt;我们字符集已经确定为Base62,因此长度为1 可以存储 62种。每增加一位，存储的极限数量会按 62 的指数增长。&lt;/p&gt;
+&lt;table&gt;
+  &lt;thead&gt;
+      &lt;tr&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;长度&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;存储极限&lt;/th&gt;
+          &lt;th style=&#34;text-align: left&#34;&gt;解释&lt;/th&gt;
+      &lt;/tr&gt;
+  &lt;/thead&gt;
+  &lt;tbody&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;1&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;62&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;1 位可以表示 62 种不同的组合&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;2&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;62 × 62 = 3,844&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;2 位可以表示 62 的平方，即 3,844 种不同的组合&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;3&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;62 × 62 × 62 = 238,328&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;3 位可以表示 62 的三次方，即 238,328 种不同的组合&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;4&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;62 × 62 × 62 × 62 = 14,776,336&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;4 位可以表示 62 的四次方，即 14,776,336 种不同的组合&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;5&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;62 × 62 × 62 × 62 × 62 = 916,132,832&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;5 位可以表示 62 的五次方，即 916,132,832种不同的组合&lt;/td&gt;
+      &lt;/tr&gt;
+      &lt;tr&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;6&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;62 × 62 × 62 × 62 × 62 × 62 = 56,800,235,584&lt;/td&gt;
+          &lt;td style=&#34;text-align: left&#34;&gt;6 位可以表示 62 的六次方，即 56,800,235,584 种不同的组合&lt;/td&gt;
+      &lt;/tr&gt;
+  &lt;/tbody&gt;
+&lt;/table&gt;
+&lt;blockquote&gt;
+&lt;p&gt;5位的存储极限已经达到916,132,832,这个数量已经非常大，足以支持大多数应用场景。然而，如果你希望进一步减少生成字符时的冲突、长远规划，选择 6 位 作为短链 KEY 长度会是一个不错的选择。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>浅谈GO GC (垃圾回收)</title>
+      <link>https://loommii.github.io/posts/skill/data/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</link>
+      <pubDate>Mon, 09 Dec 2024 13:03:08 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/</guid>
+      <description>&lt;h2 id=&#34;垃圾回收&#34;&gt;垃圾回收&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;
+&lt;p&gt;垃圾回收这里的垃圾指的是什么？为什么要回收？
+在程序运行的时候，进程会在堆内存申请内存空间。但是在函数退出的时候会栈空间会被销毁。因此这一段堆内存空间没有任何的指针指向它（没有被引用）。因此会造成内存的浪费（内存泄露）。这一段的没有被引用的内存就是“垃圾”。，程序员不再需要手动管理内存的分配和释放，从而减少了由于内存管理不当引起的内存泄漏或悬空指针等问题。&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;常见的GC有哪几种&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;手动垃圾回收，代表语言（C，C++）&lt;/li&gt;
+&lt;li&gt;标记-清扫算法
+&lt;ul&gt;
+&lt;li&gt;三色标记法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;标记-整理算法
+&lt;ul&gt;
+&lt;li&gt;移动整理法&lt;/li&gt;
+&lt;li&gt;复制整理法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;分代回收&lt;/li&gt;
+&lt;li&gt;引用计数&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;简述常见的GC如何实现，和他们各自的优缺点。&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;手动垃圾回收：
+&lt;ul&gt;
+&lt;li&gt;实现：程序员自行调用函数销毁&lt;/li&gt;
+&lt;li&gt;优点：程序员对程序内存的掌控自由。&lt;/li&gt;
+&lt;li&gt;缺点：容易出现提前释放（悬挂指针）、忘记释放（内存泄漏)等问题。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;标记-清扫算法：
+&lt;ul&gt;
+&lt;li&gt;实现：标记从根节点（栈内存、数据段）能追踪到的数据为游泳数据，其他未标记的数据就是垃圾数据，将对垃圾数据进行回收&lt;/li&gt;
+&lt;li&gt;优点：实现相对简单，&lt;/li&gt;
+&lt;li&gt;缺点：容易造成内存碎片化&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;标记-整理算法：
+&lt;ul&gt;
+&lt;li&gt;实现：
+&lt;ul&gt;
+&lt;li&gt;标记阶段与&lt;code&gt;标记-清扫算法&lt;/code&gt;一致。&lt;/li&gt;
+&lt;li&gt;整理阶段：
+&lt;ul&gt;
+&lt;li&gt;移动整理法：整理移动有用的数据，使有用的数据尽可能紧凑的放在内存里。
+&lt;ul&gt;
+&lt;li&gt;优点：解决了内存碎片化的问题&lt;/li&gt;
+&lt;li&gt;缺点：多次扫描移动，会带来不小的性能开销&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;复制整理法：将内存划分为Form和To，将From空间中的有用数据都复制到To空间。并将Form和To空间的角色对换。
+&lt;ul&gt;
+&lt;li&gt;优点：解决了多次扫描移动的性能问题&lt;/li&gt;
+&lt;li&gt;缺点：内存使用率低。只有一半的堆内存空间被使用&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;分代回收：
+&lt;ul&gt;
+&lt;li&gt;实现：基于&lt;code&gt;弱分代假说&lt;/code&gt;。将数据分为新生代、老年代。新生代、老年代采用不同的回收算法&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;引用计数
+&lt;ul&gt;
+&lt;li&gt;实现：每次对象应用都会更新对象的引用计数，当引用计数为0就回收该空间&lt;/li&gt;
+&lt;li&gt;优点：可以及时回收垃圾内存&lt;/li&gt;
+&lt;li&gt;缺点：高频更新引用计数会有不小性能开销，循环引用会导致引用计数永远不为0&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;什么是STW，为什么会有STW。
+STW（stop the world）简单的就是让用户程序停下来。
+&lt;img alt=&#34;b1bb8a580c1de4ba490fe1787b9b4484.png&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/b1bb8a580c1de4ba490fe1787b9b4484.png&#34;&gt;
+STW期间，程序会进行垃圾回收&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h2 id=&#34;stw&#34;&gt;STW&lt;/h2&gt;
+&lt;pre&gt;&lt;code&gt;STW 是 Stop-The-World 的缩写，指的是在垃圾回收或某些系统操作过程中，暂停所有应用程序线程的行为，直到特定任务（通常是垃圾回收）完成。
+&lt;/code&gt;&lt;/pre&gt;
+&lt;p&gt;![e6d686db23ff699d03219905d8ceb2c1.png].(/e6d686db23ff699d03219905d8ceb2c1.png)
+这里会带来一个问题，用户程序接受长时间STW吗？
+为了解决这个问题就出现了&lt;code&gt;增量式垃圾回收&lt;/code&gt;&lt;/p&gt;
+&lt;h2 id=&#34;增量式垃圾回收&#34;&gt;增量式垃圾回收&lt;/h2&gt;
+&lt;p&gt;&lt;img alt=&#34;61ac2ddfdd0b562c9d1dc2db48226baf.png&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/61ac2ddfdd0b562c9d1dc2db48226baf.png&#34;&gt;
+实现：将一次GC分为多次，并和用户程序交互进行
+优点：解决了STW时间长的问题
+缺点：如果在标记后-清理前。创建的内容将会被误删除&lt;/p&gt;
+&lt;p&gt;为了避免误删可以采用&lt;code&gt;三色抽象&lt;/code&gt;避免
+三色抽象:标记数据分为 黑 - 灰 - 白&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;黑：已经遍历标记完的数据&lt;/li&gt;
+&lt;li&gt;灰：还未遍历完的数据&lt;/li&gt;
+&lt;li&gt;白：未遍历（应用不到）的垃圾数据&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;因此在清扫阶段发现有黑-&amp;gt;白的数据。着这个白数据是在标记后-清理前创建的
+&lt;img alt=&#34;ec4f1ac56d59908315538e9aaab07d06.png&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/ec4f1ac56d59908315538e9aaab07d06.png&#34;&gt;
+因此Golang官方提出2种条件&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;强三色不变式：不允许出现黑色到白色的情况
+&lt;img alt=&#34;e4c3408593ec24f14daa8c47feb3fdd4.png&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/e4c3408593ec24f14daa8c47feb3fdd4.png&#34;&gt;&lt;/li&gt;
+&lt;li&gt;弱三色不变式：允许黑色到白色的情况，但是这个白色需要被灰色引用
+&lt;img alt=&#34;84ad5e2babcccd8c8b5a1c5c7d3b1260.png&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/84ad5e2babcccd8c8b5a1c5c7d3b1260.png&#34;&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;写屏障&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>锁</title>
+      <link>https://loommii.github.io/posts/skill/data/%E9%94%81/</link>
+      <pubDate>Sun, 08 Dec 2024 00:28:39 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/%E9%94%81/</guid>
+      <description>&lt;p&gt;计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了“锁”用于解决该类问题。
+常见的锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁&lt;/p&gt;
+&lt;h2 id=&#34;互斥锁&#34;&gt;互斥锁&lt;/h2&gt;
+&lt;p&gt;特点：容易实现，最基础的锁概念&lt;/p&gt;
+&lt;p&gt;解释：在使用一个资源时，先上锁使用。上锁后其他线程都无法再上锁。直到解锁后，其他线程才能上锁使用。&lt;/p&gt;
+&lt;p&gt;生活例子：公共厕所，谁要上厕所就要先上锁后使用，避免其他人也闯入使用厕所。&lt;/p&gt;
+&lt;h2 id=&#34;自旋锁&#34;&gt;自旋锁&lt;/h2&gt;
+&lt;p&gt;自旋锁与互斥锁十分类似。
+区别：&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;自旋锁：加锁失败，线程还是会不断的去申请加锁，直到他拿到锁&lt;/li&gt;
+&lt;li&gt;互斥锁：加锁失败，线程会释放CPU资源，等待解锁后在申请上锁。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;生活例子 -&amp;gt; 公共厕所
+自旋锁：不断的在门口敲门，直到里面的人出来
+互斥锁：不动了，直到里面的人出来叫你。&lt;/p&gt;
+&lt;h2 id=&#34;读写锁&#34;&gt;读写锁&lt;/h2&gt;
+&lt;p&gt;顾名思义就是由&lt;code&gt;读锁&lt;/code&gt;和&lt;code&gt;写锁&lt;/code&gt;组成的。读数据往往是可以并发的读，并发写数据可能会导致数据不符合预期的情况&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;读数据需要满足目前无写锁。&lt;/li&gt;
+&lt;li&gt;写数据需要满足目前无写锁、读锁。
+生活例子：假设一个班级的考试成绩都写到同一个本子上。而学生会读成绩，老师会写成绩。学生看成绩可以同时看，而语文老师和数学老师不能并发的把成绩写到一页里。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;读写锁可以分为 &lt;code&gt;读优先锁&lt;/code&gt;      &lt;code&gt;写优先锁&lt;/code&gt;  &lt;code&gt;公平读写锁&lt;/code&gt;&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;读优先锁
+学生看到有老师在等待改写数据时，不理会老师继续读数据&lt;/li&gt;
+&lt;li&gt;写优先锁
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;读数据还需要满足无在等待的写锁&lt;/p&gt;
+&lt;p&gt;学生看到有老师在等待改写数据时，会主动让老师写数据。&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;公平读写锁
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;将读学请求放入一个队列，排队的去读写&lt;/p&gt;
+&lt;p&gt;学生和老师排个队伍&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;乐观锁与悲观锁&#34;&gt;乐观锁与悲观锁&lt;/h2&gt;
+&lt;p&gt;互斥锁、自旋锁、读写锁都是悲观锁&lt;/p&gt;
+&lt;p&gt;悲观锁：多线程同时修改共享资源的概率比较高，容易发生冲突。因此访问共享资源前需要上锁。
+乐观锁：认为发生冲突的概率比较低。并不会上任何的锁，而是校验该数据是否别修改过，修改过着放弃本次操作&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>程序与内存之间的关系</title>
+      <link>https://loommii.github.io/posts/skill/data/%E7%A8%8B%E5%BA%8F%E4%B8%8E%E5%86%85%E5%AD%98%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/</link>
+      <pubDate>Sun, 08 Dec 2024 00:28:20 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/%E7%A8%8B%E5%BA%8F%E4%B8%8E%E5%86%85%E5%AD%98%E4%B9%8B%E9%97%B4%E7%9A%84%E5%85%B3%E7%B3%BB/</guid>
+      <description>&lt;h2 id=&#34;程序与内存之间的关系&#34;&gt;程序与内存之间的关系&lt;/h2&gt;
+&lt;ol&gt;
+&lt;li&gt;数据类型本质：固定内存大小的别名&lt;/li&gt;
+&lt;li&gt;数据类型的作用：编译器预算对象(变量)分配的内存空间大小&lt;/li&gt;
+&lt;li&gt;内存四区:栈区(Stack),堆区(heap),全局区-静态全局变量区,全局区-常量区&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;运行流程说明&#34;&gt;运行流程说明&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;操作系统把物理硬盘代码load到内存&lt;/li&gt;
+&lt;li&gt;操作系统把代码分成四个区&lt;/li&gt;
+&lt;li&gt;操作系统找到main函数入口执行&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;内存四区&#34;&gt;内存四区&lt;/h3&gt;
+&lt;ul&gt;
+&lt;li&gt;栈区(Stack) :空间较小，要求数据读写性能高，数据存放时间较短暂。由编译器自动分配和释放，存放函数的参数值、函数的调用流程方法地址、局部变量等(局部变量如果产生逃逸现象，可能会挂在在堆区)&lt;/li&gt;
+&lt;li&gt;堆区(heap):空间充裕，数据存放时间较久。一般由开发者分配及释放(但是Golang中会根据变量的逃逸现象来选择是否分配到栈上或堆上)，启动Golang的GC由GC清除机制自动回收。&lt;/li&gt;
+&lt;li&gt;全局区-静态全局变量区:全局变量的开辟是在程序在main之前就已经放在内存中。而且对外完全可见。即作用域在全部代码中，任何同包代码均可随时使用，在变量会搞混淆，而且在局部函数中如果同名称变量使用:=赋值会出现编译错误。
+全局变量最终在进程退出时，由操作系统回收。&lt;/li&gt;
+&lt;li&gt;全局区-常量区：常量区也归属于全局区，常量为存放数值字面值单位，即不可修改。或者说的有的常量是直接挂钩字面值的。&lt;/li&gt;
+&lt;/ul&gt;
+&lt;p&gt;比如:&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-go&#34; data-lang=&#34;go&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;&lt;span style=&#34;color:#66d9ef&#34;&gt;const&lt;/span&gt; &lt;span style=&#34;color:#a6e22e&#34;&gt;cl&lt;/span&gt; = &lt;span style=&#34;color:#ae81ff&#34;&gt;10&lt;/span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;cl是字面量10的对等符号。&lt;/p&gt;
+&lt;p&gt;所以在golang中，常量是无法取出地址的，因为字面量符号并没有地址而言。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>进程、线程、协程</title>
+      <link>https://loommii.github.io/posts/skill/data/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</link>
+      <pubDate>Sun, 08 Dec 2024 00:28:02 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/%E8%BF%9B%E7%A8%8B%E7%BA%BF%E7%A8%8B%E5%8D%8F%E7%A8%8B/</guid>
+      <description>&lt;blockquote&gt;
+&lt;p&gt;从计算机的发展上,这概念从大到小的顺序是&lt;code&gt;程序-&amp;gt;进程-&amp;gt;线程-&amp;gt;协程&lt;/code&gt;&lt;/p&gt;&lt;/blockquote&gt;
+&lt;h2 id=&#34;基础概念&#34;&gt;基础概念&lt;/h2&gt;
+&lt;ul&gt;
+&lt;li&gt;进程：系统进行资源调度和分配的的基本单位&lt;/li&gt;
+&lt;li&gt;线程：线程是操作系统调度与执行的基础单位&lt;/li&gt;
+&lt;li&gt;协程：又称为用户级线程、微线程&lt;/li&gt;
+&lt;/ul&gt;
+&lt;h2 id=&#34;核心点&#34;&gt;核心点&lt;/h2&gt;
+&lt;h3 id=&#34;进程&#34;&gt;进程&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;是操作系统资源调度的基础单位单元；&lt;/li&gt;
+&lt;li&gt;进程是能独立运行、独立获取资源的基本单位&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;线程&#34;&gt;线程&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;是操作系统最小调度单元；&lt;/li&gt;
+&lt;li&gt;创建、销毁、调度交由内核完成，cpu 需完成用户态与内核态间的切换；&lt;/li&gt;
+&lt;li&gt;可充分利用多核，实现并行.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;h3 id=&#34;协程&#34;&gt;协程&lt;/h3&gt;
+&lt;ol&gt;
+&lt;li&gt;与线程存在映射关系，为 M：1；&lt;/li&gt;
+&lt;li&gt;创建、销毁、调度在用户态完成，对内核透明，所以更轻；&lt;/li&gt;
+&lt;li&gt;从属同一个内核级线程，无法并行；一个协程阻塞会导致从属同一线程的所有协程无法执行.&lt;/li&gt;
+&lt;/ol&gt;
+&lt;p&gt;生活例子
+CPU 电力
+进程 工厂
+线程 工厂部门&lt;/p&gt;
+&lt;p&gt;假设这个城市就一个工厂(进程)、 一个工厂部门(线程)、一条电线(单核)的情况。
+这时候工厂(进程) 中的一个工厂部门(线程)，电线(单核)可以完全为他工作。&lt;/p&gt;
+&lt;p&gt;但是现在出现问题了，现在任务量太大了，工厂就划分了2个工厂部门(线程)，让这2个部门同时干活，但是现在只有一条电线(单核)，因此这2个部门不得不轮流用电（CPU时间片）。&lt;/p&gt;
+&lt;p&gt;但是现在又出现问题了，老板发现切换电源需要有资质的电工来操作（内核），每次切换的开销太大了。因此把这些让一个工厂部门(线程)长期通电，自己内部让原先2个部门的人轮流进去通电的工厂部门内工作。应为这是工厂内部的人员（用户态）调度，不涉及电工（内核态）。切换的代价相对较小，这就是协程&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>原码、反码、补码、移码</title>
+      <link>https://loommii.github.io/posts/skill/data/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/</link>
+      <pubDate>Sun, 08 Dec 2024 00:24:00 +0800</pubDate>
+      <guid>https://loommii.github.io/posts/skill/data/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/</guid>
+      <description>&lt;h2 id=&#34;名词解释&#34;&gt;名词解释&lt;/h2&gt;
+&lt;p&gt;原码:原码是最简单的整数表示方法，其中最高位用来表示符号（0表示正数，1表示负数），其余位表示数值的绝对值。例如，+5的原码是00000101，-5的原码是10000101。
+反码:反码是通过对原码取反得到的，即将正数的原码保持不变，负数的原码的所有位取反（包括符号位）。例如，+5的反码是00000101（与原码相同），-5的反码是11111010。
+补码:补码是计算机中最常用的整数表示方法。正数的补码与其原码相同，而负数的补码是其反码加1。补码的特点是在进行加减法运算时，不需要单独处理符号位。例如，+5的补码是00000101，-5的补码是11111011。
+移码:移码是一种不常见的整数表示方法，在计算机领域中较少使用。它与补码类似，但是所有的数值都被偏移了一个固定的值，通常是一个中间值，以使得正数的表示始终比负数的表示更大。这种表示方法在某些特殊的硬件设计中可能会使用。
+&lt;img alt=&#34;关系&#34; loading=&#34;lazy&#34; src=&#34;https://loommii.github.io/posts/skill/data/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/%E5%85%B3%E7%B3%BB.png&#34;&gt;&lt;/p&gt;
+&lt;h2 id=&#34;例子&#34;&gt;例子&lt;/h2&gt;
+&lt;p&gt;1.原码为正数&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;整数 +1
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0001  // 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0001  // 反码  // 正数的 反码 = 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0001  // 补码  // 正数的 补码 = 反码 = 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1000 0001  // 移码  // 移码 = 补码的符号位取反
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;2.原码为0&lt;/p&gt;
+&lt;div class=&#34;highlight&#34;&gt;&lt;pre tabindex=&#34;0&#34; style=&#34;color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4;&#34;&gt;&lt;code class=&#34;language-text&#34; data-lang=&#34;text&#34;&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;整数 +0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0000  // 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0000  // 反码  // 正数的 反码 = 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0000  // 补码  // 正数的 补码 = 反码 = 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1000 0000  // 移码  // 移码 = 补码的符号位取反
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;整数 -0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1000 0000  // 原码
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1111 1111  // 反码  // 负数的 反码 = 原码除符号位不变 其他全取反
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;0000 0000  // 补码  // 负数的 补码 = 反码+1 //这里由于越界,取后8位则结果为8个0
+&lt;/span&gt;&lt;/span&gt;&lt;span style=&#34;display:flex;&#34;&gt;&lt;span&gt;1000 0000  // 移码  // 移码 = 补码的符号位取反
+&lt;/span&gt;&lt;/span&gt;&lt;/code&gt;&lt;/pre&gt;&lt;/div&gt;&lt;p&gt;3.原码为负数&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
