@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>浅谈GO GC (垃圾回收) - loommii</title><meta name="Description" content="我的个人技术博客"><meta property="og:url" content="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="浅谈GO GC (垃圾回收)">
+  <meta property="og:description" content="垃圾回收 垃圾回收这里的垃圾指的是什么？为什么要回收？ 在程序运行的时候，进程会在堆内存申请内存空间。但是在函数退出的时候会栈空间会被销毁。因此这一段堆内存空间没有任何的指针指向它（没有被引用）。因此会造成内存的浪费（内存泄露）。这一段的没有被引用的内存就是“垃圾”。，程序员不再需要手动管理内存的分配和释放，从而减少了由于内存管理不当引起的内存泄漏或悬空指针等问题。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2024-12-09T13:03:08+08:00">
+    <meta property="article:modified_time" content="2024-12-09T13:03:08+08:00">
+    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+  <meta name="twitter:title" content="浅谈GO GC (垃圾回收)">
+  <meta name="twitter:description" content="垃圾回收 垃圾回收这里的垃圾指的是什么？为什么要回收？ 在程序运行的时候，进程会在堆内存申请内存空间。但是在函数退出的时候会栈空间会被销毁。因此这一段堆内存空间没有任何的指针指向它（没有被引用）。因此会造成内存的浪费（内存泄露）。这一段的没有被引用的内存就是“垃圾”。，程序员不再需要手动管理内存的分配和释放，从而减少了由于内存管理不当引起的内存泄漏或悬空指针等问题。">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" /><link rel="prev" href="https://loommii.github.io/posts/%E9%94%81/" /><link rel="next" href="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "浅谈GO GC (垃圾回收)",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/loommii.github.io\/posts\/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6\/"
+        },"genre": "posts","wordcount":  1656 ,
+        "url": "https:\/\/loommii.github.io\/posts\/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6\/","datePublished": "2024-12-09T13:03:08+08:00","dateModified": "2024-12-09T13:03:08+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "loommii"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Golang练习 </a><a class="menu-item" href="/leetcode/"> 力扣 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Golang练习</a><a class="menu-item" href="/leetcode/" title="">力扣</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">浅谈GO GC (垃圾回收)</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-12-09">2024-12-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1656 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#垃圾回收">垃圾回收</a></li>
+    <li><a href="#stw">STW</a></li>
+    <li><a href="#增量式垃圾回收">增量式垃圾回收</a></li>
+    <li><a href="#多核情况">多核情况</a></li>
+    <li><a href="#go语言的gc">GO语言的GC</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="垃圾回收">垃圾回收</h2>
+<ol>
+<li>
+<p>垃圾回收这里的垃圾指的是什么？为什么要回收？
+在程序运行的时候，进程会在堆内存申请内存空间。但是在函数退出的时候会栈空间会被销毁。因此这一段堆内存空间没有任何的指针指向它（没有被引用）。因此会造成内存的浪费（内存泄露）。这一段的没有被引用的内存就是“垃圾”。，程序员不再需要手动管理内存的分配和释放，从而减少了由于内存管理不当引起的内存泄漏或悬空指针等问题。</p>
+</li>
+<li>
+<p>常见的GC有哪几种</p>
+<ul>
+<li>手动垃圾回收，代表语言（C，C++）</li>
+<li>标记-清扫算法
+<ul>
+<li>三色标记法</li>
+</ul>
+</li>
+<li>标记-整理算法
+<ul>
+<li>移动整理法</li>
+<li>复制整理法</li>
+</ul>
+</li>
+<li>分代回收</li>
+<li>引用计数</li>
+</ul>
+</li>
+<li>
+<p>简述常见的GC如何实现，和他们各自的优缺点。</p>
+<ul>
+<li>手动垃圾回收：
+<ul>
+<li>实现：程序员自行调用函数销毁</li>
+<li>优点：程序员对程序内存的掌控自由。</li>
+<li>缺点：容易出现提前释放（悬挂指针）、忘记释放（内存泄漏)等问题。</li>
+</ul>
+</li>
+<li>标记-清扫算法：
+<ul>
+<li>实现：标记从根节点（栈内存、数据段）能追踪到的数据为游泳数据，其他未标记的数据就是垃圾数据，将对垃圾数据进行回收</li>
+<li>优点：实现相对简单，</li>
+<li>缺点：容易造成内存碎片化</li>
+</ul>
+</li>
+<li>标记-整理算法：
+<ul>
+<li>实现：
+<ul>
+<li>标记阶段与<code>标记-清扫算法</code>一致。</li>
+<li>整理阶段：
+<ul>
+<li>移动整理法：整理移动有用的数据，使有用的数据尽可能紧凑的放在内存里。
+<ul>
+<li>优点：解决了内存碎片化的问题</li>
+<li>缺点：多次扫描移动，会带来不小的性能开销</li>
+</ul>
+</li>
+<li>复制整理法：将内存划分为Form和To，将From空间中的有用数据都复制到To空间。并将Form和To空间的角色对换。
+<ul>
+<li>优点：解决了多次扫描移动的性能问题</li>
+<li>缺点：内存使用率低。只有一半的堆内存空间被使用</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>分代回收：
+<ul>
+<li>实现：基于<code>弱分代假说</code>。将数据分为新生代、老年代。新生代、老年代采用不同的回收算法</li>
+</ul>
+</li>
+<li>引用计数
+<ul>
+<li>实现：每次对象应用都会更新对象的引用计数，当引用计数为0就回收该空间</li>
+<li>优点：可以及时回收垃圾内存</li>
+<li>缺点：高频更新引用计数会有不小性能开销，循环引用会导致引用计数永远不为0</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>什么是STW，为什么会有STW。
+STW（stop the world）简单的就是让用户程序停下来。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./b1bb8a580c1de4ba490fe1787b9b4484.png"
+        data-srcset="./b1bb8a580c1de4ba490fe1787b9b4484.png, ./b1bb8a580c1de4ba490fe1787b9b4484.png 1.5x, ./b1bb8a580c1de4ba490fe1787b9b4484.png 2x"
+        data-sizes="auto"
+        alt="./b1bb8a580c1de4ba490fe1787b9b4484.png"
+        title="b1bb8a580c1de4ba490fe1787b9b4484.png" />
+STW期间，程序会进行垃圾回收</p>
+</li>
+</ol>
+<h2 id="stw">STW</h2>
+<pre><code>STW 是 Stop-The-World 的缩写，指的是在垃圾回收或某些系统操作过程中，暂停所有应用程序线程的行为，直到特定任务（通常是垃圾回收）完成。
+</code></pre>
+<p>![e6d686db23ff699d03219905d8ceb2c1.png].(/e6d686db23ff699d03219905d8ceb2c1.png)
+这里会带来一个问题，用户程序接受长时间STW吗？
+为了解决这个问题就出现了<code>增量式垃圾回收</code></p>
+<h2 id="增量式垃圾回收">增量式垃圾回收</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./61ac2ddfdd0b562c9d1dc2db48226baf.png"
+        data-srcset="./61ac2ddfdd0b562c9d1dc2db48226baf.png, ./61ac2ddfdd0b562c9d1dc2db48226baf.png 1.5x, ./61ac2ddfdd0b562c9d1dc2db48226baf.png 2x"
+        data-sizes="auto"
+        alt="./61ac2ddfdd0b562c9d1dc2db48226baf.png"
+        title="61ac2ddfdd0b562c9d1dc2db48226baf.png" />
+实现：将一次GC分为多次，并和用户程序交互进行
+优点：解决了STW时间长的问题
+缺点：如果在标记后-清理前。创建的内容将会被误删除</p>
+<p>为了避免误删可以采用<code>三色抽象</code>避免
+三色抽象:标记数据分为 黑 - 灰 - 白</p>
+<ul>
+<li>黑：已经遍历标记完的数据</li>
+<li>灰：还未遍历完的数据</li>
+<li>白：未遍历（应用不到）的垃圾数据</li>
+</ul>
+<p>因此在清扫阶段发现有黑-&gt;白的数据。着这个白数据是在标记后-清理前创建的
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./ec4f1ac56d59908315538e9aaab07d06.png"
+        data-srcset="./ec4f1ac56d59908315538e9aaab07d06.png, ./ec4f1ac56d59908315538e9aaab07d06.png 1.5x, ./ec4f1ac56d59908315538e9aaab07d06.png 2x"
+        data-sizes="auto"
+        alt="./ec4f1ac56d59908315538e9aaab07d06.png"
+        title="ec4f1ac56d59908315538e9aaab07d06.png" />
+因此Golang官方提出2种条件</p>
+<ul>
+<li>强三色不变式：不允许出现黑色到白色的情况
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./e4c3408593ec24f14daa8c47feb3fdd4.png"
+        data-srcset="./e4c3408593ec24f14daa8c47feb3fdd4.png, ./e4c3408593ec24f14daa8c47feb3fdd4.png 1.5x, ./e4c3408593ec24f14daa8c47feb3fdd4.png 2x"
+        data-sizes="auto"
+        alt="./e4c3408593ec24f14daa8c47feb3fdd4.png"
+        title="e4c3408593ec24f14daa8c47feb3fdd4.png" /></li>
+<li>弱三色不变式：允许黑色到白色的情况，但是这个白色需要被灰色引用
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./84ad5e2babcccd8c8b5a1c5c7d3b1260.png"
+        data-srcset="./84ad5e2babcccd8c8b5a1c5c7d3b1260.png, ./84ad5e2babcccd8c8b5a1c5c7d3b1260.png 1.5x, ./84ad5e2babcccd8c8b5a1c5c7d3b1260.png 2x"
+        data-sizes="auto"
+        alt="./84ad5e2babcccd8c8b5a1c5c7d3b1260.png"
+        title="84ad5e2babcccd8c8b5a1c5c7d3b1260.png" /></li>
+</ul>
+<p>写屏障</p>
+<ul>
+<li>插入写屏障
+<ul>
+<li>满足<code>强三色不变式</code>条件（关注白色对象的写入操作）
+<ul>
+<li>在增量式垃圾回收中,若出现白色对象指向黑色则将白色改为灰色，或者把黑色改为灰色。</li>
+<li>例子：Gc和用户代码交替的期间，如果new了一段新的空间，（黑-&gt;白）。则这个new的新空间直接标记为灰。（黑-&gt;灰）或将黑改为灰（灰-&gt;白）</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>删除写屏障
+<ul>
+<li>满足<code>弱三色不变式</code>条件 （关注对白色对象路径破坏行为）
+<ul>
+<li>在增量式垃圾回收中,若出现删除灰色-&gt;白色的引用时，则将白色改为灰色</li>
+<li>例子：Gc和用户代码交替的期间，若有个灰色对象 -&gt; 白色对象，程序将灰色对象 = nil。着需要将白色对象改为灰色</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>读屏障
+解决标记-复制GC里面，在复制过程中。回收器将From改为To的过程中。如果要读取From要检查一下To区里面是不是已经复制了。如果复制过来就去都去To
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./c135848c4e9bd0ee8282490baeeb81d1.png"
+        data-srcset="./c135848c4e9bd0ee8282490baeeb81d1.png, ./c135848c4e9bd0ee8282490baeeb81d1.png 1.5x, ./c135848c4e9bd0ee8282490baeeb81d1.png 2x"
+        data-sizes="auto"
+        alt="./c135848c4e9bd0ee8282490baeeb81d1.png"
+        title="c135848c4e9bd0ee8282490baeeb81d1.png" /></p>
+<h2 id="多核情况">多核情况</h2>
+<ul>
+<li>并行垃圾回收
+<ul>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./532396cd165431d498045e6aed39e155.png"
+        data-srcset="./532396cd165431d498045e6aed39e155.png, ./532396cd165431d498045e6aed39e155.png 1.5x, ./532396cd165431d498045e6aed39e155.png 2x"
+        data-sizes="auto"
+        alt="./532396cd165431d498045e6aed39e155.png"
+        title="532396cd165431d498045e6aed39e155.png" /></li>
+<li>注意同步问题</li>
+</ul>
+</li>
+<li>并发垃圾回收
+<ul>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./6b106fbad41ec47190bc8da181a6fe6e.png"
+        data-srcset="./6b106fbad41ec47190bc8da181a6fe6e.png, ./6b106fbad41ec47190bc8da181a6fe6e.png 1.5x, ./6b106fbad41ec47190bc8da181a6fe6e.png 2x"
+        data-sizes="auto"
+        alt="./6b106fbad41ec47190bc8da181a6fe6e.png"
+        title="6b106fbad41ec47190bc8da181a6fe6e.png" /></li>
+<li>解决同步问题,但是需要注意通知开启读写屏障的问题</li>
+</ul>
+</li>
+<li>主体并发式垃圾回收
+<ul>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./ab5682e6c6be5bf233a99a4f42ba8c02.png"
+        data-srcset="./ab5682e6c6be5bf233a99a4f42ba8c02.png, ./ab5682e6c6be5bf233a99a4f42ba8c02.png 1.5x, ./ab5682e6c6be5bf233a99a4f42ba8c02.png 2x"
+        data-sizes="auto"
+        alt="./ab5682e6c6be5bf233a99a4f42ba8c02.png"
+        title="ab5682e6c6be5bf233a99a4f42ba8c02.png" /></li>
+<li>解决通知开启读写屏障的问题时间不一致的问题</li>
+</ul>
+</li>
+<li>主体并发增量式垃圾回收
+<ul>
+<li><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="./8a3000100eb87a16c06de8e313d29e83.png"
+        data-srcset="./8a3000100eb87a16c06de8e313d29e83.png, ./8a3000100eb87a16c06de8e313d29e83.png 1.5x, ./8a3000100eb87a16c06de8e313d29e83.png 2x"
+        data-sizes="auto"
+        alt="./8a3000100eb87a16c06de8e313d29e83.png"
+        title="8a3000100eb87a16c06de8e313d29e83.png" /></li>
+</ul>
+</li>
+</ul>
+<h2 id="go语言的gc">GO语言的GC</h2>
+<ul>
+<li>采用标记-清扫算法
+<ul>
+<li>标记阶段使用三色标记法</li>
+</ul>
+</li>
+<li>主体并发增量式垃圾回收</li>
+<li>使用插入与删除写屏障结合的混合写屏障</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2024-12-09</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)" data-description=""><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fposts%2f%25E6%25B5%2585%25E8%25B0%2588go-gc-%25E5%259E%2583%25E5%259C%25BE%25E5%259B%259E%25E6%2594%25B6%2f&amp;text=%e6%b5%85%e8%b0%88GO%20GC%20%28%e5%9e%83%e5%9c%be%e5%9b%9e%e6%94%b6%29" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/%E9%94%81/" class="prev" rel="prev" title="锁"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>锁</a>
+            <a href="/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" class="next" rel="next" title="服务设计_如何设计一个URL短链服务">服务设计_如何设计一个URL短链服务<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+</html>

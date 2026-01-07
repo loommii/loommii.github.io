@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>系统中有大量用户导致的数据库查询慢 - loommii</title><meta name="Description" content="我的个人技术博客"><meta property="og:url" content="https://loommii.github.io/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="系统中有大量用户导致的数据库查询慢">
+  <meta property="og:description" content="问题分析：
+数据过多导致树高增加 MySQL 的默认存储引擎 InnoDB 采用了 B&#43;树的数据结构。3 层树大概能存储 2KW 行数据量，超过了这个数会导致 3 层树变为 4 层树，增加了一次硬盘 IO 读取导致 SQL 变慢。 并发连接数不够 MySQL 的默认最大连接数是 151，可以在 /etc/my.conf 更改。具体可以看文档 max_connections 参数。 超过连接数会出现 too many connections 报错。 解决方案：">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-05-28T13:31:12+08:00">
+    <meta property="article:modified_time" content="2025-05-28T13:31:12+08:00">
+    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+  <meta name="twitter:title" content="系统中有大量用户导致的数据库查询慢">
+  <meta name="twitter:description" content="问题分析：
+数据过多导致树高增加 MySQL 的默认存储引擎 InnoDB 采用了 B&#43;树的数据结构。3 层树大概能存储 2KW 行数据量，超过了这个数会导致 3 层树变为 4 层树，增加了一次硬盘 IO 读取导致 SQL 变慢。 并发连接数不够 MySQL 的默认最大连接数是 151，可以在 /etc/my.conf 更改。具体可以看文档 max_connections 参数。 超过连接数会出现 too many connections 报错。 解决方案：">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/" /><link rel="prev" href="https://loommii.github.io/posts/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "系统中有大量用户导致的数据库查询慢",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/loommii.github.io\/posts\/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2\/"
+        },"genre": "posts","wordcount":  828 ,
+        "url": "https:\/\/loommii.github.io\/posts\/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2\/","datePublished": "2025-05-28T13:31:12+08:00","dateModified": "2025-05-28T13:31:12+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "loommii"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Golang练习 </a><a class="menu-item" href="/leetcode/"> 力扣 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Golang练习</a><a class="menu-item" href="/leetcode/" title="">力扣</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">系统中有大量用户导致的数据库查询慢</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-05-28">2025-05-28</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;828 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#range-范围">range 范围</a></li>
+        <li><a href="#哈希hash">哈希（hash）</a></li>
+        <li><a href="#一致性哈希">一致性哈希</a></li>
+        <li><a href="#一致性哈希虚拟节点">一致性哈希+虚拟节点</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><p><strong>问题分析：</strong></p>
+<ol>
+<li><strong>数据过多导致树高增加</strong>
+MySQL 的默认存储引擎 InnoDB 采用了 B+树的数据结构。3 层树大概能存储 2KW 行数据量，超过了这个数会导致 3 层树变为 4 层树，增加了一次硬盘 IO 读取导致 SQL 变慢。</li>
+<li><strong>并发连接数不够</strong>
+MySQL 的默认最大连接数是 151，可以在 <code>/etc/my.conf</code> 更改。具体可以看文档 <code>max_connections</code> 参数。
+超过连接数会出现 <code>too many connections</code> 报错。</li>
+</ol>
+<p><strong>解决方案：</strong></p>
+<p><strong>分库分表：</strong>
+将数据按照某个维度水平的切割。</p>
+<h3 id="range-范围">range 范围</h3>
+<p>例如：</p>
+<ul>
+<li>用户 ID [0, 500W) 放库 1 表 1</li>
+<li>用户 ID [500W, 1000W) 放库 2 表 2</li>
+</ul>
+<p>👆这样会导致例外一个问题。</p>
+<blockquote>
+<p>你会发现用户 ID 小的老用户很多都不上线了，用户 ID 新的用户还是很多，依旧导致了库 2 的连接数还是超了。</p></blockquote>
+<p>因此不能这么简单的通过 ID 的大小去分库分表。
+这时候就可以引入了哈希（hash）。</p>
+<h3 id="哈希hash">哈希（hash）</h3>
+<p>哈希的方式可以使得用户 ID 分散到多个库、表上。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="k">if</span> <span class="nf">hash</span><span class="p">(</span><span class="nx">用户ID</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	 <span class="nx">放库1</span> <span class="nx">表1</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span> <span class="k">else</span> <span class="k">if</span> <span class="nf">hash</span><span class="p">(</span><span class="nx">用户ID</span><span class="p">)</span><span class="o">%</span><span class="mi">2</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">放库2</span> <span class="nx">表2</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>👆这样会导致例外一个问题。</p>
+<blockquote>
+<p>我们取模是按照库、表的总量去分的，我们目前就分了 2 个，如果有一天用户的数据已经多到需要增加新的表。公式就变为了 <code>hash(用户ID)%3</code> 导致查到错的表上。这时候需要将历史数据（全量）的表数据迁移到 <code>hash(用户ID)%3</code> 后的表上。代价过高。</p></blockquote>
+<p>这时候就可以引入一致性哈希。</p>
+<h3 id="一致性哈希">一致性哈希</h3>
+<p>我们将哈希中 <code>%(主机总数)</code> 改为 <code>%(2^32)</code>，
+这样用户 ID 将会是 [0, 2^32] 中的一个点。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image.png"
+        data-srcset="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image.png, /posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image.png 1.5x, /posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image.png"
+        title="alt text" width="413" height="527" /></p>
+<p>这时候我们将节点（表）也一样扔进哈希中。
+<code>hash(用户ID)%(2^32)</code>
+<code>hash(节点ID)%(2^32)</code></p>
+<p>然后从用户哈希后的值出发找最近的节点。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-1.png"
+        data-srcset="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-1.png, /posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-1.png 1.5x, /posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-1.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-1.png"
+        title="alt text" width="587" height="560" /></p>
+<p>如果遇到了哈希中 增加节点的问题。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-2.png"
+        data-srcset="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-2.png, /posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-2.png 1.5x, /posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-2.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-2.png"
+        title="alt text" width="587" height="560" />
+例如上图增加 D，我们只需要将 B 节点迁移到 D 节点上就可以了。
+相比普通的哈希算法，一致性哈希在节点数量变更导致的数据迁移代价更小。</p>
+<p>👆这样可以会导致例外一个问题。</p>
+<blockquote>
+<p>如果节点过少，大量的数据可能只会访问一个节点。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-3.png"
+        data-srcset="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-3.png, /posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-3.png 1.5x, /posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-3.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-3.png"
+        title="alt text" width="533" height="530" /></p></blockquote>
+<p>这时候就可以引入虚拟节点。</p>
+<h3 id="一致性哈希虚拟节点">一致性哈希+虚拟节点</h3>
+<p>将节点的添加几个别名。
+例如
+节点 A1 、节点 A2、节点 A3 背后的实际节点都是节点 A。</p>
+<p>可以的话，可以使得在哈希环上的节点分散更加合理。
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-4.png"
+        data-srcset="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-4.png, /posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-4.png 1.5x, /posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-4.png 2x"
+        data-sizes="auto"
+        alt="/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/image-4.png"
+        title="alt text" width="563" height="575" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-05-28</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/" data-title="系统中有大量用户导致的数据库查询慢"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/" data-title="系统中有大量用户导致的数据库查询慢"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/" data-title="系统中有大量用户导致的数据库查询慢"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/" data-title="系统中有大量用户导致的数据库查询慢"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/" data-title="系统中有大量用户导致的数据库查询慢"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/" data-title="系统中有大量用户导致的数据库查询慢" data-description=""><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fposts%2f%25E7%25B3%25BB%25E7%25BB%259F%25E4%25B8%25AD%25E6%259C%2589%25E5%25A4%25A7%25E9%2587%258F%25E7%2594%25A8%25E6%2588%25B7%25E5%25AF%25BC%25E8%2587%25B4%25E7%259A%2584%25E6%2595%25B0%25E6%258D%25AE%25E5%25BA%2593%25E6%259F%25A5%25E8%25AF%25A2%25E6%2585%25A2%2f&amp;text=%e7%b3%bb%e7%bb%9f%e4%b8%ad%e6%9c%89%e5%a4%a7%e9%87%8f%e7%94%a8%e6%88%b7%e5%af%bc%e8%87%b4%e7%9a%84%e6%95%b0%e6%8d%ae%e5%ba%93%e6%9f%a5%e8%af%a2%e6%85%a2" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/" class="prev" rel="prev" title="mac版本 Joplin 笔记与配置信息存储更改"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>mac版本 Joplin 笔记与配置信息存储更改</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+</html>

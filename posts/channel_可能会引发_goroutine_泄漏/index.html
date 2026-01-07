@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Go 中 Channel 可能会引发 Goroutine 泄漏 - loommii</title><meta name="Description" content="我的个人技术博客"><meta property="og:url" content="https://loommii.github.io/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="Go 中 Channel 可能会引发 Goroutine 泄漏">
+  <meta property="og:description" content="Go 中 Channel 可能会引发 Goroutine 泄漏 疑问 什么是 Goroutine 泄漏？ Goroutine 泄漏是指 Goroutine 在程序中被创建后，由于某种原因无法正常结束，并且永远不会被垃圾回收（GC）。这会导致 Goroutine 占用的资源（如内存、栈空间等）无法释放，随着时间的推移，可能会耗尽系统资源，导致程序崩溃。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-07T14:12:02+08:00">
+    <meta property="article:modified_time" content="2025-03-07T14:12:02+08:00">
+    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+  <meta name="twitter:title" content="Go 中 Channel 可能会引发 Goroutine 泄漏">
+  <meta name="twitter:description" content="Go 中 Channel 可能会引发 Goroutine 泄漏 疑问 什么是 Goroutine 泄漏？ Goroutine 泄漏是指 Goroutine 在程序中被创建后，由于某种原因无法正常结束，并且永远不会被垃圾回收（GC）。这会导致 Goroutine 占用的资源（如内存、栈空间等）无法释放，随着时间的推移，可能会耗尽系统资源，导致程序崩溃。">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/" /><link rel="prev" href="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" /><link rel="next" href="https://loommii.github.io/posts/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Go 中 Channel 可能会引发 Goroutine 泄漏",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/loommii.github.io\/posts\/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F\/"
+        },"genre": "posts","wordcount":  589 ,
+        "url": "https:\/\/loommii.github.io\/posts\/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F\/","datePublished": "2025-03-07T14:12:02+08:00","dateModified": "2025-03-07T14:12:02+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "loommii"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Golang练习 </a><a class="menu-item" href="/leetcode/"> 力扣 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Golang练习</a><a class="menu-item" href="/leetcode/" title="">力扣</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go 中 Channel 可能会引发 Goroutine 泄漏</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-03-07">2025-03-07</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;589 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#go-中-channel-可能会引发-goroutine-泄漏">Go 中 Channel 可能会引发 Goroutine 泄漏</a>
+      <ul>
+        <li><a href="#疑问">疑问</a></li>
+        <li><a href="#代码示例">代码示例</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="go-中-channel-可能会引发-goroutine-泄漏">Go 中 Channel 可能会引发 Goroutine 泄漏</h2>
+<h3 id="疑问">疑问</h3>
+<h4 id="什么是-goroutine-泄漏">什么是 Goroutine 泄漏？</h4>
+<p>Goroutine 泄漏是指 Goroutine 在程序中被创建后，由于某种原因无法正常结束，并且永远不会被垃圾回收（GC）。这会导致 Goroutine 占用的资源（如内存、栈空间等）无法释放，随着时间的推移，可能会耗尽系统资源，导致程序崩溃。</p>
+<h4 id="channel-如何导致-goroutine-泄漏">Channel 如何导致 Goroutine 泄漏？</h4>
+<p>Channel 是 Goroutine 之间同步和通信的重要机制。但是，如果 Channel 的使用不当，就可能导致 Goroutine 阻塞并最终泄漏。以下是导致泄漏的常见场景：</p>
+<ul>
+<li>
+<p>发送阻塞: Goroutine 尝试向一个已满的无缓冲 Channel 或已满的有缓冲 Channel 发送数据，如果没有其他 Goroutine 接收数据，发送操作会阻塞。</p>
+</li>
+<li>
+<p>接收阻塞:  Goroutine 尝试从一个空的无缓冲 Channel 或空的有缓冲 Channel 接收数据，如果没有其他 Goroutine 发送数据，接收操作会阻塞。</p>
+</li>
+</ul>
+<p>泄漏的原因是 goroutine 操作 channel 后，处于发送或接收阻塞状态，而 channel 处于满或空的状态，一直得不到改变。同时，垃圾回收器也不会回收此类资源，进而导致 gouroutine 会一直处于等待队列中，不见天日。</p>
+<h3 id="代码示例">代码示例</h3>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;runtime&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;time&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span> <span class="c1">// 无缓冲 Channel</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">ch</span> <span class="o">&lt;-</span> <span class="mi">1</span> <span class="c1">// 第一次发送成功（Channel 未满）</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;第一次发送成功&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">ch</span> <span class="o">&lt;-</span> <span class="mi">2</span> <span class="c1">// 第二次发送永久阻塞（Channel 已满且无接收者）</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;第二次发送成功（永远不会执行）&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">500</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Millisecond</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;接收到:&#34;</span><span class="p">,</span> <span class="o">&lt;-</span><span class="nx">ch</span><span class="p">)</span> <span class="c1">// 只消费一次数据</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">// 监控 Goroutine 数量</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;当前 Goroutine 数量: %d\n&#34;</span><span class="p">,</span> <span class="nx">runtime</span><span class="p">.</span><span class="nf">NumGoroutine</span><span class="p">())</span> <span class="c1">// 2</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><a href="https://go.dev/play/p/ZY9038_1BYW" target="_blank" rel="noopener noreffer ">在线运行</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2025-03-07</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/" data-title="Go 中 Channel 可能会引发 Goroutine 泄漏"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/" data-title="Go 中 Channel 可能会引发 Goroutine 泄漏"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/" data-title="Go 中 Channel 可能会引发 Goroutine 泄漏"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/" data-title="Go 中 Channel 可能会引发 Goroutine 泄漏"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/" data-title="Go 中 Channel 可能会引发 Goroutine 泄漏"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/" data-title="Go 中 Channel 可能会引发 Goroutine 泄漏" data-description=""><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fposts%2fchannel_%25E5%258F%25AF%25E8%2583%25BD%25E4%25BC%259A%25E5%25BC%2595%25E5%258F%2591_goroutine_%25E6%25B3%2584%25E6%25BC%258F%2f&amp;text=Go%20%e4%b8%ad%20Channel%20%e5%8f%af%e8%83%bd%e4%bc%9a%e5%bc%95%e5%8f%91%20Goroutine%20%e6%b3%84%e6%bc%8f" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" class="prev" rel="prev" title="Go函数类型是否可以比较,为什么？"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go函数类型是否可以比较,为什么？</a>
+            <a href="/posts/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/" class="next" rel="next" title="mac版本 Joplin 笔记与配置信息存储更改">mac版本 Joplin 笔记与配置信息存储更改<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+</html>
