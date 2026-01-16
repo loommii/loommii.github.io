@@ -4,23 +4,27 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>200_岛屿数量 - loommii</title><meta name="Description" content="我的个人技术博客"><meta property="og:url" content="https://loommii.github.io/leetcode/200_%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F/">
+        <title>200. 岛屿数量 - loommii</title><meta name="Description" content="LeetCode题解 - 200. 岛屿数量 解析与实现"><meta property="og:url" content="https://loommii.github.io/leetcode/200_%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F/">
   <meta property="og:site_name" content="loommii">
-  <meta property="og:title" content="200_岛屿数量">
-  <meta property="og:description" content="给你一个由 ‘1’（陆地）和 ‘0’（水）组成的的二维网格，请你计算网格中岛屿的数量。
-岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。">
+  <meta property="og:title" content="200. 岛屿数量">
+  <meta property="og:description" content="LeetCode题解 - 200. 岛屿数量 解析与实现">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="leetcode">
     <meta property="article:published_time" content="2025-05-21T15:41:11+08:00">
-    <meta property="article:modified_time" content="2025-05-21T15:41:11+08:00">
+    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+    <meta property="article:tag" content="LeetCode">
+    <meta property="article:tag" content="算法">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="DFS">
+    <meta property="article:tag" content="BFS">
+    <meta property="article:tag" content="题解">
     <meta property="og:image" content="https://loommii.github.io/images/logo.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
-  <meta name="twitter:title" content="200_岛屿数量">
-  <meta name="twitter:description" content="给你一个由 ‘1’（陆地）和 ‘0’（水）组成的的二维网格，请你计算网格中岛屿的数量。
-岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。">
+  <meta name="twitter:title" content="200. 岛屿数量">
+  <meta name="twitter:description" content="LeetCode题解 - 200. 岛屿数量 解析与实现">
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site">
 <meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -31,18 +35,18 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "200_岛屿数量",
+        "headline": "200. 岛屿数量",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/loommii.github.io\/leetcode\/200_%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F\/"
-        },"genre": "leetcode","wordcount":  327 ,
-        "url": "https:\/\/loommii.github.io\/leetcode\/200_%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F\/","datePublished": "2025-05-21T15:41:11+08:00","dateModified": "2025-05-21T15:41:11+08:00","publisher": {
+        },"genre": "leetcode","keywords": "LeetCode, 算法, Go, DFS, BFS, 题解","wordcount":  112 ,
+        "url": "https:\/\/loommii.github.io\/leetcode\/200_%E5%B2%9B%E5%B1%BF%E6%95%B0%E9%87%8F\/","datePublished": "2025-05-21T15:41:11+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
                 "name": "loommii"
-            },"description": ""
+            },"description": "LeetCode题解 - 200. 岛屿数量 解析与实现"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script>
@@ -71,7 +75,7 @@
         title="/images/logo.png" />loommii</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Golang练习 </a><a class="menu-item" href="/leetcode/"> 力扣 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Go练习题 </a><a class="menu-item" href="/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -120,7 +124,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         Cancel
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Golang练习</a><a class="menu-item" href="/leetcode/" title="">力扣</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Go练习题</a><a class="menu-item" href="/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -130,90 +134,59 @@
     <div class="search-dropdown mobile">
         <div id="search-dropdown-mobile"></div>
     </div><main class="main">
-                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">200_岛屿数量</h1><div class="content" id="content"><p>给你一个由 &lsquo;1&rsquo;（陆地）和 &lsquo;0&rsquo;（水）组成的的二维网格，请你计算网格中岛屿的数量。</p>
-<p>岛屿总是被水包围，并且每座岛屿只能由水平方向和/或竖直方向上相邻的陆地连接形成。</p>
-<p>此外，你可以假设该网格的四条边均被水包围。</p>
-<p><strong>示例 1：</strong></p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><pre tabindex="0"><code>输入：grid = [
-  [&#34;1&#34;,&#34;1&#34;,&#34;1&#34;,&#34;1&#34;,&#34;0&#34;],
-  [&#34;1&#34;,&#34;1&#34;,&#34;0&#34;,&#34;1&#34;,&#34;0&#34;],
-  [&#34;1&#34;,&#34;1&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;],
-  [&#34;0&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;]
-]
-输出：1</code></pre></div>
-<p><strong>示例 2：</strong></p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><pre tabindex="0"><code>输入：grid = [
-  [&#34;1&#34;,&#34;1&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;],
-  [&#34;1&#34;,&#34;1&#34;,&#34;0&#34;,&#34;0&#34;,&#34;0&#34;],
-  [&#34;0&#34;,&#34;0&#34;,&#34;1&#34;,&#34;0&#34;,&#34;0&#34;],
-  [&#34;0&#34;,&#34;0&#34;,&#34;0&#34;,&#34;1&#34;,&#34;1&#34;]
-]
-输出：3</code></pre></div>
-<p><strong>提示：</strong></p>
-<ul>
-<li><code>m == grid.length</code></li>
-<li><code>n == grid[i].length</code></li>
-<li><code>1 &lt;= m, n &lt;= 300</code></li>
-<li><code>grid[i][j]</code> 的值为 <code>'0'</code> 或 <code>'1'</code></li>
-</ul>
-<hr>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">200. 岛屿数量</h1><div class="content" id="content"><div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-go">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
         <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
     </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">numIslands</span><span class="p">(</span><span class="nx">grid</span> <span class="p">[][]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<hr>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">👈点击</button>
+<div class="toggle-content">
+  <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-go">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
         <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">numIslands</span><span class="p">(</span><span class="nx">grid</span> <span class="p">[][]</span><span class="kt">byte</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ans</span> <span class="o">:=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">dfs</span> <span class="kd">func</span><span class="p">(</span><span class="nx">row</span><span class="p">,</span> <span class="nx">col</span> <span class="kt">int</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">dfs</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// 深度优先 尽可能往里面走</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="sc">&#39;0&#39;</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// 判断四周的</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// 上</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">i</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;1&#39;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nf">dfs</span><span class="p">(</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// 左</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">j</span> <span class="p">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;1&#39;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nf">dfs</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// 右</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">grid</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;1&#39;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nf">dfs</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="c1">// 下</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span><span class="o">-</span><span class="mi">1</span> <span class="o">&amp;&amp;</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;1&#39;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nf">dfs</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">grid</span><span class="p">);</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nb">len</span><span class="p">(</span><span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">]);</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="k">if</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;1&#39;</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">				<span class="nx">ans</span><span class="o">++</span>
-</span></span><span class="line"><span class="cl">				<span class="nf">dfs</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">			<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">ans</span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">numIslands</span><span class="p">(</span><span class="nx">grid</span> <span class="p">[][]</span><span class="kt">byte</span><span class="p">)</span> <span class="p">(</span><span class="nx">ans</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">m</span>   <span class="p">=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">grid</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">n</span>   <span class="p">=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">grid</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">dir</span> <span class="p">=</span> <span class="p">[][]</span><span class="kt">int</span><span class="p">{{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">},</span> <span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">}}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">dfs</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">dfs</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="nx">m</span> <span class="o">||</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="o">||</span> <span class="nx">j</span> <span class="o">&gt;=</span> <span class="nx">n</span> <span class="o">||</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;0&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="p">=</span> <span class="sc">&#39;0&#39;</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">dir</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nf">dfs</span><span class="p">(</span><span class="nx">i</span><span class="o">+</span><span class="nx">v</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nx">j</span><span class="o">+</span><span class="nx">v</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">m</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nx">grid</span><span class="p">[</span><span class="nx">i</span><span class="p">][</span><span class="nx">j</span><span class="p">]</span> <span class="o">==</span> <span class="sc">&#39;1&#39;</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">ans</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">                <span class="nf">dfs</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">j</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">            <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>
+
 </div><div id="comments"></div></div></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
@@ -229,5 +202,5 @@
         <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
 </html>

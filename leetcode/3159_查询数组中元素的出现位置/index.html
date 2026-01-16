@@ -4,29 +4,25 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>3159_查询数组中元素的出现位置 - loommii</title><meta name="Description" content="我的个人技术博客"><meta property="og:url" content="https://loommii.github.io/leetcode/3159_%E6%9F%A5%E8%AF%A2%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E5%87%BA%E7%8E%B0%E4%BD%8D%E7%BD%AE/">
+        <title>3159_查询数组中元素的出现位置 - loommii</title><meta name="Description" content="LeetCode题解 - 3159_查询数组中元素的出现位置 解析与实现"><meta property="og:url" content="https://loommii.github.io/leetcode/3159_%E6%9F%A5%E8%AF%A2%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E5%87%BA%E7%8E%B0%E4%BD%8D%E7%BD%AE/">
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="3159_查询数组中元素的出现位置">
-  <meta property="og:description" content="力扣链接:3159. 查询数组中元素的出现位置
-力扣难度 中等
-算法评级: 2 知道常用数据结构和算法并简单使用
-难度分 1263
-题目： 给你一个整数数组 nums ，一个整数数组 queries 和一个整数 x 。">
+  <meta property="og:description" content="LeetCode题解 - 3159_查询数组中元素的出现位置 解析与实现">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="leetcode">
     <meta property="article:published_time" content="2024-12-28T14:28:22+08:00">
-    <meta property="article:modified_time" content="2024-12-28T14:28:22+08:00">
+    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+    <meta property="article:tag" content="LeetCode">
+    <meta property="article:tag" content="算法">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="题解">
     <meta property="og:image" content="https://loommii.github.io/images/logo.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
   <meta name="twitter:title" content="3159_查询数组中元素的出现位置">
-  <meta name="twitter:description" content="力扣链接:3159. 查询数组中元素的出现位置
-力扣难度 中等
-算法评级: 2 知道常用数据结构和算法并简单使用
-难度分 1263
-题目： 给你一个整数数组 nums ，一个整数数组 queries 和一个整数 x 。">
+  <meta name="twitter:description" content="LeetCode题解 - 3159_查询数组中元素的出现位置 解析与实现">
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site">
 <meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -42,13 +38,13 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/loommii.github.io\/leetcode\/3159_%E6%9F%A5%E8%AF%A2%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E5%87%BA%E7%8E%B0%E4%BD%8D%E7%BD%AE\/"
-        },"genre": "leetcode","wordcount":  566 ,
-        "url": "https:\/\/loommii.github.io\/leetcode\/3159_%E6%9F%A5%E8%AF%A2%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E5%87%BA%E7%8E%B0%E4%BD%8D%E7%BD%AE\/","datePublished": "2024-12-28T14:28:22+08:00","dateModified": "2024-12-28T14:28:22+08:00","publisher": {
+        },"genre": "leetcode","keywords": "LeetCode, 算法, Go, 题解","wordcount":  237 ,
+        "url": "https:\/\/loommii.github.io\/leetcode\/3159_%E6%9F%A5%E8%AF%A2%E6%95%B0%E7%BB%84%E4%B8%AD%E5%85%83%E7%B4%A0%E7%9A%84%E5%87%BA%E7%8E%B0%E4%BD%8D%E7%BD%AE\/","datePublished": "2024-12-28T14:28:22+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
                 "name": "loommii"
-            },"description": ""
+            },"description": "LeetCode题解 - 3159_查询数组中元素的出现位置 解析与实现"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script>
@@ -77,7 +73,7 @@
         title="/images/logo.png" />loommii</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Golang练习 </a><a class="menu-item" href="/leetcode/"> 力扣 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Go练习题 </a><a class="menu-item" href="/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -126,7 +122,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         Cancel
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Golang练习</a><a class="menu-item" href="/leetcode/" title="">力扣</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Go练习题</a><a class="menu-item" href="/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -136,37 +132,7 @@
     <div class="search-dropdown mobile">
         <div id="search-dropdown-mobile"></div>
     </div><main class="main">
-                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">3159_查询数组中元素的出现位置</h1><div class="content" id="content"><p>力扣链接:<a href="https://leetcode.cn/problems/find-occurrences-of-an-element-in-an-array/description/" target="_blank" rel="noopener noreffer ">3159. 查询数组中元素的出现位置</a></p>
-<blockquote>
-<p>力扣难度 <code>中等</code><br>
-算法评级:  2      知道常用数据结构和算法并简单使用<br>
-难度分 1263</p></blockquote>
-<hr>
-<p>题目：
-给你一个整数数组 nums ，一个整数数组 queries 和一个整数 x 。</p>
-<p>对于每个查询 queries[i] ，你需要找到 nums 中第 queries[i] 个 x 的位置，并返回它的下标。如果数组中 x 的出现次数少于 queries[i] ，该查询的答案为 -1 。</p>
-<p>请你返回一个整数数组 answer ，包含所有查询的答案。</p>
-<p>示例 1：</p>
-<blockquote>
-<p>输入：nums = [1,3,1,7], queries = [1,3,2,4], x = 1</p>
-<p>输出：[0,-1,2,-1]</p>
-<p>解释：</p>
-<ul>
-<li>第 1 个查询，第一个 1 出现在下标 0 处。</li>
-<li>第 2 个查询，nums 中只有两个 1 ，所以答案为 -1 。</li>
-<li>第 3 个查询，第二个 1 出现在下标 2 处。</li>
-<li>第 4 个查询，nums 中只有两个 1 ，所以答案为 -1 。</li>
-</ul></blockquote>
-<p>示例 2：</p>
-<blockquote>
-<p>输入：nums = [1,2,3], queries = [10], x = 5</p>
-<p>输出：[-1]</p>
-<p>解释：</p>
-<ul>
-<li>第 1 个查询，nums 中没有 5 ，所以答案为 -1 。</li>
-</ul></blockquote>
-<hr>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">3159_查询数组中元素的出现位置</h1><div class="content" id="content"><div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-go">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -237,5 +203,5 @@
         <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
 </html>

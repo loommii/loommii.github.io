@@ -4,25 +4,26 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>935_骑士拨号器 - loommii</title><meta name="Description" content="我的个人技术博客"><meta property="og:url" content="https://loommii.github.io/leetcode/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8/">
+        <title>935. 骑士拨号器 - loommii</title><meta name="Description" content="LeetCode题解 - 935. 骑士拨号器 解析与实现"><meta property="og:url" content="https://loommii.github.io/leetcode/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8/">
   <meta property="og:site_name" content="loommii">
-  <meta property="og:title" content="935_骑士拨号器">
-  <meta property="og:description" content="力扣链接:935. 骑士拨号器
-力扣难度 中等 算法评级: 5 熟练掌握常用数据结构和算法，初步了解高级数据结构 难度分 1690 题目:
-象棋骑士有一个独特的移动方式，它可以垂直移动两个方格，水平移动一个方格，或者水平移动两个方格，垂直移动一个方格(两者都形成一个 L 的形状)。">
+  <meta property="og:title" content="935. 骑士拨号器">
+  <meta property="og:description" content="LeetCode题解 - 935. 骑士拨号器 解析与实现">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="leetcode">
     <meta property="article:published_time" content="2024-12-10T20:20:24+08:00">
-    <meta property="article:modified_time" content="2024-12-10T20:20:24+08:00">
+    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+    <meta property="article:tag" content="LeetCode">
+    <meta property="article:tag" content="算法">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="动态规划">
+    <meta property="article:tag" content="题解">
     <meta property="og:image" content="https://loommii.github.io/images/logo.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
-  <meta name="twitter:title" content="935_骑士拨号器">
-  <meta name="twitter:description" content="力扣链接:935. 骑士拨号器
-力扣难度 中等 算法评级: 5 熟练掌握常用数据结构和算法，初步了解高级数据结构 难度分 1690 题目:
-象棋骑士有一个独特的移动方式，它可以垂直移动两个方格，水平移动一个方格，或者水平移动两个方格，垂直移动一个方格(两者都形成一个 L 的形状)。">
+  <meta name="twitter:title" content="935. 骑士拨号器">
+  <meta name="twitter:description" content="LeetCode题解 - 935. 骑士拨号器 解析与实现">
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site">
 <meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -33,18 +34,18 @@
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "935_骑士拨号器",
+        "headline": "935. 骑士拨号器",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/loommii.github.io\/leetcode\/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8\/"
-        },"genre": "leetcode","wordcount":  998 ,
-        "url": "https:\/\/loommii.github.io\/leetcode\/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8\/","datePublished": "2024-12-10T20:20:24+08:00","dateModified": "2024-12-10T20:20:24+08:00","publisher": {
+        },"genre": "leetcode","keywords": "LeetCode, 算法, Go, 动态规划, 题解","wordcount":  732 ,
+        "url": "https:\/\/loommii.github.io\/leetcode\/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8\/","datePublished": "2024-12-10T20:20:24+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
                 "name": "loommii"
-            },"description": ""
+            },"description": "LeetCode题解 - 935. 骑士拨号器 解析与实现"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script>
@@ -73,7 +74,7 @@
         title="/images/logo.png" />loommii</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Golang练习 </a><a class="menu-item" href="/leetcode/"> 力扣 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Go练习题 </a><a class="menu-item" href="/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -122,7 +123,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         Cancel
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Golang练习</a><a class="menu-item" href="/leetcode/" title="">力扣</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Go练习题</a><a class="menu-item" href="/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -132,49 +133,30 @@
     <div class="search-dropdown mobile">
         <div id="search-dropdown-mobile"></div>
     </div><main class="main">
-                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">935_骑士拨号器</h1><div class="content" id="content"><p>力扣链接:<a href="https://leetcode.cn/problems/knight-dialer/description/?envType=daily-question&amp;envId=2024-12-10" target="_blank" rel="noopener noreffer ">935. 骑士拨号器</a></p>
-<h2 id="难度分-1690">力扣难度 <code>中等</code>
-算法评级: 5      熟练掌握常用数据结构和算法，初步了解高级数据结构
-难度分 1690</h2>
-<p>题目:</p>
-<p>象棋骑士有一个独特的移动方式，它可以垂直移动两个方格，水平移动一个方格，或者水平移动两个方格，垂直移动一个方格(两者都形成一个 L 的形状)。</p>
-<p>象棋骑士可能的移动方式如下图所示:
-<img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/leetcode/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8/image.png"
-        data-srcset="/leetcode/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8/image.png, /leetcode/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8/image.png 1.5x, /leetcode/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8/image.png 2x"
-        data-sizes="auto"
-        alt="/leetcode/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8/image.png"
-        title="alt text" width="402" height="402" />
-我们有一个象棋骑士和一个电话垫，如下所示，骑士只能站在一个数字单元格上(即蓝色单元格)。
-<img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/leetcode/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8/image-1.png"
-        data-srcset="/leetcode/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8/image-1.png, /leetcode/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8/image-1.png 1.5x, /leetcode/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8/image-1.png 2x"
-        data-sizes="auto"
-        alt="/leetcode/935_%E9%AA%91%E5%A3%AB%E6%8B%A8%E5%8F%B7%E5%99%A8/image-1.png"
-        title="alt text" width="242" height="322" />
-给定一个整数 n，返回我们可以拨多少个长度为 n 的不同电话号码。</p>
-<p>你可以将骑士放置在任何数字单元格上，然后你应该执行 n - 1 次移动来获得长度为 n 的号码。所有的跳跃应该是有效的骑士跳跃。</p>
-<p>因为答案可能很大，所以输出答案模 109 + 7.</p>
-<hr>
-<p>示例 1：</p>
+                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">935. 骑士拨号器</h1><div class="content" id="content"><h2 id="935-骑士拨号器"><a href="https://leetcode.cn/problems/knight-dialer/" target="_blank" rel="noopener noreffer ">935. 骑士拨号器</a></h2>
+<p>骑士在一张 n x n 的棋盘上巡视。在一个有效骑士巡视中，骑士可以从一个数字单元格开始，然后执行 n - 1 次移动，每次移动都必须是标准的骑士移动：呈 &ldquo;L&rdquo; 形状，即向一个方向移动两个单元格，然后垂直移动一个单元格，或向一个方向移动一个单元格，然后垂直移动两个单元格。</p>
+<p>骑士只能站在数字单元格上（即蓝色单元格）。</p>
+<p>给定一个整数 n，返回我们可以拨出的不同电话号码的数量。</p>
+<p>因为答案可能很大，所以输出答案模 10^9 + 7。</p>
+<p><strong>示例 1：</strong></p>
 <blockquote>
 <p>输入：n = 1
 输出：10
-解释：我们需要拨一个长度为1的数字，所以把骑士放在10个单元格中的任何一个数字单元格上都能满足条件。</p></blockquote>
-<p>示例 2：</p>
+解释：我们需要拨出一个长度为 1 的数字，所以可以拨出 0-9，共 10 个数字。</p></blockquote>
+<p><strong>示例 2：</strong></p>
 <blockquote>
 <p>输入：n = 2
 输出：20
-解释：我们可以拨打的所有有效号码为[04, 06, 16, 18, 27, 29, 34, 38, 40, 43, 49, 60, 61, 67, 72, 76, 81, 83, 92, 94]</p></blockquote>
-<p>示例 3：</p>
+解释：所有可能的数字序列是：[04, 06, 16, 18, 27, 29, 34, 38, 40, 43, 49, 60, 61, 67, 72, 76, 81, 83, 92, 94]</p></blockquote>
+<p><strong>示例 3：</strong></p>
 <blockquote>
 <p>输入：n = 3131
 输出：136006598
-解释：注意取模</p></blockquote>
+解释：注意输出应当为模 10^9 + 7 的结果。</p></blockquote>
+<p><strong>提示：</strong></p>
+<ul>
+<li>1 &lt;= n &lt;= 5000</li>
+</ul>
 <hr>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-go">
@@ -182,14 +164,29 @@
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
         <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
     </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">knightDialer</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<hr>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🧠思路:  👈点击</button>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🧠思路: 👈点击</button>
 <div class="toggle-content">
-  <p>化成子问题</p>
-<p>站在x数字上往y，剩余n
-深度遍历就可以解出问题</p>
+  <p>动态规划思路：</p>
+<ul>
+<li>定义状态：dp[i][j] 表示第 i 步时，以数字 j 结尾的方案数</li>
+<li>状态转移：对于每个数字 j，找到它可以由哪些数字转移而来</li>
+<li>初始状态：dp[0][j] = 1 (对于所有可达的数字 j)</li>
+</ul>
+<p>骑士的移动规则决定了每个数字可以跳到的位置：</p>
+<ul>
+<li>0 可以跳到 4, 6</li>
+<li>1 可以跳到 6, 8</li>
+<li>2 可以跳到 7, 9</li>
+<li>3 可以跳到 4, 8</li>
+<li>4 可以跳到 0, 3, 9</li>
+<li>5 无法跳到任何位置</li>
+<li>6 可以跳到 0, 1, 7</li>
+<li>7 可以跳到 2, 6</li>
+<li>8 可以跳到 1, 3</li>
+<li>9 可以跳到 2, 4</li>
+</ul>
 
 </div>
 <style>
@@ -203,116 +200,53 @@
 </style>
 
 <hr>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析： 👈点击</button>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
 <div class="toggle-content">
-  <h3 id="暴力递归">暴力递归</h3>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+  <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-go">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
         <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">dirs</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">][]</span><span class="kt">int</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">},</span>    <span class="c1">// 04, 06</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">1</span><span class="p">:</span> <span class="p">{</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">},</span>    <span class="c1">// 16, 18</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">2</span><span class="p">:</span> <span class="p">{</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">},</span>    <span class="c1">// 27, 29</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">3</span><span class="p">:</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">},</span>    <span class="c1">// 34, 38</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">4</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">},</span> <span class="c1">// 40, 43, 49</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">6</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">},</span> <span class="c1">// 60, 61, 67</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">7</span><span class="p">:</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">},</span>    <span class="c1">// 72, 76</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">8</span><span class="p">:</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>    <span class="c1">// 81, 83</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">9</span><span class="p">:</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span>    <span class="c1">// 92, 94</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">knightDialer</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">ans</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">mod</span> <span class="o">:=</span> <span class="mi">1000000000</span> <span class="o">+</span> <span class="mi">7</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">dfs</span> <span class="kd">func</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">dfs</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">y</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">ans</span> <span class="o">:=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">dirs</span><span class="p">[</span><span class="nx">y</span><span class="p">]</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">ans</span> <span class="o">+=</span> <span class="nf">dfs</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">ans</span> <span class="o">%</span> <span class="nx">mod</span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">knightDialer</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">MOD</span> <span class="o">:=</span> <span class="mi">1000000007</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// 定义每个数字可以跳到的位置</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">jumps</span> <span class="o">:=</span> <span class="p">[][]</span><span class="kt">int</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">},</span>       <span class="c1">// 0</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">},</span>       <span class="c1">// 1</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">},</span>       <span class="c1">// 2</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">},</span>       <span class="c1">// 3</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">},</span>    <span class="c1">// 4</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{},</span>           <span class="c1">// 5 (无法跳到任何位置)</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">},</span>    <span class="c1">// 6</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">},</span>       <span class="c1">// 7</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>       <span class="c1">// 8</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span>       <span class="c1">// 9</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="c1">// dp[i][j] 表示第 i 步时，以数字 j 结尾的方案数</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">prev</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">ans</span> <span class="o">+=</span> <span class="nf">dfs</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">prev</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">ans</span> <span class="o">%</span> <span class="nx">mod</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<h3 id="记忆化递归">记忆化递归</h3>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">dirs</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">][]</span><span class="kt">int</span><span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">0</span><span class="p">:</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">6</span><span class="p">},</span>    <span class="c1">// 04, 06</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">1</span><span class="p">:</span> <span class="p">{</span><span class="mi">6</span><span class="p">,</span> <span class="mi">8</span><span class="p">},</span>    <span class="c1">// 16, 18</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">2</span><span class="p">:</span> <span class="p">{</span><span class="mi">7</span><span class="p">,</span> <span class="mi">9</span><span class="p">},</span>    <span class="c1">// 27, 29</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">3</span><span class="p">:</span> <span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">},</span>    <span class="c1">// 34, 38</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">4</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">9</span><span class="p">},</span> <span class="c1">// 40, 43, 49</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">6</span><span class="p">:</span> <span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">7</span><span class="p">},</span> <span class="c1">// 60, 61, 67</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">7</span><span class="p">:</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">},</span>    <span class="c1">// 72, 76</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">8</span><span class="p">:</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>    <span class="c1">// 81, 83</span>
-</span></span><span class="line"><span class="cl">    <span class="mi">9</span><span class="p">:</span> <span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span>    <span class="c1">// 92, 94</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">knightDialer</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">(</span><span class="nx">ans</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">mod</span> <span class="o">:=</span> <span class="mi">1000000000</span> <span class="o">+</span> <span class="mi">7</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">memo</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([][]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span> <span class="c1">// memo[y][n]</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">memo</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">dfs</span> <span class="kd">func</span><span class="p">(</span><span class="kt">int</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">dfs</span> <span class="p">=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">y</span><span class="p">,</span> <span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">n</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="mi">1</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">ans</span> <span class="o">:=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">dirs</span><span class="p">[</span><span class="nx">y</span><span class="p">]</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="nx">memo</span><span class="p">[</span><span class="nx">v</span><span class="p">][</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">!=</span> <span class="mi">0</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="nx">ans</span> <span class="o">+=</span> <span class="nx">memo</span><span class="p">[</span><span class="nx">v</span><span class="p">][</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="nx">ans</span> <span class="o">+=</span> <span class="nf">dfs</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">step</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">step</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">step</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">curr</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="mi">10</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nx">j</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">j</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">j</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">next</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">jumps</span><span class="p">[</span><span class="nx">j</span><span class="p">]</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">                <span class="nx">curr</span><span class="p">[</span><span class="nx">next</span><span class="p">]</span> <span class="p">=</span> <span class="p">(</span><span class="nx">curr</span><span class="p">[</span><span class="nx">next</span><span class="p">]</span> <span class="o">+</span> <span class="nx">prev</span><span class="p">[</span><span class="nx">j</span><span class="p">])</span> <span class="o">%</span> <span class="nx">MOD</span>
 </span></span><span class="line"><span class="cl">            <span class="p">}</span>
 </span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">ans</span> <span class="o">%=</span> <span class="nx">mod</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">memo</span><span class="p">[</span><span class="nx">y</span><span class="p">][</span><span class="nx">n</span><span class="p">]</span> <span class="p">=</span> <span class="nx">ans</span>
-</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">ans</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">prev</span> <span class="p">=</span> <span class="nx">curr</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="nx">result</span> <span class="o">:=</span> <span class="mi">0</span>
 </span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">ans</span> <span class="o">+=</span> <span class="nf">dfs</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">result</span> <span class="p">=</span> <span class="p">(</span><span class="nx">result</span> <span class="o">+</span> <span class="nx">prev</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="o">%</span> <span class="nx">MOD</span>
 </span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">ans</span> <span class="o">%</span> <span class="nx">mod</span>
+</span></span><span class="line"><span class="cl">    
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">result</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<h3 id="状态定义与状态转移方程优化后">状态定义与状态转移方程（优化后）</h3>
-<p>将9个数分为4类
-A: 1,3,7,9
-B: 2,8
-C: 4,6
-D: 0</p>
-<p>分别的状态转移方程
-dfs(i,0)=dfs(i−1,1)+dfs(i−1,2)
-dfs(i,1)=2⋅dfs(i−1,0)
-dfs(i,2)=2⋅dfs(i−1,0)+dfs(i−1,3)
-dfs(i,3)=2⋅dfs(i−1,2)</p>
-<p>4⋅dfs(n−1,0)+2⋅dfs(n−1,1)+2⋅dfs(n−1,2)+dfs(n−1,3)</p>
-<p><img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="image-2.png"
-        data-srcset="image-2.png, image-2.png 1.5x, image-2.png 2x"
-        data-sizes="auto"
-        alt="image-2.png"
-        title="alt text" /></p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"></code></pre></div></div>
 
 </div>
 <style>
@@ -323,9 +257,7 @@ dfs(i,3)=2⋅dfs(i−1,2)</p>
   .toggle-content.show {
     display: block;
   }
-</style>
-
-</div><div id="comments"></div></div></div>
+</style></div><div id="comments"></div></div></div>
             </main><footer class="footer">
         <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
                 </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
@@ -340,5 +272,5 @@ dfs(i,3)=2⋅dfs(i−1,2)</p>
         <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
 </html>

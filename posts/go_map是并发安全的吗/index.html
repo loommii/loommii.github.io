@@ -4,23 +4,26 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Go: Map 是并发安全的吗？ - loommii</title><meta name="Description" content="我的个人技术博客"><meta property="og:url" content="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/">
+        <title>Go: Map 是并发安全的吗？ - loommii</title><meta name="Description" content="详解Go语言中Map的并发安全性问题及解决方案"><meta property="og:url" content="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/">
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="Go: Map 是并发安全的吗？">
-  <meta property="og:description" content="结论 并发读安全，并发写不安全
-原因 // map(集合)底层结构 type hmap struct { // Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go. // Make sure this stays in sync with the compiler&#39;s definition. count int // # live cells == size of map. Must be first (used by len() builtin) flags uint8 B uint8 // log_2 of # of buckets (can hold up to loadFactor * 2^B items) noverflow uint16 // approximate number of overflow buckets; see incrnoverflow for details hash0 uint32 // hash seed buckets unsafe.Pointer // array of 2^B Buckets. may be nil if count==0. oldbuckets unsafe.Pointer // previous bucket array of half the size, non-nil only when growing nevacuate uintptr // progress counter for evacuation (buckets less than this have been evacuated) clearSeq uint64 extra *mapextra // optional fields } // buckets的结构 type bmap struct { topbits [8]uint8 keys [8]keytype values [8]valuetype pad uintptr overflow uintptr }从上方结构可以知道底层结构中存buckets和oldbuckets。发生扩容的时候。会New一个新的buckets地址,并将老的buckets地址写入到oldbuckets中。">
+  <meta property="og:description" content="详解Go语言中Map的并发安全性问题及解决方案">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-12-16T20:06:16+08:00">
-    <meta property="article:modified_time" content="2024-12-16T20:06:16+08:00">
+    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="Map">
+    <meta property="article:tag" content="并发安全">
+    <meta property="article:tag" content="Sync.Map">
+    <meta property="article:tag" content="技术分享">
     <meta property="og:image" content="https://loommii.github.io/images/logo.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
   <meta name="twitter:title" content="Go: Map 是并发安全的吗？">
-  <meta name="twitter:description" content="结论 并发读安全，并发写不安全
-原因 // map(集合)底层结构 type hmap struct { // Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go. // Make sure this stays in sync with the compiler&#39;s definition. count int // # live cells == size of map. Must be first (used by len() builtin) flags uint8 B uint8 // log_2 of # of buckets (can hold up to loadFactor * 2^B items) noverflow uint16 // approximate number of overflow buckets; see incrnoverflow for details hash0 uint32 // hash seed buckets unsafe.Pointer // array of 2^B Buckets. may be nil if count==0. oldbuckets unsafe.Pointer // previous bucket array of half the size, non-nil only when growing nevacuate uintptr // progress counter for evacuation (buckets less than this have been evacuated) clearSeq uint64 extra *mapextra // optional fields } // buckets的结构 type bmap struct { topbits [8]uint8 keys [8]keytype values [8]valuetype pad uintptr overflow uintptr }从上方结构可以知道底层结构中存buckets和oldbuckets。发生扩容的时候。会New一个新的buckets地址,并将老的buckets地址写入到oldbuckets中。">
+  <meta name="twitter:description" content="详解Go语言中Map的并发安全性问题及解决方案">
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site">
 <meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -36,13 +39,13 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/loommii.github.io\/posts\/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97\/"
-        },"genre": "posts","wordcount":  859 ,
-        "url": "https:\/\/loommii.github.io\/posts\/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97\/","datePublished": "2024-12-16T20:06:16+08:00","dateModified": "2024-12-16T20:06:16+08:00","publisher": {
+        },"genre": "posts","keywords": "Go, Map, 并发安全, sync.Map, 技术分享","wordcount":  859 ,
+        "url": "https:\/\/loommii.github.io\/posts\/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97\/","datePublished": "2024-12-16T20:06:16+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
                 "name": "loommii"
-            },"description": ""
+            },"description": "详解Go语言中Map的并发安全性问题及解决方案"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script>
@@ -71,7 +74,7 @@
         title="/images/logo.png" />loommii</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Golang练习 </a><a class="menu-item" href="/leetcode/"> 力扣 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Go练习题 </a><a class="menu-item" href="/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -120,7 +123,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         Cancel
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Golang练习</a><a class="menu-item" href="/leetcode/" title="">力扣</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Go练习题</a><a class="menu-item" href="/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -134,7 +137,7 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go: Map 是并发安全的吗？</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span></div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">included in <a href="/categories/go%E8%AF%AD%E8%A8%80/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Go语言</a>&nbsp;<a href="/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>并发编程</a>&nbsp;<a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术文章</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-12-16">2024-12-16</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;859 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -199,23 +202,22 @@
 只有在进行更新时，map 访问才是不安全的。只要所有 goroutine 仅仅是读取——例如查找 map 中的元素，包括通过 for range 循环迭代 map——并且没有通过赋值修改元素或进行删除操作，那么它们可以在不进行同步的情况下安全地并发访问 map。
 
 作为对正确使用 map 的帮助，某些语言实现包含一个特殊检查，会在运行时自动报告当 map 被并发执行不安全地修改时的情况。此外，sync 库中有一个类型叫 sync.Map，它适用于某些使用模式，例如静态缓存，虽然它不适合作为内建 map 类型的一般替代品。</code></pre></div>
-<p>概况: 只有在进行更新时，map 访问才是不安全的,程序运行时会自动检测发执行不安全地修改时的情况。需要并发修改请用sync.Map</p>
-</div><div class="post-footer" id="post-footer">
+<p>概况: 只有在进行更新时，map 访问才是不安全的,程序运行时会自动检测发执行不安全地修改时的情况。需要并发修改请用sync.Map</p></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2024-12-16</span>
+                <span>Updated on 2026-01-16</span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/" data-title="Go: Map 是并发安全的吗？"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/" data-title="Go: Map 是并发安全的吗？"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/" data-title="Go: Map 是并发安全的吗？"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/" data-title="Go: Map 是并发安全的吗？"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/" data-title="Go: Map 是并发安全的吗？"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/" data-title="Go: Map 是并发安全的吗？" data-description=""><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fposts%2fgo_map%25E6%2598%25AF%25E5%25B9%25B6%25E5%258F%2591%25E5%25AE%2589%25E5%2585%25A8%25E7%259A%2584%25E5%2590%2597%2f&amp;text=Go%3a%20Map%20%e6%98%af%e5%b9%b6%e5%8f%91%e5%ae%89%e5%85%a8%e7%9a%84%e5%90%97%ef%bc%9f" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/" data-title="Go: Map 是并发安全的吗？" data-hashtags="Go,Map,并发安全,sync.Map,技术分享"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/" data-title="Go: Map 是并发安全的吗？"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/" data-title="Go: Map 是并发安全的吗？"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/" data-title="Go: Map 是并发安全的吗？"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/" data-title="Go: Map 是并发安全的吗？"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/" data-title="Go: Map 是并发安全的吗？" data-description="详解Go语言中Map的并发安全性问题及解决方案"><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fposts%2fgo_map%25E6%2598%25AF%25E5%25B9%25B6%25E5%258F%2591%25E5%25AE%2589%25E5%2585%25A8%25E7%259A%2584%25E5%2590%2597%2f&amp;text=Go%3a%20Map%20%e6%98%af%e5%b9%b6%e5%8f%91%e5%ae%89%e5%85%a8%e7%9a%84%e5%90%97%ef%bc%9f" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/go/">Go</a>,&nbsp;<a href="/tags/map/">Map</a>,&nbsp;<a href="/tags/%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8/">并发安全</a>,&nbsp;<a href="/tags/sync.map/">Sync.Map</a>,&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
         </section>
@@ -239,5 +241,5 @@
         <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
 </html>

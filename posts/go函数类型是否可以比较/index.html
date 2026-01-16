@@ -4,25 +4,26 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>Go函数类型是否可以比较,为什么？ - loommii</title><meta name="Description" content="我的个人技术博客"><meta property="og:url" content="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/">
+        <title>Go函数类型是否可以比较,为什么？ - loommii</title><meta name="Description" content="详解Go语言中函数类型是否可以比较以及原因分析"><meta property="og:url" content="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/">
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="Go函数类型是否可以比较,为什么？">
-  <meta property="og:description" content="Go函数类型是否可以比较？ 比较运算符 在Go官方文档比较运算符中有这一段话
-Slice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.
-切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 nil 进行比较。指针、通道（channel）和接口值与 nil 的比较也是允许的，并且遵循上述一般规则。">
+  <meta property="og:description" content="详解Go语言中函数类型是否可以比较以及原因分析">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2025-03-05T16:41:19+08:00">
-    <meta property="article:modified_time" content="2025-03-05T16:41:19+08:00">
+    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="函数">
+    <meta property="article:tag" content="比较">
+    <meta property="article:tag" content="Reflect">
+    <meta property="article:tag" content="技术分享">
     <meta property="og:image" content="https://loommii.github.io/images/logo.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
   <meta name="twitter:title" content="Go函数类型是否可以比较,为什么？">
-  <meta name="twitter:description" content="Go函数类型是否可以比较？ 比较运算符 在Go官方文档比较运算符中有这一段话
-Slice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.
-切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 nil 进行比较。指针、通道（channel）和接口值与 nil 的比较也是允许的，并且遵循上述一般规则。">
+  <meta name="twitter:description" content="详解Go语言中函数类型是否可以比较以及原因分析">
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site">
 <meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -38,13 +39,13 @@ Slice, map, and function types are not comparable. However, as a special case, a
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/loommii.github.io\/posts\/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83\/"
-        },"genre": "posts","wordcount":  1418 ,
-        "url": "https:\/\/loommii.github.io\/posts\/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83\/","datePublished": "2025-03-05T16:41:19+08:00","dateModified": "2025-03-05T16:41:19+08:00","publisher": {
+        },"genre": "posts","keywords": "Go, 函数, 比较, reflect, 技术分享","wordcount":  1429 ,
+        "url": "https:\/\/loommii.github.io\/posts\/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83\/","datePublished": "2025-03-05T16:41:19+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
                 "name": "loommii"
-            },"description": ""
+            },"description": "详解Go语言中函数类型是否可以比较以及原因分析"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script>
@@ -73,7 +74,7 @@ Slice, map, and function types are not comparable. However, as a special case, a
         title="/images/logo.png" />loommii</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Golang练习 </a><a class="menu-item" href="/leetcode/"> 力扣 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Go练习题 </a><a class="menu-item" href="/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -122,7 +123,7 @@ Slice, map, and function types are not comparable. However, as a special case, a
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         Cancel
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Golang练习</a><a class="menu-item" href="/leetcode/" title="">力扣</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Go练习题</a><a class="menu-item" href="/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -136,8 +137,8 @@ Slice, map, and function types are not comparable. However, as a special case, a
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go函数类型是否可以比较,为什么？</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-03-05">2025-03-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1418 words&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">included in <a href="/categories/go%E8%AF%AD%E8%A8%80/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Go语言</a>&nbsp;<a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术文章</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-03-05">2025-03-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1429 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -170,11 +171,9 @@ Slice, map, and function types are not comparable. However, as a special case, a
 <h3 id="比较运算符">比较运算符</h3>
 <p>在<a href="https://go.dev/ref/spec#Comparison_operators" target="_blank" rel="noopener noreffer ">Go官方文档</a>比较运算符中有这一段话</p>
 <blockquote>
-<blockquote>
-<p>Slice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.</p></blockquote>
-<blockquote>
-<p>切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 <code>nil</code> 进行比较。指针、通道（channel）和接口值与 <code>nil</code> 的比较也是允许的，并且遵循上述一般规则。</p></blockquote></blockquote>
-<p>因此我们可以看到，Go函数类型之间是不能使用比较运算符的，但是可以和<code>nil</code>进行比较。<br>
+<p>Slice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.
+切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 <code>nil</code> 进行比较。指针、通道（channel）和接口值与 <code>nil</code> 的比较也是允许的，并且遵循上述一般规则。</p></blockquote>
+<p>因此我们可以看到，Go函数类型之间是不能使用比较运算符的，但是可以和<code>nil</code>进行比较。
 例 1:</p>
 <div class="code-block code-line-numbers" style="counter-reset: code-block 0">
     <div class="code-header language-go">
@@ -215,12 +214,10 @@ Slice, map, and function types are not comparable. However, as a special case, a
 <h3 id="reflectdeepequal">reflect.DeepEqual</h3>
 <p>上面是使用比较运算符来进行二者的比较,我们知道在Go中，还可以使用<code>reflect</code>包中<a href="https://pkg.go.dev/reflect#DeepEqual" target="_blank" rel="noopener noreffer "><code>DeepEqual</code></a>来比较。</p>
 <blockquote>
-<p>func DeepEqual(x, y any) bool<br>
-功能：判断两个值是否“深度相等”</p>
-<blockquote>
-<p>Func values are deeply equal if both are nil; otherwise they are not deeply equal.</p></blockquote>
-<blockquote>
-<p>函数值只有在两者都为 nil 时才深度相等；否则，它们不深度相等。</p></blockquote></blockquote>
+<p>func DeepEqual(x, y any) bool
+功能：判断两个值是否&quot;深度相等&quot;
+Func values are deeply equal if both are nil; otherwise they are not deeply equal.
+函数值只有在二者都为 nil 时才深度相等；否则，它们不深度相等。</p></blockquote>
 <p>例 3:</p>
 <div class="code-block code-line-numbers" style="counter-reset: code-block 0">
     <div class="code-header language-go">
@@ -261,7 +258,7 @@ Slice, map, and function types are not comparable. However, as a special case, a
 <h3 id="总结">总结</h3>
 <p>Go函数类型之间是不能使用比较,但是可以和<code>nil</code>进行比较。</p>
 <h2 id="为什么">为什么？</h2>
-<p>从上文我们了解到,Go团队在设计Go语言时就限制了函数类型之间对比。但是这样设计是为了什么？</p>
+<p>从上文我们了解到,Go团队在设计Go语言时就限制了函数类型之间的对比。但是这样设计是为了什么？</p>
 <h3 id="猜想一-编译器内联优化">猜想一 (编译器内联优化)</h3>
 <div class="code-block code-line-numbers" style="counter-reset: code-block 0">
     <div class="code-header language-go">
@@ -274,8 +271,8 @@ Slice, map, and function types are not comparable. However, as a special case, a
 </span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">b</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span> <span class="p">}()</span>
 </span></span><span class="line"><span class="cl">
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">sun</span> <span class="o">:=</span> <span class="nf">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nx">sun</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sum</span> <span class="o">:=</span> <span class="nf">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nx">sum</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
@@ -294,24 +291,24 @@ Slice, map, and function types are not comparable. However, as a special case, a
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
         <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
     </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">TEXT</span> <span class="no">main.main</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span> <span class="no">C</span><span class="p">:</span><span class="err">/</span><span class="no">Code</span><span class="err">/</span><span class="no">Github</span><span class="err">/</span><span class="no">Go_T</span><span class="err">/</span><span class="no">main.go</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x469960</span>                <span class="mi">493</span><span class="no">b6610</span>                <span class="no">CMPQ</span> <span class="no">SP</span><span class="p">,</span> <span class="mi">0x10</span><span class="p">(</span><span class="no">R14</span><span class="p">)</span>  
-</span></span><span class="line"><span class="cl">  <span class="no">main.go</span><span class="p">:</span><span class="mi">6</span>             <span class="mi">0x469964</span>                <span class="mi">7635</span>                    <span class="no">JBE</span> <span class="mi">0x46999b</span>        
-</span></span><span class="line"><span class="cl">  <span class="no">main.go</span><span class="p">:</span><span class="mi">6</span>             <span class="mi">0x469966</span>                <span class="mi">55</span>                      <span class="no">PUSHQ</span> <span class="no">BP</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x469960</span>                <span class="mi">493</span><span class="no">b6610</span>                <span class="no">CMPQ</span> <span class="no">SP</span><span class="p">,</span> <span class="mi">0x10</span><span class="p">(</span><span class="no">R14</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x469964</span>                <span class="mi">7635</span>                    <span class="no">JBE</span> <span class="mi">0x46999b</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x469966</span>                <span class="mi">55</span>                      <span class="no">PUSHQ</span> <span class="no">BP</span>
 </span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x469967</span>                <span class="mi">4889</span><span class="no">e5</span>                  <span class="no">MOVQ</span> <span class="no">SP</span><span class="p">,</span> <span class="no">BP</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x46996a</span>                <span class="mi">4883</span><span class="no">ec10</span>                <span class="no">SUBQ</span> <span class="no">$0x10</span><span class="p">,</span> <span class="no">SP</span>      
-</span></span><span class="line"><span class="cl">  <span class="no">main.go</span><span class="p">:</span><span class="mi">7</span>             <span class="mi">0x46996e</span>                <span class="mi">488</span><span class="no">b05f3490800</span>          <span class="no">MOVQ</span> <span class="no">main.a</span><span class="p">(</span><span class="no">SB</span><span class="p">),</span> <span class="no">AX</span> 
-</span></span><span class="line"><span class="cl">  <span class="no">main.go</span><span class="p">:</span><span class="mi">11</span>            <span class="mi">0x469975</span>                <span class="mi">480305</span><span class="no">f4490800</span>          <span class="no">ADDQ</span> <span class="no">main.b</span><span class="p">(</span><span class="no">SB</span><span class="p">),</span> <span class="no">AX</span> 
-</span></span><span class="line"><span class="cl">  <span class="no">main.go</span><span class="p">:</span><span class="mi">11</span>            <span class="mi">0x46997c</span>                <span class="mi">4889442408</span>              <span class="no">MOVQ</span> <span class="no">AX</span><span class="p">,</span> <span class="mi">0x8</span><span class="p">(</span><span class="no">SP</span><span class="p">)</span>    
-</span></span><span class="line"><span class="cl">  <span class="no">main.go</span><span class="p">:</span><span class="mi">8</span>             <span class="mi">0x469981</span>                <span class="no">e81a8afcff</span>              <span class="no">CALL</span> <span class="no">runtime.printlock</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x469986</span>                <span class="mi">488</span><span class="no">b442408</span>              <span class="no">MOVQ</span> <span class="mi">0x8</span><span class="p">(</span><span class="no">SP</span><span class="p">),</span> <span class="no">AX</span>    
-</span></span><span class="line"><span class="cl">  <span class="no">main.go</span><span class="p">:</span><span class="mi">8</span>             <span class="mi">0x46998b</span>                <span class="no">e8b090fcff</span>              <span class="no">CALL</span> <span class="no">runtime.printint</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x46996a</span>                <span class="mi">4883</span><span class="no">ec10</span>                <span class="no">SUBQ</span> <span class="no">$0x10</span><span class="p">,</span> <span class="no">SP</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">7</span>             <span class="err">0</span><span class="nf">x46996e</span>                <span class="mi">488</span><span class="no">b05f3490800</span>          <span class="no">MOVQ</span> <span class="no">main.a</span><span class="p">(</span><span class="no">SB</span><span class="p">),</span> <span class="no">AX</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">11</span>            <span class="err">0</span><span class="nf">x469975</span>                <span class="mi">480305</span><span class="no">f4490800</span>          <span class="no">ADDQ</span> <span class="no">main.b</span><span class="p">(</span><span class="no">SB</span><span class="p">),</span> <span class="no">AX</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">11</span>            <span class="err">0</span><span class="nf">x46997c</span>                <span class="mi">4889442408</span>              <span class="no">MOVQ</span> <span class="no">AX</span><span class="p">,</span> <span class="mi">0x8</span><span class="p">(</span><span class="no">SP</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x469981</span>                <span class="no">e81a8afcff</span>              <span class="no">CALL</span> <span class="no">runtime.printlock</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x469986</span>                <span class="mi">488</span><span class="no">b442408</span>              <span class="no">MOVQ</span> <span class="mi">0x8</span><span class="p">(</span><span class="no">SP</span><span class="p">),</span> <span class="no">AX</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x46998b</span>                <span class="no">e8b090fcff</span>              <span class="no">CALL</span> <span class="no">runtime.printint</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x469990</span>                <span class="no">e86b8afcff</span>              <span class="no">CALL</span> <span class="no">runtime.printunlock</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x469995</span>                <span class="mi">4883</span><span class="no">c410</span>                <span class="no">ADDQ</span> <span class="no">$0x10</span><span class="p">,</span> <span class="no">SP</span>      
-</span></span><span class="line"><span class="cl">  <span class="no">main.go</span><span class="p">:</span><span class="mi">9</span>             <span class="mi">0x469999</span>                <span class="mi">5</span><span class="no">d</span>                      <span class="no">POPQ</span> <span class="no">BP</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x469995</span>                <span class="mi">4883</span><span class="no">c410</span>                <span class="no">ADDQ</span> <span class="no">$0x10</span><span class="p">,</span> <span class="no">SP</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x469999</span>                <span class="mi">5</span><span class="no">d</span>                      <span class="no">POPQ</span> <span class="no">BP</span>
 </span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x46999a</span>                <span class="no">c3</span>                      <span class="no">RET</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x46999b</span>                <span class="mi">0</span><span class="no">f1f440000</span>              <span class="no">NOPL</span> <span class="mi">0</span><span class="p">(</span><span class="no">AX</span><span class="p">)(</span><span class="no">AX</span><span class="p">*</span><span class="mi">1</span><span class="p">)</span>    
-</span></span><span class="line"><span class="cl">  <span class="no">main.go</span><span class="p">:</span><span class="mi">6</span>             <span class="mi">0x4699a0</span>                <span class="no">e8bb88ffff</span>              <span class="no">CALL</span> <span class="no">runtime.morestack_noctxt.abi0</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x4699a5</span>                <span class="no">ebb9</span>                    <span class="no">JMP</span> <span class="no">main.main</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>   </span></span></code></pre></div></div>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x46999b</span>                <span class="mi">0</span><span class="no">f1f440000</span>              <span class="no">NOPL</span> <span class="mi">0</span><span class="p">(</span><span class="no">AX</span><span class="p">)(</span><span class="no">AX</span><span class="p">*</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x4699a0</span>                <span class="no">e8bb88ffff</span>              <span class="no">CALL</span> <span class="no">runtime.morestack_noctxt.abi0</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x4699a5</span>                <span class="no">ebb9</span>                    <span class="no">JMP</span> <span class="no">main.main</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span></span></span></code></pre></div></div>
 <p>作为对比我们也可以在编译是禁止内联优化</p>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-text">
@@ -456,30 +453,29 @@ Slice, map, and function types are not comparable. However, as a special case, a
 </span></span><span class="line"><span class="cl">    <span class="c1">// 删除Hello</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">RmListener</span><span class="p">(</span><span class="nx">HelloTag</span><span class="p">)</span>
 </span></span><span class="line"><span class="cl">    <span class="nf">CallListeners</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-</div><div class="post-footer" id="post-footer">
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2025-03-05</span>
+                <span>Updated on 2026-01-16</span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go函数类型是否可以比较,为什么？"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go函数类型是否可以比较,为什么？"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go函数类型是否可以比较,为什么？"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go函数类型是否可以比较,为什么？"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go函数类型是否可以比较,为什么？"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go函数类型是否可以比较,为什么？" data-description=""><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fposts%2fgo%25E5%2587%25BD%25E6%2595%25B0%25E7%25B1%25BB%25E5%259E%258B%25E6%2598%25AF%25E5%2590%25A6%25E5%258F%25AF%25E4%25BB%25A5%25E6%25AF%2594%25E8%25BE%2583%2f&amp;text=Go%e5%87%bd%e6%95%b0%e7%b1%bb%e5%9e%8b%e6%98%af%e5%90%a6%e5%8f%af%e4%bb%a5%e6%af%94%e8%be%83%2c%e4%b8%ba%e4%bb%80%e4%b9%88%ef%bc%9f" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go函数类型是否可以比较,为什么？" data-hashtags="Go,函数,比较,reflect,技术分享"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go函数类型是否可以比较,为什么？"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go函数类型是否可以比较,为什么？"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go函数类型是否可以比较,为什么？"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go函数类型是否可以比较,为什么？"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go函数类型是否可以比较,为什么？" data-description="详解Go语言中函数类型是否可以比较以及原因分析"><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fposts%2fgo%25E5%2587%25BD%25E6%2595%25B0%25E7%25B1%25BB%25E5%259E%258B%25E6%2598%25AF%25E5%2590%25A6%25E5%258F%25AF%25E4%25BB%25A5%25E6%25AF%2594%25E8%25BE%2583%2f&amp;text=Go%e5%87%bd%e6%95%b0%e7%b1%bb%e5%9e%8b%e6%98%af%e5%90%a6%e5%8f%af%e4%bb%a5%e6%af%94%e8%be%83%2c%e4%b8%ba%e4%bb%80%e4%b9%88%ef%bc%9f" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/go/">Go</a>,&nbsp;<a href="/tags/%E5%87%BD%E6%95%B0/">函数</a>,&nbsp;<a href="/tags/%E6%AF%94%E8%BE%83/">比较</a>,&nbsp;<a href="/tags/reflect/">Reflect</a>,&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
         </section>
     </div>
 
     <div class="post-nav"><a href="/posts/go_gpm%E7%9A%84%E6%95%B0%E9%87%8F%E9%99%90%E5%88%B6/" class="prev" rel="prev" title="Go: GPM的数量限制"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go: GPM的数量限制</a>
-            <a href="/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/" class="next" rel="next" title="Go 中 Channel 可能会引发 Goroutine 泄漏">Go 中 Channel 可能会引发 Goroutine 泄漏<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+            <a href="/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/" class="next" rel="next" title="Go中Channel可能会引发Goroutine泄漏">Go中Channel可能会引发Goroutine泄漏<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
 </div>
 <div id="comments"></div></article></div>
             </main><footer class="footer">
@@ -496,5 +492,5 @@ Slice, map, and function types are not comparable. However, as a special case, a
         <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
 </html>

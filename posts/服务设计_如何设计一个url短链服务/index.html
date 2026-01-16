@@ -4,23 +4,26 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>服务设计_如何设计一个URL短链服务 - loommii</title><meta name="Description" content="我的个人技术博客"><meta property="og:url" content="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/">
+        <title>服务设计_如何设计一个URL短链服务 - loommii</title><meta name="Description" content="详解如何设计一个高性能的URL短链服务，包括关键技术方案和实现原理"><meta property="og:url" content="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/">
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="服务设计_如何设计一个URL短链服务">
-  <meta property="og:description" content="什么是URL短链服务 URL短链服务的本质是通过HTTP 302重定向机制，将一个简短的URL重定向到原始的长URL。
-短链服务解决了什么问题 解决消息发送的字数限制问题 例如，腾讯云SMS限制每条短信的字数为500个字符，而在营销短信中，通常会携带包含大量参数的URL（如邀请平台、邀请人、活动ID等）。这些参数使得URL变得非常冗长。通过URL短链服务，营销短信中的长URL可以被替换为一个简短的短链，节省了字数空间。 隐藏请求参数 以营销活动为例，URL中的常见参数可能包括活动ID等信息。如果我们不希望这些ID被随便修改，可以在参数中添加对应的活动ID KEY，这样只有当ID和KEY匹配时，用户才能进入相应的活动页面。然而，添加了KEY后，原本的URL会变得更加冗长。短链服务可以帮助隐藏这些请求参数，保持URL简洁且安全。 最基础的需求 长链登记 短链重定向 短链KEY为什么选择 Base62 编码 根据 RFC3986 标准，URL 由 ASCII 字符组成，以下字符可以安全地在 URL 中使用：">
+  <meta property="og:description" content="详解如何设计一个高性能的URL短链服务，包括关键技术方案和实现原理">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-12-09T13:57:51+08:00">
-    <meta property="article:modified_time" content="2024-12-09T13:57:51+08:00">
+    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+    <meta property="article:tag" content="URL短链">
+    <meta property="article:tag" content="服务设计">
+    <meta property="article:tag" content="分布式">
+    <meta property="article:tag" content="系统设计">
+    <meta property="article:tag" content="技术分享">
     <meta property="og:image" content="https://loommii.github.io/images/logo.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
   <meta name="twitter:title" content="服务设计_如何设计一个URL短链服务">
-  <meta name="twitter:description" content="什么是URL短链服务 URL短链服务的本质是通过HTTP 302重定向机制，将一个简短的URL重定向到原始的长URL。
-短链服务解决了什么问题 解决消息发送的字数限制问题 例如，腾讯云SMS限制每条短信的字数为500个字符，而在营销短信中，通常会携带包含大量参数的URL（如邀请平台、邀请人、活动ID等）。这些参数使得URL变得非常冗长。通过URL短链服务，营销短信中的长URL可以被替换为一个简短的短链，节省了字数空间。 隐藏请求参数 以营销活动为例，URL中的常见参数可能包括活动ID等信息。如果我们不希望这些ID被随便修改，可以在参数中添加对应的活动ID KEY，这样只有当ID和KEY匹配时，用户才能进入相应的活动页面。然而，添加了KEY后，原本的URL会变得更加冗长。短链服务可以帮助隐藏这些请求参数，保持URL简洁且安全。 最基础的需求 长链登记 短链重定向 短链KEY为什么选择 Base62 编码 根据 RFC3986 标准，URL 由 ASCII 字符组成，以下字符可以安全地在 URL 中使用：">
+  <meta name="twitter:description" content="详解如何设计一个高性能的URL短链服务，包括关键技术方案和实现原理">
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site">
 <meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -36,13 +39,13 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/loommii.github.io\/posts\/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1\/"
-        },"genre": "posts","wordcount":  1942 ,
-        "url": "https:\/\/loommii.github.io\/posts\/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1\/","datePublished": "2024-12-09T13:57:51+08:00","dateModified": "2024-12-09T13:57:51+08:00","publisher": {
+        },"genre": "posts","keywords": "URL短链, 服务设计, 分布式, 系统设计, 技术分享","wordcount":  1942 ,
+        "url": "https:\/\/loommii.github.io\/posts\/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1\/","datePublished": "2024-12-09T13:57:51+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
                 "name": "loommii"
-            },"description": ""
+            },"description": "详解如何设计一个高性能的URL短链服务，包括关键技术方案和实现原理"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script>
@@ -71,7 +74,7 @@
         title="/images/logo.png" />loommii</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Golang练习 </a><a class="menu-item" href="/leetcode/"> 力扣 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Go练习题 </a><a class="menu-item" href="/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -120,7 +123,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         Cancel
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Golang练习</a><a class="menu-item" href="/leetcode/" title="">力扣</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Go练习题</a><a class="menu-item" href="/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -134,7 +137,7 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">服务设计_如何设计一个URL短链服务</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span></div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>系统设计</a>&nbsp;<a href="/categories/%E6%9C%8D%E5%8A%A1%E6%9E%B6%E6%9E%84/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>服务架构</a>&nbsp;<a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术文章</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-12-09">2024-12-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1942 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -171,7 +174,7 @@
         alt="/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/image.png"
         title="腾讯云SMS" width="1124" height="298" /></li>
 <li>隐藏请求参数
-以营销活动为例，URL中的常见参数可能包括活动ID等信息。如果我们不希望这些ID被随便修改，可以在参数中添加对应的活动ID KEY，这样只有当ID和KEY匹配时，用户才能进入相应的活动页面。然而，添加了KEY后，原本的URL会变得更加冗长。短链服务可以帮助隐藏这些请求参数，保持URL简洁且安全。</li>
+以营销活动为例，URL中的常见参数可能包括活动ID等信息。如果我们不希望这些ID被随意修改，可以在参数中添加对应的活动ID KEY，这样只有当ID和KEY匹配时，用户才能进入相应的活动页面。然而，添加了KEY后，原本的URL会变得更加冗长。短链服务可以帮助隐藏这些请求参数，保持URL简洁且安全。</li>
 </ol>
 <h3 id="最基础的需求">最基础的需求</h3>
 <ol>
@@ -183,11 +186,11 @@
 <ul>
 <li>字母（a-z 和 A-Z）</li>
 <li>数字（0-9）</li>
-<li>部分特殊字符：$-_.+!*&rsquo;(),
-虽然RFC3986标准允许一些特殊字符，但有些特殊字符可能会对URL解析、传输或存储造成问题。例如，字符如 &amp;, ?, =, # 等在查询参数或路径中有特定意义，因此它们可能引起冲突或产生解析错误。</li>
+<li>部分特殊字符：$-_.+!*&rsquo;(),</li>
 </ul>
+<p>虽然RFC3986标准允许一些特殊字符，但有些特殊字符可能会对URL解析、传输或存储造成问题。例如，字符如 &amp;, ?, =, # 等在查询参数或路径中有特定含义，因此它们可能引起冲突或产生解析错误。</p>
 <blockquote>
-<p>为了避免这些潜在的麻烦，特别是在需要将复杂的查询参数或密钥编码为 URL 友好的格式时，我们通常会选择 Base62 编码，即只使用字母（大小写）和数字的组合。</p></blockquote>
+<p>为了避免这些潜在的麻烦，特别是需要将复杂的查询参数或密钥编码为 URL 友好的格式时，我们通常会选择 Base62 编码，即只使用字母（大小写）和数字的组合。</p></blockquote>
 <h3 id="短链key的长度选择">短链KEY的长度选择</h3>
 <p>我们字符集已经确定为Base62,因此长度为1 可以存储 62种。每增加一位，存储的极限数量会按 62 的指数增长。</p>
 <table>
@@ -195,7 +198,7 @@
       <tr>
           <th style="text-align: left">长度</th>
           <th style="text-align: left">存储极限</th>
-          <th style="text-align: left">解释</th>
+          <th style="text-align: left">解读</th>
       </tr>
   </thead>
   <tbody>
@@ -232,30 +235,30 @@
   </tbody>
 </table>
 <blockquote>
-<p>5位的存储极限已经达到916,132,832,这个数量已经非常大，足以支持大多数应用场景。然而，如果你希望进一步减少生成字符时的冲突、长远规划，选择 6 位 作为短链 KEY 长度会是一个不错的选择。</p></blockquote>
+<p>5位的存储极限已经到达916,132,832,这个数量已经非常大，足以支撑大多数应用场景。然而，如果你希望能够进一步减少生成字符时的冲突、长远规划，选择 6 位 作为短链 KEY 长度会是一个不错的选择。</p></blockquote>
 <h3 id="短链key的生成">短链KEY的生成</h3>
 <p>没有最好的方案只有最适合的方案</p>
 <h4 id="方案一随机生成短链-key">方案一:随机生成短链 KEY</h4>
 <p>实现:系统通过随机函数生成对应短链 KEY
 优点：</p>
 <ul>
-<li>实现容易：随机生成短链 KEY 的实现相对简单，可以通过生成随机数并映射到 Base62 字符集，快速获得短链标识符。大多数编程语言都提供了简单的随机数生成函数，操作简便。</li>
+<li>实现容易：随机生成短链 KEY 的实现相对简单，可以通过生成随机数并映射到 Base62 字符集，快速获得短链接标识符。大多数编程语言都提供了简单的随机数生成函数，操作方便。</li>
 </ul>
 <p>缺点：</p>
 <ul>
 <li>冲突的概率随着存量数据增多而增加</li>
-<li>相同的长URL会生成不同的短链 KEY，可能导致浪费</li>
+<li>相同的长URL会生成不同的短链 KEY，可能导至浪费</li>
 </ul>
 <p>解决：采用哈希计算，</p>
-<h4 id="方案二哈希计算">方案二:哈希计算</h4>
+<h4 id="方案二哈希算法">方案二:哈希算法</h4>
 <p>实现:将长 URL 通过哈希算法生成固定长度的短链 KEY。</p>
 <p>优点：</p>
 <ul>
-<li>解决了相同的长 URL 会生成不同的短链的问题：哈希计算能够确保相同的长 URL 每次生成相同的短链 KEY，从而避免存储冗余。</li>
+<li>解决了相同的长 URL 会生成不同短链的问题：哈希算法能够确保相同的长 URL 每次生成相同的短链 KEY，从而避免存储冗余。</li>
 </ul>
 <p>缺点：</p>
 <ul>
-<li>哈希冲突的可能性：虽然哈希函数可以生成固定长度的短链，但不同的长 URL 可能会产生相同的哈希值，从而发生哈希冲突。
+<li>哈希冲突的可能性：虽然哈希函数可以生成固定长度的短链，但不同的长 URL 可能会产生相同的哈希值，从而产生哈希冲突。
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -272,20 +275,20 @@
 <p>例: 值为66 短链 KEY为 字典[0]+字典[0]+字典[0]+字典[0]+字典[1]+字典[4]</p></blockquote>
 <p>优点：</p>
 <ul>
-<li>单机环境下不存在冲突的可能：由于计数器是自增的，每个短链 KEY 都是唯一的，因此不会发生冲突。</li>
+<li>单机环境下不存在冲突的可能：由于计数器是自增的，每个短链 KEY 都是唯一的，因此不会产生冲突。</li>
 </ul>
 <p>缺点:</p>
 <ul>
-<li>生成的短链 KEY 存在明显的规律：由于短链 KEY 基于计数器生成，因此 KEY 存在明显的递增规律，易被推测或猜测。</li>
+<li>生成的短链 KEY 存在明显的规律：由于短链 KEY 基于计数器生成，因此 KEY 存在明显的递增规律，容易被推测或猜测。</li>
 <li>分布式环境下，存在冲突的可能：在分布式环境中，如果多个节点使用相同的计数器，可能会导致短链 KEY 冲突。</li>
-<li>相同的长 URL 会生成不同的短链 KEY，可能导致浪费：每次生成短链时，相同的长 URL 会得到不同的短链 KEY。</li>
+<li>相同的长 URL 会生成不同的短链 KEY，可能导至浪费：每次生成短链时，相同的长 URL 会得到不同的短链 KEY。</li>
 </ul>
-<p>解决: 可以通过计数倒置、乱序字典、哈希计算等方式来优化生成逻辑，减少规律性和冲突。</p>
+<p>解决: 可以通过计数倒置、乱序字典、哈希计算等方式优化生成逻辑，减少规律性和冲突。</p>
 <h4 id="方案四计数器自增法--乱序字典--计数倒置-哈希计算">方案四:计数器自增法 + 乱序字典 + 计数倒置 +哈希计算</h4>
 <p>实现：</p>
 <ul>
 <li>乱序字典：在服务启动时，打乱字典的顺序，确保相同的计数值生成不同的短链 KEY，从而避免分布式环境下的冲突。</li>
-<li>计数倒置：为了打破短链生成中的规律性，可以在计数器自增的基础上对生成的数字进行倒置处理，使每次数字变化幅度增大，生成的短链 KEY 更加多样化。</li>
+<li>计数倒置：为了打破短链生成中的规律性，可在计数器自增的基础上对生成的数字进行倒置处理，使每次数字变化幅度增大，生成的短链 KEY 更加多样化。</li>
 </ul>
 <blockquote>
 <p>例如 123 -&gt; 00 0000 0123 -&gt; 32 1000 0000</p></blockquote>
@@ -297,23 +300,22 @@
 <ul>
 <li>服务实现相对复杂：该方案需要额外的逻辑来处理字典乱序、计数倒置等，服务实现较为复杂。</li>
 <li>性能要求较高</li>
-</ul>
-</div><div class="post-footer" id="post-footer">
+</ul></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2024-12-09</span>
+                <span>Updated on 2026-01-16</span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" data-title="服务设计_如何设计一个URL短链服务"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" data-title="服务设计_如何设计一个URL短链服务"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" data-title="服务设计_如何设计一个URL短链服务"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" data-title="服务设计_如何设计一个URL短链服务"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" data-title="服务设计_如何设计一个URL短链服务"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" data-title="服务设计_如何设计一个URL短链服务" data-description=""><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fposts%2f%25E6%259C%258D%25E5%258A%25A1%25E8%25AE%25BE%25E8%25AE%25A1_%25E5%25A6%2582%25E4%25BD%2595%25E8%25AE%25BE%25E8%25AE%25A1%25E4%25B8%2580%25E4%25B8%25AAurl%25E7%259F%25AD%25E9%2593%25BE%25E6%259C%258D%25E5%258A%25A1%2f&amp;text=%e6%9c%8d%e5%8a%a1%e8%ae%be%e8%ae%a1_%e5%a6%82%e4%bd%95%e8%ae%be%e8%ae%a1%e4%b8%80%e4%b8%aaURL%e7%9f%ad%e9%93%be%e6%9c%8d%e5%8a%a1" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" data-title="服务设计_如何设计一个URL短链服务" data-hashtags="URL短链,服务设计,分布式,系统设计,技术分享"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" data-title="服务设计_如何设计一个URL短链服务"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" data-hashtag="URL短链"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" data-title="服务设计_如何设计一个URL短链服务"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" data-title="服务设计_如何设计一个URL短链服务"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" data-title="服务设计_如何设计一个URL短链服务"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/" data-title="服务设计_如何设计一个URL短链服务" data-description="详解如何设计一个高性能的URL短链服务，包括关键技术方案和实现原理"><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fposts%2f%25E6%259C%258D%25E5%258A%25A1%25E8%25AE%25BE%25E8%25AE%25A1_%25E5%25A6%2582%25E4%25BD%2595%25E8%25AE%25BE%25E8%25AE%25A1%25E4%25B8%2580%25E4%25B8%25AAurl%25E7%259F%25AD%25E9%2593%25BE%25E6%259C%258D%25E5%258A%25A1%2f&amp;text=%e6%9c%8d%e5%8a%a1%e8%ae%be%e8%ae%a1_%e5%a6%82%e4%bd%95%e8%ae%be%e8%ae%a1%e4%b8%80%e4%b8%aaURL%e7%9f%ad%e9%93%be%e6%9c%8d%e5%8a%a1" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/url%E7%9F%AD%E9%93%BE/">URL短链</a>,&nbsp;<a href="/tags/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1/">服务设计</a>,&nbsp;<a href="/tags/%E5%88%86%E5%B8%83%E5%BC%8F/">分布式</a>,&nbsp;<a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/">系统设计</a>,&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
         </section>
@@ -337,5 +339,5 @@
         <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
 </html>

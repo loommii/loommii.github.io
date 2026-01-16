@@ -4,21 +4,27 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>原码、反码、补码、移码 - loommii</title><meta name="Description" content="我的个人技术博客"><meta property="og:url" content="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/">
+        <title>原码、反码、补码、移码 - loommii</title><meta name="Description" content="详解计算机中数值表示方法：原码、反码、补码和移码的原理与应用"><meta property="og:url" content="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/">
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="原码、反码、补码、移码">
-  <meta property="og:description" content="名词解释 原码:原码是最简单的整数表示方法，其中最高位用来表示符号（0表示正数，1表示负数），其余位表示数值的绝对值。例如，&#43;5的原码是00000101，-5的原码是10000101。 反码:反码是通过对原码取反得到的，即将正数的原码保持不变，负数的原码的所有位取反（包括符号位）。例如，&#43;5的反码是00000101（与原码相同），-5的反码是11111010。 补码:补码是计算机中最常用的整数表示方法。正数的补码与其原码相同，而负数的补码是其反码加1。补码的特点是在进行加减法运算时，不需要单独处理符号位。例如，&#43;5的补码是00000101，-5的补码是11111011。 移码:移码是一种不常见的整数表示方法，在计算机领域中较少使用。它与补码类似，但是所有的数值都被偏移了一个固定的值，通常是一个中间值，以使得正数的表示始终比负数的表示更大。这种表示方法在某些特殊的硬件设计中可能会使用。">
+  <meta property="og:description" content="详解计算机中数值表示方法：原码、反码、补码和移码的原理与应用">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-12-08T00:24:00+08:00">
-    <meta property="article:modified_time" content="2024-12-08T00:24:00+08:00">
+    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+    <meta property="article:tag" content="原码">
+    <meta property="article:tag" content="反码">
+    <meta property="article:tag" content="补码">
+    <meta property="article:tag" content="移码">
+    <meta property="article:tag" content="计算机基础">
+    <meta property="article:tag" content="技术分享">
     <meta property="og:image" content="https://loommii.github.io/images/logo.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
   <meta name="twitter:title" content="原码、反码、补码、移码">
-  <meta name="twitter:description" content="名词解释 原码:原码是最简单的整数表示方法，其中最高位用来表示符号（0表示正数，1表示负数），其余位表示数值的绝对值。例如，&#43;5的原码是00000101，-5的原码是10000101。 反码:反码是通过对原码取反得到的，即将正数的原码保持不变，负数的原码的所有位取反（包括符号位）。例如，&#43;5的反码是00000101（与原码相同），-5的反码是11111010。 补码:补码是计算机中最常用的整数表示方法。正数的补码与其原码相同，而负数的补码是其反码加1。补码的特点是在进行加减法运算时，不需要单独处理符号位。例如，&#43;5的补码是00000101，-5的补码是11111011。 移码:移码是一种不常见的整数表示方法，在计算机领域中较少使用。它与补码类似，但是所有的数值都被偏移了一个固定的值，通常是一个中间值，以使得正数的表示始终比负数的表示更大。这种表示方法在某些特殊的硬件设计中可能会使用。">
+  <meta name="twitter:description" content="详解计算机中数值表示方法：原码、反码、补码和移码的原理与应用">
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site">
 <meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -34,13 +40,13 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/loommii.github.io\/posts\/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81\/"
-        },"genre": "posts","wordcount":  1054 ,
-        "url": "https:\/\/loommii.github.io\/posts\/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81\/","datePublished": "2024-12-08T00:24:00+08:00","dateModified": "2024-12-08T00:24:00+08:00","publisher": {
+        },"genre": "posts","keywords": "原码, 反码, 补码, 移码, 计算机基础, 技术分享","wordcount":  1054 ,
+        "url": "https:\/\/loommii.github.io\/posts\/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81\/","datePublished": "2024-12-08T00:24:00+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
                 "name": "loommii"
-            },"description": ""
+            },"description": "详解计算机中数值表示方法：原码、反码、补码和移码的原理与应用"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script>
@@ -69,7 +75,7 @@
         title="/images/logo.png" />loommii</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Golang练习 </a><a class="menu-item" href="/leetcode/"> 力扣 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Go练习题 </a><a class="menu-item" href="/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -118,7 +124,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         Cancel
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Golang练习</a><a class="menu-item" href="/leetcode/" title="">力扣</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Go练习题</a><a class="menu-item" href="/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -132,7 +138,7 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">原码、反码、补码、移码</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span></div>
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">included in <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>计算机基础</a>&nbsp;<a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术文章</a></span></div>
             <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-12-08">2024-12-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1054 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
@@ -148,10 +154,10 @@
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="名词解释">名词解释</h2>
-<p>原码:原码是最简单的整数表示方法，其中最高位用来表示符号（0表示正数，1表示负数），其余位表示数值的绝对值。例如，+5的原码是00000101，-5的原码是10000101。
-反码:反码是通过对原码取反得到的，即将正数的原码保持不变，负数的原码的所有位取反（包括符号位）。例如，+5的反码是00000101（与原码相同），-5的反码是11111010。
-补码:补码是计算机中最常用的整数表示方法。正数的补码与其原码相同，而负数的补码是其反码加1。补码的特点是在进行加减法运算时，不需要单独处理符号位。例如，+5的补码是00000101，-5的补码是11111011。
-移码:移码是一种不常见的整数表示方法，在计算机领域中较少使用。它与补码类似，但是所有的数值都被偏移了一个固定的值，通常是一个中间值，以使得正数的表示始终比负数的表示更大。这种表示方法在某些特殊的硬件设计中可能会使用。
+<p>原码:原码是最简单的整数表示法，其中最高位用来表示符号（0表示正数，1表示负数），其余位表示数值的绝对值。例如，+5的原码是00000101，-5的原码是10000101。
+反码:反码是通过对原码取反而得到的，即将正数的原码保持不变，负数的原码的所有位取反（包括符号位）。例如，+5的反码是00000101（与原码相同），-5的反码是11111010。
+补码:补码是计算机中最常用的整数表示法。正数的补码与其原码相同，而负数的补码是其反码加1。补码的特点是在进行加减法运算时，不需要单独处理符号位。例如，+5的补码是00000101，-5的补码是11111011。
+移码:移码是一种不常见的整数表示法，在计算机领域中较少使用。它与补码类似，但是所有的数值都被偏移了一个固定的值，通常是中间值，以便使得正数的表示始终比负数的表示更大。这种表示方法在某些特殊的硬件设计中可能会使用。
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -199,11 +205,11 @@
 </span></span><span class="line"><span class="cl">1000 0001  // 原码
 </span></span><span class="line"><span class="cl">1111 1110  // 反码  // 负数的 反码 = 原码除符号位不变 其他全取反
 </span></span><span class="line"><span class="cl">1111 1111  // 补码  // 负数的 补码 = 反码+1
-</span></span><span class="line"><span class="cl">0110 1111  // 移码  // 移码 = 补码的符号位取反</span></span></code></pre></div></div>
+</span></span><span class="line"><span class="cl">0111 1111  // 移码  // 移码 = 补码的符号位取反</span></span></code></pre></div></div>
 <h2 id="应用场景">应用场景</h2>
-<p>原码：符合人类直觉，是最简单的整数表示方法</p>
+<p>原码：符合人类直觉，是最简单的整数表示法</p>
 <p>反码：</p>
-<p>1.诞生的前景：CPU擅长加法运算，因此为了提高运算速度，会将减法也转为加法 例如 1 - 1 会转为 1 + (-1)  。此时发现计算结果不符合预期</p>
+<p>1.产生的前景：CPU擅长加法运算，因此为了提高运算速度，会将减法也转为加法 例如 1 - 1 会转为 1 + (-1) 。此时发现计算结果不符合预期</p>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-text">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
@@ -211,7 +217,7 @@
         <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
     </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">   0000 0001  // 1
 </span></span><span class="line"><span class="cl">+ 1000 0001  // -1
-</span></span><span class="line"><span class="cl"> ——————————————
+</span></span><span class="line"><span class="cl"> ―――――――――――――――
 </span></span><span class="line"><span class="cl">   1000 0010  // -2</span></span></code></pre></div></div>
 <p>2.解决什么问题：解决<code>原码</code>运算中，将符号位也参与运算会导致计算结果不符合预期的问题。</p>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
@@ -221,7 +227,7 @@
         <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
     </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">   0000 0001  // 1
 </span></span><span class="line"><span class="cl"> + 1111 1110  // -1
-</span></span><span class="line"><span class="cl"> ——————————————
+</span></span><span class="line"><span class="cl"> ―――――――――――――――
 </span></span><span class="line"><span class="cl">   1111 1111  // -0</span></span></code></pre></div></div>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-text">
@@ -230,7 +236,7 @@
         <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
     </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">   0000 0001  // 1
 </span></span><span class="line"><span class="cl"> + 1111 1101  // -2
-</span></span><span class="line"><span class="cl"> ——————————————
+</span></span><span class="line"><span class="cl"> ―――――――――――――――
 </span></span><span class="line"><span class="cl">   1111 1110  // -1</span></span></code></pre></div></div>
 <p>3.还有什么问题：原码和反码都存在+0和-0的问题，计算-0会计算结果不符合预期的问题</p>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
@@ -240,29 +246,28 @@
         <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
     </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">   0000 0001  // 1
 </span></span><span class="line"><span class="cl"> + 1111 1111  // -0
-</span></span><span class="line"><span class="cl"> ——————————————
+</span></span><span class="line"><span class="cl"> ―――――――――――――――
 </span></span><span class="line"><span class="cl">   0000 0000  // +0</span></span></code></pre></div></div>
 <p>补码：</p>
 <ol>
-<li>诞生的前景：反码解决了大部分的计算问题，但是在连续计算中不可避免会出现-0导致计算结果不符合预期。</li>
-<li>解决什么问题：原码和反码中 0的表示不一致，以及导致的运算错误的问题。（-+0）</li>
-</ol>
-</div><div class="post-footer" id="post-footer">
+<li>产生的前景：反码解决了大部分的计算问题，但是在连续计算中不可避免会出现-0导致计算结果不符合预期。</li>
+<li>解决什么问题：原码和反码中 0 的表示不一致，以及导致的运算错误的问题。（-+0）</li>
+</ol></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2024-12-08</span>
+                <span>Updated on 2026-01-16</span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/" data-title="原码、反码、补码、移码"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/" data-title="原码、反码、补码、移码"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/" data-title="原码、反码、补码、移码"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/" data-title="原码、反码、补码、移码"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/" data-title="原码、反码、补码、移码"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/" data-title="原码、反码、补码、移码" data-description=""><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fposts%2f%25E5%258E%259F%25E7%25A0%2581%25E5%258F%258D%25E7%25A0%2581%25E8%25A1%25A5%25E7%25A0%2581%25E7%25A7%25BB%25E7%25A0%2581%2f&amp;text=%e5%8e%9f%e7%a0%81%e3%80%81%e5%8f%8d%e7%a0%81%e3%80%81%e8%a1%a5%e7%a0%81%e3%80%81%e7%a7%bb%e7%a0%81" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/" data-title="原码、反码、补码、移码" data-hashtags="原码,反码,补码,移码,计算机基础,技术分享"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/" data-title="原码、反码、补码、移码"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/" data-hashtag="原码"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/" data-title="原码、反码、补码、移码"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/" data-title="原码、反码、补码、移码"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/" data-title="原码、反码、补码、移码"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/posts/%E5%8E%9F%E7%A0%81%E5%8F%8D%E7%A0%81%E8%A1%A5%E7%A0%81%E7%A7%BB%E7%A0%81/" data-title="原码、反码、补码、移码" data-description="详解计算机中数值表示方法：原码、反码、补码和移码的原理与应用"><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fposts%2f%25E5%258E%259F%25E7%25A0%2581%25E5%258F%258D%25E7%25A0%2581%25E8%25A1%25A5%25E7%25A0%2581%25E7%25A7%25BB%25E7%25A0%2581%2f&amp;text=%e5%8e%9f%e7%a0%81%e3%80%81%e5%8f%8d%e7%a0%81%e3%80%81%e8%a1%a5%e7%a0%81%e3%80%81%e7%a7%bb%e7%a0%81" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/%E5%8E%9F%E7%A0%81/">原码</a>,&nbsp;<a href="/tags/%E5%8F%8D%E7%A0%81/">反码</a>,&nbsp;<a href="/tags/%E8%A1%A5%E7%A0%81/">补码</a>,&nbsp;<a href="/tags/%E7%A7%BB%E7%A0%81/">移码</a>,&nbsp;<a href="/tags/%E8%AE%A1%E7%AE%97%E6%9C%BA%E5%9F%BA%E7%A1%80/">计算机基础</a>,&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
         </section>
@@ -286,5 +291,5 @@
         <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
 </html>

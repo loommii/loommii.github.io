@@ -4,21 +4,26 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>浅谈GO GC (垃圾回收) - loommii</title><meta name="Description" content="我的个人技术博客"><meta property="og:url" content="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
+        <title>浅谈GO GC (垃圾回收) - loommii</title><meta name="Description" content="详解Go语言垃圾回收机制的原理和实现"><meta property="og:url" content="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="浅谈GO GC (垃圾回收)">
-  <meta property="og:description" content="垃圾回收 垃圾回收这里的垃圾指的是什么？为什么要回收？ 在程序运行的时候，进程会在堆内存申请内存空间。但是在函数退出的时候会栈空间会被销毁。因此这一段堆内存空间没有任何的指针指向它（没有被引用）。因此会造成内存的浪费（内存泄露）。这一段的没有被引用的内存就是“垃圾”。，程序员不再需要手动管理内存的分配和释放，从而减少了由于内存管理不当引起的内存泄漏或悬空指针等问题。">
+  <meta property="og:description" content="详解Go语言垃圾回收机制的原理和实现">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="posts">
     <meta property="article:published_time" content="2024-12-09T13:03:08+08:00">
-    <meta property="article:modified_time" content="2024-12-09T13:03:08+08:00">
+    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="GC">
+    <meta property="article:tag" content="垃圾回收">
+    <meta property="article:tag" content="内存管理">
+    <meta property="article:tag" content="技术分享">
     <meta property="og:image" content="https://loommii.github.io/images/logo.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
   <meta name="twitter:title" content="浅谈GO GC (垃圾回收)">
-  <meta name="twitter:description" content="垃圾回收 垃圾回收这里的垃圾指的是什么？为什么要回收？ 在程序运行的时候，进程会在堆内存申请内存空间。但是在函数退出的时候会栈空间会被销毁。因此这一段堆内存空间没有任何的指针指向它（没有被引用）。因此会造成内存的浪费（内存泄露）。这一段的没有被引用的内存就是“垃圾”。，程序员不再需要手动管理内存的分配和释放，从而减少了由于内存管理不当引起的内存泄漏或悬空指针等问题。">
+  <meta name="twitter:description" content="详解Go语言垃圾回收机制的原理和实现">
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site">
 <meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -34,13 +39,13 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/loommii.github.io\/posts\/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6\/"
-        },"genre": "posts","wordcount":  1656 ,
-        "url": "https:\/\/loommii.github.io\/posts\/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6\/","datePublished": "2024-12-09T13:03:08+08:00","dateModified": "2024-12-09T13:03:08+08:00","publisher": {
+        },"genre": "posts","keywords": "Go, GC, 垃圾回收, 内存管理, 技术分享","wordcount":  1644 ,
+        "url": "https:\/\/loommii.github.io\/posts\/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6\/","datePublished": "2024-12-09T13:03:08+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
                 "name": "loommii"
-            },"description": ""
+            },"description": "详解Go语言垃圾回收机制的原理和实现"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script>
@@ -69,7 +74,7 @@
         title="/images/logo.png" />loommii</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Golang练习 </a><a class="menu-item" href="/leetcode/"> 力扣 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Go练习题 </a><a class="menu-item" href="/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -118,7 +123,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         Cancel
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Golang练习</a><a class="menu-item" href="/leetcode/" title="">力扣</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Go练习题</a><a class="menu-item" href="/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -132,8 +137,8 @@
             <h2 class="toc-title">Contents</h2>
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">浅谈GO GC (垃圾回收)</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-12-09">2024-12-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1656 words&nbsp;
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">included in <a href="/categories/go%E8%AF%AD%E8%A8%80/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Go语言</a>&nbsp;<a href="/categories/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>内存管理</a>&nbsp;<a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术文章</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-12-09">2024-12-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1644 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;4 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -152,8 +157,8 @@
             </div><div class="content" id="content"><h2 id="垃圾回收">垃圾回收</h2>
 <ol>
 <li>
-<p>垃圾回收这里的垃圾指的是什么？为什么要回收？
-在程序运行的时候，进程会在堆内存申请内存空间。但是在函数退出的时候会栈空间会被销毁。因此这一段堆内存空间没有任何的指针指向它（没有被引用）。因此会造成内存的浪费（内存泄露）。这一段的没有被引用的内存就是“垃圾”。，程序员不再需要手动管理内存的分配和释放，从而减少了由于内存管理不当引起的内存泄漏或悬空指针等问题。</p>
+<p>垃圾回收这道里的垃圾指的是什么？为什么要回收？
+在程序运行的时候，进程会在堆内存申请内存空间。但是函数退出的时候栈空间会销毁。因此这一段堆内存空间没有任何的指针指向它（没有被引用）。因此会造成内存的浪费（内存泄露）。这一段的没有被引用的内存就是&quot;垃圾&quot;。，程序员不再需要手动管理内存的分配和释放，从而减少了由于内存管理不当引起的内存泄漏或悬空指针等问题。</p>
 </li>
 <li>
 <p>常见的GC有哪几种</p>
@@ -175,30 +180,30 @@
 </ul>
 </li>
 <li>
-<p>简述常见的GC如何实现，和他们各自的优缺点。</p>
+<p>简述常见的GC如何实现，和他们的各自优缺点。</p>
 <ul>
 <li>手动垃圾回收：
 <ul>
 <li>实现：程序员自行调用函数销毁</li>
 <li>优点：程序员对程序内存的掌控自由。</li>
-<li>缺点：容易出现提前释放（悬挂指针）、忘记释放（内存泄漏)等问题。</li>
+<li>缺点：容易出现提前释放（悬空指针）、忘记释放（内存泄露)等问题。</li>
 </ul>
 </li>
-<li>标记-清扫算法：
+<li>标记-清扫法：
 <ul>
-<li>实现：标记从根节点（栈内存、数据段）能追踪到的数据为游泳数据，其他未标记的数据就是垃圾数据，将对垃圾数据进行回收</li>
+<li>实现：标记从根节点（栈内存、数据段）能追踪到的数据为游离数据，其他未标记的数据就是垃圾数据，将对垃圾数据进行回收</li>
 <li>优点：实现相对简单，</li>
 <li>缺点：容易造成内存碎片化</li>
 </ul>
 </li>
-<li>标记-整理算法：
+<li>标记-整理法：
 <ul>
 <li>实现：
 <ul>
 <li>标记阶段与<code>标记-清扫算法</code>一致。</li>
 <li>整理阶段：
 <ul>
-<li>移动整理法：整理移动有用的数据，使有用的数据尽可能紧凑的放在内存里。
+<li>移动整理法：整理移动有用的数据，使有用的数据尽可能紧的放在内存里。
 <ul>
 <li>优点：解决了内存碎片化的问题</li>
 <li>缺点：多次扫描移动，会带来不小的性能开销</li>
@@ -223,7 +228,7 @@
 </li>
 <li>引用计数
 <ul>
-<li>实现：每次对象应用都会更新对象的引用计数，当引用计数为0就回收该空间</li>
+<li>实现：每次对对象应用都会更新对象的引用计数，当引用计数为0就回收该空间</li>
 <li>优点：可以及时回收垃圾内存</li>
 <li>缺点：高频更新引用计数会有不小性能开销，循环引用会导致引用计数永远不为0</li>
 </ul>
@@ -248,7 +253,7 @@ STW期间，程序会进行垃圾回收</p>
 <pre><code>STW 是 Stop-The-World 的缩写，指的是在垃圾回收或某些系统操作过程中，暂停所有应用程序线程的行为，直到特定任务（通常是垃圾回收）完成。
 </code></pre>
 <p>![e6d686db23ff699d03219905d8ceb2c1.png].(/e6d686db23ff699d03219905d8ceb2c1.png)
-这里会带来一个问题，用户程序接受长时间STW吗？
+这里会带來一个问题，用户程序接受长时间STW吗？
 为了解决这个问题就出现了<code>增量式垃圾回收</code></p>
 <h2 id="增量式垃圾回收">增量式垃圾回收</h2>
 <p><img
@@ -280,7 +285,7 @@ STW期间，程序会进行垃圾回收</p>
         title="ec4f1ac56d59908315538e9aaab07d06.png" />
 因此Golang官方提出2种条件</p>
 <ul>
-<li>强三色不变式：不允许出现黑色到白色的情况
+<li>强三色不变式：不允许出现黑到白的情况
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -289,7 +294,7 @@ STW期间，程序会进行垃圾回收</p>
         data-sizes="auto"
         alt="./e4c3408593ec24f14daa8c47feb3fdd4.png"
         title="e4c3408593ec24f14daa8c47feb3fdd4.png" /></li>
-<li>弱三色不变式：允许黑色到白色的情况，但是这个白色需要被灰色引用
+<li>弱三色不变式：允许黑到白的情况，但是这个白色需要被灰色引用
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -303,27 +308,27 @@ STW期间，程序会进行垃圾回收</p>
 <ul>
 <li>插入写屏障
 <ul>
-<li>满足<code>强三色不变式</code>条件（关注白色对象的写入操作）
+<li>滿足<code>强三色不变式</code>条件（关注白对象的写入操作）
 <ul>
-<li>在增量式垃圾回收中,若出现白色对象指向黑色则将白色改为灰色，或者把黑色改为灰色。</li>
-<li>例子：Gc和用户代码交替的期间，如果new了一段新的空间，（黑-&gt;白）。则这个new的新空间直接标记为灰。（黑-&gt;灰）或将黑改为灰（灰-&gt;白）</li>
+<li>在增量式垃圾回收中,若出现白对象指向黑色则将白对象改为灰，或者把黑色改为灰。</li>
+<li>例子：Gc和用户代码交替的期间，假如new了一段新的空间，（黑-&gt;白）。则这个new的新空间直接标记为灰。（黑-&gt;灰）或将黑改为灰（灰-&gt;白）</li>
 </ul>
 </li>
 </ul>
 </li>
 <li>删除写屏障
 <ul>
-<li>满足<code>弱三色不变式</code>条件 （关注对白色对象路径破坏行为）
+<li>滿足<code>弱三色不变式</code>条件 （关注对白对象路径破坏行为）
 <ul>
-<li>在增量式垃圾回收中,若出现删除灰色-&gt;白色的引用时，则将白色改为灰色</li>
-<li>例子：Gc和用户代码交替的期间，若有个灰色对象 -&gt; 白色对象，程序将灰色对象 = nil。着需要将白色对象改为灰色</li>
+<li>在增量式垃圾回收中,若出现删除灰-&gt;白的引用时，则将白对象改为灰</li>
+<li>例子：Gc和用户代码交替的期间，若有灰对象 -&gt; 白对象，程序将灰对象 = nil。着需要将白对象改为灰</li>
 </ul>
 </li>
 </ul>
 </li>
 </ul>
 <p>读屏障
-解决标记-复制GC里面，在复制过程中。回收器将From改为To的过程中。如果要读取From要检查一下To区里面是不是已经复制了。如果复制过来就去都去To
+解决标记-复制GC里面，在复制过程中。回收器将From改为To的过程中。如果要读取From要检查一下To区里面是不是已经复制了。如果没复制过来都都去To
 <img
         class="lazyload"
         src="/svg/loading.min.svg"
@@ -360,7 +365,7 @@ STW期间，程序会进行垃圾回收</p>
 <li>解决同步问题,但是需要注意通知开启读写屏障的问题</li>
 </ul>
 </li>
-<li>主体并发式垃圾回收
+<li>主体并行式垃圾回收
 <ul>
 <li><img
         class="lazyload"
@@ -370,10 +375,10 @@ STW期间，程序会进行垃圾回收</p>
         data-sizes="auto"
         alt="./ab5682e6c6be5bf233a99a4f42ba8c02.png"
         title="ab5682e6c6be5bf233a99a4f42ba8c02.png" /></li>
-<li>解决通知开启读写屏障的问题时间不一致的问题</li>
+<li>解决通知开启读写屏障的时间不一致的问题</li>
 </ul>
 </li>
-<li>主体并发增量式垃圾回收
+<li>主体并行增量式垃圾回收
 <ul>
 <li><img
         class="lazyload"
@@ -393,25 +398,24 @@ STW期间，程序会进行垃圾回收</p>
 <li>标记阶段使用三色标记法</li>
 </ul>
 </li>
-<li>主体并发增量式垃圾回收</li>
+<li>主体并行增量式垃圾回收</li>
 <li>使用插入与删除写屏障结合的混合写屏障</li>
-</ul>
-</div><div class="post-footer" id="post-footer">
+</ul></div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
             <div class="post-info-mod">
-                <span>Updated on 2024-12-09</span>
+                <span>Updated on 2026-01-16</span>
             </div></div>
         <div class="post-info-line">
             <div class="post-info-md"></div>
             <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)" data-description=""><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fposts%2f%25E6%25B5%2585%25E8%25B0%2588go-gc-%25E5%259E%2583%25E5%259C%25BE%25E5%259B%259E%25E6%2594%25B6%2f&amp;text=%e6%b5%85%e8%b0%88GO%20GC%20%28%e5%9e%83%e5%9c%be%e5%9b%9e%e6%94%b6%29" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)" data-hashtags="Go,GC,垃圾回收,内存管理,技术分享"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/posts/%E6%B5%85%E8%B0%88go-gc-%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/" data-title="浅谈GO GC (垃圾回收)" data-description="详解Go语言垃圾回收机制的原理和实现"><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fposts%2f%25E6%25B5%2585%25E8%25B0%2588go-gc-%25E5%259E%2583%25E5%259C%25BE%25E5%259B%259E%25E6%2594%25B6%2f&amp;text=%e6%b5%85%e8%b0%88GO%20GC%20%28%e5%9e%83%e5%9c%be%e5%9b%9e%e6%94%b6%29" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
             </div>
         </div>
     </div>
 
     <div class="post-info-more">
-        <section class="post-tags"></section>
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/go/">Go</a>,&nbsp;<a href="/tags/gc/">GC</a>,&nbsp;<a href="/tags/%E5%9E%83%E5%9C%BE%E5%9B%9E%E6%94%B6/">垃圾回收</a>,&nbsp;<a href="/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/">内存管理</a>,&nbsp;<a href="/tags/%E6%8A%80%E6%9C%AF%E5%88%86%E4%BA%AB/">技术分享</a></section>
         <section>
             <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/">Home</a></span>
         </section>
@@ -435,5 +439,5 @@ STW期间，程序会进行垃圾回收</p>
         <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
 </html>

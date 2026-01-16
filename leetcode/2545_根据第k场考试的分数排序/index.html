@@ -4,31 +4,25 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>2545_根据第K场考试的分数排序 - loommii</title><meta name="Description" content="我的个人技术博客"><meta property="og:url" content="https://loommii.github.io/leetcode/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/">
+        <title>2545_根据第K场考试的分数排序 - loommii</title><meta name="Description" content="LeetCode题解 - 2545_根据第K场考试的分数排序 解析与实现"><meta property="og:url" content="https://loommii.github.io/leetcode/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/">
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="2545_根据第K场考试的分数排序">
-  <meta property="og:description" content="力扣链接:2545. 根据第 K 场考试的分数排序
-力扣难度 中等
-算法评级: 3 理解常用数据结构和算法
-难度分 1294
-题目：
-班里有 m 位学生，共计划组织 n 场考试。给你一个下标从 0 开始、大小为 m x n 的整数矩阵 score ，其中每一行对应一位学生，而 score[i][j] 表示第 i 位学生在第 j 场考试取得的分数。矩阵 score 包含的整数 互不相同 。">
+  <meta property="og:description" content="LeetCode题解 - 2545_根据第K场考试的分数排序 解析与实现">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="leetcode">
     <meta property="article:published_time" content="2024-12-21T13:47:52+08:00">
-    <meta property="article:modified_time" content="2024-12-21T13:47:52+08:00">
+    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+    <meta property="article:tag" content="LeetCode">
+    <meta property="article:tag" content="算法">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="题解">
     <meta property="og:image" content="https://loommii.github.io/images/logo.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
   <meta name="twitter:title" content="2545_根据第K场考试的分数排序">
-  <meta name="twitter:description" content="力扣链接:2545. 根据第 K 场考试的分数排序
-力扣难度 中等
-算法评级: 3 理解常用数据结构和算法
-难度分 1294
-题目：
-班里有 m 位学生，共计划组织 n 场考试。给你一个下标从 0 开始、大小为 m x n 的整数矩阵 score ，其中每一行对应一位学生，而 score[i][j] 表示第 i 位学生在第 j 场考试取得的分数。矩阵 score 包含的整数 互不相同 。">
+  <meta name="twitter:description" content="LeetCode题解 - 2545_根据第K场考试的分数排序 解析与实现">
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site">
 <meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -44,13 +38,13 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/loommii.github.io\/leetcode\/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F\/"
-        },"genre": "leetcode","wordcount":  590 ,
-        "url": "https:\/\/loommii.github.io\/leetcode\/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F\/","datePublished": "2024-12-21T13:47:52+08:00","dateModified": "2024-12-21T13:47:52+08:00","publisher": {
+        },"genre": "leetcode","keywords": "LeetCode, 算法, Go, 题解","wordcount":  38 ,
+        "url": "https:\/\/loommii.github.io\/leetcode\/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F\/","datePublished": "2024-12-21T13:47:52+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
                 "name": "loommii"
-            },"description": ""
+            },"description": "LeetCode题解 - 2545_根据第K场考试的分数排序 解析与实现"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script>
@@ -79,7 +73,7 @@
         title="/images/logo.png" />loommii</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Golang练习 </a><a class="menu-item" href="/leetcode/"> 力扣 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Go练习题 </a><a class="menu-item" href="/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -128,7 +122,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         Cancel
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Golang练习</a><a class="menu-item" href="/leetcode/" title="">力扣</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Go练习题</a><a class="menu-item" href="/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -138,62 +132,7 @@
     <div class="search-dropdown mobile">
         <div id="search-dropdown-mobile"></div>
     </div><main class="main">
-                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">2545_根据第K场考试的分数排序</h1><div class="content" id="content"><p>力扣链接:<a href="https://leetcode.cn/problems/sort-the-students-by-their-kth-score/description/?envType=daily-question&amp;envId=2024-12-21" target="_blank" rel="noopener noreffer ">2545. 根据第 K 场考试的分数排序</a></p>
-<blockquote>
-<p>力扣难度 <code>中等</code></p>
-<p>算法评级:  3      理解常用数据结构和算法</p>
-<p>难度分 1294</p></blockquote>
-<hr>
-<p>题目：</p>
-<p>班里有 m 位学生，共计划组织 n 场考试。给你一个下标从 0 开始、大小为 m x n 的整数矩阵 score ，其中每一行对应一位学生，而 score[i][j] 表示第 i 位学生在第 j 场考试取得的分数。矩阵 score 包含的整数 互不相同 。</p>
-<p>另给你一个整数 k 。请你按第 k 场考试分数从高到低完成对这些学生（矩阵中的行）的排序。</p>
-<p>返回排序后的矩阵。</p>
-<p>示例 1：
-<img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/leetcode/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/image.png"
-        data-srcset="/leetcode/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/image.png, /leetcode/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/image.png 1.5x, /leetcode/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/image.png 2x"
-        data-sizes="auto"
-        alt="/leetcode/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/image.png"
-        title="alt text" width="711" height="161" /></p>
-<blockquote>
-<p>输入：score = [[10,6,9,1],[7,5,11,2],[4,8,3,15]], k = 2
-输出：[[7,5,11,2],[10,6,9,1],[4,8,3,15]]
-解释：在上图中，S 表示学生，E 表示考试。</p>
-<ul>
-<li>下标为 1 的学生在第 2 场考试取得的分数为 11 ，这是考试的最高分，所以 TA 需要排在第一。</li>
-<li>下标为 0 的学生在第 2 场考试取得的分数为 9 ，这是考试的第二高分，所以 TA 需要排在第二。</li>
-<li>下标为 2 的学生在第 2 场考试取得的分数为 3 ，这是考试的最低分，所以 TA 需要排在第三。</li>
-</ul></blockquote>
-<p>示例 2：
-<img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/leetcode/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/image-1.png"
-        data-srcset="/leetcode/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/image-1.png, /leetcode/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/image-1.png 1.5x, /leetcode/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/image-1.png 2x"
-        data-sizes="auto"
-        alt="/leetcode/2545_%E6%A0%B9%E6%8D%AE%E7%AC%ACk%E5%9C%BA%E8%80%83%E8%AF%95%E7%9A%84%E5%88%86%E6%95%B0%E6%8E%92%E5%BA%8F/image-1.png"
-        title="alt text" width="486" height="121" /></p>
-<blockquote>
-<p>输入：score = [[3,4],[5,6]], k = 0
-输出：[[5,6],[3,4]]
-解释：在上图中，S 表示学生，E 表示考试。</p>
-<ul>
-<li>下标为 1 的学生在第 0 场考试取得的分数为 5 ，这是考试的最高分，所以 TA 需要排在第一。</li>
-<li>下标为 0 的学生在第 0 场考试取得的分数为 3 ，这是考试的最低分，所以 TA 需要排在第二。</li>
-</ul></blockquote>
-<p>提示：</p>
-<ul>
-<li>m == score.length</li>
-<li>n == score[i].length</li>
-<li>1 &lt;= m, n &lt;= 250</li>
-<li>1 &lt;= score[i][j] &lt;= 105</li>
-<li>score 由 不同 的整数组成</li>
-<li>0 &lt;= k &lt; n</li>
-</ul>
-<hr>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">2545_根据第K场考试的分数排序</h1><div class="content" id="content"><div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-go">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -239,5 +178,5 @@
         <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
 </html>

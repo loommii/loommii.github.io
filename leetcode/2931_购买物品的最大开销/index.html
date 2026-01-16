@@ -4,27 +4,25 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>2931_购买物品的最大开销 - loommii</title><meta name="Description" content="我的个人技术博客"><meta property="og:url" content="https://loommii.github.io/leetcode/2931_%E8%B4%AD%E4%B9%B0%E7%89%A9%E5%93%81%E7%9A%84%E6%9C%80%E5%A4%A7%E5%BC%80%E9%94%80/">
+        <title>2931_购买物品的最大开销 - loommii</title><meta name="Description" content="LeetCode题解 - 2931_购买物品的最大开销 解析与实现"><meta property="og:url" content="https://loommii.github.io/leetcode/2931_%E8%B4%AD%E4%B9%B0%E7%89%A9%E5%93%81%E7%9A%84%E6%9C%80%E5%A4%A7%E5%BC%80%E9%94%80/">
   <meta property="og:site_name" content="loommii">
   <meta property="og:title" content="2931_购买物品的最大开销">
-  <meta property="og:description" content="力扣链接:2931. 购买物品的最大开销
-力扣难度 困难 算法评级: 6 难度分 1822
-题目:
-给你一个下标从 0 开始大小为 m n 的整数矩阵 values ，表示 m 个不同商店里 m n 件不同的物品。每个商店有 n 件物品，第 i 个商店的第 j 件物品的价值为 values[i][j] 。除此以外，第 i 个商店的物品已经按照价值非递增排好序了，也就是说对于所有 0 &lt;= j &lt; n - 1 都有 values[i][j] &gt;= values[i][j &#43; 1] 。">
+  <meta property="og:description" content="LeetCode题解 - 2931_购买物品的最大开销 解析与实现">
   <meta property="og:locale" content="zh_CN">
   <meta property="og:type" content="article">
     <meta property="article:section" content="leetcode">
     <meta property="article:published_time" content="2024-12-12T13:58:44+08:00">
-    <meta property="article:modified_time" content="2024-12-12T13:58:44+08:00">
+    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+    <meta property="article:tag" content="LeetCode">
+    <meta property="article:tag" content="算法">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="题解">
     <meta property="og:image" content="https://loommii.github.io/images/logo.png">
 
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
   <meta name="twitter:title" content="2931_购买物品的最大开销">
-  <meta name="twitter:description" content="力扣链接:2931. 购买物品的最大开销
-力扣难度 困难 算法评级: 6 难度分 1822
-题目:
-给你一个下标从 0 开始大小为 m n 的整数矩阵 values ，表示 m 个不同商店里 m n 件不同的物品。每个商店有 n 件物品，第 i 个商店的第 j 件物品的价值为 values[i][j] 。除此以外，第 i 个商店的物品已经按照价值非递增排好序了，也就是说对于所有 0 &lt;= j &lt; n - 1 都有 values[i][j] &gt;= values[i][j &#43; 1] 。">
+  <meta name="twitter:description" content="LeetCode题解 - 2931_购买物品的最大开销 解析与实现">
 <meta name="application-name" content="My cool site">
 <meta name="apple-mobile-web-app-title" content="My cool site">
 <meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
@@ -40,13 +38,13 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/loommii.github.io\/leetcode\/2931_%E8%B4%AD%E4%B9%B0%E7%89%A9%E5%93%81%E7%9A%84%E6%9C%80%E5%A4%A7%E5%BC%80%E9%94%80\/"
-        },"genre": "leetcode","wordcount":  1442 ,
-        "url": "https:\/\/loommii.github.io\/leetcode\/2931_%E8%B4%AD%E4%B9%B0%E7%89%A9%E5%93%81%E7%9A%84%E6%9C%80%E5%A4%A7%E5%BC%80%E9%94%80\/","datePublished": "2024-12-12T13:58:44+08:00","dateModified": "2024-12-12T13:58:44+08:00","publisher": {
+        },"genre": "leetcode","keywords": "LeetCode, 算法, Go, 题解","wordcount":  560 ,
+        "url": "https:\/\/loommii.github.io\/leetcode\/2931_%E8%B4%AD%E4%B9%B0%E7%89%A9%E5%93%81%E7%9A%84%E6%9C%80%E5%A4%A7%E5%BC%80%E9%94%80\/","datePublished": "2024-12-12T13:58:44+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
                 "@type": "Person",
                 "name": "loommii"
-            },"description": ""
+            },"description": "LeetCode题解 - 2931_购买物品的最大开销 解析与实现"
     }
     </script></head>
     <body data-header-desktop="fixed" data-header-mobile="auto"><script>
@@ -75,7 +73,7 @@
         title="/images/logo.png" />loommii</a>
         </div>
         <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Golang练习 </a><a class="menu-item" href="/leetcode/"> 力扣 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Go练习题 </a><a class="menu-item" href="/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
                         <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
                         <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
                             <i class="fas fa-search fa-fw" aria-hidden="true"></i>
@@ -124,7 +122,7 @@
                     <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
                         Cancel
                     </a>
-                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Golang练习</a><a class="menu-item" href="/leetcode/" title="">力扣</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Go练习题</a><a class="menu-item" href="/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
                 <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
             </a></div>
     </div>
@@ -134,61 +132,7 @@
     <div class="search-dropdown mobile">
         <div id="search-dropdown-mobile"></div>
     </div><main class="main">
-                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">2931_购买物品的最大开销</h1><div class="content" id="content"><p>力扣链接:<a href="https://leetcode.cn/problems/maximum-spending-after-buying-items/description/?envType=daily-question&amp;envId=2024-12-12" target="_blank" rel="noopener noreffer ">2931. 购买物品的最大开销</a></p>
-<p>力扣难度 <code>困难</code>
-算法评级: 6
-难度分 1822</p>
-<hr>
-<p>题目:</p>
-<p>给你一个下标从 0 开始大小为 m <em>n 的整数矩阵 values ，表示 m 个不同商店里 m</em> n 件不同的物品。每个商店有 n 件物品，第 i 个商店的第 j 件物品的价值为 values[i][j] 。除此以外，第 i 个商店的物品已经按照价值非递增排好序了，也就是说对于所有 0 &lt;= j &lt; n - 1 都有 values[i][j] &gt;= values[i][j + 1] 。</p>
-<p>每一天，你可以在一个商店里购买一件物品。具体来说，在第 d 天，你可以：</p>
-<ul>
-<li>选择商店 i 。</li>
-<li>购买数组中最右边的物品 j ，开销为 values[i][j] <em>d 。换句话说，选择该商店中还没购买过的物品中最大的下标 j ，并且花费 values[i][j]</em> d 去购买。</li>
-</ul>
-<p>注意，所有物品都视为不同的物品。比方说如果你已经从商店 1 购买了物品 0 ，你还可以在别的商店里购买其他商店的物品 0 。</p>
-<p>请你返回购买所有 m * n 件物品需要的 最大开销 。</p>
-<hr>
-<p>示例 1：</p>
-<blockquote>
-<p>输入：values = [[8,5,2],[6,4,1],[9,7,3]]
-输出：285
-解释：第一天，从商店 1 购买物品 2 ，开销为 values[1][2] <em>1 = 1 。
-第二天，从商店 0 购买物品 2 ，开销为 values[0][2]</em> 2 = 4 。
-第三天，从商店 2 购买物品 2 ，开销为 values[2][2] <em>3 = 9 。
-第四天，从商店 1 购买物品 1 ，开销为 values[1][1]</em> 4 = 16 。
-第五天，从商店 0 购买物品 1 ，开销为 values[0][1] <em>5 = 25 。
-第六天，从商店 1 购买物品 0 ，开销为 values[1][0]</em> 6 = 36 。
-第七天，从商店 2 购买物品 1 ，开销为 values[2][1] <em>7 = 49 。
-第八天，从商店 0 购买物品 0 ，开销为 values[0][0]</em> 8 = 64 。
-第九天，从商店 2 购买物品 0 ，开销为 values[2][0] <em>9 = 81 。
-所以总开销为 285 。
-285 是购买所有 m</em> n 件物品的最大总开销。。</p></blockquote>
-<p>示例 2：</p>
-<blockquote>
-<p>输入：values = [[10,8,6,4,2],[9,7,5,3,2]]
-输出：386
-解释：第一天，从商店 0 购买物品 4 ，开销为 values[0][4] <em>1 = 2 。
-第二天，从商店 1 购买物品 4 ，开销为 values[1][4]</em> 2 = 4 。
-第三天，从商店 1 购买物品 3 ，开销为 values[1][3] <em>3 = 9 。
-第四天，从商店 0 购买物品 3 ，开销为 values[0][3]</em> 4 = 16 。
-第五天，从商店 1 购买物品 2 ，开销为 values[1][2] <em>5 = 25 。
-第六天，从商店 0 购买物品 2 ，开销为 values[0][2]</em> 6 = 36 。
-第七天，从商店 1 购买物品 1 ，开销为 values[1][1] <em>7 = 49 。
-第八天，从商店 0 购买物品 1 ，开销为 values[0][1]</em> 8 = 64 。
-第九天，从商店 1 购买物品 0 ，开销为 values[1][0] <em>9 = 81 。
-第十天，从商店 0 购买物品 0 ，开销为 values[0][0]</em> 10 = 100 。
-所以总开销为 386 。
-386 是购买所有 m * n 件物品的最大总开销。</p></blockquote>
-<p>提示：</p>
-<ul>
-<li>1 &lt;= m == values.length &lt;= 10</li>
-<li>1 &lt;= n == values[i].length &lt;= 104</li>
-<li>1 &lt;= values[i][j] &lt;= 106</li>
-<li>values[i] 按照非递增顺序排序。</li>
-</ul>
-<hr>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">2931_购买物品的最大开销</h1><div class="content" id="content"><div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-go">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -351,5 +295,5 @@
         <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"search":{"highlightTag":"em","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
 </html>

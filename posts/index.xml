@@ -3,21 +3,21 @@
         <title>All Posts - loommii</title>
         <link>https://loommii.github.io/posts/</link>
         <description>All Posts | loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 28 May 2025 13:31:12 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 16 Jan 2026 01:28:43 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Windows下使用WSL配置Go开发环境完整指南</title>
+    <link>https://loommii.github.io/posts/wsl-golang-goland-setup/</link>
+    <pubDate>Fri, 16 Jan 2026 01:28:43 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/posts/wsl-golang-goland-setup/</guid>
+    <description><![CDATA[<p>在Windows平台上进行Go语言开发时，使用WSL（Windows Subsystem for Linux）可以获得接近原生Linux的开发体验。本文将详细介绍如何在WSL中安装配置Go环境，并与Goland IDE集成，打造高效的Go语言开发工作流。</p>]]></description>
+</item>
+<item>
     <title>系统中有大量用户导致的数据库查询慢</title>
     <link>https://loommii.github.io/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/</link>
     <pubDate>Wed, 28 May 2025 13:31:12 &#43;0800</pubDate>
     <author>loommii</author>
     <guid>https://loommii.github.io/posts/%E7%B3%BB%E7%BB%9F%E4%B8%AD%E6%9C%89%E5%A4%A7%E9%87%8F%E7%94%A8%E6%88%B7%E5%AF%BC%E8%87%B4%E7%9A%84%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9F%A5%E8%AF%A2%E6%85%A2/</guid>
-    <description><![CDATA[<p><strong>问题分析：</strong></p>
-<ol>
-<li><strong>数据过多导致树高增加</strong>
-MySQL 的默认存储引擎 InnoDB 采用了 B+树的数据结构。3 层树大概能存储 2KW 行数据量，超过了这个数会导致 3 层树变为 4 层树，增加了一次硬盘 IO 读取导致 SQL 变慢。</li>
-<li><strong>并发连接数不够</strong>
-MySQL 的默认最大连接数是 151，可以在 <code>/etc/my.conf</code> 更改。具体可以看文档 <code>max_connections</code> 参数。
-超过连接数会出现 <code>too many connections</code> 报错。</li>
-</ol>
-<p><strong>解决方案：</strong></p>]]></description>
+    <description><![CDATA[分析系统中大量用户导致数据库查询缓慢的问题及解决方案]]></description>
 </item>
 <item>
     <title>mac版本 Joplin 笔记与配置信息存储更改</title>
@@ -25,21 +25,15 @@ MySQL 的默认最大连接数是 151，可以在 <code>/etc/my.conf</code> 更�
     <pubDate>Fri, 11 Apr 2025 21:58:44 &#43;0800</pubDate>
     <author>loommii</author>
     <guid>https://loommii.github.io/posts/mac%E7%89%88%E6%9C%AC_joplin_%E7%AC%94%E8%AE%B0%E4%B8%8E%E9%85%8D%E7%BD%AE%E4%BF%A1%E6%81%AF%E5%AD%98%E5%82%A8%E6%9B%B4%E6%94%B9/</guid>
-    <description><![CDATA[<blockquote>
-<p>Joplin 的官方 GUI 并未提供修改存储位置的选项，需要通过启动参数来进行修改。</p></blockquote>
-<p></p>
-<p>由于笔者购买的是存储仅为 256GB 的”丐版“” Mac mini，而笔记内容占用的空间较大，因此希望将存储路径更改为 NAS 网络卷。</p>]]></description>
+    <description><![CDATA[关于如何在mac上修改Joplin笔记存储路径的教程分享]]></description>
 </item>
 <item>
-    <title>Go 中 Channel 可能会引发 Goroutine 泄漏</title>
+    <title>Go中Channel可能会引发Goroutine泄漏</title>
     <link>https://loommii.github.io/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/</link>
     <pubDate>Fri, 07 Mar 2025 14:12:02 &#43;0800</pubDate>
     <author>loommii</author>
     <guid>https://loommii.github.io/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/</guid>
-    <description><![CDATA[<h2 id="go-中-channel-可能会引发-goroutine-泄漏">Go 中 Channel 可能会引发 Goroutine 泄漏</h2>
-<h3 id="疑问">疑问</h3>
-<h4 id="什么是-goroutine-泄漏">什么是 Goroutine 泄漏？</h4>
-<p>Goroutine 泄漏是指 Goroutine 在程序中被创建后，由于某种原因无法正常结束，并且永远不会被垃圾回收（GC）。这会导致 Goroutine 占用的资源（如内存、栈空间等）无法释放，随着时间的推移，可能会耗尽系统资源，导致程序崩溃。</p>]]></description>
+    <description><![CDATA[详解Go语言中Channel可能导致Goroutine泄漏的原因和解决方案]]></description>
 </item>
 <item>
     <title>Go函数类型是否可以比较,为什么？</title>
@@ -47,14 +41,7 @@ MySQL 的默认最大连接数是 151，可以在 <code>/etc/my.conf</code> 更�
     <pubDate>Wed, 05 Mar 2025 16:41:19 &#43;0800</pubDate>
     <author>loommii</author>
     <guid>https://loommii.github.io/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/</guid>
-    <description><![CDATA[<h2 id="go函数类型是否可以比较">Go函数类型是否可以比较？</h2>
-<h3 id="比较运算符">比较运算符</h3>
-<p>在<a href="https://go.dev/ref/spec#Comparison_operators" target="_blank" rel="noopener noreffer ">Go官方文档</a>比较运算符中有这一段话</p>
-<blockquote>
-<blockquote>
-<p>Slice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.</p></blockquote>
-<blockquote>
-<p>切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 <code>nil</code> 进行比较。指针、通道（channel）和接口值与 <code>nil</code> 的比较也是允许的，并且遵循上述一般规则。</p>]]></description>
+    <description><![CDATA[详解Go语言中函数类型是否可以比较以及原因分析]]></description>
 </item>
 <item>
     <title>Go: GPM的数量限制</title>
@@ -62,11 +49,7 @@ MySQL 的默认最大连接数是 151，可以在 <code>/etc/my.conf</code> 更�
     <pubDate>Wed, 18 Dec 2024 14:16:42 &#43;0800</pubDate>
     <author>loommii</author>
     <guid>https://loommii.github.io/posts/go_gpm%E7%9A%84%E6%95%B0%E9%87%8F%E9%99%90%E5%88%B6/</guid>
-    <description><![CDATA[<h2 id="g">G</h2>
-<p>协程的抽象</p>
-<p>Goroutine  (go /ruːˈtiːn/  谐音 Go 如 听) 经 Golang 优化后的特殊“协程”</p>
-<h3 id="g限制">G限制</h3>
-<p>语言上无任何的限制,但是理论上会受到机器的内存限制,每个G创建时会占用4KB左右的内存空间</p>]]></description>
+    <description><![CDATA[详解Go语言中GPM模型的数量限制]]></description>
 </item>
 <item>
     <title>Go: Map 是并发安全的吗？</title>
@@ -75,39 +58,7 @@ MySQL 的默认最大连接数是 151，可以在 <code>/etc/my.conf</code> 更�
     <author>loommii</author>
     <guid>https://loommii.github.io/posts/go_map%E6%98%AF%E5%B9%B6%E5%8F%91%E5%AE%89%E5%85%A8%E7%9A%84%E5%90%97/</guid>
     <description><![CDATA[<h2 id="结论">结论</h2>
-<p>并发读安全，并发写不安全</p>
-<h2 id="原因">原因</h2>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// map(集合)底层结构</span>
-</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">hmap</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// Make sure this stays in sync with the compiler&#39;s definition.</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">count</span>     <span class="kt">int</span> <span class="c1">// # live cells == size of map.  Must be first (used by len() builtin)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">flags</span>     <span class="kt">uint8</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">B</span>         <span class="kt">uint8</span>  <span class="c1">// log_2 of # of buckets (can hold up to loadFactor * 2^B items)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">noverflow</span> <span class="kt">uint16</span> <span class="c1">// approximate number of overflow buckets; see incrnoverflow for details</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">hash0</span>     <span class="kt">uint32</span> <span class="c1">// hash seed</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nx">buckets</span>    <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// array of 2^B Buckets. may be nil if count==0.</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">oldbuckets</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// previous bucket array of half the size, non-nil only when growing</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">nevacuate</span>  <span class="kt">uintptr</span>        <span class="c1">// progress counter for evacuation (buckets less than this have been evacuated)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">clearSeq</span>   <span class="kt">uint64</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nx">extra</span> <span class="o">*</span><span class="nx">mapextra</span> <span class="c1">// optional fields</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// buckets的结构</span>
-</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">bmap</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">topbits</span>  <span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="kt">uint8</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">keys</span>     <span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="nx">keytype</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">values</span>   <span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="nx">valuetype</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">pad</span>      <span class="kt">uintptr</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">overflow</span> <span class="kt">uintptr</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>从上方结构可以知道底层结构中存buckets和oldbuckets。发生扩容的时候。会New一个新的buckets地址,并将老的buckets地址写入到oldbuckets中。</p>]]></description>
+<p>并发读安全，并发写不安全</p>]]></description>
 </item>
 <item>
     <title>Go: 为什么Map是无序的</title>
@@ -115,39 +66,7 @@ MySQL 的默认最大连接数是 151，可以在 <code>/etc/my.conf</code> 更�
     <pubDate>Mon, 16 Dec 2024 19:47:30 &#43;0800</pubDate>
     <author>loommii</author>
     <guid>https://loommii.github.io/posts/go_%E4%B8%BA%E4%BB%80%E4%B9%88map%E6%98%AF%E6%97%A0%E5%BA%8F%E7%9A%84/</guid>
-    <description><![CDATA[<h3 id="底层结构">底层结构</h3>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// map(集合)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">hmap</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// Make sure this stays in sync with the compiler&#39;s definition.</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">count</span>     <span class="kt">int</span> <span class="c1">// # live cells == size of map.  Must be first (used by len() builtin)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">flags</span>     <span class="kt">uint8</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">B</span>         <span class="kt">uint8</span>  <span class="c1">// log_2 of # of buckets (can hold up to loadFactor * 2^B items)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">noverflow</span> <span class="kt">uint16</span> <span class="c1">// approximate number of overflow buckets; see incrnoverflow for details</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">hash0</span>     <span class="kt">uint32</span> <span class="c1">// hash seed</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nx">buckets</span>    <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// array of 2^B Buckets. may be nil if count==0.</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">oldbuckets</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// previous bucket array of half the size, non-nil only when growing</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">nevacuate</span>  <span class="kt">uintptr</span>        <span class="c1">// progress counter for evacuation (buckets less than this have been evacuated)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">clearSeq</span>   <span class="kt">uint64</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nx">extra</span> <span class="o">*</span><span class="nx">mapextra</span> <span class="c1">// optional fields</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="c1">// buckets的结构</span>
-</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">bmap</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">topbits</span>  <span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="kt">uint8</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">keys</span>     <span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="nx">keytype</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">values</span>   <span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="nx">valuetype</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">pad</span>      <span class="kt">uintptr</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">overflow</span> <span class="kt">uintptr</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<h3 id="解释">解释</h3>
-<p>Map中的数据存储在buckets和oldbuckets中,在发生扩容时,会创建新的buckets,并将老的buckets地址写入到oldbuckets中。</p>]]></description>
+    <description><![CDATA[详解Go语言中Map为什么是无序的原因]]></description>
 </item>
 <item>
     <title>Go: slice(切片) 和 map(集合) 未初始化操作会怎样</title>
@@ -155,37 +74,7 @@ MySQL 的默认最大连接数是 151，可以在 <code>/etc/my.conf</code> 更�
     <pubDate>Mon, 16 Dec 2024 19:03:04 &#43;0800</pubDate>
     <author>loommii</author>
     <guid>https://loommii.github.io/posts/go_map_slice%E6%9C%AA%E5%88%9D%E5%A7%8B%E5%8C%96%E6%93%8D%E4%BD%9C%E4%BC%9A%E6%80%8E%E6%A0%B7/</guid>
-    <description><![CDATA[<h2 id="底层结构">底层结构</h2>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// slice(切片)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">SliceHeader</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">Data</span> <span class="kt">uintptr</span> <span class="c1">// 底层数组的地址</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">Len</span>  <span class="kt">int</span>     <span class="c1">// 长度</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">Cap</span>  <span class="kt">int</span>     <span class="c1">// 容量</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="c1">// map(集合)</span>
-</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">hmap</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.</span>
-</span></span><span class="line"><span class="cl">    <span class="c1">// Make sure this stays in sync with the compiler&#39;s definition.</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">count</span>     <span class="kt">int</span> <span class="c1">// # live cells == size of map.  Must be first (used by len() builtin)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">flags</span>     <span class="kt">uint8</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">B</span>         <span class="kt">uint8</span>  <span class="c1">// log_2 of # of buckets (can hold up to loadFactor * 2^B items)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">noverflow</span> <span class="kt">uint16</span> <span class="c1">// approximate number of overflow buckets; see incrnoverflow for details</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">hash0</span>     <span class="kt">uint32</span> <span class="c1">// hash seed</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nx">buckets</span>    <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// array of 2^B Buckets. may be nil if count==0.</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">oldbuckets</span> <span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span> <span class="c1">// previous bucket array of half the size, non-nil only when growing</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">nevacuate</span>  <span class="kt">uintptr</span>        <span class="c1">// progress counter for evacuation (buckets less than this have been evacuated)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">clearSeq</span>   <span class="kt">uint64</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nx">extra</span> <span class="o">*</span><span class="nx">mapextra</span> <span class="c1">// optional fields</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>这2个类型都属于引用类型,特点是存储的是一个地址,且零值为nil</p>]]></description>
+    <description><![CDATA[详解Go语言中slice和map未初始化操作的行为和影响]]></description>
 </item>
 <item>
     <title>Go: slice(切片) 和array(数组) 的区别</title>
@@ -193,47 +82,7 @@ MySQL 的默认最大连接数是 151，可以在 <code>/etc/my.conf</code> 更�
     <pubDate>Mon, 16 Dec 2024 16:10:18 &#43;0800</pubDate>
     <author>loommii</author>
     <guid>https://loommii.github.io/posts/go_slice%E5%92%8Carray%E7%9A%84%E5%8C%BA%E5%88%AB/</guid>
-    <description><![CDATA[<h2 id="底层结构">底层结构</h2>
-<h3 id="array数组">array(数组)</h3>
-<p>Go数组与C数组十分类似，数组是具有相同唯一类型的一组已编号且长度固定的数据项序列</p>
-<p>关键字: 相同类型,长度固定，序列</p>
-<p></p>
-<h3 id="slice切片">slice(切片)</h3>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">SliceHeader</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">Data</span> <span class="kt">uintptr</span> <span class="c1">// 底层数组的地址</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">Len</span>  <span class="kt">int</span>     <span class="c1">// 长度</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">Cap</span>  <span class="kt">int</span>     <span class="c1">// 容量</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>Go 语言切片是对数组的抽象。结构中包含底层数组、长度、容量</p>]]></description>
-</item>
-<item>
-    <title>服务设计_如何设计一个URL短链服务</title>
-    <link>https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/</link>
-    <pubDate>Mon, 09 Dec 2024 13:57:51 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/posts/%E6%9C%8D%E5%8A%A1%E8%AE%BE%E8%AE%A1_%E5%A6%82%E4%BD%95%E8%AE%BE%E8%AE%A1%E4%B8%80%E4%B8%AAurl%E7%9F%AD%E9%93%BE%E6%9C%8D%E5%8A%A1/</guid>
-    <description><![CDATA[<h3 id="什么是url短链服务">什么是URL短链服务</h3>
-<p>URL短链服务的本质是通过HTTP 302重定向机制，将一个简短的URL重定向到原始的长URL。</p>
-<h3 id="短链服务解决了什么问题">短链服务解决了什么问题</h3>
-<ol>
-<li>解决消息发送的字数限制问题
-例如，腾讯云SMS限制每条短信的字数为500个字符，而在营销短信中，通常会携带包含大量参数的URL（如邀请平台、邀请人、活动ID等）。这些参数使得URL变得非常冗长。通过URL短链服务，营销短信中的长URL可以被替换为一个简短的短链，节省了字数空间。
-</li>
-<li>隐藏请求参数
-以营销活动为例，URL中的常见参数可能包括活动ID等信息。如果我们不希望这些ID被随便修改，可以在参数中添加对应的活动ID KEY，这样只有当ID和KEY匹配时，用户才能进入相应的活动页面。然而，添加了KEY后，原本的URL会变得更加冗长。短链服务可以帮助隐藏这些请求参数，保持URL简洁且安全。</li>
-</ol>
-<h3 id="最基础的需求">最基础的需求</h3>
-<ol>
-<li>长链登记</li>
-<li>短链重定向</li>
-</ol>
-<h3 id="短链key为什么选择-base62-编码">短链KEY为什么选择 Base62 编码</h3>
-<p>根据 RFC3986 标准，URL 由 ASCII 字符组成，以下字符可以安全地在 URL 中使用：</p>]]></description>
+    <description><![CDATA[详解Go语言中slice(切片)和array(数组)的区别]]></description>
 </item>
 </channel>
 </rss>
