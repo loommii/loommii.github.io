@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>macOS: How to Change Joplin&#39;s Profile Location - loommii</title><meta name="Description" content="A tutorial sharing how to change the Joplin note storage path on macOS."><meta property="og:url" content="https://loommii.github.io/en/posts/mac_version_joplin_note_and_configuration_storage_change/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="macOS: How to Change Joplin&#39;s Profile Location">
+  <meta property="og:description" content="A tutorial sharing how to change the Joplin note storage path on macOS.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-04-11T21:58:44+08:00">
+    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+    <meta property="article:tag" content="Joplin">
+    <meta property="article:tag" content="Note-Taking Software">
+    <meta property="article:tag" content="MacOS">
+    <meta property="article:tag" content="Configuration Management">
+    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+  <meta name="twitter:title" content="macOS: How to Change Joplin&#39;s Profile Location">
+  <meta name="twitter:description" content="A tutorial sharing how to change the Joplin note storage path on macOS.">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/en/posts/mac_version_joplin_note_and_configuration_storage_change/" /><link rel="prev" href="https://loommii.github.io/en/posts/wsl-golang-goland-setup/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "macOS: How to Change Joplin's Profile Location",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/loommii.github.io\/en\/posts\/mac_version_joplin_note_and_configuration_storage_change\/"
+        },"genre": "posts","keywords": "Joplin, Note-taking Software, macOS, Configuration Management","wordcount":  241 ,
+        "url": "https:\/\/loommii.github.io\/en\/posts\/mac_version_joplin_note_and_configuration_storage_change\/","datePublished": "2025-04-11T21:58:44+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "loommii"
+            },"description": "A tutorial sharing how to change the Joplin note storage path on macOS."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/en/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/en/posts/"> 文章 </a><a class="menu-item" href="/en/go_practise/"> Go练习题 </a><a class="menu-item" href="/en/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/en/categories/"> 分类 </a><a class="menu-item" href="/en/tags/"> 标签 </a><a class="menu-item" href="/en/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/posts/mac_version_joplin_note_and_configuration_storage_change/">简体中文</option><option value="/en/posts/mac_version_joplin_note_and_configuration_storage_change/" selected>English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/en/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/en/posts/" title="">文章</a><a class="menu-item" href="/en/go_practise/" title="">Go练习题</a><a class="menu-item" href="/en/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/en/categories/" title="">分类</a><a class="menu-item" href="/en/tags/" title="">标签</a><a class="menu-item" href="/en/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/posts/mac_version_joplin_note_and_configuration_storage_change/">简体中文</option><option value="/en/posts/mac_version_joplin_note_and_configuration_storage_change/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">macOS: How to Change Joplin's Profile Location</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/en/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">included in <a href="/en/categories/tool-usage/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Tool Usage</a>&nbsp;<a href="/en/categories/tech-article/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Tech Article</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-04-11">2025-04-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;241 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;2 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#startup-command">Startup Command</a></li>
+    <li><a href="#creating-a-launch-application">Creating a Launch Application</a></li>
+    <li><a href="#modifying-the-launch-application-icon">Modifying the Launch Application Icon</a>
+      <ul>
+        <li><a href="#here-is-the-joplin-logo-for-your-convenience">Here is the Joplin logo for your convenience:</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>Joplin&rsquo;s official GUI does not provide an option to change the storage location; it needs to be modified via startup arguments.</p></blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/joplin-current-storage-location.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/joplin-current-storage-location.png, /posts/mac_version_joplin_note_and_configuration_storage_change/joplin-current-storage-location.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/joplin-current-storage-location.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/joplin-current-storage-location.png"
+        title="Joplin storage location message" width="752" height="116" /></p>
+<p>Since I purchased a &ldquo;budget&rdquo; Mac mini with only 256GB of storage, and my note content takes up a large amount of space, I wanted to change the storage path to a NAS network volume.</p>
+<h2 id="startup-command">Startup Command</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>open -a /Applications/Joplin.app --args --profile /Volumes/mac_data/joplin/note</code></pre></div>
+<p><strong>Parts to modify:</strong></p>
+<ul>
+<li><code>/Applications/Joplin.app</code>: Replace with your Joplin application&rsquo;s path.</li>
+<li><code>/Volumes/mac_data/joplin/note</code>: Replace with the storage path you want to use.</li>
+</ul>
+<p>Enter the modified command in your terminal and execute it. Joplin will launch using the new storage path.</p>
+<h2 id="creating-a-launch-application">Creating a Launch Application</h2>
+<p>Open Mac&rsquo;s built-in <code>Automator</code> app.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-icon.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-icon.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-icon.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-icon.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-icon.png"
+        title="macOS Automator icon" width="358" height="328" />
+Select <code>Application</code>.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-application.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-application.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-application.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-application.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-application.png"
+        title="Selecting &lsquo;Application&rsquo; in Automator" width="1074" height="956" />
+In the action list, find and select <code>Run Shell Script</code>.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-run-shell-script.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-run-shell-script.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-run-shell-script.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-run-shell-script.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-run-shell-script.png"
+        title="Selecting &lsquo;Run Shell Script&rsquo;" width="1118" height="1628" />
+Paste your startup command into the script area on the right.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-paste-command.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-paste-command.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-paste-command.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-paste-command.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-paste-command.png"
+        title="Pasting the command into Automator" width="1258" height="712" />
+Go to <code>File &gt; Save</code> (or press <code>Cmd+S</code>).
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-dialog.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-dialog.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-dialog.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-dialog.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-dialog.png"
+        title="Automator save dialog" width="648" height="354" />
+Give your new application a name (e.g., &ldquo;Joplin Custom&rdquo;) and save it in your <code>Applications</code> folder.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-as-application.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-as-application.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-as-application.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-as-application.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-as-application.png"
+        title="Saving the Automator script as an Application" width="860" height="394" />
+You will now see your new custom launcher in <code>Launchpad</code>!
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-launchpad-new-joplin-app.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-launchpad-new-joplin-app.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-launchpad-new-joplin-app.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-launchpad-new-joplin-app.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-launchpad-new-joplin-app.png"
+        title="The new application in Launchpad" width="364" height="378" />
+Click on it to make sure it launches Joplin as expected.</p>
+<h2 id="modifying-the-launch-application-icon">Modifying the Launch Application Icon</h2>
+<p>In <code>Finder</code>, go to your <code>Applications</code> folder and find the app you just created.
+Right-click the application and select <code>Get Info</code>.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-finder-get-info.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-finder-get-info.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-finder-get-info.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-finder-get-info.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-finder-get-info.png"
+        title="The &lsquo;Get Info&rsquo; window in Finder" width="510" height="464" />
+Drag your desired icon file (e.g., a <code>.png</code> or <code>.icns</code> file) and drop it directly onto the small robot icon at the top-left of the &lsquo;Get Info&rsquo; window.
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-drag-icon.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-drag-icon.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-drag-icon.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-drag-icon.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-drag-icon.png"
+        title="Dragging the new icon into the &lsquo;Get Info&rsquo; window" width="536" height="124" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-new-icon.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-new-icon.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-new-icon.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-new-icon.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-new-icon.png"
+        title="The &lsquo;Get Info&rsquo; window with the new icon" width="184" height="210" /></p>
+<h3 id="here-is-the-joplin-logo-for-your-convenience">Here is the Joplin logo for your convenience:</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/joplin-logo.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/joplin-logo.png, /posts/mac_version_joplin_note_and_configuration_storage_change/joplin-logo.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/joplin-logo.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/joplin-logo.png"
+        title="Joplin Logo" width="184" height="210" /></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2026-01-16</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/en/posts/mac_version_joplin_note_and_configuration_storage_change/" data-title="macOS: How to Change Joplin&#39;s Profile Location" data-hashtags="Joplin,Note-taking Software,macOS,Configuration Management"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/en/posts/mac_version_joplin_note_and_configuration_storage_change/" data-title="macOS: How to Change Joplin&#39;s Profile Location"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/en/posts/mac_version_joplin_note_and_configuration_storage_change/" data-hashtag="Joplin"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/en/posts/mac_version_joplin_note_and_configuration_storage_change/" data-title="macOS: How to Change Joplin&#39;s Profile Location"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/en/posts/mac_version_joplin_note_and_configuration_storage_change/" data-title="macOS: How to Change Joplin&#39;s Profile Location"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/en/posts/mac_version_joplin_note_and_configuration_storage_change/" data-title="macOS: How to Change Joplin&#39;s Profile Location"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/en/posts/mac_version_joplin_note_and_configuration_storage_change/" data-title="macOS: How to Change Joplin&#39;s Profile Location" data-description="A tutorial sharing how to change the Joplin note storage path on macOS."><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fen%2fposts%2fmac_version_joplin_note_and_configuration_storage_change%2f&amp;text=macOS%3a%20How%20to%20Change%20Joplin%27s%20Profile%20Location" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/en/tags/joplin/">Joplin</a>,&nbsp;<a href="/en/tags/note-taking-software/">Note-Taking Software</a>,&nbsp;<a href="/en/tags/macos/">MacOS</a>,&nbsp;<a href="/en/tags/configuration-management/">Configuration Management</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/en/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/en/posts/wsl-golang-goland-setup/" class="prev" rel="prev" title="Complete Guide: Configuring Go Development Environment with WSL on Windows"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Complete Guide: Configuring Go Development Environment with WSL on Windows</a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/en/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"search":{"highlightTag":"em","lunrLanguageCode":"en","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+</html>

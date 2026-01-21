@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>mac版本 Joplin 笔记与配置信息存储更改 - loommii</title><meta name="Description" content="关于如何在mac上修改Joplin笔记存储路径的教程分享"><meta property="og:url" content="https://loommii.github.io/posts/mac_version_joplin_note_and_configuration_storage_change/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="mac版本 Joplin 笔记与配置信息存储更改">
+  <meta property="og:description" content="关于如何在mac上修改Joplin笔记存储路径的教程分享">
+  <meta property="og:locale" content="zh_cn">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-04-11T21:58:44+08:00">
+    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+    <meta property="article:tag" content="Joplin">
+    <meta property="article:tag" content="笔记软件">
+    <meta property="article:tag" content="MacOS">
+    <meta property="article:tag" content="配置管理">
+    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+  <meta name="twitter:title" content="mac版本 Joplin 笔记与配置信息存储更改">
+  <meta name="twitter:description" content="关于如何在mac上修改Joplin笔记存储路径的教程分享">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/posts/mac_version_joplin_note_and_configuration_storage_change/" /><link rel="prev" href="https://loommii.github.io/posts/channel_may_cause_goroutine_leak/" /><link rel="next" href="https://loommii.github.io/posts/slow_database_queries_caused_by_a_large_number_of_users_in_the_system/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "mac版本 Joplin 笔记与配置信息存储更改",
+        "inLanguage": "zh-cn",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/loommii.github.io\/posts\/mac_version_joplin_note_and_configuration_storage_change\/"
+        },"genre": "posts","keywords": "Joplin, 笔记软件, macOS, 配置管理","wordcount":  413 ,
+        "url": "https:\/\/loommii.github.io\/posts\/mac_version_joplin_note_and_configuration_storage_change\/","datePublished": "2025-04-11T21:58:44+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "loommii"
+            },"description": "关于如何在mac上修改Joplin笔记存储路径的教程分享"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/go_practise/"> Go练习题 </a><a class="menu-item" href="/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/categories/"> 分类 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/posts/mac_version_joplin_note_and_configuration_storage_change/" selected>简体中文</option><option value="/en/posts/mac_version_joplin_note_and_configuration_storage_change/">English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/go_practise/" title="">Go练习题</a><a class="menu-item" href="/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/categories/" title="">分类</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/posts/mac_version_joplin_note_and_configuration_storage_change/" selected>简体中文</option><option value="/en/posts/mac_version_joplin_note_and_configuration_storage_change/">English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">mac版本 Joplin 笔记与配置信息存储更改</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E5%B7%A5%E5%85%B7%E4%BD%BF%E7%94%A8/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>工具使用</a>&nbsp;<a href="/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术文章</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-04-11">2025-04-11</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 413 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 1 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#启动命令">启动命令</a></li>
+    <li><a href="#创建启动程序">创建启动程序</a></li>
+    <li><a href="#修改启动程序图标">修改启动程序图标</a>
+      <ul>
+        <li><a href="#下面是joplin的logo">下面是Joplin的LOGO</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><blockquote>
+<p>Joplin 的官方 GUI 并未提供修改存储位置的选项，需要通过启动参数来进行修改。</p></blockquote>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/joplin-current-storage-location.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/joplin-current-storage-location.png, /posts/mac_version_joplin_note_and_configuration_storage_change/joplin-current-storage-location.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/joplin-current-storage-location.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/joplin-current-storage-location.png"
+        title="Joplin 存储位置信息" width="752" height="116" /></p>
+<p>由于笔者购买的是存储仅为 256GB 的&quot;丐版&quot; Mac mini，而笔记内容占用的空间较大，因此希望将存储路径更改为 NAS 网络卷。</p>
+<h2 id="启动命令">启动命令</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>open -a /Applications/Joplin.app --args --profile /Volumes/mac_data/joplin/note</code></pre></div>
+<p><strong>需要修改的部分：</strong></p>
+<ul>
+<li>/Applications/Joplin.app：替换为你自己的 Joplin 应用程序路径。</li>
+<li>/Volumes/mac_data/joplin/note：替换为你希望使用的存储路径。</li>
+</ul>
+<p>在 Mac 的终端中输入修改后的命令并执行时，你会看到它会尝试启动 Joplin 应用并使用指定的存储路径。</p>
+<h2 id="创建启动程序">创建启动程序</h2>
+<p>打开Mac自带的<code>自动化</code>程序</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-icon.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-icon.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-icon.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-icon.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-icon.png"
+        title="macOS 自动操作图标" width="358" height="328" />
+选择<code>应用程序</code>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-application.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-application.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-application.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-application.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-application.png"
+        title="在自动操作中选择“应用程序”" width="1074" height="956" />
+在操作中选择<code>运行Shell脚本</code>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-run-shell-script.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-run-shell-script.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-run-shell-script.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-run-shell-script.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-select-run-shell-script.png"
+        title="选择“运行Shell脚本”" width="1118" height="1628" />
+将启动命令输入右侧输入框
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-paste-command.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-paste-command.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-paste-command.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-paste-command.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-paste-command.png"
+        title="将命令粘贴到输入框" width="1258" height="712" />
+点击左上角存储
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-dialog.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-dialog.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-dialog.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-dialog.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-dialog.png"
+        title="自动操作保存对话框" width="648" height="354" />
+修改程序名称并存储到<code>应用程序</code>
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-as-application.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-as-application.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-as-application.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-as-application.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-automator-save-as-application.png"
+        title="另存为应用程序" width="860" height="394" />
+到这里你将在<code>启动台</code>中看到闪闪保存的应用程序!<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-launchpad-new-joplin-app.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-launchpad-new-joplin-app.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-launchpad-new-joplin-app.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-launchpad-new-joplin-app.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-launchpad-new-joplin-app.png"
+        title="启动台中的新应用程序" width="364" height="378" />
+点击程序验证一下效果</p>
+<h2 id="修改启动程序图标">修改启动程序图标</h2>
+<p>在<code>访达</code> -&gt; 应用程序 中找到闪闪创建的<code>启动程序</code>
+右键 -&gt; 显示简介
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-finder-get-info.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-finder-get-info.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-finder-get-info.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-finder-get-info.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-finder-get-info.png"
+        title="访达中的“显示简介”选项" width="510" height="464" />
+将下载的图标拖入替代老的机器人图标
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-drag-icon.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-drag-icon.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-drag-icon.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-drag-icon.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-drag-icon.png"
+        title="拖动图标到简介窗口" width="536" height="124" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-new-icon.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-new-icon.png, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-new-icon.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-new-icon.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/macos-get-info-new-icon.png"
+        title="显示新图标的简介窗口" width="184" height="210" /></p>
+<h3 id="下面是joplin的logo">下面是Joplin的LOGO</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/mac_version_joplin_note_and_configuration_storage_change/joplin-logo.png"
+        data-srcset="/posts/mac_version_joplin_note_and_configuration_storage_change/joplin-logo.png, /posts/mac_version_joplin_note_and_configuration_storage_change/joplin-logo.png 1.5x, /posts/mac_version_joplin_note_and_configuration_storage_change/joplin-logo.png 2x"
+        data-sizes="auto"
+        alt="/posts/mac_version_joplin_note_and_configuration_storage_change/joplin-logo.png"
+        title="Joplin Logo" width="184" height="210" /></p></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2026-01-16</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="https://loommii.github.io/posts/mac_version_joplin_note_and_configuration_storage_change/" data-title="mac版本 Joplin 笔记与配置信息存储更改" data-hashtags="Joplin,笔记软件,macOS,配置管理"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="https://loommii.github.io/posts/mac_version_joplin_note_and_configuration_storage_change/" data-title="mac版本 Joplin 笔记与配置信息存储更改"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://loommii.github.io/posts/mac_version_joplin_note_and_configuration_storage_change/" data-hashtag="Joplin"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/posts/mac_version_joplin_note_and_configuration_storage_change/" data-title="mac版本 Joplin 笔记与配置信息存储更改"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://loommii.github.io/posts/mac_version_joplin_note_and_configuration_storage_change/" data-title="mac版本 Joplin 笔记与配置信息存储更改"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://loommii.github.io/posts/mac_version_joplin_note_and_configuration_storage_change/" data-title="mac版本 Joplin 笔记与配置信息存储更改"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/posts/mac_version_joplin_note_and_configuration_storage_change/" data-title="mac版本 Joplin 笔记与配置信息存储更改" data-description="关于如何在mac上修改Joplin笔记存储路径的教程分享"><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fposts%2fmac_version_joplin_note_and_configuration_storage_change%2f&amp;text=mac%e7%89%88%e6%9c%ac%20Joplin%20%e7%ac%94%e8%ae%b0%e4%b8%8e%e9%85%8d%e7%bd%ae%e4%bf%a1%e6%81%af%e5%ad%98%e5%82%a8%e6%9b%b4%e6%94%b9" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/tags/joplin/">Joplin</a>,&nbsp;<a href="/tags/%E7%AC%94%E8%AE%B0%E8%BD%AF%E4%BB%B6/">笔记软件</a>,&nbsp;<a href="/tags/macos/">MacOS</a>,&nbsp;<a href="/tags/%E9%85%8D%E7%BD%AE%E7%AE%A1%E7%90%86/">配置管理</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/posts/channel_may_cause_goroutine_leak/" class="prev" rel="prev" title="Go中Channel可能会引发Goroutine泄漏"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go中Channel可能会引发Goroutine泄漏</a>
+            <a href="/posts/slow_database_queries_caused_by_a_large_number_of_users_in_the_system/" class="next" rel="next" title="系统中有大量用户导致的数据库查询慢">系统中有大量用户导致的数据库查询慢<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+</html>
