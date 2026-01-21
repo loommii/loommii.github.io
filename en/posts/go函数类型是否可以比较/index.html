@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Go: Can Function Types Be Compared, and Why? - loommii</title><meta name="Description" content="Detailed explanation of whether function types in Go can be compared and the reasons behind it."><meta property="og:url" content="https://loommii.github.io/en/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="Go: Can Function Types Be Compared, and Why?">
+  <meta property="og:description" content="Detailed explanation of whether function types in Go can be compared and the reasons behind it.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2025-03-05T16:41:19+08:00">
+    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="Type System">
+    <meta property="article:tag" content="Function Type">
+    <meta property="article:tag" content="Reflect">
+    <meta property="article:tag" content="Language Features">
+    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+  <meta name="twitter:title" content="Go: Can Function Types Be Compared, and Why?">
+  <meta name="twitter:description" content="Detailed explanation of whether function types in Go can be compared and the reasons behind it.">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/en/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" /><link rel="prev" href="https://loommii.github.io/en/posts/go_gpm%E7%9A%84%E6%95%B0%E9%87%8F%E9%99%90%E5%88%B6/" /><link rel="next" href="https://loommii.github.io/en/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Go: Can Function Types Be Compared, and Why?",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/loommii.github.io\/en\/posts\/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83\/"
+        },"genre": "posts","keywords": "Go, Type System, Function Type, Reflect, Language Features","wordcount":  919 ,
+        "url": "https:\/\/loommii.github.io\/en\/posts\/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83\/","datePublished": "2025-03-05T16:41:19+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "loommii"
+            },"description": "Detailed explanation of whether function types in Go can be compared and the reasons behind it."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/en/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/en/posts/"> 文章 </a><a class="menu-item" href="/en/go_practise/"> Go练习题 </a><a class="menu-item" href="/en/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/en/categories/"> 分类 </a><a class="menu-item" href="/en/tags/"> 标签 </a><a class="menu-item" href="/en/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/">简体中文</option><option value="/en/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" selected>English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/en/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/en/posts/" title="">文章</a><a class="menu-item" href="/en/go_practise/" title="">Go练习题</a><a class="menu-item" href="/en/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/en/categories/" title="">分类</a><a class="menu-item" href="/en/tags/" title="">标签</a><a class="menu-item" href="/en/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/">简体中文</option><option value="/en/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Go: Can Function Types Be Compared, and Why?</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="/en/" title="Author" rel="author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">included in <a href="/en/categories/go-language/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Go Language</a>&nbsp;<a href="/en/categories/tech-article/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Tech Article</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2025-03-05">2025-03-05</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;919 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#can-go-function-types-be-compared">Can Go Function Types Be Compared?</a>
+      <ul>
+        <li><a href="#comparison-operators">Comparison Operators</a></li>
+        <li><a href="#reflectdeepequal">reflect.DeepEqual</a></li>
+        <li><a href="#summary">Summary</a></li>
+      </ul>
+    </li>
+    <li><a href="#why">Why?</a>
+      <ul>
+        <li><a href="#hypothesis-1-compiler-inline-optimization">Hypothesis 1 (Compiler Inline Optimization)</a></li>
+        <li><a href="#hypothesis-1-summary">Hypothesis 1 Summary</a></li>
+      </ul>
+    </li>
+    <li><a href="#how-to-solve-scenarios-requiring-function-comparison">How to solve scenarios requiring function comparison?</a>
+      <ul>
+        <li><a href="#observer-pattern">Observer Pattern</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="can-go-function-types-be-compared">Can Go Function Types Be Compared?</h2>
+<h3 id="comparison-operators">Comparison Operators</h3>
+<p>In the <a href="https://go.dev/ref/spec#Comparison_operators" target="_blank" rel="noopener noreffer ">Go official documentation</a> regarding comparison operators, there is this passage:</p>
+<blockquote>
+<p>Slice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.
+切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 <code>nil</code> 进行比较。指针、通道（channel）和接口值与 <code>nil</code> 的比较也是允许的，并且遵循上述一般规则。</p></blockquote>
+<p>Therefore, we can see that Go function types cannot be compared using comparison operators, but they can be compared with <code>nil</code>.
+Example 1:</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">f1</span> <span class="o">:=</span> <span class="nx">foo</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">f2</span> <span class="o">:=</span> <span class="nx">f1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">f1</span> <span class="o">==</span> <span class="nx">f2</span> <span class="p">{</span> <span class="c1">// Compile error: invalid operation: f1 == f2 (func can only be compared to nil)</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Functions are equal&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><a href="https://go.dev/play/p/-MKUWeDBml7" target="_blank" rel="noopener noreffer ">Run Online</a></p>
+<p>Example 2:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">f1</span> <span class="kd">func</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">f1</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span> <span class="c1">// Function types can be compared with `nil`</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;f1 is nil&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><a href="https://go.dev/play/p/QkKEt_KQwUd" target="_blank" rel="noopener noreffer ">Run Online</a></p>
+<h3 id="reflectdeepequal">reflect.DeepEqual</h3>
+<p>Above, comparison operators were used for comparing the two. We know that in Go, we can also use <a href="https://pkg.go.dev/reflect#DeepEqual" target="_blank" rel="noopener noreffer "><code>DeepEqual</code></a> from the <code>reflect</code> package for comparison.</p>
+<blockquote>
+<p>func DeepEqual(x, y any) bool
+Purpose: Determine if two values are &ldquo;deeply equal&rdquo;
+Func values are deeply equal if both are nil; otherwise they are not deeply equal.
+函数值只有在二者都为 nil 时才深度相等；否则，它们不深度相等。</p></blockquote>
+<p>Example 3:</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;reflect&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">foo</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">f1</span> <span class="o">:=</span> <span class="nx">foo</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">f2</span> <span class="o">:=</span> <span class="nx">f1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">DeepEqual</span><span class="p">(</span><span class="nx">f1</span><span class="p">,</span> <span class="nx">f2</span><span class="p">)</span> <span class="p">{</span> <span class="c1">// Returns false</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Functions are equal&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Functions are not equal&#34;</span><span class="p">)</span> <span class="c1">// Outputs: Functions are not equal</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p><a href="https://go.dev/play/p/ta02lmtw1Vf" target="_blank" rel="noopener noreffer ">Run Online</a></p>
+<p>We can also see from the <a href="https://github.com/golang/go/blob/2c1604142324be55a9274bc13a5a143bb3cde809/src/reflect/deepequal.go#L155" target="_blank" rel="noopener noreffer ">source code</a> of <code>reflect.DeepEqual</code>:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl">    <span class="k">case</span> <span class="nx">Func</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">v1</span><span class="p">.</span><span class="nf">IsNil</span><span class="p">()</span> <span class="o">&amp;&amp;</span> <span class="nx">v2</span><span class="p">.</span><span class="nf">IsNil</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">return</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// Can&#39;t do better than this:</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="kc">false</span></span></span></code></pre></div></div>
+<h3 id="summary">Summary</h3>
+<p>Go function types cannot be compared using comparison operators, but they can be compared with <code>nil</code>.</p>
+<h2 id="why">Why?</h2>
+<p>From the above, we understand that the Go team restricted comparisons between function types when designing the Go language. But what is the purpose of this design?</p>
+<h3 id="hypothesis-1-compiler-inline-optimization">Hypothesis 1 (Compiler Inline Optimization)</h3>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span> <span class="p">}()</span>
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">b</span> <span class="p">=</span> <span class="kd">func</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span> <span class="k">return</span> <span class="mi">1</span> <span class="p">}()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sum</span> <span class="o">:=</span> <span class="nf">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">print</span><span class="p">(</span><span class="nx">sum</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>Compile and view the assembly using the <code>objdump</code> tool:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-text">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">go build .\main.go
+</span></span><span class="line"><span class="cl">go tool objdump -s main.main .\main.exe</span></span></code></pre></div></div>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-asm">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">TEXT</span> <span class="no">main.main</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span> <span class="no">C</span><span class="p">:</span><span class="err">/</span><span class="no">Code</span><span class="err">/</span><span class="no">Github</span><span class="err">/</span><span class="no">Go_T</span><span class="err">/</span><span class="no">main.go</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x469960</span>                <span class="mi">493</span><span class="no">b6610</span>                <span class="no">CMPQ</span> <span class="no">SP</span><span class="p">,</span> <span class="mi">0x10</span><span class="p">(</span><span class="no">R14</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x469964</span>                <span class="mi">7635</span>                    <span class="no">JBE</span> <span class="mi">0x46999b</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x469966</span>                <span class="mi">55</span>                      <span class="no">PUSHQ</span> <span class="no">BP</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x469967</span>                <span class="mi">4889</span><span class="no">e5</span>                  <span class="no">MOVQ</span> <span class="no">SP</span><span class="p">,</span> <span class="no">BP</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x46996a</span>                <span class="mi">4883</span><span class="no">ec10</span>                <span class="no">SUBQ</span> <span class="no">$0x10</span><span class="p">,</span> <span class="no">SP</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">7</span>             <span class="err">0</span><span class="nf">x46996e</span>                <span class="mi">488</span><span class="no">b05f3490800</span>          <span class="no">MOVQ</span> <span class="no">main.a</span><span class="p">(</span><span class="no">SB</span><span class="p">),</span> <span class="no">AX</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">11</span>            <span class="err">0</span><span class="nf">x469975</span>                <span class="mi">480305</span><span class="no">f4490800</span>          <span class="no">ADDQ</span> <span class="no">main.b</span><span class="p">(</span><span class="no">SB</span><span class="p">),</span> <span class="no">AX</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">11</span>            <span class="err">0</span><span class="nf">x46997c</span>                <span class="mi">4889442408</span>              <span class="no">MOVQ</span> <span class="no">AX</span><span class="p">,</span> <span class="mi">0x8</span><span class="p">(</span><span class="no">SP</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x469981</span>                <span class="no">e81a8afcff</span>              <span class="no">CALL</span> <span class="no">runtime.printlock</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x469986</span>                <span class="mi">488</span><span class="no">b442408</span>              <span class="no">MOVQ</span> <span class="mi">0x8</span><span class="p">(</span><span class="no">SP</span><span class="p">),</span> <span class="no">AX</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x46998b</span>                <span class="no">e8b090fcff</span>              <span class="no">CALL</span> <span class="no">runtime.printint</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x469990</span>                <span class="no">e86b8afcff</span>              <span class="no">CALL</span> <span class="no">runtime.printunlock</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x469995</span>                <span class="mi">4883</span><span class="no">c410</span>                <span class="no">ADDQ</span> <span class="no">$0x10</span><span class="p">,</span> <span class="no">SP</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x469999</span>                <span class="mi">5</span><span class="no">d</span>                      <span class="no">POPQ</span> <span class="no">BP</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x46999a</span>                <span class="no">c3</span>                      <span class="no">RET</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x46999b</span>                <span class="mi">0</span><span class="no">f1f440000</span>              <span class="no">NOPL</span> <span class="mi">0</span><span class="p">(</span><span class="no">AX</span><span class="p">)(</span><span class="no">AX</span><span class="p">*</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x4699a0</span>                <span class="no">e8bb88ffff</span>              <span class="no">CALL</span> <span class="no">runtime.morestack_noctxt.abi0</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x4699a5</span>                <span class="no">ebb9</span>                    <span class="no">JMP</span> <span class="no">main.main</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span></span></span></code></pre></div></div>
+<p>For comparison, we can also disable inline optimization during compilation:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-text">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">go build -gcflags=&#34;all=-l&#34; .\main.go
+</span></span><span class="line"><span class="cl">PS C:\Code\Github\Go_T&gt; go tool objdump -s main.main .\main.exe</span></span></code></pre></div></div>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-asm">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x470000</span>                <span class="mi">493</span><span class="no">b6610</span>                <span class="no">CMPQ</span> <span class="no">SP</span><span class="p">,</span> <span class="mi">0x10</span><span class="p">(</span><span class="no">R14</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x470004</span>                <span class="mi">763</span><span class="no">e</span>                    <span class="no">JBE</span> <span class="mi">0x470044</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x470006</span>                <span class="mi">55</span>                      <span class="no">PUSHQ</span> <span class="no">BP</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x470007</span>                <span class="mi">4889</span><span class="no">e5</span>                  <span class="no">MOVQ</span> <span class="no">SP</span><span class="p">,</span> <span class="no">BP</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x47000a</span>                <span class="mi">4883</span><span class="no">ec18</span>                <span class="no">SUBQ</span> <span class="no">$0x18</span><span class="p">,</span> <span class="no">SP</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">7</span>             <span class="err">0</span><span class="nf">x47000e</span>                <span class="mi">488</span><span class="no">b1d9bfc0b00</span>          <span class="no">MOVQ</span> <span class="no">main.b</span><span class="p">(</span><span class="no">SB</span><span class="p">),</span> <span class="no">BX</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">7</span>             <span class="err">0</span><span class="nf">x470015</span>                <span class="mi">488</span><span class="no">b058cfc0b00</span>          <span class="no">MOVQ</span> <span class="no">main.a</span><span class="p">(</span><span class="no">SB</span><span class="p">),</span> <span class="no">AX</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">7</span>             <span class="err">0</span><span class="nf">x47001c</span>                <span class="mi">0</span><span class="no">f1f4000</span>                <span class="no">NOPL</span> <span class="mi">0</span><span class="p">(</span><span class="no">AX</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">7</span>             <span class="err">0</span><span class="nf">x470020</span>                <span class="no">e83b000000</span>              <span class="no">CALL</span> <span class="no">main.add</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">7</span>             <span class="err">0</span><span class="nf">x470025</span>                <span class="mi">4889442410</span>              <span class="no">MOVQ</span> <span class="no">AX</span><span class="p">,</span> <span class="mi">0x10</span><span class="p">(</span><span class="no">SP</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x47002a</span>                <span class="no">e8517cfcff</span>              <span class="no">CALL</span> <span class="no">runtime.printlock</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x47002f</span>                <span class="mi">488</span><span class="no">b442410</span>              <span class="no">MOVQ</span> <span class="mi">0x10</span><span class="p">(</span><span class="no">SP</span><span class="p">),</span> <span class="no">AX</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x470034</span>                <span class="no">e8e782fcff</span>              <span class="no">CALL</span> <span class="no">runtime.printint</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x470039</span>                <span class="no">e8a27cfcff</span>              <span class="no">CALL</span> <span class="no">runtime.printunlock</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x47003e</span>                <span class="mi">4883</span><span class="no">c418</span>                <span class="no">ADDQ</span> <span class="no">$0x18</span><span class="p">,</span> <span class="no">SP</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x470042</span>                <span class="mi">5</span><span class="no">d</span>                      <span class="no">POPQ</span> <span class="no">BP</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x470043</span>                <span class="no">c3</span>                      <span class="no">RET</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x470044</span>                <span class="no">e83786ffff</span>              <span class="no">CALL</span> <span class="no">runtime.morestack_noctxt.abi0</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x470049</span>                <span class="no">ebb5</span>                    <span class="no">JMP</span> <span class="no">main.main</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span></span></span></code></pre></div></div>
+<h4 id="compiler-inline-optimization">Compiler Inline Optimization</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/image.png"
+        data-srcset="/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/image.png, /posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/image.png 1.5x, /posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/image.png 2x"
+        data-sizes="auto"
+        alt="/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/image.png"
+        title="alt text" width="356" height="48" /></p>
+<h4 id="disabling-compiler-inline-optimization">Disabling Compiler Inline Optimization</h4>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/image-1.png"
+        data-srcset="/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/image-1.png, /posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/image-1.png 1.5x, /posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/image-1.png 2x"
+        data-sizes="auto"
+        alt="/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/image-1.png"
+        title="alt text" width="361" height="65" /></p>
+<h3 id="hypothesis-1-summary">Hypothesis 1 Summary</h3>
+<p>We can see that compiler inline optimization optimizes some code. The <code>add</code> function is inlined into the <code>main</code> function.
+By default, compiler inline optimization causes some function calls to be replaced with the actual code of the function body. If the functions disappear, it&rsquo;s even more impossible to compare functions.</p>
+<h2 id="how-to-solve-scenarios-requiring-function-comparison">How to solve scenarios requiring function comparison?</h2>
+<h3 id="observer-pattern">Observer Pattern</h3>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Listener</span> <span class="kd">func</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">Listeners</span> <span class="p">[]</span><span class="nx">Listener</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">AddListener</span><span class="p">(</span><span class="nx">l</span> <span class="nx">Listener</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Listeners</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">Listeners</span><span class="p">,</span> <span class="nx">l</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">CallListeners</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">l</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">Listeners</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nf">l</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">RmListener</span><span class="p">(</span><span class="nx">l</span> <span class="nx">Listener</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// TODO Remove listener</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">AddListener</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">)</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">AddListener</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;world&#34;</span><span class="p">)</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">CallListeners</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>From the above code, we need to add a remove listener function for <code>Listener</code>.
+Since functions in Go cannot be compared, the following code is incorrect:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">RmListener</span><span class="p">(</span><span class="nx">l</span> <span class="nx">Listener</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Listeners</span> <span class="p">=</span> <span class="nx">slices</span><span class="p">.</span><span class="nf">DeleteFunc</span><span class="p">(</span><span class="nx">Listeners</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">x</span> <span class="nx">Listener</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span> <span class="o">==</span> <span class="nx">l</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// invalid operation: x == l (func can only be compared to nil)compilerUndefinedOp</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<h4 id="solution-1-use-a-struct-to-add-a-comparable-tag-to-the-function">Solution 1: Use a struct to add a comparable tag to the function</h4>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;slices&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Tag</span> <span class="kd">struct</span><span class="p">{</span> <span class="o">*</span><span class="kt">int</span> <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Listener</span> <span class="kd">func</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">taggedListener</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">tag</span>      <span class="nx">Tag</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">listener</span> <span class="nx">Listener</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">Listeners</span> <span class="p">[]</span><span class="nx">taggedListener</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">AddListener</span><span class="p">(</span><span class="nx">l</span> <span class="nx">Listener</span><span class="p">)</span> <span class="nx">Tag</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">tag</span> <span class="o">:=</span> <span class="nx">Tag</span><span class="p">{</span><span class="nb">new</span><span class="p">(</span><span class="kt">int</span><span class="p">)}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Listeners</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">Listeners</span><span class="p">,</span> <span class="nx">taggedListener</span><span class="p">{</span><span class="nx">tag</span><span class="p">,</span> <span class="nx">l</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">tag</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">CallListeners</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">l</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">Listeners</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">l</span><span class="p">.</span><span class="nf">listener</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">RmListener</span><span class="p">(</span><span class="nx">tag</span> <span class="nx">Tag</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Listeners</span> <span class="p">=</span> <span class="nx">slices</span><span class="p">.</span><span class="nf">DeleteFunc</span><span class="p">(</span><span class="nx">Listeners</span><span class="p">,</span> <span class="kd">func</span><span class="p">(</span><span class="nx">x</span> <span class="nx">taggedListener</span><span class="p">)</span> <span class="kt">bool</span> <span class="p">{</span> <span class="k">return</span> <span class="nx">x</span><span class="p">.</span><span class="nx">tag</span> <span class="o">==</span> <span class="nx">tag</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">HelloTag</span> <span class="o">:=</span> <span class="nf">AddListener</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">)</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">AddListener</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span> <span class="p">{</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;world&#34;</span><span class="p">)</span> <span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">CallListeners</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// Remove Hello</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">RmListener</span><span class="p">(</span><span class="nx">HelloTag</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">CallListeners</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2026-01-16</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/en/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go: Can Function Types Be Compared, and Why?" data-hashtags="Go,Type System,Function Type,Reflect,Language Features"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/en/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go: Can Function Types Be Compared, and Why?"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/en/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-hashtag="Go"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/en/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go: Can Function Types Be Compared, and Why?"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/en/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go: Can Function Types Be Compared, and Why?"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/en/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go: Can Function Types Be Compared, and Why?"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/en/posts/go%E5%87%BD%E6%95%B0%E7%B1%BB%E5%9E%8B%E6%98%AF%E5%90%A6%E5%8F%AF%E4%BB%A5%E6%AF%94%E8%BE%83/" data-title="Go: Can Function Types Be Compared, and Why?" data-description="Detailed explanation of whether function types in Go can be compared and the reasons behind it."><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fen%2fposts%2fgo%25E5%2587%25BD%25E6%2595%25B0%25E7%25B1%25BB%25E5%259E%258B%25E6%2598%25AF%25E5%2590%25A6%25E5%258F%25AF%25E4%25BB%25A5%25E6%25AF%2594%25E8%25BE%2583%2f&amp;text=Go%3a%20Can%20Function%20Types%20Be%20Compared%2c%20and%20Why%3f" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/en/tags/go/">Go</a>,&nbsp;<a href="/en/tags/type-system/">Type System</a>,&nbsp;<a href="/en/tags/function-type/">Function Type</a>,&nbsp;<a href="/en/tags/reflect/">Reflect</a>,&nbsp;<a href="/en/tags/language-features/">Language Features</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/en/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/en/posts/go_gpm%E7%9A%84%E6%95%B0%E9%87%8F%E9%99%90%E5%88%B6/" class="prev" rel="prev" title="Go: GPM Quantity Limits"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Go: GPM Quantity Limits</a>
+            <a href="/en/posts/channel_%E5%8F%AF%E8%83%BD%E4%BC%9A%E5%BC%95%E5%8F%91_goroutine_%E6%B3%84%E6%BC%8F/" class="next" rel="next" title="Go: Channel Might Lead to Goroutine Leaks">Go: Channel Might Lead to Goroutine Leaks<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+</div>
+<div id="comments"></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/en/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{},"lightgallery":true,"search":{"highlightTag":"em","lunrLanguageCode":"en","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+</html>
