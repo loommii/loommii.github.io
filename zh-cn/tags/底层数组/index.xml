@@ -1,0 +1,198 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>底层数组 - 标签 - loommii</title>
+        <link>https://loommii.github.io/zh-cn/tags/%E5%BA%95%E5%B1%82%E6%95%B0%E7%BB%84/</link>
+        <description>底层数组 - 标签 - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 06 Dec 2024 23:42:42 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/%E5%BA%95%E5%B1%82%E6%95%B0%E7%BB%84/" rel="self" type="application/rss+xml" /><item>
+    <title>Go每日一题_103</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_103/</link>
+    <pubDate>Fri, 06 Dec 2024 23:42:42 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_103/</guid>
+    <description><![CDATA[<p>下面这段代码输出什么？</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">a</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">r</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">12</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="mi">13</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">v</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;r = &#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a = &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  <p>r =  [1 12 13 4 5]
+a =  [1 12 13 4 5]
+rang a 实际是在变量a的副本。由于切片的结构，这2个切片都会指向同一个底层数组。因此改动    a[1] = 12 ， a[2] = 13 会影响v的结构</p>]]></description>
+</item>
+<item>
+    <title>Go每日一题_102</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_102/</link>
+    <pubDate>Fri, 06 Dec 2024 23:42:41 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_102/</guid>
+    <description><![CDATA[<p>下面这段代码输出什么？</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">change</span><span class="p">(</span><span class="nx">s</span> <span class="o">...</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">slice</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">slice</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">change</span><span class="p">(</span><span class="nx">slice</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">slice</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">change</span><span class="p">(</span><span class="nx">slice</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">slice</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>[1 2 0 0 0]
+[1 2 3 0 0]</code></pre></div>
+<p>知识点：可变函数、append()操作。</p>]]></description>
+</item>
+<item>
+    <title>Go每日一题_084</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_084/</link>
+    <pubDate>Fri, 06 Dec 2024 20:45:10 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_084/</guid>
+    <description><![CDATA[<p>下面这段代码输出什么？为什么？</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s1</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s2</span> <span class="o">:=</span> <span class="nx">s1</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s2</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s2</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  s1 [1,2,4]
+s2 [2,4,5,6,7]
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>]]></description>
+</item>
+<item>
+    <title>Go每日一题_043</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_043/</link>
+    <pubDate>Fri, 06 Dec 2024 20:44:21 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_043/</guid>
+    <description><![CDATA[<p>以下代码输出什么？</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;encoding/json&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">AutoGenerated</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Age</span>   <span class="kt">int</span>    <span class="s">`json:&#34;age&#34;`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Name</span>  <span class="kt">string</span> <span class="s">`json:&#34;name&#34;`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Child</span> <span class="p">[]</span><span class="kt">int</span>  <span class="s">`json:&#34;child&#34;`</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">jsonStr1</span> <span class="o">:=</span> <span class="s">`{&#34;age&#34;: 14,&#34;name&#34;: &#34;potter&#34;, &#34;child&#34;:[1,2,3]}`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span> <span class="o">:=</span> <span class="nx">AutoGenerated</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">jsonStr1</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">aa</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.</span><span class="nx">Child</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">aa</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">jsonStr2</span> <span class="o">:=</span> <span class="s">`{&#34;age&#34;: 12,&#34;name&#34;: &#34;potter&#34;, &#34;child&#34;:[3,4,5,7,8,9]}`</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">json</span><span class="p">.</span><span class="nf">Unmarshal</span><span class="p">([]</span><span class="nb">byte</span><span class="p">(</span><span class="nx">jsonStr2</span><span class="p">),</span> <span class="o">&amp;</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">aa</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>A：[1 2 3] [1 2 3]</li>
+<li>B：[1 2 3] [3 4 5]</li>
+<li>C：[1 2 3] [3 4 5 6 7 8 9]</li>
+<li>D：[1 2 3] [3 4 5 0 0 0]</li>
+</ul>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  答： B
+解析：
+Json反序列化时,切片的处理方式是将切片的len值改为0后append数据。
+因为     aa := a.Child  aa 和 a.Child 切片指向同一个数组，append 到6时，因为a.Child未扩容，所以修改底层数组等同于修改aa的数据。但是在append到7时，a.Child 切片发生了切片扩容指向了新的数组。
+因此aa的数据为 [3 4 5]
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>]]></description>
+</item>
+<item>
+    <title>Go每日一题_041</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_041/</link>
+    <pubDate>Fri, 06 Dec 2024 20:44:18 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_041/</guid>
+    <description><![CDATA[<p>下面这段代码输出什么？</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">hello</span><span class="p">(</span><span class="nx">num</span> <span class="o">...</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="nx">num</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">18</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="nx">i</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">hello</span><span class="p">(</span><span class="nx">i</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>A.18
+B.5
+C.Compilation error
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  <p>答： A 18
+解析：&hellip; 变质是传切片，又因为未发生切片扩容，因此这2个切片指的底层数组是同一个。因此i[0]被改为18</p>]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,317 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Go Slice - Tag - loommii</title>
+        <link>https://loommii.github.io/en/tags/go-slice/</link>
+        <description>Go Slice - Tag - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 07 Jun 2025 11:39:27 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/en/tags/go-slice/" rel="self" type="application/rss+xml" /><item>
+    <title>Go Daily Question 20250607</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250607/</link>
+    <pubDate>Sat, 07 Jun 2025 11:39:27 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250607/</guid>
+    <description><![CDATA[<p>What is the output of the following code?</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">a</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">r</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">12</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="mi">13</span>
+</span></span><span class="line"><span class="cl">        <span class="p">}</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">v</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;r = &#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a = &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">r</span> <span class="p">=</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="p">=</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span></span></span></code></pre></div></div>
+<p><a href="https://go.dev/play/p/70_mTGYgNo3" target="_blank" rel="noopener noreffer ">Go Online Run</a></p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 20250602</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250602/</link>
+    <pubDate>Mon, 02 Jun 2025 11:36:49 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250602/</guid>
+    <description><![CDATA[<p>Will the following code terminate normally?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">v</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">v</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">v</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">v</span><span class="p">,</span> <span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>It will not result in an infinite loop and will terminate normally.</p>
+<p>The number of iterations is determined before the loop starts. Changing the length of the slice within the loop does not affect the number of iterations.</p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 20250531</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250531/</link>
+    <pubDate>Sat, 31 May 2025 11:36:42 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250531/</guid>
+    <description><![CDATA[<p>What&rsquo;s wrong with the following code?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">([</span><span class="o">...</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="o">==</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="o">==</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">})</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>There are two errors:</p>
+<p>In Go, different types cannot be compared. The length of an array is part of its type, so <code>[...]int{1}</code> and <code>[2]int{1}</code> are two different types and cannot be compared.
+Slices cannot be compared.</p>
+
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 20250524</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250524/</link>
+    <pubDate>Sat, 24 May 2025 12:24:40 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250524/</guid>
+    <description><![CDATA[<p>Is slice thread-safe?</p>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <ul>
+<li>It is not concurrently safe. Dynamic resizing (expansion) can lead to it pointing to a new array. Concurrent writes can lead to potential data loss.</li>
+<li>The solutions are to use a lock, or to serialize access through channels.</li>
+</ul>
+
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 20250519</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250519/</link>
+    <pubDate>Mon, 19 May 2025 15:28:51 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250519/</guid>
+    <description><![CDATA[<p>What is the output of the following code?</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">change</span><span class="p">(</span><span class="nx">s</span> <span class="o">...</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="mi">3</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">slice</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">slice</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">slice</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">change</span><span class="p">(</span><span class="nx">slice</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">slice</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">change</span><span class="p">(</span><span class="nx">slice</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span><span class="o">...</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">slice</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>[1 2 0 0 0]
+[1 2 3 0 0]</code></pre></div>
+<p>Key takeaways: variadic functions, append() operation.</p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 20250518</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250518/</link>
+    <pubDate>Sun, 18 May 2025 15:28:47 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250518/</guid>
+    <description><![CDATA[<p>Will the following code compile? If so, what will be the output?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s1</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s2</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s1</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">s1</span><span class="p">,</span> <span class="nx">s2</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p><a href="https://go.dev/play/p/xOWsWj0Evni" target="_blank" rel="noopener noreffer ">Run online</a></p>
+<p>Cannot compile.
+The second argument of <code>append()</code> cannot directly use a slice; it requires the <code>...</code> operator to append one slice to another: <code>append(s1, s2...)</code>. Alternatively, elements can be appended directly, such as: <code>append(s1, 1, 2, 3)</code>.</p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 20250513</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250513/</link>
+    <pubDate>Tue, 13 May 2025 22:05:10 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250513/</guid>
+    <description><![CDATA[<p>What is the difference between the following two slice declarations? Which one is more preferable?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">A</span><span class="p">.</span> <span class="kd">var</span> <span class="nx">a</span> <span class="p">[]</span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="nx">B</span><span class="p">.</span> <span class="nx">a</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>A: Declares <code>[]int</code> uninitialized, pointing to <code>nil</code>.
+B: Declares <code>[]int</code> initialized, pointing to an empty array.</p>
+<p>A can be declared globally.
+B can only be declared inside a function.</p>
+<p>A and B theoretically occupy the same memory space.
+Note: An empty slice points to a fixed address, so no actual memory is allocated.</p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 218</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_218/</link>
+    <pubDate>Wed, 30 Apr 2025 00:03:19 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_218/</guid>
+    <description><![CDATA[<p>What are the length and capacity of slices a, b, and c respectively?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">[:</span><span class="mi">0</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">b</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="nb">cap</span><span class="p">(</span><span class="nx">s</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>a: len 0, cap 3
+b: len 2, cap 3
+c: len 1, cap 2</p>
+<p>c starts at index 1.</p>
+<p>Reference Answer and Analysis: The length and capacity of a, b, and c are 0 3, 2 3, and 1 2, respectively.</p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 215</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_215/</link>
+    <pubDate>Sun, 27 Apr 2025 23:22:49 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_215/</guid>
+    <description><![CDATA[<p>Which option can be filled in the blank in the following code?</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">s1</span> <span class="p">[]</span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">s2</span> <span class="p">=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">__</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;yes nil&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;no nil&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>A. s1</li>
+<li>B. s2</li>
+<li>C. Both s1 and s2</li>
+</ul>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>Reference Answer and Analysis: A.</p>
+<p>Key takeaways: nil slices and empty slices. A nil slice is equal to nil and generally represents a non-existent slice; an empty slice is not equal to nil and represents an empty collection.</p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 213</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_213/</link>
+    <pubDate>Fri, 11 Apr 2025 19:46:59 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_213/</guid>
+    <description><![CDATA[<p>What is the output of the following code?</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>  
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">t</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">[</span><span class="mi">3</span><span class="p">:</span><span class="mi">4</span><span class="p">:</span><span class="mi">4</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">t</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>A.3</li>
+<li>B.4</li>
+<li>C.compilation error</li>
+</ul>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>B
+<a href="https://go.dev/play/p/z3KqBXFXMm3" target="_blank" rel="noopener noreffer ">Run online</a></p>
+<p><strong>Answer:</strong> B</p>
+<p><strong>Key takeaway:</strong> Go Language Slice Operator <code>[i:j:k]</code></p>
+<p><strong>Analysis:</strong></p>
+<ol>
+<li>
+<p><strong>Array Initialization:</strong>
+<code>a := [5]int{1, 2, 3, 4, 5}</code> creates an array <code>a</code> containing 5 integers. Its content is <code>[1, 2, 3, 4, 5]</code>, with indices from 0 to 4.</p>]]></description>
+</item>
+</channel>
+</rss>

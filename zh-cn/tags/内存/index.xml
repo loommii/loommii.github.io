@@ -11,5 +11,156 @@
     <guid>https://loommii.github.io/zh-cn/posts/the_relationship_between_program_and_memory/</guid>
     <description><![CDATA[<h2 id="程序与内存之间的关系">程序与内存之间的关系</h2>]]></description>
 </item>
+<item>
+    <title>Go每日一题_078</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_078/</link>
+    <pubDate>Fri, 06 Dec 2024 20:45:03 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_078/</guid>
+    <description><![CDATA[<p>下面的两个切片声明中有什么区别？哪个更可取？</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">A</span><span class="p">.</span> <span class="kd">var</span> <span class="nx">a</span> <span class="p">[]</span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="nx">B</span><span class="p">.</span> <span class="nx">a</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  <p>A 声明的 []int 未初始化 指向的nil
+B 声明的 []int 是已经初始化的 指向的内容为空的数组。</p>]]></description>
+</item>
+<item>
+    <title>Go每日一题_058</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_058/</link>
+    <pubDate>Fri, 06 Dec 2024 20:44:39 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_058/</guid>
+    <description><![CDATA[<p>下面代码输出什么？</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">incr</span><span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="nx">p</span><span class="o">++</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="o">*</span><span class="nx">p</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">p</span> <span class="o">:=</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">incr</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>A. 1</li>
+<li>B. 2</li>
+<li>C. 3</li>
+</ul>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  <p>答案：B。</p>
+<p>知识点：指针，incr() 函数里的 p 是 *int 类型的指针，指向的是 main() 函数的变量 p 的地址。 第 2 行代码是将该地址的值执行一个自增操作，incr() 返回自增后的结果。</p>]]></description>
+</item>
+<item>
+    <title>Go每日一题_007</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_007/</link>
+    <pubDate>Fri, 06 Dec 2024 19:40:52 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_007/</guid>
+    <description><![CDATA[<p>以下代码是否能编译通过？</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">m</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">m</span><span class="p">[</span><span class="s">&#34;qcrao&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  <p>答:不能,编译报错</p>
+<blockquote>
+<p>.\main.go:8:15: invalid operation: cannot take address of m[&ldquo;qcrao&rdquo;] (map index expression of type int)</p></blockquote>
+<p>解析:
+这个问题，相当于问：可以对 map 的元素直接取地址吗？</p>]]></description>
+</item>
+<item>
+    <title>Go每日一题_009</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_009/</link>
+    <pubDate>Fri, 06 Dec 2024 19:40:52 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_009/</guid>
+    <description><![CDATA[<p>空 struct{} 占多少空间？有什么用途？</p>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  <p>答:0 , 用于占位符</p>
+<p>例如:</p>
+<ol>
+<li>map[string]struct{},只关注key是否存在的话可以使用节省内存空间</li>
+<li>ch := make(chan struct{}, 1)，使用信道(channel)控制并发时，我们只是需要一个信号，但并不需要传递值，这个时候，也可以使用 struct{} 代替。</li>
+<li>type Lamp struct{} ,声明只包含方法的结构体。</li>
+</ol>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Lamp</span> <span class="kd">struct</span><span class="p">{}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">l</span> <span class="nx">Lamp</span><span class="p">)</span> <span class="nf">On</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">println</span><span class="p">(</span><span class="s">&#34;On&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">l</span> <span class="nx">Lamp</span><span class="p">)</span> <span class="nf">Off</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">println</span><span class="p">(</span><span class="s">&#34;Off&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>解析:
+Go为每一种类型都有全局唯一的类型元数据，元数据记录了该类型大小。因为空结构体内没有任何的类型因此空类型的大小为0。但是因为有创建类型元数据因此可以想正常的类型一样用于占位
+这里建议看一下参考资料<code>【幼麟实验室】- Go类型系统讲解</code></p>]]></description>
+</item>
+<item>
+    <title>Go每日一题_018</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_018/</link>
+    <pubDate>Fri, 06 Dec 2024 18:34:52 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_018/</guid>
+    <description><![CDATA[<p>下面代码有什么问题？</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">cl</span> <span class="p">=</span> <span class="mi">100</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">bl</span> <span class="p">=</span> <span class="mi">123</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span>  <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">println</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">bl</span><span class="p">,</span><span class="nx">bl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">println</span><span class="p">(</span><span class="o">&amp;</span><span class="nx">cl</span><span class="p">,</span><span class="nx">cl</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  答: 编译不通过。
+cl为 常量。常量无法获取地址
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>]]></description>
+</item>
 </channel>
 </rss>

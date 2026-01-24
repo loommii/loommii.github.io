@@ -1,0 +1,139 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Go Zero Value - Tag - loommii</title>
+        <link>https://loommii.github.io/en/tags/go-zero-value/</link>
+        <description>Go Zero Value - Tag - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 01 May 2025 01:10:27 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/en/tags/go-zero-value/" rel="self" type="application/rss+xml" /><item>
+    <title>Go Daily Question 220</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250501/</link>
+    <pubDate>Thu, 01 May 2025 01:10:27 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250501/</guid>
+    <description><![CDATA[<p>How should A and B in the following code be modified to compile successfully?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">m</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span>        <span class="c1">//A</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">[</span><span class="s">&#34;a&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span> 
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">v</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">[</span><span class="s">&#34;b&#34;</span><span class="p">];</span> <span class="nx">v</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>  <span class="c1">//B</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">m</span><span class="p">[</span><span class="s">&#34;a&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">v</span><span class="p">,</span><span class="nx">ok</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">[</span><span class="s">&#34;b&#34;</span><span class="p">];</span> <span class="nx">ok</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>At point A, <code>map m</code> is only declared, and no memory space is allocated. It cannot be directly assigned. <code>make()</code> needs to be used. It is generally recommended to initialize maps directly using <code>make()</code> or a literal.</p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 157</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_157/</link>
+    <pubDate>Fri, 10 Jan 2025 12:46:04 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_157/</guid>
+    <description><![CDATA[<p>How should A and B in the following code be modified to compile successfully?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">m</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span>        <span class="c1">//A</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">m</span><span class="p">[</span><span class="s">&#34;a&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">v</span> <span class="o">:=</span> <span class="nx">m</span><span class="p">[</span><span class="s">&#34;b&#34;</span><span class="p">];</span> <span class="nx">v</span> <span class="o">!=</span> <span class="kc">nil</span> <span class="p">{</span>  <span class="c1">//B</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>// A
+At point A, <code>map m</code> is only declared, and no memory space is allocated. Writing to an uninitialized map will cause a panic.</p>
+<p>Therefore, <code>var m map[string]int</code> needs to be changed to <code>m := make(map[string]int)</code>.</p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 141</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_141/</link>
+    <pubDate>Wed, 25 Dec 2024 00:09:11 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_141/</guid>
+    <description><![CDATA[<p>What is the output of the following code?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">delete</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span> <span class="s">&#34;h&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">[</span><span class="s">&#34;h&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>A. runtime panic</li>
+<li>B. 0</li>
+<li>C. compilation error</li>
+</ul>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>B
+<a href="https://go.dev/play/p/uvHvPF8EdU-" target="_blank" rel="noopener noreffer ">Run online</a>
+Deleting a non-existent key does not cause a panic.</p>
+<h4 id="extended-question">Extended Question</h4>
+<p>In this problem, <code>s</code> is already initialized. Would the behavior be the same if it were uninitialized?</p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 132</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_132/</link>
+    <pubDate>Sun, 15 Dec 2024 13:02:42 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_132/</guid>
+    <description><![CDATA[<p>What is the output of the following code?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">person</span> <span class="kd">struct</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="nx">name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">m</span> <span class="kd">map</span><span class="p">[</span><span class="nx">person</span><span class="p">]</span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">p</span> <span class="o">:=</span> <span class="nx">person</span><span class="p">{</span><span class="s">&#34;mike&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">[</span><span class="nx">p</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>Answer: 0</p>
+<p>Uninitialized map: reads zero value, writes panic.</p>
+<p>Run online:</p>
+<blockquote>
+<p>Reading from an uninitialized map: <a href="https://go.dev/play/p/yVjXasOREaH" target="_blank" rel="noopener noreffer ">https://go.dev/play/p/yVjXasOREaH</a></p>
+<p>Writing to an uninitialized map: <a href="https://go.dev/play/p/2zmJGtrH-8v" target="_blank" rel="noopener noreffer ">https://go.dev/play/p/2zmJGtrH-8v</a></p>
+<p>Writing to an initialized map: <a href="https://go.dev/play/p/eUh6csag8rh" target="_blank" rel="noopener noreffer ">https://go.dev/play/p/eUh6csag8rh</a></p></blockquote>
+
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>]]></description>
+</item>
+</channel>
+</rss>

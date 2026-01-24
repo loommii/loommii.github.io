@@ -1,0 +1,75 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Addressability - Tag - loommii</title>
+        <link>https://loommii.github.io/en/tags/addressability/</link>
+        <description>Addressability - Tag - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 06 Dec 2024 20:45:22 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/en/tags/addressability/" rel="self" type="application/rss+xml" /><item>
+    <title>Go Daily Question 094</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_094/</link>
+    <pubDate>Fri, 06 Dec 2024 20:45:22 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_094/</guid>
+    <description><![CDATA[<p>What is the output of the following code?</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Math</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">x</span><span class="p">,</span> <span class="nx">y</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">m</span> <span class="p">=</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">Math</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;foo&#34;</span><span class="p">:</span> <span class="nx">Math</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">m</span><span class="p">[</span><span class="s">&#34;foo&#34;</span><span class="p">].</span><span class="nx">x</span> <span class="p">=</span> <span class="mi">4</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">m</span><span class="p">[</span><span class="s">&#34;foo&#34;</span><span class="p">].</span><span class="nx">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>A. 4
+B. compilation error</p>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>Reference answer and explanation: B, compilation error &ldquo;cannot assign to struct field m[&ldquo;foo&rdquo;].x in map&rdquo;. The reason for the error is that for an assignment operation like <code>X = Y</code>, the address of <code>X</code> must be known to assign the value of <code>Y</code> to <code>X</code>. However, in Go, the value of a map itself is not addressable.</p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 026</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_026/</link>
+    <pubDate>Fri, 06 Dec 2024 19:49:56 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_026/</guid>
+    <description><![CDATA[<p>Will the following code compile?</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Student</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">list</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">Student</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">list</span> <span class="p">=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">Student</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">student</span> <span class="o">:=</span> <span class="nx">Student</span><span class="p">{</span><span class="s">&#34;Aceld&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">list</span><span class="p">[</span><span class="s">&#34;student&#34;</span><span class="p">]</span> <span class="p">=</span> <span class="nx">student</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">list</span><span class="p">[</span><span class="s">&#34;student&#34;</span><span class="p">].</span><span class="nx">Name</span> <span class="p">=</span> <span class="s">&#34;LDB&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">list</span><span class="p">[</span><span class="s">&#34;student&#34;</span><span class="p">])</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>Answer: Compilation fails.
+The value of <code>map[string]Student</code> is a <code>Student</code> struct value, so when <code>list[&quot;student&quot;] = student</code>, it&rsquo;s a value copy process. However, <code>list[&quot;student&quot;]</code> then becomes a value reference. The characteristic of a value reference is that it is <code>read-only</code>. Therefore, modifying <code>list[&quot;student&quot;].Name = &quot;LDB&quot;</code> is not allowed.</p>]]></description>
+</item>
+</channel>
+</rss>

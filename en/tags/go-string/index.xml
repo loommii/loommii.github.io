@@ -1,0 +1,111 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Go String - Tag - loommii</title>
+        <link>https://loommii.github.io/en/tags/go-string/</link>
+        <description>Go String - Tag - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 17 May 2025 01:52:26 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/en/tags/go-string/" rel="self" type="application/rss+xml" /><item>
+    <title>Go Daily Question 20250517</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250517/</link>
+    <pubDate>Sat, 17 May 2025 01:52:26 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250517/</guid>
+    <description><![CDATA[<p>How many syntax issues are there in the following code, and what are they?</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">x</span> <span class="kt">string</span> <span class="p">=</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">x</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">x</span> <span class="p">=</span> <span class="s">&#34;default&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>./prog.go:8:17: cannot use nil as string value in variable declaration
+./prog.go:9:10: invalid operation: x == nil (mismatched types string and untyped nil)</code></pre></div>
+<h3 id="var-x-string--nil-error"><code>var x string = nil</code> Error</h3>
+<p>In Go, the zero value for a <code>string</code> type is an empty string <code>&quot;&quot;</code>, not <code>nil</code>. <code>nil</code> is typically used for types like pointers, slices, maps, channels, and interfaces. Therefore, assigning <code>nil</code> to a <code>string</code> type variable <code>x</code> will result in a compilation error.</p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 172</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_172/</link>
+    <pubDate>Sun, 26 Jan 2025 21:19:16 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_172/</guid>
+    <description><![CDATA[<p>How many syntax issues are there in the following code, and what are they?</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">x</span> <span class="kt">string</span> <span class="p">=</span> <span class="kc">nil</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">x</span> <span class="o">==</span> <span class="kc">nil</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">x</span> <span class="p">=</span> <span class="s">&#34;default&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>./prog.go:8:17: cannot use nil as string value in variable declaration
+./prog.go:9:10: invalid operation: x == nil (mismatched types string and untyped nil)</code></pre></div>
+<h3 id="var-x-string--nil-error"><code>var x string = nil</code> Error</h3>
+<p>In Go, the zero value for a <code>string</code> type is an empty string <code>&quot;&quot;</code>, not <code>nil</code>. <code>nil</code> is typically used for types like pointers, slices, maps, channels, and interfaces. Therefore, assigning <code>nil</code> to a <code>string</code> type variable <code>x</code> will result in a compilation error.</p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 148</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_148/</link>
+    <pubDate>Wed, 01 Jan 2025 13:08:46 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_148/</guid>
+    <description><![CDATA[<p>Which of the following options is correct?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">str</span> <span class="o">:=</span> <span class="s">&#34;hello&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">str</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="sc">&#39;x&#39;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">str</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>A. hello</li>
+<li>B. xello</li>
+<li>C. compilation error</li>
+</ul>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>C
+<a href="https://go.dev/play/p/WKuFSxIZZM8" target="_blank" rel="noopener noreffer ">Run online</a></p>
+<p><a href="https://golang.google.cn/ref/spec#String_types" target="_blank" rel="noopener noreffer ">Go Official Documentation - String Types</a></p>
+<blockquote>
+<p>Strings are immutable: once created, it is impossible to change the contents of a string.</p>]]></description>
+</item>
+</channel>
+</rss>

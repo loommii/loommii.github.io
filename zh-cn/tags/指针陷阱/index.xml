@@ -1,0 +1,56 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>指针陷阱 - 标签 - loommii</title>
+        <link>https://loommii.github.io/zh-cn/tags/%E6%8C%87%E9%92%88%E9%99%B7%E9%98%B1/</link>
+        <description>指针陷阱 - 标签 - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 06 Dec 2024 19:49:55 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/%E6%8C%87%E9%92%88%E9%99%B7%E9%98%B1/" rel="self" type="application/rss+xml" /><item>
+    <title>Go每日一题_027</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_027/</link>
+    <pubDate>Fri, 06 Dec 2024 19:49:55 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_027/</guid>
+    <description><![CDATA[<p>以下代码有什么问题，说明原因</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">student</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Name</span> <span class="kt">string</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Age</span>  <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//定义map</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">m</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">student</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//定义student数组</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">stus</span> <span class="o">:=</span> <span class="p">[]</span><span class="nx">student</span><span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="s">&#34;zhou&#34;</span><span class="p">,</span> <span class="nx">Age</span><span class="p">:</span> <span class="mi">24</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="s">&#34;li&#34;</span><span class="p">,</span> <span class="nx">Age</span><span class="p">:</span> <span class="mi">23</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="p">{</span><span class="nx">Name</span><span class="p">:</span> <span class="s">&#34;wang&#34;</span><span class="p">,</span> <span class="nx">Age</span><span class="p">:</span> <span class="mi">22</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//将数组依次添加到map中</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">stu</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">stus</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">m</span><span class="p">[</span><span class="nx">stu</span><span class="p">.</span><span class="nx">Name</span><span class="p">]</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">stu</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="c1">//打印map</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">k</span><span class="p">,</span><span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">m</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">k</span> <span class="p">,</span><span class="s">&#34;=&gt;&#34;</span><span class="p">,</span> <span class="nx">v</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  <h3 id="注意此类问题在go版本在122-版本后将会有变化">注意此类问题在Go版本在1.22 版本后将会有变化</h3>
+<p>🔗:<a href="https://go.dev/blog/loopvar-preview" target="_blank" rel="noopener noreffer ">修复 Go 1.22 中的 For 循环</a></p>]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>设计原理 - 标签 - loommii</title>
+        <link>https://loommii.github.io/zh-cn/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/</link>
+        <description>设计原理 - 标签 - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 06 Dec 2024 19:40:53 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E7%90%86/" rel="self" type="application/rss+xml" /><item>
+    <title>Go每日一题_003</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_003/</link>
+    <pubDate>Fri, 06 Dec 2024 19:40:53 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_003/</guid>
+    <description><![CDATA[<p>map 的 key 为什么是无序的？</p>
+<p>在遍历 map 的时候，我们会发现，输出的 key 是无序的。为什么？</p>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  <p>在go &lt;= 1.0 以后 迭代 map 的结果是无序的。
+这是Golang map的实现原理导致的。在扩容中Map会指向新的桶，这是并不会立刻全部迁移，而是会指向新桶和旧桶。遍历Map上本质遍历这2个桶。但是发生了扩容Key的位置改变导致遍历的结果不同。
+在go &gt; 1.0 以前遍历Map的时候 不扩容时是有序的，扩容后将改变顺序。为了统一这个问题go&gt;=1.0加入了遍历Map会随机播种，使得遍历无序。</p>]]></description>
+</item>
+</channel>
+</rss>

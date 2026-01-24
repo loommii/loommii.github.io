@@ -1,0 +1,232 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>类型断言 - 标签 - loommii</title>
+        <link>https://loommii.github.io/zh-cn/tags/%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/</link>
+        <description>类型断言 - 标签 - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 06 Dec 2024 23:42:52 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/%E7%B1%BB%E5%9E%8B%E6%96%AD%E8%A8%80/" rel="self" type="application/rss+xml" /><item>
+    <title>Go每日一题_112</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_112/</link>
+    <pubDate>Fri, 06 Dec 2024 23:42:52 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_112/</guid>
+    <description><![CDATA[<p>下面代码输出什么？</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-golang">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-golang" data-lang="golang"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">A</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">ShowA</span><span class="p">()</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">B</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">ShowB</span><span class="p">()</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Work</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">i</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">w</span> <span class="nx">Work</span><span class="p">)</span> <span class="nf">ShowA</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">w</span><span class="p">.</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">w</span> <span class="nx">Work</span><span class="p">)</span> <span class="nf">ShowB</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">w</span><span class="p">.</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">20</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">a</span> <span class="nx">A</span> <span class="p">=</span> <span class="nx">Work</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 类型断言</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// http://c.biancheng.net/view/4281.html</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.(</span><span class="nx">Work</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nf">ShowA</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nf">ShowB</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>A. 13 23</li>
+<li>B. compilation error</li>
+</ul>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>13
+23</code></pre></div>
+<p>参考答案及解析：A。</p>]]></description>
+</item>
+<item>
+    <title>Go每日一题_110</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_110/</link>
+    <pubDate>Fri, 06 Dec 2024 23:42:50 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_110/</guid>
+    <description><![CDATA[<p>如果 Add() 函数的调用代码为：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">a</span> <span class="nx">Integer</span> <span class="p">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">b</span> <span class="nx">Integer</span> <span class="p">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">i</span> <span class="kd">interface</span><span class="p">{}</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">a</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sum</span> <span class="o">:=</span> <span class="nx">i</span><span class="p">.(</span><span class="o">*</span><span class="nx">Integer</span><span class="p">).</span><span class="nf">Add</span><span class="p">(</span><span class="nx">b</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">sum</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>则Add函数定义正确的是：</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">A</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Integer</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="nx">Integer</span><span class="p">)</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">b</span> <span class="nx">Integer</span><span class="p">)</span> <span class="nx">Integer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">B</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Integer</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="nx">Integer</span><span class="p">)</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">Integer</span><span class="p">)</span> <span class="nx">Integer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">a</span> <span class="o">+</span> <span class="o">*</span><span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">C</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Integer</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">Integer</span><span class="p">)</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">b</span> <span class="nx">Integer</span><span class="p">)</span> <span class="nx">Integer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">*</span><span class="nx">a</span> <span class="o">+</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">D</span><span class="p">.</span>
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Integer</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">a</span> <span class="o">*</span><span class="nx">Integer</span><span class="p">)</span> <span class="nf">Add</span><span class="p">(</span><span class="nx">b</span> <span class="o">*</span><span class="nx">Integer</span><span class="p">)</span> <span class="nx">Integer</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="o">*</span><span class="nx">a</span> <span class="o">+</span> <span class="o">*</span><span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  AC
+如果是func (a Integer) 编译会自动帮你添加 func (a *Integer)
+反过来则不行
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>]]></description>
+</item>
+<item>
+    <title>Go每日一题_072</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_072/</link>
+    <pubDate>Fri, 06 Dec 2024 20:44:55 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_072/</guid>
+    <description><![CDATA[<p>下面代码输出什么？</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">A</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">ShowA</span><span class="p">()</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">B</span> <span class="kd">interface</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nf">ShowB</span><span class="p">()</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Work</span> <span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">i</span> <span class="kt">int</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">w</span> <span class="nx">Work</span><span class="p">)</span> <span class="nf">ShowA</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">w</span><span class="p">.</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">10</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">w</span> <span class="nx">Work</span><span class="p">)</span> <span class="nf">ShowB</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">w</span><span class="p">.</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">20</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">a</span> <span class="nx">A</span> <span class="p">=</span> <span class="nx">Work</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span> <span class="o">:=</span> <span class="nx">a</span><span class="p">.(</span><span class="nx">Work</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nf">ShowA</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">.</span><span class="nf">ShowB</span><span class="p">())</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<p>A. 13 23
+B. compilation error
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  A ：类型断言。
+无坑
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>
+</p>]]></description>
+</item>
+<item>
+    <title>Go每日一题_036</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_036/</link>
+    <pubDate>Fri, 06 Dec 2024 20:44:12 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_036/</guid>
+    <description><![CDATA[<p>下面这段代码能否编译通过？如果可以，输出什么？</p>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">GetValue</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">i</span> <span class="o">:=</span> <span class="nf">GetValue</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">    <span class="k">switch</span> <span class="nx">i</span><span class="p">.(</span><span class="kd">type</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="kt">int</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">println</span><span class="p">(</span><span class="s">&#34;int&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="kt">string</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">println</span><span class="p">(</span><span class="s">&#34;string&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">case</span> <span class="kd">interface</span><span class="p">{}:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">println</span><span class="p">(</span><span class="s">&#34;interface&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="k">default</span><span class="p">:</span>
+</span></span><span class="line"><span class="cl">        <span class="nb">println</span><span class="p">(</span><span class="s">&#34;unknown&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  答 编译错误
+这里使用到了 类型断言。 但是注意只有接口类型才能进行类型断言。 i.(type)，这里i 的类型是 int 而不是 接口
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>]]></description>
+</item>
+</channel>
+</rss>

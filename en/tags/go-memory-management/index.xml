@@ -1,0 +1,36 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Go Memory Management - Tag - loommii</title>
+        <link>https://loommii.github.io/en/tags/go-memory-management/</link>
+        <description>Go Memory Management - Tag - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 19 Feb 2025 02:08:43 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/en/tags/go-memory-management/" rel="self" type="application/rss+xml" /><item>
+    <title>Go Daily Question 190</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_190/</link>
+    <pubDate>Wed, 19 Feb 2025 02:08:43 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_190/</guid>
+    <description><![CDATA[<p>What are the scenarios for memory leaks?</p>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <ul>
+<li>Long-lived objects holding references to short-lived objects: For example, objects referenced by global variables.</li>
+<li>Unclosed Goroutines: If a Goroutine starts but fails to terminate normally due to some reason (e.g., deadlock, infinite loop, channel blocking), it will continue to occupy memory.</li>
+<li>Improper use of the <code>time</code> package.</li>
+<li>Improper string operations.</li>
+<li>Unclosed resources like files and network connections.</li>
+<li>Improper CGO memory management: If your Go code uses CGO and allocates memory in C code, you need to manually free that memory. Otherwise, it will lead to a memory leak.</li>
+</ul>
+
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>]]></description>
+</item>
+</channel>
+</rss>

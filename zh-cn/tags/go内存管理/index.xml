@@ -1,0 +1,36 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Go内存管理 - 标签 - loommii</title>
+        <link>https://loommii.github.io/zh-cn/tags/go%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/</link>
+        <description>Go内存管理 - 标签 - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 19 Feb 2025 02:08:43 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/go%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" rel="self" type="application/rss+xml" /><item>
+    <title>Go每日一题_190</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_190/</link>
+    <pubDate>Wed, 19 Feb 2025 02:08:43 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_190/</guid>
+    <description><![CDATA[<p>内存泄漏有哪些场景?</p>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  <ul>
+<li>长生命周期的对象持有短生命周期对象的引用： 例如全局变量引用到的对象</li>
+<li>未关闭的 Goroutine：Goroutine 启动后，如果由于某种原因（例如死锁、无限循环、channel 阻塞）而无法正常结束，就会一直占用内存。</li>
+<li>time包使用不当</li>
+<li>字符串操作不当</li>
+<li>文件、网络连接等资源未关闭：</li>
+<li>CGO 内存管理不当 :如果你的 Go 代码使用了 CGO，并且在 C 代码中分配了内存，那么你需要手动释放这些内存。 否则，会导致内存泄漏。</li>
+</ul>
+
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>]]></description>
+</item>
+</channel>
+</rss>

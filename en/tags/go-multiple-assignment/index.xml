@@ -1,0 +1,51 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Go Multiple Assignment - Tag - loommii</title>
+        <link>https://loommii.github.io/en/tags/go-multiple-assignment/</link>
+        <description>Go Multiple Assignment - Tag - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Wed, 12 Feb 2025 00:20:07 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/en/tags/go-multiple-assignment/" rel="self" type="application/rss+xml" /><item>
+    <title>Go Daily Question 183</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_183/</link>
+    <pubDate>Wed, 12 Feb 2025 00:20:07 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_183/</guid>
+    <description><![CDATA[<p>What is the correct output of the following code?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">s</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;A&#34;</span><span class="p">,</span> <span class="s">&#34;B&#34;</span><span class="p">,</span> <span class="s">&#34;C&#34;</span><span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">i</span><span class="p">,</span> <span class="nx">s</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">2</span><span class="p">,</span> <span class="s">&#34;Z&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;s: %v \n&#34;</span><span class="p">,</span> <span class="nx">s</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>A. s: [Z,B,C]</li>
+<li>B. s: [A,Z,C]</li>
+</ul>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <h3 id="answer-a">Answer: A</h3>
+<p><a href="https://go.dev/play/p/cLui57mACBf" target="_blank" rel="noopener noreffer ">Go Online Run</a></p>
+<h3 id="key-takeaway-multiple-assignment">Key Takeaway: Multiple Assignment</h3>
+<p>Multiple assignment is divided into two steps, with a strict order:</p>
+<ol>
+<li>Calculation Phase: First, the index expressions and address expressions on the left side of the equals sign are evaluated, and then all expressions on the right side of the equals sign are evaluated. Note that it&rsquo;s <em>left first, then right</em>, but <em>left-side internals are evaluated from left to right</em>.</li>
+<li>Assignment Phase: The calculated values of the right-side expressions are assigned to the corresponding variables on the left side, from left to right.</li>
+</ol>
+<h3 id="key-points">Key Points</h3>
+<ul>
+<li>In the calculation phase, the left-side indices are calculated first. If an index involves a variable, the value of that variable at that moment is used for the index calculation.</li>
+<li>The assignment phase proceeds from left to right.</li>
+</ul>
+<h3 id="analysis-of-this-example">Analysis of this Example</h3>
+<p>In this example, <code>s[i-1]</code> will be calculated first. At this point, the value of <code>i</code> is 1, so <code>s[0]</code> is calculated. The two expressions on the right side of the equals sign are constants, and their calculated results are 2 and &ldquo;Z&rdquo; respectively. Then the assignment is performed, so the assignment operation is equivalent to <code>i, s[0] = 2, &quot;Z&quot;</code>.</p>]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,41 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Go Variadic Parameters - Tag - loommii</title>
+        <link>https://loommii.github.io/en/tags/go-variadic-parameters/</link>
+        <description>Go Variadic Parameters - Tag - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Thu, 02 Jan 2025 00:17:12 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/en/tags/go-variadic-parameters/" rel="self" type="application/rss+xml" /><item>
+    <title>Go Daily Question 149</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_149/</link>
+    <pubDate>Thu, 02 Jan 2025 00:17:12 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_149/</guid>
+    <description><![CDATA[<p>Which of the following calls to the <code>add()</code> function are correct?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">add</span><span class="p">(</span><span class="nx">args</span> <span class="o">...</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">sum</span> <span class="o">:=</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">_</span><span class="p">,</span> <span class="nx">arg</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">args</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">arg</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">sum</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<ul>
+<li>A. add(1, 2)</li>
+<li>B. add(1, 3, 7)</li>
+<li>C. add([]int{1, 2})</li>
+<li>D. add([]int{1, 3, 7}&hellip;)</li>
+</ul>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>A, B, D
+<a href="https://go.dev/play/p/869njWxkuwY" target="_blank" rel="noopener noreffer ">Run online</a></p>
+<p><a href="https://golang.google.cn/ref/spec#Passing_arguments_to_..._parameters" target="_blank" rel="noopener noreffer ">Go Official Documentation - Passing arguments to &hellip; parameters</a></p>
+<p><code>add</code> is a variadic function that accepts any number of <code>int</code> type arguments.
+The type of the <code>args</code> parameter is <code>...int</code>, which behaves as <code>[]int</code> (an <code>int</code> type slice) inside the function.
+Although <code>[]int</code> and <code>...int</code> are both slices at the underlying level, Go&rsquo;s type system requires explicitly unpacking a slice as variadic parameters.</p>]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Go Hash Table - Tag - loommii</title>
+        <link>https://loommii.github.io/en/tags/go-hash-table/</link>
+        <description>Go Hash Table - Tag - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 21 Feb 2025 00:46:16 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/en/tags/go-hash-table/" rel="self" type="application/rss+xml" /><item>
+    <title>Go Daily Question 192</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_192/</link>
+    <pubDate>Fri, 21 Feb 2025 00:46:16 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_192/</guid>
+    <description><![CDATA[<p>When iterating over a map, we find that the output keys are unordered. Why?</p>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>The fundamental reason why the output keys are unordered is that when traversing a map, it doesn&rsquo;t always start traversing from bucket #0. Instead, it starts from a randomly numbered bucket, and from a randomly numbered cell within that bucket.
+This random starting point was introduced starting from Go 1.0.
+Why introduce random seeding? Because in older versions, if no reallocation occurred, the iteration order was fixed. However, after reallocation, the iteration order would become non-deterministic. This could lead to ambiguity.
+During reallocation, keys that were originally in the same bucket might be distributed to different buckets, causing the iteration order to change.</p>]]></description>
+</item>
+</channel>
+</rss>

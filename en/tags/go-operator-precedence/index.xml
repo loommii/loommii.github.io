@@ -1,0 +1,98 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Go Operator Precedence - Tag - loommii</title>
+        <link>https://loommii.github.io/en/tags/go-operator-precedence/</link>
+        <description>Go Operator Precedence - Tag - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Sat, 10 May 2025 00:27:26 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/en/tags/go-operator-precedence/" rel="self" type="application/rss+xml" /><item>
+    <title>Go Daily Question 20250510</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250510/</link>
+    <pubDate>Sat, 10 May 2025 00:27:26 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_20250510/</guid>
+    <description><![CDATA[<p>Will the following code run normally, and what is the result?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">v</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="nx">v</span> <span class="p">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">println</span><span class="p">(</span><span class="mi">5</span><span class="o">/+-*</span><span class="nx">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>It runs normally and the result is -2.</p>
+<p><a href="https://go.dev/play/p/5A8BdXFzaOf" target="_blank" rel="noopener noreffer ">Run online</a></p>
+<h2 id="expression-parsing">Expression Parsing</h2>
+<p><code>5/+-*v</code>
+Go language <a href="https://golang.google.cn/ref/spec#Operators" target="_blank" rel="noopener noreffer ">operator precedence rules</a></p>
+<blockquote>
+<p><code>unary_op = &quot;+&quot; | &quot;-&quot; | &quot;!&quot; | &quot;^&quot; | &quot;*&quot; | &quot;&amp;&quot; | &quot;&lt;-&quot; .</code></p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 222</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_222/</link>
+    <pubDate>Sat, 03 May 2025 00:37:04 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_222/</guid>
+    <description><![CDATA[<p>Go101 author published a twitter. Will the following code run normally, and what is the result?
+What is the output of the following code?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">v</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="nx">v</span> <span class="p">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">println</span><span class="p">(</span><span class="mi">5</span><span class="o">/+-*</span><span class="nx">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>Reference Answer and Analysis: B.</p>
+<p>Go has the following unary operators:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">unary_op</span> <span class="p">=</span> <span class="s">&#34;+&#34;</span> <span class="p">|</span> <span class="s">&#34;-&#34;</span> <span class="p">|</span> <span class="s">&#34;!&#34;</span> <span class="p">|</span> <span class="s">&#34;^&#34;</span> <span class="p">|</span> <span class="s">&#34;*&#34;</span> <span class="p">|</span> <span class="s">&#34;&amp;&#34;</span> <span class="p">|</span> <span class="s">&#34;&lt;-&#34;</span> <span class="p">.</span></span></span></code></pre></div></div>
+<p>Therefore, <code>5/+-*v</code> will be calculated first.
+Also, according to the specification:</p>]]></description>
+</item>
+<item>
+    <title>Go Daily Question 159</title>
+    <link>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_159/</link>
+    <pubDate>Sun, 12 Jan 2025 15:25:17 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/en/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_159/</guid>
+    <description><![CDATA[<p>Will the following code run normally, and what is the result?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">v</span> <span class="o">:=</span> <span class="nb">new</span><span class="p">(</span><span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">    <span class="o">*</span><span class="nx">v</span> <span class="p">=</span> <span class="mi">2</span>
+</span></span><span class="line"><span class="cl">    <span class="nb">println</span><span class="p">(</span><span class="mi">5</span><span class="o">/+-*</span><span class="nx">v</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>It runs normally and the result is -2.</p>
+<p><a href="https://go.dev/play/p/5A8BdXFzaOf" target="_blank" rel="noopener noreffer ">Run online</a></p>
+<h2 id="expression-parsing">Expression Parsing</h2>
+<p><code>5/+-*v</code>
+Go language <a href="https://golang.google.cn/ref/spec#Operators" target="_blank" rel="noopener noreffer ">operator precedence rules</a></p>
+<blockquote>
+<p><code>unary_op = &quot;+&quot; | &quot;-&quot; | &quot;!&quot; | &quot;^&quot; | &quot;*&quot; | &quot;&amp;&quot; | &quot;&lt;-&quot; .</code></p>]]></description>
+</item>
+</channel>
+</rss>

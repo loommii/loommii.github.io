@@ -1,0 +1,21 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Go哈希表 - 标签 - loommii</title>
+        <link>https://loommii.github.io/zh-cn/tags/go%E5%93%88%E5%B8%8C%E8%A1%A8/</link>
+        <description>Go哈希表 - 标签 - loommii</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 21 Feb 2025 00:46:16 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/go%E5%93%88%E5%B8%8C%E8%A1%A8/" rel="self" type="application/rss+xml" /><item>
+    <title>Go每日一题_192</title>
+    <link>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_192/</link>
+    <pubDate>Fri, 21 Feb 2025 00:46:16 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/go_practise/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98_192/</guid>
+    <description><![CDATA[<p>在遍历 map 的时候，我们会发现，输出的 key 是无序的。为什么？</p>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
+<div class="toggle-content">
+  <p>输出的 key 是无序的本质原因是,遍历 map 时并不是固定地从 0 号 bucket 开始遍历，每次都是从一个随机值序号的 bucket 开始遍历，并且是从这个 bucket 的一个随机序号的 cell 开始遍历。<br>
+该随机值序号是在Go1.0开始加入的。<br>
+为什么要引入随机种子呢？因为在老版本若不发生扩容,遍历输出的顺序是固定的，但当扩容后,遍历输出的顺序就不固定了。这样会导致歧义。<br>
+扩容的时候，会导致原本在同一个bucket的key，被分配到不同的bucket中。导致遍历输出的顺序发生改变。</p>]]></description>
+</item>
+</channel>
+</rss>
