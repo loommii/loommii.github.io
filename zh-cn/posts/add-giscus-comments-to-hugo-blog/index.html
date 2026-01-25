@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>为你的 HUGO 博客集成 Giscus 评论系统 - loommii</title><meta name="Description" content="一篇详细的指南，教你如何为基于 HUGO 和 LoveIt 主题的个人博客，添加一个现代、开源且注重隐私的 Giscus 评论系统。"><meta property="og:url" content="https://loommii.github.io/zh-cn/posts/add-giscus-comments-to-hugo-blog/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="为你的 HUGO 博客集成 Giscus 评论系统">
+  <meta property="og:description" content="一篇详细的指南，教你如何为基于 HUGO 和 LoveIt 主题的个人博客，添加一个现代、开源且注重隐私的 Giscus 评论系统。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-01-26T00:48:19+08:00">
+    <meta property="article:modified_time" content="2026-01-26T00:48:19+08:00">
+    <meta property="article:tag" content="HUGO">
+    <meta property="article:tag" content="Giscus">
+    <meta property="article:tag" content="博客搭建">
+    <meta property="article:tag" content="评论系统">
+    <meta property="article:tag" content="LoveIt">
+    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+  <meta name="twitter:title" content="为你的 HUGO 博客集成 Giscus 评论系统">
+  <meta name="twitter:description" content="一篇详细的指南，教你如何为基于 HUGO 和 LoveIt 主题的个人博客，添加一个现代、开源且注重隐私的 Giscus 评论系统。">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/zh-cn/posts/add-giscus-comments-to-hugo-blog/" /><link rel="prev" href="https://loommii.github.io/zh-cn/posts/fix-win11-headphone-volume-limit/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "为你的 HUGO 博客集成 Giscus 评论系统",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/loommii.github.io\/zh-cn\/posts\/add-giscus-comments-to-hugo-blog\/"
+        },"genre": "posts","keywords": "HUGO, Giscus, 博客搭建, 评论系统, LoveIt","wordcount":  2647 ,
+        "url": "https:\/\/loommii.github.io\/zh-cn\/posts\/add-giscus-comments-to-hugo-blog\/","datePublished": "2026-01-26T00:48:19+08:00","dateModified": "2026-01-26T00:48:19+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "loommii"
+            },"description": "一篇详细的指南，教你如何为基于 HUGO 和 LoveIt 主题的个人博客，添加一个现代、开源且注重隐私的 Giscus 评论系统。"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"> 文章 </a><a class="menu-item" href="/zh-cn/go_practise/"> Go练习题 </a><a class="menu-item" href="/zh-cn/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/zh-cn/categories/"> 分类 </a><a class="menu-item" href="/zh-cn/tags/"> 标签 </a><a class="menu-item" href="/zh-cn/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/posts/add-giscus-comments-to-hugo-blog/" selected>简体中文</option><option value="/en/posts/add-giscus-comments-to-hugo-blog/">English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/" title="">文章</a><a class="menu-item" href="/zh-cn/go_practise/" title="">Go练习题</a><a class="menu-item" href="/zh-cn/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/zh-cn/categories/" title="">分类</a><a class="menu-item" href="/zh-cn/tags/" title="">标签</a><a class="menu-item" href="/zh-cn/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/posts/add-giscus-comments-to-hugo-blog/" selected>简体中文</option><option value="/en/posts/add-giscus-comments-to-hugo-blog/">English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">为你的 HUGO 博客集成 Giscus 评论系统</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/loommii" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E5%B7%A7/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>建站技巧</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-01-26">2026-01-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2647 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#准备工作">准备工作</a></li>
+    <li><a href="#第一步配置-github-仓库与-giscus-应用">第一步：配置 GitHub 仓库与 Giscus 应用</a>
+      <ul>
+        <li><a href="#11-开启-github-discussions">1.1 开启 GitHub Discussions</a></li>
+        <li><a href="#12-安装-giscus-github-app">1.2 安装 Giscus GitHub App</a></li>
+      </ul>
+    </li>
+    <li><a href="#第二步配置-giscus-获取参数">第二步：配置 Giscus 获取参数</a>
+      <ul>
+        <li><a href="#补充说明为何不直接使用-script-标签">补充说明：为何不直接使用 <code>&lt;script&gt;</code> 标签？</a></li>
+      </ul>
+    </li>
+    <li><a href="#第三步更新-hugo-配置文件">第三步：更新 HUGO 配置文件</a></li>
+    <li><a href="#第四步验证效果">第四步：验证效果</a></li>
+    <li><a href="#参数详解与备选方案">参数详解与备选方案</a>
+      <ul>
+        <li><a href="#lang语言设置"><code>lang</code>：语言设置</a></li>
+        <li><a href="#theme-vs-lightthemedarktheme主题控制"><code>theme</code> vs <code>lightTheme</code>/<code>darkTheme</code>：主题控制</a></li>
+      </ul>
+    </li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前言">前言</h2>
+<p>对于一个个人博客而言，评论系统是与读者建立连接、收集反馈和促进思想交流的关键桥梁。一个活跃的评论区不仅能提升网站的互动性，更能为内容创作者带来持续的写作动力。</p>
+<p>目前市面上有许多评论系统方案，例如老牌的 Disqus、基于 GitHub Issues 的 Gitalk 和 Utterances 等。但它们或多或少存在一些缺点，比如 Disqus 的广告和隐私追踪问题，或者 Gitalk/Utterances 对 GitHub Issues 的“污染”。</p>
+<p>因此，本文将向您介绍一个更为理想的替代方案：<strong>Giscus</strong>。</p>
+<p><strong>Giscus</strong> 是一个基于 <strong>GitHub Discussions</strong> 的现代评论系统。它开源、免费、无广告、注重隐私，并且完美地将评论区与代码仓库的 Issues 分离开来，非常适合技术类博客。</p>
+<p>接下来，我将一步步带您完成在 HUGO (以 LoveIt 主题为例) 博客中集成 Giscus 的全过程。</p>
+<h2 id="准备工作">准备工作</h2>
+<p>在开始之前，请确保您已具备以下条件：</p>
+<ol>
+<li>一个正常运行的、基于 HUGO 的个人博客。</li>
+<li>博客的源代码托管在一个<strong>公开 (Public)</strong> 的 GitHub 仓库中。</li>
+<li>您的 GitHub 账号。</li>
+</ol>
+<h2 id="第一步配置-github-仓库与-giscus-应用">第一步：配置 GitHub 仓库与 Giscus 应用</h2>
+<p>Giscus 需要使用您仓库的 Discussions 功能来存储评论，并需要通过 GitHub App 获取权限。</p>
+<h3 id="11-开启-github-discussions">1.1 开启 GitHub Discussions</h3>
+<p>Giscus 的评论数据将存储在您 GitHub 仓库的 Discussions 中。因此，您需要确保该功能已被激活。</p>
+<ol>
+<li>进入您的博客源码所在的 GitHub 仓库。</li>
+<li>点击右上角的 <strong>Settings</strong> 标签页。</li>
+<li>在 <strong>General</strong> 设置页面下，找到 <strong>Features</strong> 功能区。</li>
+<li>勾选 <strong>Discussions</strong> 选项，即可开启此功能。</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/add-giscus-comments-to-hugo-blog/github-repo-settings-enable-discussions-1.png"
+        data-srcset="/zh-cn/posts/add-giscus-comments-to-hugo-blog/github-repo-settings-enable-discussions-1.png, /zh-cn/posts/add-giscus-comments-to-hugo-blog/github-repo-settings-enable-discussions-1.png 1.5x, /zh-cn/posts/add-giscus-comments-to-hugo-blog/github-repo-settings-enable-discussions-1.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/add-giscus-comments-to-hugo-blog/github-repo-settings-enable-discussions-1.png"
+        title="alt text" width="898" height="124" />
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/add-giscus-comments-to-hugo-blog/github-repo-settings-enable-discussions-2.png"
+        data-srcset="/zh-cn/posts/add-giscus-comments-to-hugo-blog/github-repo-settings-enable-discussions-2.png, /zh-cn/posts/add-giscus-comments-to-hugo-blog/github-repo-settings-enable-discussions-2.png 1.5x, /zh-cn/posts/add-giscus-comments-to-hugo-blog/github-repo-settings-enable-discussions-2.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/add-giscus-comments-to-hugo-blog/github-repo-settings-enable-discussions-2.png"
+        title="alt text" width="784" height="216" /></p>
+<p>为了更好地管理，建议为博客评论创建一个专门的分类：</p>
+<ol>
+<li>切换到仓库的 <strong>Discussions</strong> 标签页。</li>
+<li>点击右侧 <strong>Categories</strong> 旁边的小铅笔图标进行编辑。</li>
+<li>点击 <strong>New category</strong>，创建一个新的分类。例如，可以命名为 <code>博客评论</code> 或 <code>Comments</code>。请确保勾选 <strong>&ldquo;This category is for announcements.&rdquo;</strong> 选项，这样 Giscus 才能正常使用它。</li>
+</ol>
+<h3 id="12-安装-giscus-github-app">1.2 安装 Giscus GitHub App</h3>
+<p>Giscus 需要通过 GitHub App 访问您的仓库 Discussions。</p>
+<ol>
+<li>访问 <a href="https://github.com/apps/giscus" target="_blank" rel="noopener noreffer ">Giscus GitHub App 页面</a>。</li>
+<li>点击 <strong>Install</strong> 按钮。</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-app-install-button.png"
+        data-srcset="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-app-install-button.png, /zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-app-install-button.png 1.5x, /zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-app-install-button.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-app-install-button.png"
+        title="alt text" width="1091" height="408" /></p>
+<ol start="3">
+<li>选择您需要为其启用 Giscus 的 GitHub Pages 博客仓库，然后点击 <strong>Install</strong>。</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-app-select-repo-and-install.png"
+        data-srcset="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-app-select-repo-and-install.png, /zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-app-select-repo-and-install.png 1.5x, /zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-app-select-repo-and-install.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-app-select-repo-and-install.png"
+        title="alt text" width="615" height="651" /></p>
+<h2 id="第二步配置-giscus-获取参数">第二步：配置 Giscus 获取参数</h2>
+<p>接下来，我们需要在 Giscus 的官方网站上生成配置信息并获取关键 ID。</p>
+<ol>
+<li>访问 <a href="https://giscus.app/zh-CN" target="_blank" rel="noopener noreffer ">giscus.app</a>。</li>
+<li>向下滚动页面，找到配置区域。</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-section-overview.png"
+        data-srcset="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-section-overview.png, /zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-section-overview.png 1.5x, /zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-section-overview.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-section-overview.png"
+        title="alt text" width="494" height="319" /></p>
+<ol start="3">
+<li><strong>仓库</strong>: 输入您的 GitHub 仓库地址，格式为 <code>用户名/仓库名</code>。</li>
+</ol>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-enter-repo.png"
+        data-srcset="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-enter-repo.png, /zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-enter-repo.png 1.5x, /zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-enter-repo.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-enter-repo.png"
+        title="alt text" width="765" height="146" /></p>
+<ol start="4">
+<li><strong>页面 ↔️ discussion 映射关系</strong>: 这是 Giscus 的核心功能之一。为了确保您的博客在多平台（如 GitHub Pages, Cloudflare Pages）部署时，同一篇文章能共享同一个评论区，强烈建议选择 <strong>“discussion 标题包含页面 <code>&lt;title&gt;</code>”</strong>。</li>
+<li><strong>Discussion 分类</strong>: 选择您在第一步中创建的分类（例如 <code>博客评论</code> 或 <code>Announcements</code>）。</li>
+<li><strong>功能</strong>: 按需勾选，例如 “开启 Giscus 时加载评论” 等。</li>
+<li><strong>主题</strong>: 推荐选择 <code>preferred_color_scheme</code>，这样 Giscus 的外观可以根据访问者系统的亮暗模式自动切换，与您的博客主题保持一致。</li>
+</ol>
+<p>完成上述配置后，网站会自动生成一段 <code>&lt;script&gt;</code> 标签代码。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-generated-script.png"
+        data-srcset="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-generated-script.png, /zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-generated-script.png 1.5x, /zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-generated-script.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/add-giscus-comments-to-hugo-blog/giscus-website-config-generated-script.png"
+        title="alt text" width="750" height="380" /></p>
+<p>但对于 LoveIt 主题，我们<strong>不需要</strong>直接复制整个脚本，只需要从里面提取几个关键的 ID 信息：</p>
+<ul>
+<li><code>data-repo-id</code></li>
+<li><code>data-category-id</code></li>
+</ul>
+<p>请将这两个 ID 复制下来，它们是下一步配置的关键。</p>
+<h3 id="补充说明为何不直接使用-script-标签">补充说明：为何不直接使用 <code>&lt;script&gt;</code> 标签？</h3>
+<p>敏锐的读者可能会问：既然 Giscus 官网已经生成了完整的 <code>&lt;script&gt;</code> 标签，为什么我们不直接把它复制到项目里，而是要费力地在 <code>params.toml</code> 中重新配置呢？</p>
+<p>这是一个很好的问题，答案在于 <strong>“配置与视图分离”</strong> 的设计思想，这也是 HUGO 主题开发的最佳实践。</p>
+<ul>
+<li><strong>视图（Layout）</strong>: 主题的 HTML 模板文件，负责网页的结构和骨架。</li>
+<li><strong>配置（Config）</strong>: <code>hugo.toml</code> 和 <code>params.toml</code> 等文件，负责提供所有可变的参数和数据。</li>
+</ul>
+<p>LoveIt 主题已经内置了加载 Giscus 的模板代码（视图）。我们所要做的，就是通过 <code>params.toml</code>（配置）告诉模板：“请用这些参数来帮我生成 Giscus 评论区”。</p>
+<p>这样做的好处是巨大的：</p>
+<ol>
+<li><strong>易于维护</strong>：当您想更换 Giscus 仓库或修改主题时，只需修改配置文件，而无需深入到复杂的 HTML 代码中。</li>
+<li><strong>保持简洁</strong>：所有配置项集中管理，一目了然。</li>
+<li><strong>主题升级</strong>：未来升级 LoveIt 主题时，您的配置将保持不变，不会因为模板文件的变动而丢失。</li>
+</ol>
+<p>Giscus <code>&lt;script&gt;</code> 标签中的 <code>data-*</code> 属性与 <code>params.toml</code> 中的字段有着清晰的对应关系：</p>
+<table>
+  <thead>
+      <tr>
+          <th style="text-align: left"><code>data-*</code> 属性</th>
+          <th style="text-align: left"><code>params.toml</code> 键</th>
+          <th style="text-align: left">说明</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td style="text-align: left"><code>data-repo</code></td>
+          <td style="text-align: left"><code>repo</code></td>
+          <td style="text-align: left">仓库地址</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>data-repo-id</code></td>
+          <td style="text-align: left"><code>repoId</code></td>
+          <td style="text-align: left">仓库 ID</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>data-category</code></td>
+          <td style="text-align: left"><code>category</code></td>
+          <td style="text-align: left">分类名称</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>data-category-id</code></td>
+          <td style="text-align: left"><code>categoryId</code></td>
+          <td style="text-align: left">分类 ID</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>data-mapping</code></td>
+          <td style="text-align: left"><code>mapping</code></td>
+          <td style="text-align: left">映射关系</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>data-lang</code></td>
+          <td style="text-align: left"><code>lang</code></td>
+          <td style="text-align: left">显示语言</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>data-theme</code></td>
+          <td style="text-align: left"><code>theme</code></td>
+          <td style="text-align: left">评论区主题</td>
+      </tr>
+      <tr>
+          <td style="text-align: left"><code>...</code></td>
+          <td style="text-align: left"><code>...</code></td>
+          <td style="text-align: left">其他参数同理</td>
+      </tr>
+  </tbody>
+</table>
+<p>理解了这一点后，我们就可以开始配置了。</p>
+<h2 id="第三步更新-hugo-配置文件">第三步：更新 HUGO 配置文件</h2>
+<p>现在，我们将 Giscus 的配置信息添加到博客的配置文件中。</p>
+<ol>
+<li>打开您项目中的 <code>config/_default/params.toml</code> 文件。</li>
+<li>在文件末尾添加以下配置块，并填入您刚刚获取的信息：</li>
+</ol>
+<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+    <div class="code-header language-toml">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># config/_default/params.toml</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c"># 页面评论系统配置</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">page</span><span class="p">.</span><span class="nx">comment</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">enable</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># Giscus 评论系统</span>
+</span></span><span class="line"><span class="cl">  <span class="p">[</span><span class="nx">page</span><span class="p">.</span><span class="nx">comment</span><span class="p">.</span><span class="nx">giscus</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">enable</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># 你的 GitHub 仓库, 格式为 &#34;用户名/仓库名&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">repo</span> <span class="p">=</span> <span class="s2">&#34;loommii/blog&#34;</span> <span class="c"># 替换为你的仓库信息</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># 你的仓库 ID, 从 Giscus 官网获取</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">repoId</span> <span class="p">=</span> <span class="s2">&#34;R_kgDOMf05fA&#34;</span> <span class="c"># 替换为你的仓库 ID</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># 你为评论创建的 discussion 分类名</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">category</span> <span class="p">=</span> <span class="s2">&#34;Announcements&#34;</span> <span class="c"># 替换为你创建的分类名</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># 你的分类 ID, 从 Giscus 官网获取</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">categoryId</span> <span class="p">=</span> <span class="s2">&#34;DIC_kwDOMf05fM4ChU0g&#34;</span> <span class="c"># 替换为你的分类 ID</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># 页面与 discussion 的映射关系, 强烈推荐 &#34;title&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">mapping</span> <span class="p">=</span> <span class="s2">&#34;title&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># 其他配置</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">strict</span> <span class="p">=</span> <span class="s2">&#34;0&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">reactionsEnabled</span> <span class="p">=</span> <span class="s2">&#34;1&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">emitMetadata</span> <span class="p">=</span> <span class="s2">&#34;0&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">inputPosition</span> <span class="p">=</span> <span class="s2">&#34;bottom&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># 主题语言</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">lang</span> <span class="p">=</span> <span class="s2">&#34;zh-CN&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="c"># 评论框主题, preferred_color_scheme 会根据用户系统设置自动切换亮暗模式</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">theme</span> <span class="p">=</span> <span class="s2">&#34;preferred_color_scheme&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">loading</span> <span class="p">=</span> <span class="s2">&#34;lazy&#34;</span></span></span></code></pre></div></div>
+<p><strong>请务必将 <code>repo</code>, <code>repoId</code>, <code>category</code>, 和 <code>categoryId</code> 替换为您自己的信息。</strong></p>
+<h2 id="第四步验证效果">第四步：验证效果</h2>
+<p>保存好配置文件后，重新启动 HUGO 的本地服务：</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo server</span></span></code></pre></div></div>
+<p>然后，打开任意一篇文章的页面，滚动到底部。如果一切顺利，您应该能看到 Giscus 评论框已经成功加载。它会提示您通过 GitHub 授权登录，之后便可以发表评论了。</p>
+<h2 id="参数详解与备选方案">参数详解与备选方案</h2>
+<p>在上面的 <code>params.toml</code> 配置中，我们使用了一组推荐的参数。但 LoveIt 主题和 Giscus 还提供了一些其他选项，了解它们可以帮助您进行更深度的定制。</p>
+<h3 id="lang语言设置"><code>lang</code>：语言设置</h3>
+<ul>
+<li><strong><code>lang = &quot;zh-CN&quot;</code> (推荐)</strong>: 这是最直接的方式，明确告诉 Giscus 评论区应使用简体中文。</li>
+<li><strong><code>lang = &quot;&quot;</code></strong>: 如果留空，LoveIt 主题会尝试根据您博客的 i18n（国际化）配置来自动设定语言。对于单语言博客，明确指定 <code>zh-CN</code> 会更可靠。</li>
+</ul>
+<h3 id="theme-vs-lightthemedarktheme主题控制"><code>theme</code> vs <code>lightTheme</code>/<code>darkTheme</code>：主题控制</h3>
+<p>这是一个非常有趣的配置项，体现了 LoveIt 主题的灵活性。</p>
+<ul>
+<li>
+<p><strong><code>theme = &quot;preferred_color_scheme&quot;</code> (最高优先级，推荐)</strong>: 这是 Giscus 官方支持的一个“魔法”值。设置后，Giscus 评论区会<strong>自动跟随用户操作系统的亮/暗模式</strong>进行切换，提供最无缝的视觉体验。当您设置了此项后，下面将要介绍的 <code>lightTheme</code> 和 <code>darkTheme</code> 将会失效。</p>
+</li>
+<li>
+<p><strong><code>lightTheme</code> 和 <code>darkTheme</code> (主题级控制)</strong>: 这两个是 LoveIt 主题提供的参数。它们允许您<strong>将 Giscus 的主题与您博客主题的亮/暗模式绑定</strong>。</p>
+<ul>
+<li>例如，您可以设置 <code>lightTheme = &quot;light&quot;</code>，<code>darkTheme = &quot;noborder_dark&quot;</code>。当您的博客切换到暗色模式时，LoveIt 主题会自动将 Giscus 的主题设置为 <code>noborder_dark</code>。</li>
+<li><strong>注意</strong>：要使用这两个参数，您必须<strong>删除或注释掉 <code>theme = &quot;preferred_color_scheme&quot;</code> 这一行</strong>。</li>
+</ul>
+</li>
+</ul>
+<p><strong>总结一下</strong>：</p>
+<ul>
+<li>想要最省心、最智能的体验，就用 <code>theme = &quot;preferred_color_scheme&quot;</code>。</li>
+<li>想要对亮/暗模式下的 Giscus 主题进行精细控制，就去掉 <code>theme</code> 参数，改用 <code>lightTheme</code> 和 <code>darkTheme</code>。</li>
+</ul>
+<h2 id="总结">总结</h2>
+<p>通过以上几个步骤，我们成功地为 HUGO 博客集成了一个功能强大且尊重隐私的 Giscus 评论系统。它不仅提升了博客的互动体验，也让评论管理变得异常轻松。</p>
+<p>希望这篇指南能对您有所帮助！</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2026-01-26</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="https://loommii.github.io/zh-cn/posts/add-giscus-comments-to-hugo-blog/" data-title="为你的 HUGO 博客集成 Giscus 评论系统" data-hashtags="HUGO,Giscus,博客搭建,评论系统,LoveIt"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="https://loommii.github.io/zh-cn/posts/add-giscus-comments-to-hugo-blog/" data-title="为你的 HUGO 博客集成 Giscus 评论系统"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://loommii.github.io/zh-cn/posts/add-giscus-comments-to-hugo-blog/" data-hashtag="HUGO"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/zh-cn/posts/add-giscus-comments-to-hugo-blog/" data-title="为你的 HUGO 博客集成 Giscus 评论系统"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://loommii.github.io/zh-cn/posts/add-giscus-comments-to-hugo-blog/" data-title="为你的 HUGO 博客集成 Giscus 评论系统"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://loommii.github.io/zh-cn/posts/add-giscus-comments-to-hugo-blog/" data-title="为你的 HUGO 博客集成 Giscus 评论系统"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/zh-cn/posts/add-giscus-comments-to-hugo-blog/" data-title="为你的 HUGO 博客集成 Giscus 评论系统" data-description="一篇详细的指南，教你如何为基于 HUGO 和 LoveIt 主题的个人博客，添加一个现代、开源且注重隐私的 Giscus 评论系统。"><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fzh-cn%2fposts%2fadd-giscus-comments-to-hugo-blog%2f&amp;text=%e4%b8%ba%e4%bd%a0%e7%9a%84%20HUGO%20%e5%8d%9a%e5%ae%a2%e9%9b%86%e6%88%90%20Giscus%20%e8%af%84%e8%ae%ba%e7%b3%bb%e7%bb%9f" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/zh-cn/tags/hugo/">HUGO</a>,&nbsp;<a href="/zh-cn/tags/giscus/">Giscus</a>,&nbsp;<a href="/zh-cn/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/">博客搭建</a>,&nbsp;<a href="/zh-cn/tags/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/">评论系统</a>,&nbsp;<a href="/zh-cn/tags/loveit/">LoveIt</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/posts/fix-win11-headphone-volume-limit/" class="prev" rel="prev" title="解决WIN11耳机音量最大值只能设置到35%的问题"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>解决WIN11耳机音量最大值只能设置到35%的问题</a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOQ1YU8M4C1aXA","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"loommii/loommii.github.io","repoId":"R_kgDOQ1YU8A"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+</html>
