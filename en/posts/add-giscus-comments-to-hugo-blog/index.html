@@ -39,7 +39,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/loommii.github.io\/en\/posts\/add-giscus-comments-to-hugo-blog\/"
-        },"genre": "posts","keywords": "HUGO, Giscus, Blog Setup, Comment System, LoveIt","wordcount":  1363 ,
+        },"genre": "posts","keywords": "HUGO, Giscus, Blog Setup, Comment System, LoveIt","wordcount":  1439 ,
         "url": "https:\/\/loommii.github.io\/en\/posts\/add-giscus-comments-to-hugo-blog\/","datePublished": "2026-01-26T00:48:19+08:00","dateModified": "2026-01-26T00:48:19+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -144,7 +144,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Integrating the Giscus Comment System with Your HUGO Blog</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/loommii" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">included in <a href="/en/categories/site-building/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Site Building</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-01-26">2026-01-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1363 words&nbsp;
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-01-26">2026-01-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1439 words&nbsp;
                 <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;7 minutes&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
@@ -168,10 +168,11 @@
     </li>
     <li><a href="#step-3-update-the-hugo-configuration-file">Step 3: Update the HUGO Configuration File</a></li>
     <li><a href="#step-4-verify-the-results">Step 4: Verify the Results</a></li>
-    <li><a href="#parameter-deep-dive--alternatives">Parameter Deep Dive &amp; Alternatives</a>
+    <li><a href="#advanced-solving-inconsistent-comments-in-a-multi-language-setup">Advanced: Solving Inconsistent Comments in a Multi-Language Setup</a>
       <ul>
-        <li><a href="#lang-language-setting"><code>lang</code>: Language Setting</a></li>
-        <li><a href="#theme-vs-lightthemedarktheme-theme-control"><code>theme</code> vs. <code>lightTheme</code>/<code>darkTheme</code>: Theme Control</a></li>
+        <li><a href="#reproducing-the-problem">Reproducing the Problem</a></li>
+        <li><a href="#root-cause">Root Cause</a></li>
+        <li><a href="#the-solution-use-a-unique-identifier">The Solution: Use a Unique Identifier</a></li>
       </ul>
     </li>
     <li><a href="#conclusion">Conclusion</a></li>
@@ -409,32 +410,59 @@
         <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
     </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo server</span></span></code></pre></div></div>
 <p>Now, open any blog post and scroll to the bottom. If everything went well, you should see the Giscus comment box successfully loaded. It will prompt you to log in via GitHub to authorize the app, after which you can start commenting.</p>
-<h2 id="parameter-deep-dive--alternatives">Parameter Deep Dive &amp; Alternatives</h2>
-<p>The <code>params.toml</code> configuration above uses a recommended set of parameters. However, the LoveIt theme and Giscus offer other options that allow for deeper customization.</p>
-<h3 id="lang-language-setting"><code>lang</code>: Language Setting</h3>
-<ul>
-<li><strong><code>lang = &quot;en&quot;</code> (Recommended)</strong>: This is the most direct approach, explicitly telling Giscus to render the comment section in English.</li>
-<li><strong><code>lang = &quot;&quot;</code></strong>: If left empty, the LoveIt theme may attempt to set the language based on your blog&rsquo;s i18n (internationalization) configuration. For a single-language blog, setting it explicitly is more reliable.</li>
-</ul>
-<h3 id="theme-vs-lightthemedarktheme-theme-control"><code>theme</code> vs. <code>lightTheme</code>/<code>darkTheme</code>: Theme Control</h3>
-<p>This is an interesting set of options that highlights the flexibility of the LoveIt theme.</p>
-<ul>
-<li>
-<p><strong><code>theme = &quot;preferred_color_scheme&quot;</code> (Highest Priority, Recommended)</strong>: This is a special &ldquo;magic&rdquo; value supported by Giscus. When set, the Giscus widget will <strong>automatically follow the user&rsquo;s operating system&rsquo;s light/dark mode</strong>, providing the most seamless visual experience. When this option is set, <code>lightTheme</code> and <code>darkTheme</code> (explained below) are ignored.</p>
-</li>
-<li>
-<p><strong><code>lightTheme</code> and <code>darkTheme</code> (Theme-Level Control)</strong>: These are parameters provided by the LoveIt theme itself. They allow you to <strong>bind the Giscus theme to your blog theme&rsquo;s light/dark mode toggle</strong>.</p>
-<ul>
-<li>For example, you could set <code>lightTheme = &quot;light&quot;</code> and <code>darkTheme = &quot;noborder_dark&quot;</code>. When a visitor switches your blog to dark mode, the LoveIt theme will automatically set Giscus&rsquo;s theme to <code>noborder_dark</code>.</li>
-<li><strong>Note</strong>: To use these two parameters, you must <strong>remove or comment out the <code>theme = &quot;preferred_color_scheme&quot;</code> line</strong>.</li>
-</ul>
-</li>
-</ul>
-<p><strong>In summary</strong>:</p>
-<ul>
-<li>For the simplest and most intelligent experience, use <code>theme = &quot;preferred_color_scheme&quot;</code>.</li>
-<li>For fine-grained control over the Giscus theme in both light and dark modes, remove the <code>theme</code> parameter and use <code>lightTheme</code> and <code>darkTheme</code> instead.</li>
-</ul>
+<h2 id="advanced-solving-inconsistent-comments-in-a-multi-language-setup">Advanced: Solving Inconsistent Comments in a Multi-Language Setup</h2>
+<p>After publishing your article, you might switch between language versions and notice a major issue: <strong>the comment sections for the Chinese and English articles are separate, and their data is not shared.</strong> This defeats our goal of having a unified comment thread.</p>
+<h3 id="reproducing-the-problem">Reproducing the Problem</h3>
+<p>For example, you might see that Giscus has created a separate Discussion for the Chinese version of the article based on its path:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-chinese-comment-pool.png"
+        data-srcset="/zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-chinese-comment-pool.png, /zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-chinese-comment-pool.png 1.5x, /zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-chinese-comment-pool.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-chinese-comment-pool.png"
+        title="Separate comment section created by the Chinese article" width="906" height="733" /></p>
+<p>At the same time, it has created another, completely independent Discussion for the English version:</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-english-comment-pool.png"
+        data-srcset="/zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-english-comment-pool.png, /zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-english-comment-pool.png 1.5x, /zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-english-comment-pool.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-english-comment-pool.png"
+        title="Separate comment section created by the English article" width="1007" height="650" /></p>
+<h3 id="root-cause">Root Cause</h3>
+<p>The root of this problem lies in the <code>mapping</code> strategy within your Giscus configuration. If you use <code>mapping = &quot;pathname&quot;</code>, Giscus finds or creates a Discussion based on the page&rsquo;s URL path. In a multi-language site, the paths for the same article are different due to language prefixes (e.g., <code>/zh-cn/</code> and <code>/en/</code>), causing Giscus to mistakenly treat them as two different articles.</p>
+<h3 id="the-solution-use-a-unique-identifier">The Solution: Use a Unique Identifier</h3>
+<p>To solve this, we need to provide a <strong>unique and consistent identifier</strong> for all language versions of the same article. Giscus&rsquo;s <code>specific</code> mapping mode is designed for exactly this purpose.</p>
+<h4 id="step-1-modify-front-matter">Step 1: Modify Front Matter</h4>
+<p>In the Front Matter of <strong>both the Chinese (<code>index.md</code>) and English (<code>index.en.md</code>) versions</strong> of your guide, add the same <code>giscus_id</code> field. The value of this ID can be any string that uniquely identifies this article.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-yaml">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># --- Article Front Matter ---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Integrating the Giscus Comment System with Your HUGO Blog&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">giscus_id</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;hugo-giscus-comments-guide&#34;</span><span class="w"> </span><span class="c"># Ensure this is identical across language versions</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="l">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="c"># ...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span></span></span></code></pre></div></div>
+<h4 id="step-2-modify-the-paramstoml-configuration-file">Step 2: Modify the <code>params.toml</code> Configuration File</h4>
+<p>Next, update your Giscus configuration to use this new field as the mapping key.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-toml">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># --- config/_default/params.toml ---</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">page</span><span class="p">.</span><span class="nx">comment</span><span class="p">.</span><span class="nx">giscus</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">...</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># Set mapping to &#34;specific&#34; and specify the Front Matter field name in &#39;term&#39;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mapping</span> <span class="p">=</span> <span class="s2">&#34;specific&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">term</span> <span class="p">=</span> <span class="s2">&#34;giscus_id&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">...</span></span></span></code></pre></div></div>
+<p>After making these two changes, Giscus will use the unique ID <code>hugo-giscus-comments-guide</code> to link the comment section, a-giscus-comments-to-hugo-blognsuring that both the Chinese and English articles share the same comment pool.</p>
 <h2 id="conclusion">Conclusion</h2>
 <p>By following these steps, we have successfully integrated a powerful and privacy-respecting Giscus comment system into our HUGO blog. This not only enhances the interactive experience but also makes comment management incredibly straightforward.</p>
 <p>Choosing Giscus is choosing a solution that aligns perfectly with the open-source spirit and the developer community. Hopefully, this guide has been helpful!</p>
@@ -478,5 +506,5 @@
         <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOQ1YU8M4C1aXA","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"en","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"loommii/loommii.github.io","repoId":"R_kgDOQ1YU8A"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"en","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOQ1YU8M4C1aXA","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"en","lazyLoading":false,"lightTheme":"light","mapping":"specific","reactionsEnabled":"1","repo":"loommii/loommii.github.io","repoId":"R_kgDOQ1YU8A"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"en","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
 </html>

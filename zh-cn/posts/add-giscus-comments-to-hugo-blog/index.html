@@ -39,7 +39,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/loommii.github.io\/zh-cn\/posts\/add-giscus-comments-to-hugo-blog\/"
-        },"genre": "posts","keywords": "HUGO, Giscus, 博客搭建, 评论系统, LoveIt","wordcount":  2647 ,
+        },"genre": "posts","keywords": "HUGO, Giscus, 博客搭建, 评论系统, LoveIt","wordcount":  3288 ,
         "url": "https:\/\/loommii.github.io\/zh-cn\/posts\/add-giscus-comments-to-hugo-blog\/","datePublished": "2026-01-26T00:48:19+08:00","dateModified": "2026-01-26T00:48:19+08:00","publisher": {
             "@type": "Organization",
             "name": ""},"author": {
@@ -144,8 +144,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">为你的 HUGO 博客集成 Giscus 评论系统</h1><div class="post-meta">
             <div class="post-meta-line"><span class="post-author"><a href="https://github.com/loommii" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E5%BB%BA%E7%AB%99%E6%8A%80%E5%B7%A7/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>建站技巧</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-01-26">2026-01-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 2647 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 6 分钟&nbsp;</div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-01-26">2026-01-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 3288 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 7 分钟&nbsp;</div>
         </div><div class="details toc" id="toc-static"  data-kept="">
                 <div class="details-summary toc-title">
                     <span>目录</span>
@@ -175,6 +175,13 @@
       </ul>
     </li>
     <li><a href="#总结">总结</a></li>
+    <li><a href="#进阶解决多语言评论不统一的问题">进阶：解决多语言评论不统一的问题</a>
+      <ul>
+        <li><a href="#问题复现">问题复现</a></li>
+        <li><a href="#问题根源">问题根源</a></li>
+        <li><a href="#解决方案使用唯一标识符">解决方案：使用唯一标识符</a></li>
+      </ul>
+    </li>
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="前言">前言</h2>
@@ -438,6 +445,58 @@
 <h2 id="总结">总结</h2>
 <p>通过以上几个步骤，我们成功地为 HUGO 博客集成了一个功能强大且尊重隐私的 Giscus 评论系统。它不仅提升了博客的互动体验，也让评论管理变得异常轻松。</p>
 <p>希望这篇指南能对您有所帮助！</p>
+<h2 id="进阶解决多语言评论不统一的问题">进阶：解决多语言评论不统一的问题</h2>
+<p>在您发布了文章并切换不同语言版本后，可能会发现一个严重的问题：<strong>中文和英文文章下的评论区是独立的，数据不互通</strong>，这违背了我们统一评论区的初衷。</p>
+<h3 id="问题复现">问题复现</h3>
+<p>例如，您会发现 Giscus 为中文版的文章创建了一个基于其路径的 Discussion：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-chinese-comment-pool.png"
+        data-srcset="/zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-chinese-comment-pool.png, /zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-chinese-comment-pool.png 1.5x, /zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-chinese-comment-pool.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-chinese-comment-pool.png"
+        title="中文版文章创建的独立评论区" width="906" height="733" /></p>
+<p>同时，又为英文版的文章创建了另一个完全独立的 Discussion：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-english-comment-pool.png"
+        data-srcset="/zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-english-comment-pool.png, /zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-english-comment-pool.png 1.5x, /zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-english-comment-pool.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/add-giscus-comments-to-hugo-blog/multi-language-issue-english-comment-pool.png"
+        title="英文版文章创建的独立评论区" width="1007" height="650" /></p>
+<h3 id="问题根源">问题根源</h3>
+<p>这个问题的根源在于 Giscus 配置中的 <code>mapping</code> 策略。如果您使用了 <code>mapping = &quot;pathname&quot;</code>，Giscus 会根据页面的 URL 路径来查找或创建 Discussion。在多语言网站中，同一篇文章的路径因为包含语言前缀（如 <code>/zh-cn/</code> 和 <code>/en/</code>）而变得不同，因此 Giscus 会误认为它们是两篇不同的文章。</p>
+<h3 id="解决方案使用唯一标识符">解决方案：使用唯一标识符</h3>
+<p>要解决这个问题，我们需要为同一篇文章的所有语言版本提供一个<strong>完全一致的、唯一的标识符</strong>。Giscus 的 <code>specific</code> 映射模式正是为此而生。</p>
+<h4 id="第一步修改文章元数据-front-matter">第一步：修改文章元数据 (Front Matter)</h4>
+<p>为您这篇指南文章的<strong>中、英文两个版本</strong> (<code>index.md</code> 和 <code>index.en.md</code>) 的 Front Matter 中，都添加上同一个 <code>giscus_id</code> 字段。这个 ID 的值可以是任何能唯一标识这篇文章的字符串。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-yaml">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="c"># --- 文章元数据 ---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;为你的 HUGO 博客集成 Giscus 评论系统&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">giscus_id</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;hugo-giscus-comments-guide&#34;</span><span class="w"> </span><span class="c"># 保证中英文版本一致</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">date</span><span class="p">:</span><span class="w"> </span><span class="l">...</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span></span></span></code></pre></div></div>
+<h4 id="第二步修改-paramstoml-配置文件">第二步：修改 <code>params.toml</code> 配置文件</h4>
+<p>接着，更新 Giscus 的配置，告诉它使用我们刚刚定义的字段作为映射依据。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-toml">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="c"># --- config/_default/params.toml ---</span>
+</span></span><span class="line"><span class="cl"><span class="p">[</span><span class="nx">page</span><span class="p">.</span><span class="nx">comment</span><span class="p">.</span><span class="nx">giscus</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="p">...</span>
+</span></span><span class="line"><span class="cl">  <span class="c"># 将 mapping 设置为 &#34;specific&#34;，并指定 term 为您在 Front Matter 中定义的字段名</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mapping</span> <span class="p">=</span> <span class="s2">&#34;specific&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">term</span> <span class="p">=</span> <span class="s2">&#34;giscus_id&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="p">...</span></span></span></code></pre></div></div>
+<p>完成这两步修改后，Giscus 就会使用 <code>hugo-giscus-comments-guide</code> 这个独一无二的 ID 去关联评论区，从而确保中英文文章共享同一个评论池。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info">
         <div class="post-info-line">
@@ -478,5 +537,5 @@
         <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
                 <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
             </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOQ1YU8M4C1aXA","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"pathname","reactionsEnabled":"1","repo":"loommii/loommii.github.io","repoId":"R_kgDOQ1YU8A"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOQ1YU8M4C1aXA","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"specific","reactionsEnabled":"1","repo":"loommii/loommii.github.io","repoId":"R_kgDOQ1YU8A"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
 </html>
