@@ -143,7 +143,7 @@
                 <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">Go Daily Question 001 - Address Traps in range loops</h1><div class="content" id="content"><p>In Go programming, the range loop is a common source of pitfalls. This article will delve into a classic problem, exploring the behavior differences before and after Go 1.22.</p>
 <h2 id="problem">Problem</h2>
 <p>What is the output of the following code, and explain why.</p>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-go">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -184,7 +184,7 @@
 </span></span><span class="line"><span class="cl"><span class="mi">3</span> <span class="o">-</span><span class="p">&gt;</span> <span class="mi">3</span></span></span></code></pre></div></div>
 <p><strong>Explanation</strong>: Starting from Go 1.22, new variables <code>key</code> and <code>val</code> are created for each loop iteration. Therefore, the addresses of <code>key</code> and <code>val</code> variables are different in each iteration.</p>
 <p>Adding verification print statements to the source code:</p>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-go">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -233,7 +233,7 @@
 <p><strong>Analysis</strong>: In versions before Go 1.22, the <code>for key, val := range slice</code> statement created the <code>key</code> and <code>val</code> variables only once during the entire loop. In each loop iteration, the value of the <code>val</code> variable was updated to the value of the <code>slice</code> element, but the address of the <code>val</code> variable remained unchanged.</p>
 <p>When the code reaches <code>m[key] = &amp;val</code>, <code>m[key]</code> stores the address of the <code>val</code> variable. Since all iterations use the same <code>val</code> variable, all values in <code>m</code> point to the same address. After the loop, the value of <code>val</code> is the value of the last element (i.e., 3), so all pointers point to the value 3.</p>
 <p>Adding verification print statements to the source code:</p>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-go">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>

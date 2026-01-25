@@ -143,7 +143,7 @@
                 <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">Go每日一题_001 - range循环中的地址陷阱</h1><div class="content" id="content"><p>在Go语言编程中，range循环是一个常见的陷阱来源。本文将通过一道经典题目，深入探讨Go 1.22版本前后的行为差异。</p>
 <h2 id="问题">问题</h2>
 <p>下面这段代码输出什么，说明原因。</p>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-go">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -184,7 +184,7 @@
 </span></span><span class="line"><span class="cl"><span class="mi">3</span> <span class="o">-</span><span class="p">&gt;</span> <span class="mi">3</span></span></span></code></pre></div></div>
 <p><strong>解释</strong>：从Go 1.22开始，每次循环迭代都会创建新的变量 <code>key</code> 和 <code>val</code>，因此每次循环的 <code>key</code> 和 <code>val</code> 变量的地址都是不同的。</p>
 <p>在源代码上增加验证打印：</p>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-go">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
@@ -233,7 +233,7 @@
 <p><strong>解析</strong>：在Go 1.22之前的版本中，<code>for key, val := range slice</code> 语句在整个循环过程中只创建一次变量 <code>key</code> 和 <code>val</code>。在每次循环迭代中，<code>val</code> 变量的值被更新为 <code>slice</code> 元素的值，但 <code>val</code> 变量的地址保持不变。</p>
 <p>当代码运行到 <code>m[key] = &amp;val</code> 时，<code>m[key]</code> 存储的是 <code>val</code> 变量的地址。由于所有迭代都使用同一个 <code>val</code> 变量，因此 <code>m</code> 中的所有值都指向同一个地址。循环结束后，<code>val</code> 变量的值是最后一个元素的值（即3），所以所有指针都指向值3。</p>
 <p>在源代码上增加验证打印：</p>
-<div class="code-block code-line-numbers" style="counter-reset: code-block 0">
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
     <div class="code-header language-go">
         <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
