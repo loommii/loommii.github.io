@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Arduino IDE 安装 ESP32 开发板：使用国内镜像加速 - loommii</title><meta name="Description" content="一份详细的指南，旨在解决 Arduino IDE 用户在中国大陆地区下载 ESP32 开发板支持包时速度缓慢或连接失败的问题。通过配置国内镜像源，您可以显著提升下载速度和稳定性。"><meta property="og:url" content="https://loommii.github.io/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="Arduino IDE 安装 ESP32 开发板：使用国内镜像加速">
+  <meta property="og:description" content="一份详细的指南，旨在解决 Arduino IDE 用户在中国大陆地区下载 ESP32 开发板支持包时速度缓慢或连接失败的问题。通过配置国内镜像源，您可以显著提升下载速度和稳定性。">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-01-27T00:39:46+08:00">
+    <meta property="article:modified_time" content="2026-01-27T00:39:46+08:00">
+    <meta property="article:tag" content="Arduino">
+    <meta property="article:tag" content="ESP32">
+    <meta property="article:tag" content="IDE">
+    <meta property="article:tag" content="开发板管理器">
+    <meta property="article:tag" content="镜像">
+    <meta property="article:tag" content="教程">
+    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+  <meta name="twitter:title" content="Arduino IDE 安装 ESP32 开发板：使用国内镜像加速">
+  <meta name="twitter:description" content="一份详细的指南，旨在解决 Arduino IDE 用户在中国大陆地区下载 ESP32 开发板支持包时速度缓慢或连接失败的问题。通过配置国内镜像源，您可以显著提升下载速度和稳定性。">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/" /><link rel="prev" href="https://loommii.github.io/zh-cn/posts/hugo-giscus-multilang-comment-fix/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Arduino IDE 安装 ESP32 开发板：使用国内镜像加速",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/loommii.github.io\/zh-cn\/posts\/arduino-ide-esp32-mirror-install-guide\/"
+        },"genre": "posts","keywords": "Arduino, ESP32, IDE, 开发板管理器, 镜像, 教程","wordcount":  1086 ,
+        "url": "https:\/\/loommii.github.io\/zh-cn\/posts\/arduino-ide-esp32-mirror-install-guide\/","datePublished": "2026-01-27T00:39:46+08:00","dateModified": "2026-01-27T00:39:46+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "loommii"
+            },"description": "一份详细的指南，旨在解决 Arduino IDE 用户在中国大陆地区下载 ESP32 开发板支持包时速度缓慢或连接失败的问题。通过配置国内镜像源，您可以显著提升下载速度和稳定性。"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"> 文章 </a><a class="menu-item" href="/zh-cn/go_practise/"> Go练习题 </a><a class="menu-item" href="/zh-cn/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/zh-cn/categories/"> 分类 </a><a class="menu-item" href="/zh-cn/tags/"> 标签 </a><a class="menu-item" href="/zh-cn/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/" selected>简体中文</option><option value="/en/posts/arduino-ide-esp32-mirror-install-guide/">English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/" title="">文章</a><a class="menu-item" href="/zh-cn/go_practise/" title="">Go练习题</a><a class="menu-item" href="/zh-cn/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/zh-cn/categories/" title="">分类</a><a class="menu-item" href="/zh-cn/tags/" title="">标签</a><a class="menu-item" href="/zh-cn/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/" selected>简体中文</option><option value="/en/posts/arduino-ide-esp32-mirror-install-guide/">English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Arduino IDE 安装 ESP32 开发板：使用国内镜像加速</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/loommii" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E5%B5%8C%E5%85%A5%E5%BC%8F%E5%BC%80%E5%8F%91/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>嵌入式开发</a>&nbsp;<a href="/zh-cn/categories/arduino/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-01-27">2026-01-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 1086 字&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 3 分钟&nbsp;
+                <span id="page-views"></span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>目录</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言解决-arduino-ide-下载-esp32-开发板包失败问题">前言：解决 Arduino IDE 下载 ESP32 开发板包失败问题</a></li>
+    <li><a href="#第一步获取-esp32-国内镜像地址">第一步：获取 ESP32 国内镜像地址</a></li>
+    <li><a href="#第二步在-arduino-ide-中添加镜像源">第二步：在 Arduino IDE 中添加镜像源</a></li>
+    <li><a href="#第三步通过开发板管理器安装-esp32">第三步：通过开发板管理器安装 ESP32</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="前言解决-arduino-ide-下载-esp32-开发板包失败问题">前言：解决 Arduino IDE 下载 ESP32 开发板包失败问题</h2>
+<p>在中国大陆，Arduino 开发者在使用 Arduino IDE 安装 ESP32 开发板支持包时，常遇到下载缓慢、超时甚至失败的问题。这通常是由于国际网络连接的不稳定性，导致从官方源下载困难。</p>
+<p>为了解决这一痛点，本教程将指导您如何通过配置国内镜像源，实现 ESP32 开发板包的快速、稳定安装。告别漫长等待与反复失败，让您的开发过程更加顺畅。</p>
+<h2 id="第一步获取-esp32-国内镜像地址">第一步：获取 ESP32 国内镜像地址</h2>
+<p>首先，我们需要获取由官方提供的、托管在国内服务器上的开发板管理器索引文件的 URL。ESP32 的官方文档中明确提供了这些信息，如下图所示。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/esp32-docs-china-mirror-link.png"
+        data-srcset="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/esp32-docs-china-mirror-link.png, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/esp32-docs-china-mirror-link.png 1.5x, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/esp32-docs-china-mirror-link.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/esp32-docs-china-mirror-link.png"
+        title="ESP32官方文档截图" width="780" height="954" /></p>
+<p>为了方便您使用，我将它们直接从文档<a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html" target="_blank" rel="noopener noreffer ">Installing - Arduino-ESP32</a>中摘录在下方：</p>
+<ul>
+<li>
+<p><strong>稳定版 (Stable)</strong>：包含经过测试、建议大多数用户使用的版本。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>https://jihulab.com/esp-mirror/espressif/arduino-esp32/-/raw/gh-pages/package_esp32_index_cn.json</code></pre></div>
+</li>
+<li>
+<p><strong>开发版 (Development)</strong>：包含最新的功能和代码，可能不稳定，适合希望尝鲜的开发者。</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>https://jihulab.com/esp-mirror/espressif/arduino-esp32/-/raw/gh-pages/package_esp32_dev_index_cn.json</code></pre></div>
+</li>
+</ul>
+<p>对于大多数开发场景，<strong>强烈建议使用稳定版链接</strong>。</p>
+<h2 id="第二步在-arduino-ide-中添加镜像源">第二步：在 Arduino IDE 中添加镜像源</h2>
+<p>获取 URL 后，我们需要让 Arduino IDE 知道这个新的下载地址。</p>
+<ol>
+<li>
+<p>打开 Arduino IDE，点击左上角菜单 <strong>文件 (File)</strong> &gt; <strong>首选项 (Preferences)</strong>。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-preferences-menu.png"
+        data-srcset="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-preferences-menu.png, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-preferences-menu.png 1.5x, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-preferences-menu.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-preferences-menu.png"
+        title="Arduino IDE 菜单-首选项" width="793" height="452" /></p>
+</li>
+<li>
+<p>在弹出的“首选项”窗口中，找到 <strong>“附加开发板管理器网址” (Additional Boards Manager URLs)</strong> 的输入框。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-paste-mirror-url.png"
+        data-srcset="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-paste-mirror-url.png, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-paste-mirror-url.png 1.5x, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-paste-mirror-url.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-paste-mirror-url.png"
+        title="Arduino IDE 首选项-附加开发板管理器网址" width="615" height="314" /></p>
+</li>
+<li>
+<p>将第一步中获取的<strong>稳定版 URL</strong> 粘贴到这个输入框中。如果您之前已经添加了其他 URL，请点击输入框右侧的图标，在新窗口中换行粘贴，确保每个 URL 独占一行。</p>
+</li>
+<li>
+<p>点击 <strong>“确定”</strong> 保存设置。</p>
+</li>
+</ol>
+<h2 id="第三步通过开发板管理器安装-esp32">第三步：通过开发板管理器安装 ESP32</h2>
+<p>配置完成后，我们就可以开始真正的安装了。</p>
+<ol>
+<li>
+<p>在 Arduino IDE 中，通过菜单 <strong>工具 (Tools)</strong> &gt; <strong>开发板 (Board)</strong> &gt; <strong>开发板管理器&hellip; (Boards Manager&hellip;)</strong> 打开开发板管理器。</p>
+</li>
+<li>
+<p>开发板管理器打开后，它会首先更新索引，这个过程可能会需要一点时间。更新完成后，在顶部的搜索框中输入 <code>ESP32</code>。</p>
+</li>
+<li>
+<p>您会看到搜索结果中出现了 <code>esp32 by Espressif Systems</code>。点击它，在右侧的版本选择下拉菜单中，您会惊喜地发现一些带有 <code>-cn</code> 后缀的版本。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-board-manager-cn-version.png"
+        data-srcset="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-board-manager-cn-version.png, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-board-manager-cn-version.png 1.5x, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-board-manager-cn-version.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-board-manager-cn-version.png"
+        title="在开发板管理器中选择带-cn后缀的版本" width="774" height="513" /></p>
+<p><strong>这些 <code>-cn</code> 结尾的版本就是通过我们配置的国内镜像源提供的。</strong></p>
+</li>
+<li>
+<p>选择一个最新的 <code>-cn</code> 版本，然后点击 <strong>“安装” (Install)</strong> 按钮。</p>
+</li>
+</ol>
+<p>现在，您会发现下载速度有了质的飞跃，再也不用经历漫长的等待和反复失败的折磨了。</p>
+<h2 id="总结">总结</h2>
+<p>通过简单三步，我们成功地将 Arduino IDE 的开发板下载源切换到了国内镜像，彻底解决了 ESP32 开发板包安装困难的问题。这个方法不仅适用于 ESP32，也同样适用于其他提供了国内镜像的开发板（例如 ESP8266 等）。</p>
+<p><strong>核心要点回顾：</strong></p>
+<ul>
+<li><strong>找对源头</strong>：获取官方认证的国内镜像 URL。</li>
+<li><strong>配置 IDE</strong>：在“首选项”中添加该 URL。</li>
+<li><strong>选择“-cn”版本</strong>：在“开发板管理器”中安装带有 <code>-cn</code> 标识的版本。</li>
+</ul>
+<p>希望这篇详细的指南能够帮助您扫清学习和开发道路上的障碍，让您能更专注于创造和实现自己的想法。祝您编程愉快！</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>更新于 2026-01-27</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="https://loommii.github.io/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/" data-title="Arduino IDE 安装 ESP32 开发板：使用国内镜像加速" data-hashtags="Arduino,ESP32,IDE,开发板管理器,镜像,教程"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="https://loommii.github.io/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/" data-title="Arduino IDE 安装 ESP32 开发板：使用国内镜像加速"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://loommii.github.io/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/" data-hashtag="Arduino"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/" data-title="Arduino IDE 安装 ESP32 开发板：使用国内镜像加速"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://loommii.github.io/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/" data-title="Arduino IDE 安装 ESP32 开发板：使用国内镜像加速"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://loommii.github.io/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/" data-title="Arduino IDE 安装 ESP32 开发板：使用国内镜像加速"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/" data-title="Arduino IDE 安装 ESP32 开发板：使用国内镜像加速" data-description="一份详细的指南，旨在解决 Arduino IDE 用户在中国大陆地区下载 ESP32 开发板支持包时速度缓慢或连接失败的问题。通过配置国内镜像源，您可以显著提升下载速度和稳定性。"><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fzh-cn%2fposts%2farduino-ide-esp32-mirror-install-guide%2f&amp;text=Arduino%20IDE%20%e5%ae%89%e8%a3%85%20ESP32%20%e5%bc%80%e5%8f%91%e6%9d%bf%ef%bc%9a%e4%bd%bf%e7%94%a8%e5%9b%bd%e5%86%85%e9%95%9c%e5%83%8f%e5%8a%a0%e9%80%9f" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/zh-cn/tags/arduino/">Arduino</a>,&nbsp;<a href="/zh-cn/tags/esp32/">ESP32</a>,&nbsp;<a href="/zh-cn/tags/ide/">IDE</a>,&nbsp;<a href="/zh-cn/tags/%E5%BC%80%E5%8F%91%E6%9D%BF%E7%AE%A1%E7%90%86%E5%99%A8/">开发板管理器</a>,&nbsp;<a href="/zh-cn/tags/%E9%95%9C%E5%83%8F/">镜像</a>,&nbsp;<a href="/zh-cn/tags/%E6%95%99%E7%A8%8B/">教程</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/zh-cn/posts/hugo-giscus-multilang-comment-fix/" class="prev" rel="prev" title="HUGO 博客自定义前置参数实现中英文文章公用同一个评论池子"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>HUGO 博客自定义前置参数实现中英文文章公用同一个评论池子</a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOQ1YU8M4C1aXA","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"specific","reactionsEnabled":"1","repo":"loommii/loommii.github.io","repoId":"R_kgDOQ1YU8A","term":"arduino-ide-esp32-mirror-install"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30}};</script><script src="/js/theme.min.js"></script><script>
+        let r = new XMLHttpRequest();
+        let views = document.getElementById("page-views");
+
+        var get_path = function() {
+            var loc = location,
+                c = document.querySelector('link[rel="canonical"][href]')
+            if (c) {  
+                var a = document.createElement('a')
+                a.href = c.href
+                if (a.hostname.replace(/^www\./, '') === location.hostname.replace(/^www\./, ''))
+                    loc = a
+            }
+            let path = loc.pathname;
+            if(path.endsWith('/')) path = path.slice(0, -1);
+            return path || '/';
+        }
+
+        if(views) {
+            r.addEventListener('load', function() {
+                const count = JSON.parse(this.responseText);
+                views.innerHTML = `${count.count_unique} views on this page (powered by <a href="https://www.goatcounter.com/">Goat Counter</a>)`
+            })
+
+            r.open('GET', 'https://linjjj.goatcounter.com/counter/' + encodeURIComponent(get_path()) + '.json')
+            r.send()
+        }
+    </script>
+    <script data-goatcounter="https://linjjj.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script></body>
+</html>

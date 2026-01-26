@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Installing ESP32 Boards in Arduino IDE: Speeding Up with a Mirror - loommii</title><meta name="Description" content="A detailed guide to solve the slow or failed download issue for ESP32 board support packages in the Arduino IDE, especially for users in mainland China. By configuring a domestic mirror, you can significantly improve download speed and stability."><meta property="og:url" content="https://loommii.github.io/en/posts/arduino-ide-esp32-mirror-install-guide/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="Installing ESP32 Boards in Arduino IDE: Speeding Up with a Mirror">
+  <meta property="og:description" content="A detailed guide to solve the slow or failed download issue for ESP32 board support packages in the Arduino IDE, especially for users in mainland China. By configuring a domestic mirror, you can significantly improve download speed and stability.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-01-27T00:39:46+08:00">
+    <meta property="article:modified_time" content="2026-01-27T00:39:46+08:00">
+    <meta property="article:tag" content="Arduino">
+    <meta property="article:tag" content="ESP32">
+    <meta property="article:tag" content="IDE">
+    <meta property="article:tag" content="Boards Manager">
+    <meta property="article:tag" content="Mirror">
+    <meta property="article:tag" content="Tutorial">
+    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+  <meta name="twitter:title" content="Installing ESP32 Boards in Arduino IDE: Speeding Up with a Mirror">
+  <meta name="twitter:description" content="A detailed guide to solve the slow or failed download issue for ESP32 board support packages in the Arduino IDE, especially for users in mainland China. By configuring a domestic mirror, you can significantly improve download speed and stability.">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/en/posts/arduino-ide-esp32-mirror-install-guide/" /><link rel="prev" href="https://loommii.github.io/en/posts/hugo-giscus-multilang-comment-fix/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Installing ESP32 Boards in Arduino IDE: Speeding Up with a Mirror",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/loommii.github.io\/en\/posts\/arduino-ide-esp32-mirror-install-guide\/"
+        },"genre": "posts","keywords": "Arduino, ESP32, IDE, Boards Manager, Mirror, Tutorial","wordcount":  559 ,
+        "url": "https:\/\/loommii.github.io\/en\/posts\/arduino-ide-esp32-mirror-install-guide\/","datePublished": "2026-01-27T00:39:46+08:00","dateModified": "2026-01-27T00:39:46+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "loommii"
+            },"description": "A detailed guide to solve the slow or failed download issue for ESP32 board support packages in the Arduino IDE, especially for users in mainland China. By configuring a domestic mirror, you can significantly improve download speed and stability."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/en/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/en/posts/"> Posts </a><a class="menu-item" href="/en/go_practise/"> Go Practice </a><a class="menu-item" href="/en/leetcode/"> LeetCode Solutions </a><a class="menu-item" href="/en/categories/"> Categories </a><a class="menu-item" href="/en/tags/"> Tags </a><a class="menu-item" href="/en/posts/"> Archives </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/">简体中文</option><option value="/en/posts/arduino-ide-esp32-mirror-install-guide/" selected>English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/en/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/en/posts/" title="">Posts</a><a class="menu-item" href="/en/go_practise/" title="">Go Practice</a><a class="menu-item" href="/en/leetcode/" title="">LeetCode Solutions</a><a class="menu-item" href="/en/categories/" title="">Categories</a><a class="menu-item" href="/en/tags/" title="">Tags</a><a class="menu-item" href="/en/posts/" title="">Archives</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/">简体中文</option><option value="/en/posts/arduino-ide-esp32-mirror-install-guide/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Installing ESP32 Boards in Arduino IDE: Speeding Up with a Mirror</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/loommii" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">included in <a href="/en/categories/embedded-development/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Embedded Development</a>&nbsp;<a href="/en/categories/arduino/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Arduino</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-01-27">2026-01-27</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;559 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;3 minutes&nbsp;
+                <span id="page-views"></span>&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#foreword-solving-esp32-board-package-download-failures-in-arduino-ide">Foreword: Solving ESP32 Board Package Download Failures in Arduino IDE</a></li>
+    <li><a href="#step-1-get-the-esp32-domestic-mirror-url">Step 1: Get the ESP32 Domestic Mirror URL</a></li>
+    <li><a href="#step-2-add-the-mirror-source-in-arduino-ide">Step 2: Add the Mirror Source in Arduino IDE</a></li>
+    <li><a href="#step-3-install-esp32-via-boards-manager">Step 3: Install ESP32 via Boards Manager</a></li>
+    <li><a href="#conclusion">Conclusion</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="foreword-solving-esp32-board-package-download-failures-in-arduino-ide">Foreword: Solving ESP32 Board Package Download Failures in Arduino IDE</h2>
+<p>For developers in mainland China, installing the ESP32 board support package in the Arduino IDE often leads to slow downloads, timeouts, or even complete failures. This is typically caused by unstable international network connections, making it difficult to download from the official sources.</p>
+<p>To address this pain point, this tutorial will guide you through configuring a domestic mirror source to achieve a fast and stable installation of the ESP32 board package. Say goodbye to long waits and repeated failures, and make your development process smoother.</p>
+<h2 id="step-1-get-the-esp32-domestic-mirror-url">Step 1: Get the ESP32 Domestic Mirror URL</h2>
+<p>First, we need to get the URL for the board manager index file, which is hosted on a domestic server and provided by the officials. This information is clearly stated in the official ESP32 documentation, as shown in the screenshot below.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/esp32-docs-china-mirror-link.png"
+        data-srcset="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/esp32-docs-china-mirror-link.png, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/esp32-docs-china-mirror-link.png 1.5x, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/esp32-docs-china-mirror-link.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/esp32-docs-china-mirror-link.png"
+        title="Screenshot from the official ESP32 documentation" width="780" height="954" /></p>
+<p>For your convenience, I&rsquo;ve directly excerpted them from the <a href="https://docs.espressif.com/projects/arduino-esp32/en/latest/installing.html" target="_blank" rel="noopener noreffer ">Installing - Arduino-ESP32</a> documentation below:</p>
+<ul>
+<li>
+<p><strong>Stable Version</strong>: Contains tested versions recommended for most users.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>https://jihulab.com/esp-mirror/espressif/arduino-esp32/-/raw/gh-pages/package_esp32_index_cn.json</code></pre></div>
+</li>
+<li>
+<p><strong>Development Version</strong>: Contains the latest features and code, which may be unstable. Suitable for developers who want to try new things.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>https://jihulab.com/esp-mirror/espressif/arduino-esp32/-/raw/gh-pages/package_esp32_dev_index_cn.json</code></pre></div>
+</li>
+</ul>
+<p>For most development scenarios, <strong>using the stable version link is highly recommended</strong>.</p>
+<h2 id="step-2-add-the-mirror-source-in-arduino-ide">Step 2: Add the Mirror Source in Arduino IDE</h2>
+<p>Once you have the URL, you need to let the Arduino IDE know about this new download address.</p>
+<ol>
+<li>
+<p>Open the Arduino IDE and click on <strong>File</strong> &gt; <strong>Preferences</strong> in the top-left menu.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-preferences-menu.png"
+        data-srcset="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-preferences-menu.png, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-preferences-menu.png 1.5x, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-preferences-menu.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-preferences-menu.png"
+        title="Arduino IDE Menu - Preferences" width="793" height="452" /></p>
+</li>
+<li>
+<p>In the &ldquo;Preferences&rdquo; window that pops up, find the <strong>&ldquo;Additional Boards Manager URLs&rdquo;</strong> input box.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-paste-mirror-url.png"
+        data-srcset="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-paste-mirror-url.png, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-paste-mirror-url.png 1.5x, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-paste-mirror-url.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-paste-mirror-url.png"
+        title="Arduino IDE Preferences - Additional Boards Manager URLs" width="615" height="314" /></p>
+</li>
+<li>
+<p>Paste the <strong>stable version URL</strong> from Step 1 into this input box. If you already have other URLs, click the icon to the right of the input box and paste the new URL on a new line in the window that appears.</p>
+</li>
+<li>
+<p>Click <strong>&ldquo;OK&rdquo;</strong> to save the settings.</p>
+</li>
+</ol>
+<h2 id="step-3-install-esp32-via-boards-manager">Step 3: Install ESP32 via Boards Manager</h2>
+<p>With the configuration complete, we can now proceed with the actual installation.</p>
+<ol>
+<li>
+<p>In the Arduino IDE, open the Boards Manager via <strong>Tools</strong> &gt; <strong>Board</strong> &gt; <strong>Boards Manager&hellip;</strong>.</p>
+</li>
+<li>
+<p>When the Boards Manager opens, it will first update the index, which may take a moment. Once the update is complete, type <code>ESP32</code> into the search box at the top.</p>
+</li>
+<li>
+<p>You will see <code>esp32 by Espressif Systems</code> appear in the search results. Click on it, and in the version selection dropdown on the right, you will be pleased to find versions with a <code>-cn</code> suffix.</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-board-manager-cn-version.png"
+        data-srcset="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-board-manager-cn-version.png, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-board-manager-cn-version.png 1.5x, /zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-board-manager-cn-version.png 2x"
+        data-sizes="auto"
+        alt="/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/arduino-ide-board-manager-cn-version.png"
+        title="Selecting a version with the -cn suffix in the Boards Manager" width="774" height="513" /></p>
+<p><strong>These versions ending in <code>-cn</code> are provided through the domestic mirror source we configured.</strong></p>
+</li>
+<li>
+<p>Select the latest <code>-cn</code> version and click the <strong>&ldquo;Install&rdquo;</strong> button.</p>
+</li>
+</ol>
+<p>You will now notice a significant leap in download speed, free from the long waits and repeated failures.</p>
+<h2 id="conclusion">Conclusion</h2>
+<p>In three simple steps, we successfully switched the Arduino IDE&rsquo;s board download source to a domestic mirror, completely solving the installation issues for the ESP32 board package. This method is not only applicable to ESP32 but also to other boards that provide domestic mirrors (e.g., ESP8266).</p>
+<p><strong>Key Takeaways:</strong></p>
+<ul>
+<li><strong>Find the Right Source</strong>: Get the officially certified domestic mirror URL.</li>
+<li><strong>Configure the IDE</strong>: Add the URL in &ldquo;Preferences&rdquo;.</li>
+<li><strong>Choose the &ldquo;-cn&rdquo; Version</strong>: Install the version with the <code>-cn</code> identifier in the &ldquo;Boards Manager&rdquo;.</li>
+</ul>
+<p>I hope this detailed guide helps you clear the obstacles in your learning and development path, allowing you to focus more on creating and realizing your ideas. Happy coding!</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2026-01-27</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/en/posts/arduino-ide-esp32-mirror-install-guide/" data-title="Installing ESP32 Boards in Arduino IDE: Speeding Up with a Mirror" data-hashtags="Arduino,ESP32,IDE,Boards Manager,Mirror,Tutorial"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/en/posts/arduino-ide-esp32-mirror-install-guide/" data-title="Installing ESP32 Boards in Arduino IDE: Speeding Up with a Mirror"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/en/posts/arduino-ide-esp32-mirror-install-guide/" data-hashtag="Arduino"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/en/posts/arduino-ide-esp32-mirror-install-guide/" data-title="Installing ESP32 Boards in Arduino IDE: Speeding Up with a Mirror"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/en/posts/arduino-ide-esp32-mirror-install-guide/" data-title="Installing ESP32 Boards in Arduino IDE: Speeding Up with a Mirror"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/en/posts/arduino-ide-esp32-mirror-install-guide/" data-title="Installing ESP32 Boards in Arduino IDE: Speeding Up with a Mirror"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/en/posts/arduino-ide-esp32-mirror-install-guide/" data-title="Installing ESP32 Boards in Arduino IDE: Speeding Up with a Mirror" data-description="A detailed guide to solve the slow or failed download issue for ESP32 board support packages in the Arduino IDE, especially for users in mainland China. By configuring a domestic mirror, you can significantly improve download speed and stability."><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fen%2fposts%2farduino-ide-esp32-mirror-install-guide%2f&amp;text=Installing%20ESP32%20Boards%20in%20Arduino%20IDE%3a%20Speeding%20Up%20with%20a%20Mirror" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/en/tags/arduino/">Arduino</a>,&nbsp;<a href="/en/tags/esp32/">ESP32</a>,&nbsp;<a href="/en/tags/ide/">IDE</a>,&nbsp;<a href="/en/tags/boards-manager/">Boards Manager</a>,&nbsp;<a href="/en/tags/mirror/">Mirror</a>,&nbsp;<a href="/en/tags/tutorial/">Tutorial</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/en/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/en/posts/hugo-giscus-multilang-comment-fix/" class="prev" rel="prev" title="Fixing Giscus&#39;s &#39;specific&#39; Mapping Mode in the LoveIt Theme"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Fixing Giscus's 'specific' Mapping Mode in the LoveIt Theme</a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/en/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOQ1YU8M4C1aXA","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"en","lazyLoading":false,"lightTheme":"light","mapping":"specific","reactionsEnabled":"1","repo":"loommii/loommii.github.io","repoId":"R_kgDOQ1YU8A","term":"arduino-ide-esp32-mirror-install"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"en","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script><script>
+        let r = new XMLHttpRequest();
+        let views = document.getElementById("page-views");
+
+        var get_path = function() {
+            var loc = location,
+                c = document.querySelector('link[rel="canonical"][href]')
+            if (c) {  
+                var a = document.createElement('a')
+                a.href = c.href
+                if (a.hostname.replace(/^www\./, '') === location.hostname.replace(/^www\./, ''))
+                    loc = a
+            }
+            let path = loc.pathname;
+            if(path.endsWith('/')) path = path.slice(0, -1);
+            return path || '/';
+        }
+
+        if(views) {
+            r.addEventListener('load', function() {
+                const count = JSON.parse(this.responseText);
+                views.innerHTML = `${count.count_unique} views on this page (powered by <a href="https://www.goatcounter.com/">Goat Counter</a>)`
+            })
+
+            r.open('GET', 'https://linjjj.goatcounter.com/counter/' + encodeURIComponent(get_path()) + '.json')
+            r.send()
+        }
+    </script>
+    <script data-goatcounter="https://linjjj.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script></body>
+</html>
