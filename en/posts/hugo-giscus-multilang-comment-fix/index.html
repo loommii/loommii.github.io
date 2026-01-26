@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Fixing Giscus&#39;s &#39;specific&#39; Mapping Mode in the LoveIt Theme - loommii</title><meta name="Description" content="A detailed troubleshooting guide that documents how to fix an issue where the Giscus &#39;specific&#39; mapping mode fails in the Hugo LoveIt theme due to an incomplete implementation. By overriding the theme&#39;s template and script, this solution enables a shared comment pool for multi-language posts using a custom front matter parameter."><meta property="og:url" content="https://loommii.github.io/en/posts/hugo-giscus-multilang-comment-fix/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="Fixing Giscus&#39;s &#39;specific&#39; Mapping Mode in the LoveIt Theme">
+  <meta property="og:description" content="A detailed troubleshooting guide that documents how to fix an issue where the Giscus &#39;specific&#39; mapping mode fails in the Hugo LoveIt theme due to an incomplete implementation. By overriding the theme&#39;s template and script, this solution enables a shared comment pool for multi-language posts using a custom front matter parameter.">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="posts">
+    <meta property="article:published_time" content="2026-01-26T14:30:00+08:00">
+    <meta property="article:modified_time" content="2026-01-26T14:30:00+08:00">
+    <meta property="article:tag" content="HUGO">
+    <meta property="article:tag" content="LoveIt">
+    <meta property="article:tag" content="Giscus">
+    <meta property="article:tag" content="Theme Customization">
+    <meta property="article:tag" content="Troubleshooting">
+    <meta property="article:tag" content="Multi-Language">
+    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+  <meta name="twitter:title" content="Fixing Giscus&#39;s &#39;specific&#39; Mapping Mode in the LoveIt Theme">
+  <meta name="twitter:description" content="A detailed troubleshooting guide that documents how to fix an issue where the Giscus &#39;specific&#39; mapping mode fails in the Hugo LoveIt theme due to an incomplete implementation. By overriding the theme&#39;s template and script, this solution enables a shared comment pool for multi-language posts using a custom front matter parameter.">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/en/posts/hugo-giscus-multilang-comment-fix/" /><link rel="prev" href="https://loommii.github.io/en/posts/add-giscus-comments-to-hugo-blog/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Fixing Giscus's 'specific' Mapping Mode in the LoveIt Theme",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/loommii.github.io\/en\/posts\/hugo-giscus-multilang-comment-fix\/"
+        },"genre": "posts","keywords": "HUGO, LoveIt, Giscus, Theme Customization, Troubleshooting, Multi-language","wordcount":  913 ,
+        "url": "https:\/\/loommii.github.io\/en\/posts\/hugo-giscus-multilang-comment-fix\/","datePublished": "2026-01-26T14:30:00+08:00","dateModified": "2026-01-26T14:30:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "loommii"
+            },"description": "A detailed troubleshooting guide that documents how to fix an issue where the Giscus 'specific' mapping mode fails in the Hugo LoveIt theme due to an incomplete implementation. By overriding the theme's template and script, this solution enables a shared comment pool for multi-language posts using a custom front matter parameter."
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/en/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/en/posts/"> Posts </a><a class="menu-item" href="/en/go_practise/"> Go Practice </a><a class="menu-item" href="/en/leetcode/"> LeetCode Solutions </a><a class="menu-item" href="/en/categories/"> Categories </a><a class="menu-item" href="/en/tags/"> Tags </a><a class="menu-item" href="/en/posts/"> Archives </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/posts/hugo-giscus-multilang-comment-fix/">简体中文</option><option value="/en/posts/hugo-giscus-multilang-comment-fix/" selected>English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/en/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/en/posts/" title="">Posts</a><a class="menu-item" href="/en/go_practise/" title="">Go Practice</a><a class="menu-item" href="/en/leetcode/" title="">LeetCode Solutions</a><a class="menu-item" href="/en/categories/" title="">Categories</a><a class="menu-item" href="/en/tags/" title="">Tags</a><a class="menu-item" href="/en/posts/" title="">Archives</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/posts/hugo-giscus-multilang-comment-fix/">简体中文</option><option value="/en/posts/hugo-giscus-multilang-comment-fix/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">Contents</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Fixing Giscus's 'specific' Mapping Mode in the LoveIt Theme</h1><div class="post-meta">
+            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/loommii" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">included in <a href="/en/categories/site-building/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Site Building</a></span></div>
+            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2026-01-26">2026-01-26</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;913 words&nbsp;
+                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;5 minutes&nbsp;</div>
+        </div><div class="details toc" id="toc-static"  data-kept="">
+                <div class="details-summary toc-title">
+                    <span>Contents</span>
+                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
+                </div>
+                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1-the-problem">1. The Problem</a></li>
+    <li><a href="#2-the-investigation">2. The Investigation</a>
+      <ul>
+        <li><a href="#21-analyzing-the-theme-template-commenthtml">2.1 Analyzing the Theme Template (<code>comment.html</code>)</a></li>
+        <li><a href="#22-analyzing-the-theme-script-themejs">2.2 Analyzing the Theme Script (<code>theme.js</code>)</a></li>
+        <li><a href="#23-uncovering-the-environment-restriction">2.3 Uncovering the Environment Restriction</a></li>
+      </ul>
+    </li>
+    <li><a href="#3-the-solution">3. The Solution</a>
+      <ul>
+        <li><a href="#step-1-fix-the-template-commenthtml">Step 1: Fix the Template (<code>comment.html</code>)</a></li>
+        <li><a href="#step-2-fix-the-script-themejs">Step 2: Fix the Script (<code>theme.js</code>)</a></li>
+        <li><a href="#step-3-enable-production-mode-for-preview">Step 3: Enable Production Mode for Preview</a></li>
+      </ul>
+    </li>
+    <li><a href="#4-summary">4. Summary</a></li>
+  </ul>
+</nav></div>
+            </div><div class="content" id="content"><h2 id="1-the-problem">1. The Problem</h2>
+<p>In a previous article, <!-- raw HTML omitted -->&ldquo;Integrating the Giscus Comment System into Your HUGO Blog,&quot;<!-- raw HTML omitted --> I detailed how to add Giscus to a blog using the LoveIt theme.</p>
+<p>For multi-language sites, I proposed an advanced solution to unify the comment section across different language versions of the same post. This involved using Giscus&rsquo;s <code>specific</code> mapping mode combined with a custom front matter parameter, such as <code>giscus_id</code>.</p>
+<p>However, after following my own guide, I discovered a problem: <strong>the Giscus comment box failed to load as expected.</strong></p>
+<p>This troubleshooting article documents the step-by-step process of how I diagnosed and ultimately resolved the issue.</p>
+<!-- raw HTML omitted -->
+<h2 id="2-the-investigation">2. The Investigation</h2>
+<p>First, I confirmed my basic configuration was correct.</p>
+<ol>
+<li>
+<p><strong><code>config/_default/params.toml</code> file</strong>:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-toml">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[</span><span class="nx">page</span><span class="p">.</span><span class="nx">comment</span><span class="p">.</span><span class="nx">giscus</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">enable</span> <span class="p">=</span> <span class="kc">true</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">repo</span> <span class="p">=</span> <span class="s2">&#34;my-user/my-repo&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">repoId</span> <span class="p">=</span> <span class="s2">&#34;...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">category</span> <span class="p">=</span> <span class="s2">&#34;Announcements&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">categoryId</span> <span class="p">=</span> <span class="s2">&#34;...&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">mapping</span> <span class="p">=</span> <span class="s2">&#34;specific&#34;</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">term</span> <span class="p">=</span> <span class="s2">&#34;giscus_id&#34;</span></span></span></code></pre></div></div>
+</li>
+<li>
+<p><strong>Article <code>index.md</code> Front Matter</strong>:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-yaml">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-yaml" data-lang="yaml"><span class="line"><span class="cl"><span class="nn">---</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">title</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;Integrating the Giscus Comment System into Your HUGO Blog&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nt">giscus_id</span><span class="p">:</span><span class="w"> </span><span class="s2">&#34;hugo-giscus-comments-guide&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w"></span><span class="nn">---</span></span></span></code></pre></div></div>
+</li>
+</ol>
+<p>Since the configuration was correct, the root cause had to be hidden within the LoveIt theme&rsquo;s internal implementation.</p>
+<!-- raw HTML omitted -->
+<h3 id="21-analyzing-the-theme-template-commenthtml">2.1 Analyzing the Theme Template (<code>comment.html</code>)</h3>
+<p>Hugo&rsquo;s rendering logic starts with its template files. I first inspected the partial template responsible for rendering the comment section: <code>themes/LoveIt/layouts/partials/comment.html</code>.</p>
+<p>After analyzing the code block that handles the Giscus configuration, I made the <strong>first key discovery</strong>:</p>
+<blockquote>
+<p>While the template correctly reads parameters like <code>mapping</code> from <code>params.toml</code>, it <strong>completely ignores the <code>term</code> parameter</strong>. It lacks the logic needed to use the value of <code>term</code> (i.e., &ldquo;giscus_id&rdquo;) to fetch the corresponding <strong>actual value</strong> (i.e., &ldquo;hugo-giscus-comments-guide&rdquo;) from the current page&rsquo;s front matter.</p></blockquote>
+<p>This meant that the critical piece of information was being dropped at the very first step of the data flow.</p>
+<!-- raw HTML omitted -->
+<h3 id="22-analyzing-the-theme-script-themejs">2.2 Analyzing the Theme Script (<code>theme.js</code>)</h3>
+<p>With the upstream data flow broken, the downstream couldn&rsquo;t possibly work.</p>
+<p>Next, I examined the front-end JavaScript file responsible for dynamically loading Giscus: <code>themes/LoveIt/assets/js/theme.js</code>. In the <code>initComment()</code> method, I made the <strong>second key discovery</strong>:</p>
+<blockquote>
+<p>The JavaScript code <strong>has no logic to set the <code>data-term</code> attribute</strong>. It never receives the <code>term</code>&rsquo;s value from its upstream source (<code>comment.html</code>).</p></blockquote>
+<p>According to the official Giscus documentation, the <code>data-term</code> attribute is <strong>required</strong> when the <code>mapping</code> is set to <code>specific</code>. Without this attribute, Giscus doesn&rsquo;t know which discussion to load, which directly caused the failure.</p>
+<!-- raw HTML omitted -->
+<h3 id="23-uncovering-the-environment-restriction">2.3 Uncovering the Environment Restriction</h3>
+<p>After theoretically fixing the two flaws above, my local tests still showed no comment box. A warning message in the <code>hugo server</code> startup log revealed the <strong>third and final piece of the puzzle</strong>:</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>WARN  Current environment is not &#34;production&#34;. The &#34;comment system&#34; ... will be disabled.</code></pre></div>
+<p>This warning explained that the LoveIt theme, to optimize the local development experience, <strong>disables the comment system by default in the development environment</strong>.</p>
+<!-- raw HTML omitted -->
+<h2 id="3-the-solution">3. The Solution</h2>
+<p>With all discoveries combined, a clear, three-part solution emerged. We can implement it using Hugo&rsquo;s override system to avoid modifying the original theme files.</p>
+<h3 id="step-1-fix-the-template-commenthtml">Step 1: Fix the Template (<code>comment.html</code>)</h3>
+<p><strong>Goal</strong>: Enable the Hugo template to correctly <strong>retrieve</strong> the <code>giscus_id</code> value from the page&rsquo;s Front Matter.</p>
+<p><strong>Action</strong>: Create a file at <code>layouts/partials/comment.html</code>, copy the content from the original theme file, and add one line to the Giscus configuration section.</p>
+<p><strong>Code Modification</strong>:
+After the line for <code>... mapping ...</code>, add the line for <code>... term ...</code>.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go-template">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go-template" data-lang="go-template"><span class="line"><span class="cl"><span class="x">...
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{{-</span><span class="w"> </span><span class="nx">$commentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$giscus</span><span class="na">.mapping</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">default</span><span class="w"> </span><span class="s">&#34;pathname&#34;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">dict</span><span class="w"> </span><span class="s">&#34;mapping&#34;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">dict</span><span class="w"> </span><span class="s">&#34;giscus&#34;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">merge</span><span class="w"> </span><span class="nx">$commentConfig</span><span class="w"> </span><span class="cp">-}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cm">{{- /* --- Add the line below --- */}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{{-</span><span class="w"> </span><span class="nx">$commentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">dict</span><span class="w"> </span><span class="s">&#34;term&#34;</span><span class="w"> </span><span class="o">(</span><span class="k">index</span><span class="w"> </span><span class="na">$.Page.Params</span><span class="w"> </span><span class="o">(</span><span class="nx">$giscus</span><span class="na">.term</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">default</span><span class="w"> </span><span class="s">&#34;giscus_id&#34;</span><span class="o">))</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">dict</span><span class="w"> </span><span class="s">&#34;giscus&#34;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">merge</span><span class="w"> </span><span class="nx">$commentConfig</span><span class="w"> </span><span class="cp">-}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x"></span><span class="cp">{{-</span><span class="w"> </span><span class="nx">$commentConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">$giscus</span><span class="na">.reactionsEnabled</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">default</span><span class="w"> </span><span class="s">&#34;1&#34;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">dict</span><span class="w"> </span><span class="s">&#34;reactionsEnabled&#34;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">dict</span><span class="w"> </span><span class="s">&#34;giscus&#34;</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="nx">merge</span><span class="w"> </span><span class="nx">$commentConfig</span><span class="w"> </span><span class="cp">-}}</span><span class="x">
+</span></span></span><span class="line"><span class="cl"><span class="x">...</span></span></span></code></pre></div></div>
+<blockquote>
+<p><strong>Code Explanation</strong>: The core of the new line, <code>(index $.Page.Params ($giscus.term))</code>, dynamically uses the value of <code>term</code> from <code>params.toml</code> (&ldquo;giscus_id&rdquo;) as a key to retrieve the corresponding value from the current page&rsquo;s Front Matter.</p></blockquote>
+<h3 id="step-2-fix-the-script-themejs">Step 2: Fix the Script (<code>theme.js</code>)</h3>
+<p><strong>Goal</strong>: Enable the front-end JavaScript to correctly <strong>set</strong> the <code>data-term</code> attribute on the Giscus script tag after receiving the <code>giscus_id</code> value.</p>
+<p><strong>Action</strong>: Create a file at <code>assets/js/theme.js</code>, copy the content from the original theme script, and add an <code>if</code> block inside the <code>initComment()</code> method&rsquo;s Giscus section.</p>
+<p><strong>Code Modification</strong>:
+After <code>giscusScript.setAttribute('data-mapping', ...)</code>, add the <code>if</code> block.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-javascript">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-javascript" data-lang="javascript"><span class="line"><span class="cl"><span class="p">...</span>
+</span></span><span class="line"><span class="cl"><span class="nx">giscusScript</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-mapping&#39;</span><span class="p">,</span> <span class="nx">giscusConfig</span><span class="p">.</span><span class="nx">mapping</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// --- Add the following logic ---
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="k">if</span> <span class="p">(</span><span class="nx">giscusConfig</span><span class="p">.</span><span class="nx">mapping</span> <span class="o">===</span> <span class="s1">&#39;specific&#39;</span> <span class="o">&amp;&amp;</span> <span class="nx">giscusConfig</span><span class="p">.</span><span class="nx">term</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nx">giscusScript</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-term&#39;</span><span class="p">,</span> <span class="nx">giscusConfig</span><span class="p">.</span><span class="nx">term</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// --- Logic added ---
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">giscusScript</span><span class="p">.</span><span class="nx">setAttribute</span><span class="p">(</span><span class="s1">&#39;data-reactions-enabled&#39;</span><span class="p">,</span> <span class="nx">giscusConfig</span><span class="p">.</span><span class="nx">reactionsEnabled</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">...</span></span></span></code></pre></div></div>
+<blockquote>
+<p><strong>Code Explanation</strong>: This <code>if</code> block ensures that the <code>data-term</code> attribute is only added when <code>mapping</code> is <code>specific</code> and a <code>term</code> value is present.</p></blockquote>
+<h3 id="step-3-enable-production-mode-for-preview">Step 3: Enable Production Mode for Preview</h3>
+<p><strong>Goal</strong>: Force the comment system to be enabled during local preview.</p>
+<p><strong>Action</strong>: Use the following command to start the Hugo local server.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-bash">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo server -e production</span></span></code></pre></div></div>
+<!-- raw HTML omitted -->
+<h2 id="4-summary">4. Summary</h2>
+<p>This troubleshooting process identified and solved three core problems:</p>
+<ol>
+<li>
+<p><strong>Problem 1: Theme template did not pass the <code>term</code> value.</strong></p>
+<ul>
+<li><strong>Cause</strong>: <code>layouts/partials/comment.html</code> was missing the logic to get the <code>giscus_id</code> value from the Front Matter.</li>
+<li><strong>Solution</strong>: Override <code>comment.html</code> and add the <code>(index $.Page.Params ($giscus.term))</code> logic to fetch and pass the value.</li>
+</ul>
+</li>
+<li>
+<p><strong>Problem 2: Theme script did not set the <code>data-term</code> attribute.</strong></p>
+<ul>
+<li><strong>Cause</strong>: <code>assets/js/theme.js</code> lacked the code to set <code>data-term</code> when <code>mapping</code> is <code>specific</code>.</li>
+<li><strong>Solution</strong>: Override <code>theme.js</code> and add an <code>if (giscusConfig.mapping === 'specific' &amp;&amp; giscusConfig.term)</code> block to dynamically add the <code>data-term</code> attribute.</li>
+</ul>
+</li>
+<li>
+<p><strong>Problem 3: Comment system was disabled in the development environment.</strong></p>
+<ul>
+<li><strong>Cause</strong>: The LoveIt theme disables comments in development mode by default for performance reasons.</li>
+<li><strong>Solution</strong>: Use the <code>hugo server -e production</code> command to force production mode and enable the comment system locally.</li>
+</ul>
+</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info">
+        <div class="post-info-line">
+            <div class="post-info-mod">
+                <span>Updated on 2026-01-26</span>
+            </div></div>
+        <div class="post-info-line">
+            <div class="post-info-md"></div>
+            <div class="post-info-share">
+                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/en/posts/hugo-giscus-multilang-comment-fix/" data-title="Fixing Giscus&#39;s &#39;specific&#39; Mapping Mode in the LoveIt Theme" data-hashtags="HUGO,LoveIt,Giscus,Theme Customization,Troubleshooting,Multi-language"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/en/posts/hugo-giscus-multilang-comment-fix/" data-title="Fixing Giscus&#39;s &#39;specific&#39; Mapping Mode in the LoveIt Theme"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/en/posts/hugo-giscus-multilang-comment-fix/" data-hashtag="HUGO"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/en/posts/hugo-giscus-multilang-comment-fix/" data-title="Fixing Giscus&#39;s &#39;specific&#39; Mapping Mode in the LoveIt Theme"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/en/posts/hugo-giscus-multilang-comment-fix/" data-title="Fixing Giscus&#39;s &#39;specific&#39; Mapping Mode in the LoveIt Theme"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/en/posts/hugo-giscus-multilang-comment-fix/" data-title="Fixing Giscus&#39;s &#39;specific&#39; Mapping Mode in the LoveIt Theme"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/en/posts/hugo-giscus-multilang-comment-fix/" data-title="Fixing Giscus&#39;s &#39;specific&#39; Mapping Mode in the LoveIt Theme" data-description="A detailed troubleshooting guide that documents how to fix an issue where the Giscus &#39;specific&#39; mapping mode fails in the Hugo LoveIt theme due to an incomplete implementation. By overriding the theme&#39;s template and script, this solution enables a shared comment pool for multi-language posts using a custom front matter parameter."><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fen%2fposts%2fhugo-giscus-multilang-comment-fix%2f&amp;text=Fixing%20Giscus%27s%20%27specific%27%20Mapping%20Mode%20in%20the%20LoveIt%20Theme" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
+            </div>
+        </div>
+    </div>
+
+    <div class="post-info-more">
+        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/en/tags/hugo/">HUGO</a>,&nbsp;<a href="/en/tags/loveit/">LoveIt</a>,&nbsp;<a href="/en/tags/giscus/">Giscus</a>,&nbsp;<a href="/en/tags/theme-customization/">Theme Customization</a>,&nbsp;<a href="/en/tags/troubleshooting/">Troubleshooting</a>,&nbsp;<a href="/en/tags/multi-language/">Multi-Language</a></section>
+        <section>
+            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/en/">Home</a></span>
+        </section>
+    </div>
+
+    <div class="post-nav"><a href="/en/posts/add-giscus-comments-to-hugo-blog/" class="prev" rel="prev" title="Integrating the Giscus Comment System with Your HUGO Blog"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>Integrating the Giscus Comment System with Your HUGO Blog</a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></article></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/en/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/katex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/auto-render.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/copy-tex.min.js"></script><script src="https://cdn.jsdelivr.net/npm/katex@0.16.21/dist/contrib/mhchem.min.js"></script><script>window.config={"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOQ1YU8M4C1aXA","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"en","lazyLoading":false,"lightTheme":"light","mapping":"specific","reactionsEnabled":"1","repo":"loommii/loommii.github.io","repoId":"R_kgDOQ1YU8A","term":"loveit-giscus-specific-mapping-fix"}},"lightgallery":true,"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":true,"left":"\\begin{equation}","right":"\\end{equation}"},{"display":true,"left":"\\begin{equation*}","right":"\\end{equation*}"},{"display":true,"left":"\\begin{align}","right":"\\end{align}"},{"display":true,"left":"\\begin{align*}","right":"\\end{align*}"},{"display":true,"left":"\\begin{alignat}","right":"\\end{alignat}"},{"display":true,"left":"\\begin{alignat*}","right":"\\end{alignat*}"},{"display":true,"left":"\\begin{gather}","right":"\\end{gather}"},{"display":true,"left":"\\begin{CD}","right":"\\end{CD}"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"en","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+</html>

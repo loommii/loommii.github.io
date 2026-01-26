@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Go Daily Question 20250509 - loommii</title><meta name="Description" content="Go Language Daily Question Series - Analysis of Go Daily Question 20250509"><meta property="og:url" content="https://loommii.github.io/en/go_practise/go_daily_question_20250509/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="Go Daily Question 20250509">
+  <meta property="og:description" content="Go Language Daily Question Series - Analysis of Go Daily Question 20250509">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="go_practise">
+    <meta property="article:published_time" content="2025-05-09T13:53:06+08:00">
+    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+    <meta property="article:tag" content="Go Closure">
+    <meta property="article:tag" content="Go Scope">
+    <meta property="article:tag" content="Go Pitfall">
+    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+  <meta name="twitter:title" content="Go Daily Question 20250509">
+  <meta name="twitter:description" content="Go Language Daily Question Series - Analysis of Go Daily Question 20250509">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/en/go_practise/go_daily_question_20250509/" /><link rel="prev" href="https://loommii.github.io/en/go_practise/go_daily_question_20250508/" /><link rel="next" href="https://loommii.github.io/en/go_practise/go_daily_question_20250510/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Go Daily Question 20250509",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/loommii.github.io\/en\/go_practise\/go_daily_question_20250509\/"
+        },"genre": "go_practise","keywords": "Go Closure, Go Scope, Go Pitfall","wordcount":  617 ,
+        "url": "https:\/\/loommii.github.io\/en\/go_practise\/go_daily_question_20250509\/","datePublished": "2025-05-09T13:53:06+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "loommii"
+            },"description": "Go Language Daily Question Series - Analysis of Go Daily Question 20250509"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/en/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/en/posts/"> Posts </a><a class="menu-item" href="/en/go_practise/"> Go Practice </a><a class="menu-item" href="/en/leetcode/"> LeetCode Solutions </a><a class="menu-item" href="/en/categories/"> Categories </a><a class="menu-item" href="/en/tags/"> Tags </a><a class="menu-item" href="/en/posts/"> Archives </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/go_practise/go_daily_question_20250509/">简体中文</option><option value="/en/go_practise/go_daily_question_20250509/" selected>English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/en/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/en/posts/" title="">Posts</a><a class="menu-item" href="/en/go_practise/" title="">Go Practice</a><a class="menu-item" href="/en/leetcode/" title="">LeetCode Solutions</a><a class="menu-item" href="/en/categories/" title="">Categories</a><a class="menu-item" href="/en/tags/" title="">Tags</a><a class="menu-item" href="/en/posts/" title="">Archives</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/go_practise/go_daily_question_20250509/">简体中文</option><option value="/en/go_practise/go_daily_question_20250509/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">Go Daily Question 20250509</h1><div class="content" id="content"><p>Usually, closure questions are a must-have in JS interviews. With more and more languages supporting the functional paradigm, closure problems frequently appear. The same is true in Go.</p>
+<p>This is a problem from Go Language Enthusiasts Weekly #90. What is the output of the following code?</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">app</span><span class="p">()</span> <span class="kd">func</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">t</span> <span class="o">:=</span> <span class="s">&#34;Hi&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">b</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">t</span> <span class="p">=</span> <span class="nx">t</span> <span class="o">+</span> <span class="s">&#34; &#34;</span> <span class="o">+</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">t</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">c</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">a</span> <span class="o">:=</span> <span class="nf">app</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">b</span> <span class="o">:=</span> <span class="nf">app</span><span class="p">()</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">a</span><span class="p">(</span><span class="s">&#34;go&#34;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">b</span><span class="p">(</span><span class="s">&#34;All&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">a</span><span class="p">(</span><span class="s">&#34;All&#34;</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
+<div class="toggle-content">
+  <p>Closure
+<code>fmt.Println(b(&quot;All&quot;))</code> outputs A (Hi All)
+<code>fmt.Println(a(&quot;All&quot;))</code> outputs B (Hi go All)</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">app</span><span class="p">()</span> <span class="kd">func</span><span class="p">(</span><span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 1. Each time app() is called, a new, independent local variable &#39;t&#39; is created.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    Its initial value is &#34;Hi&#34;.</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">t</span> <span class="o">:=</span> <span class="s">&#34;Hi&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 2. Defines an anonymous function (closure &#39;c&#39;).</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    This closure &#39;c&#39; &#34;captures&#34; the variable &#39;t&#39; from its outer scope.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    This means &#39;c&#39; holds a reference to that specific &#39;t&#39; within the scope of the app() function where it was created.</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">c</span> <span class="o">:=</span> <span class="kd">func</span><span class="p">(</span><span class="nx">b</span> <span class="kt">string</span><span class="p">)</span> <span class="kt">string</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 3. When the closure &#39;c&#39; is called, it modifies the &#39;t&#39; it captured.</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">//    This &#39;t&#39; is the &#39;t&#39; that was determined when &#39;c&#39; was created.</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">t</span> <span class="p">=</span> <span class="nx">t</span> <span class="o">+</span> <span class="s">&#34; &#34;</span> <span class="o">+</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">t</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 4. Returns this closure &#39;c&#39;.</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">c</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 5. First call to app():</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - Inside app(), a &#39;t&#39; is created (let&#39;s call it t_for_a), with an initial value of &#34;Hi&#34;.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - A closure is created, and this closure captures t_for_a.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - This closure is assigned to variable &#39;a&#39;.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - So, &#39;a&#39; is now a function that internally retains a reference to t_for_a.</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">a</span> <span class="o">:=</span> <span class="nf">app</span><span class="p">()</span> <span class="c1">// At this point, the value of &#39;t&#39; (t_for_a) bound to &#39;a&#39; is &#34;Hi&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 6. Second call to app():</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - Again inside app(), another *brand new, independent* &#39;t&#39; is created (let&#39;s call it t_for_b), also with an initial value of &#34;Hi&#34;.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - Another *brand new, independent* closure is created, and this closure captures t_for_b.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - This closure is assigned to variable &#39;b&#39;.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - So, &#39;b&#39; is now a function that internally retains a reference to t_for_b.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - Key point: t_for_a and t_for_b are two completely different memory locations.</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">b</span> <span class="o">:=</span> <span class="nf">app</span><span class="p">()</span> <span class="c1">// At this point, the value of &#39;t&#39; (t_for_b) bound to &#39;b&#39; is &#34;Hi&#34;.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// The value of &#39;t&#39; (t_for_a) bound to &#39;a&#39; is still &#34;Hi&#34;, unaffected.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 7. Call closure &#39;a&#39;, passing &#34;go&#34; as argument:</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - t_for_a inside &#39;a&#39; is modified: t_for_a = &#34;Hi&#34; + &#34; &#34; + &#34;go&#34;  =&gt;  t_for_a becomes &#34;Hi go&#34;.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - The return value of a(&#34;go&#34;) is &#34;Hi go&#34;, but it&#39;s not used here.</span>
+</span></span><span class="line"><span class="cl">	<span class="nf">a</span><span class="p">(</span><span class="s">&#34;go&#34;</span><span class="p">)</span> <span class="c1">// After execution: t_for_a = &#34;Hi go&#34;. t_for_b is still &#34;Hi&#34;.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 8. Call closure &#39;b&#39;, passing &#34;All&#34; as argument:</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - t_for_b inside &#39;b&#39; is modified: t_for_b = &#34;Hi&#34; + &#34; &#34; + &#34;All&#34;  =&gt;  t_for_b becomes &#34;Hi All&#34;.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - The return value of b(&#34;All&#34;) is &#34;Hi All&#34;.</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">b</span><span class="p">(</span><span class="s">&#34;All&#34;</span><span class="p">))</span> <span class="c1">// Output: Hi All</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// After execution: t_for_a = &#34;Hi go&#34;. t_for_b = &#34;Hi All&#34;.</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 9. Call closure &#39;a&#39; again, passing &#34;All&#34; as argument:</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - t_for_a inside &#39;a&#39; (current value &#34;Hi go&#34;) is modified: t_for_a = &#34;Hi go&#34; + &#34; &#34; + &#34;All&#34;  =&gt;  t_for_a becomes &#34;Hi go All&#34;.</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">//    - The return value of a(&#34;All&#34;) is &#34;Hi go All&#34;.</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nf">a</span><span class="p">(</span><span class="s">&#34;All&#34;</span><span class="p">))</span> <span class="c1">// Output: Hi go All</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// After execution: t_for_a = &#34;Hi go All&#34;. t_for_b = &#34;Hi All&#34;.</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="cm">/*
+</span></span></span><span class="line"><span class="cl"><span class="cm">What is the output? This tests Go closures.
+</span></span></span><span class="line"><span class="cl"><span class="cm">
+</span></span></span><span class="line"><span class="cl"><span class="cm">Final Output:
+</span></span></span><span class="line"><span class="cl"><span class="cm">Hi All
+</span></span></span><span class="line"><span class="cl"><span class="cm">Hi go All
+</span></span></span><span class="line"><span class="cl"><span class="cm">*/</span></span></span></code></pre></div></div>
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>
+
+</div><div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></div></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/en/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOQ1YU8M4C1aXA","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"en","lazyLoading":false,"lightTheme":"light","mapping":"specific","reactionsEnabled":"1","repo":"loommii/loommii.github.io","repoId":"R_kgDOQ1YU8A","term":null}},"lightgallery":true,"search":{"highlightTag":"em","lunrLanguageCode":"en","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script></body>
+</html>
