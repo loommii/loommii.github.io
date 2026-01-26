@@ -173,11 +173,10 @@
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="一问题背景">一、问题背景</h2>
-<p>在我之前的文章 <!-- raw HTML omitted -->《为你的 HUGO 博客集成 Giscus 评论系统》<!-- raw HTML omitted --> 中，我详细介绍了如何为 LoveIt 主题的博客添加 Giscus 评论系统。</p>
+<p>在我之前的文章 <a href="/zh-cn/posts/add-giscus-comments-to-hugo-blog/" rel="">《为你的 HUGO 博客集成 Giscus 评论系统》</a> 中，我详细介绍了如何为 LoveIt 主题的博客添加 Giscus 评论系统。</p>
 <p>其中，为了统一多语言文章的评论区，我提出了一个进阶方案：使用 Giscus 的 <code>specific</code> 映射模式，并配合一个自定义的前置参数（例如 <code>giscus_id</code>）来实现。</p>
 <p>然而，当我完全按照该方案进行配置后，却发现了一个问题：<strong>Giscus 评论框并没有像预期的那样加载出来</strong>。</p>
 <p>这篇排错（Troubleshooting）文章将详细记录我如何一步步分析并最终解决这个问题的全过程。</p>
-<!-- raw HTML omitted -->
 <h2 id="二问题排查与分析">二、问题排查与分析</h2>
 <p>首先，我确认了我的基础配置是正确的：</p>
 <ol>
@@ -211,21 +210,18 @@
 </li>
 </ol>
 <p>既然配置无误，那么问题根源必定深藏在 LoveIt 主题的内部实现中。</p>
-<!-- raw HTML omitted -->
 <h3 id="21-分析主题模板-commenthtml">2.1 分析主题模板 (<code>comment.html</code>)</h3>
 <p>Hugo 的渲染逻辑始于模板文件。我首先检查了 LoveIt 主题中负责渲染评论区的局部模板：<code>themes/LoveIt/layouts/partials/comment.html</code>。</p>
 <p>在分析了处理 Giscus 配置的代码块后，我得出了<strong>第一个关键发现</strong>：</p>
 <blockquote>
 <p>该模板虽然读取了 <code>params.toml</code> 中的 <code>mapping</code> 等配置，但它<strong>完全没有处理 <code>term</code> 参数</strong>。它缺少一段逻辑，该逻辑需要根据 <code>term</code> 的值（即 &ldquo;giscus_id&rdquo;），去获取当前文章 Front Matter 中 <code>giscus_id</code> 对应的<strong>实际值</strong>（即 &ldquo;hugo-giscus-comments-guide&rdquo;）。</p></blockquote>
 <p>这意味着，我们配置的关键信息在数据流的第一个环节就丢失了。</p>
-<!-- raw HTML omitted -->
 <h3 id="22-分析主题脚本-themejs">2.2 分析主题脚本 (<code>theme.js</code>)</h3>
 <p>数据流的上游出了问题，下游自然也无法正常工作。</p>
 <p>我接着检查了负责动态加载 Giscus 的脚本文件 <code>themes/LoveIt/assets/js/theme.js</code>。在 <code>initComment()</code> 方法中，我得出了<strong>第二个关键发现</strong>：</p>
 <blockquote>
 <p>这段 JavaScript 代码也<strong>没有为 <code>data-term</code> 属性进行设置的逻辑</strong>。因为它根本没从上游（<code>comment.html</code>）收到 <code>term</code> 的值。</p></blockquote>
 <p>根据 Giscus 的官方文档，当 <code>mapping</code> 设置为 <code>specific</code> 时，<code>data-term</code> 属性是<strong>必需的</strong>。缺少了这个属性，Giscus 不知道该为哪个页面加载评论，这直接导致了评论框的最终加载失败。</p>
-<!-- raw HTML omitted -->
 <h3 id="23-发现环境限制">2.3 发现环境限制</h3>
 <p>在理论上修复了上述两个缺陷后，我在本地测试时发现评论区依然没有出现。此时，<code>hugo server</code> 启动时的一条警告信息揭示了<strong>第三个，也是最后一个谜团</strong>：</p>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
@@ -235,7 +231,6 @@
         <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
     </div><pre tabindex="0"><code>WARN  Current environment is not &#34;production&#34;. The &#34;comment system&#34; ... will be disabled.</code></pre></div>
 <p>这行警告说明，LoveIt 主题为了优化本地开发体验，<strong>默认在开发环境下（<code>development</code>）禁用了评论系统</strong>。</p>
-<!-- raw HTML omitted -->
 <h2 id="三解决方案">三、解决方案</h2>
 <p>综合以上所有发现，一个清晰的、由三部分组成的解决方案浮出水面。我们通过 Hugo 的覆盖机制来实现，以确保不在原始主题上做任何修改。</p>
 <h3 id="第-1-步修复模板-commenthtml">第 1 步：修复模板 <code>comment.html</code></h3>
@@ -286,7 +281,6 @@
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
         <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
     </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo server -e production</span></span></code></pre></div></div>
-<!-- raw HTML omitted -->
 <h2 id="四总结">四、总结</h2>
 <p>本次故障排查共定位并解决了三个核心问题：</p>
 <ol>

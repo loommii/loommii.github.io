@@ -173,11 +173,10 @@
   </ul>
 </nav></div>
             </div><div class="content" id="content"><h2 id="1-the-problem">1. The Problem</h2>
-<p>In a previous article, <!-- raw HTML omitted -->&ldquo;Integrating the Giscus Comment System into Your HUGO Blog,&quot;<!-- raw HTML omitted --> I detailed how to add Giscus to a blog using the LoveIt theme.</p>
+<p>In a previous article, <a href="/en/posts/add-giscus-comments-to-hugo-blog/" rel="">&ldquo;Integrating the Giscus Comment System into Your HUGO Blog,&rdquo;</a> I detailed how to add Giscus to a blog using the LoveIt theme.</p>
 <p>For multi-language sites, I proposed an advanced solution to unify the comment section across different language versions of the same post. This involved using Giscus&rsquo;s <code>specific</code> mapping mode combined with a custom front matter parameter, such as <code>giscus_id</code>.</p>
 <p>However, after following my own guide, I discovered a problem: <strong>the Giscus comment box failed to load as expected.</strong></p>
 <p>This troubleshooting article documents the step-by-step process of how I diagnosed and ultimately resolved the issue.</p>
-<!-- raw HTML omitted -->
 <h2 id="2-the-investigation">2. The Investigation</h2>
 <p>First, I confirmed my basic configuration was correct.</p>
 <ol>
@@ -211,21 +210,18 @@
 </li>
 </ol>
 <p>Since the configuration was correct, the root cause had to be hidden within the LoveIt theme&rsquo;s internal implementation.</p>
-<!-- raw HTML omitted -->
 <h3 id="21-analyzing-the-theme-template-commenthtml">2.1 Analyzing the Theme Template (<code>comment.html</code>)</h3>
 <p>Hugo&rsquo;s rendering logic starts with its template files. I first inspected the partial template responsible for rendering the comment section: <code>themes/LoveIt/layouts/partials/comment.html</code>.</p>
 <p>After analyzing the code block that handles the Giscus configuration, I made the <strong>first key discovery</strong>:</p>
 <blockquote>
 <p>While the template correctly reads parameters like <code>mapping</code> from <code>params.toml</code>, it <strong>completely ignores the <code>term</code> parameter</strong>. It lacks the logic needed to use the value of <code>term</code> (i.e., &ldquo;giscus_id&rdquo;) to fetch the corresponding <strong>actual value</strong> (i.e., &ldquo;hugo-giscus-comments-guide&rdquo;) from the current page&rsquo;s front matter.</p></blockquote>
 <p>This meant that the critical piece of information was being dropped at the very first step of the data flow.</p>
-<!-- raw HTML omitted -->
 <h3 id="22-analyzing-the-theme-script-themejs">2.2 Analyzing the Theme Script (<code>theme.js</code>)</h3>
 <p>With the upstream data flow broken, the downstream couldn&rsquo;t possibly work.</p>
 <p>Next, I examined the front-end JavaScript file responsible for dynamically loading Giscus: <code>themes/LoveIt/assets/js/theme.js</code>. In the <code>initComment()</code> method, I made the <strong>second key discovery</strong>:</p>
 <blockquote>
 <p>The JavaScript code <strong>has no logic to set the <code>data-term</code> attribute</strong>. It never receives the <code>term</code>&rsquo;s value from its upstream source (<code>comment.html</code>).</p></blockquote>
 <p>According to the official Giscus documentation, the <code>data-term</code> attribute is <strong>required</strong> when the <code>mapping</code> is set to <code>specific</code>. Without this attribute, Giscus doesn&rsquo;t know which discussion to load, which directly caused the failure.</p>
-<!-- raw HTML omitted -->
 <h3 id="23-uncovering-the-environment-restriction">2.3 Uncovering the Environment Restriction</h3>
 <p>After theoretically fixing the two flaws above, my local tests still showed no comment box. A warning message in the <code>hugo server</code> startup log revealed the <strong>third and final piece of the puzzle</strong>:</p>
 <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
@@ -235,7 +231,6 @@
         <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
     </div><pre tabindex="0"><code>WARN  Current environment is not &#34;production&#34;. The &#34;comment system&#34; ... will be disabled.</code></pre></div>
 <p>This warning explained that the LoveIt theme, to optimize the local development experience, <strong>disables the comment system by default in the development environment</strong>.</p>
-<!-- raw HTML omitted -->
 <h2 id="3-the-solution">3. The Solution</h2>
 <p>With all discoveries combined, a clear, three-part solution emerged. We can implement it using Hugo&rsquo;s override system to avoid modifying the original theme files.</p>
 <h3 id="step-1-fix-the-template-commenthtml">Step 1: Fix the Template (<code>comment.html</code>)</h3>
@@ -286,7 +281,6 @@ After <code>giscusScript.setAttribute('data-mapping', ...)</code>, add the <code
         <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
         <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
     </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">hugo server -e production</span></span></code></pre></div></div>
-<!-- raw HTML omitted -->
 <h2 id="4-summary">4. Summary</h2>
 <p>This troubleshooting process identified and solved three core problems:</p>
 <ol>
