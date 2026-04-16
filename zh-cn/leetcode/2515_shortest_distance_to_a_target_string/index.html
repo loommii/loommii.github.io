@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>2515_到目标字符串的最短距离 - loommii</title><meta name="Description" content="LeetCode题解 - 2515_到目标字符串的最短距离 解析与实现"><meta property="og:url" content="https://loommii.github.io/zh-cn/leetcode/2515_shortest_distance_to_a_target_string/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="2515_到目标字符串的最短距离">
+  <meta property="og:description" content="LeetCode题解 - 2515_到目标字符串的最短距离 解析与实现">
+  <meta property="og:locale" content="zh_CN">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="leetcode">
+    <meta property="article:published_time" content="2026-04-16T12:02:31+08:00">
+    <meta property="article:modified_time" content="2026-04-16T12:02:31+08:00">
+    <meta property="article:tag" content="LeetCode">
+    <meta property="article:tag" content="算法">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="题解">
+    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+  <meta name="twitter:title" content="2515_到目标字符串的最短距离">
+  <meta name="twitter:description" content="LeetCode题解 - 2515_到目标字符串的最短距离 解析与实现">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/zh-cn/leetcode/2515_shortest_distance_to_a_target_string/" /><link rel="prev" href="https://loommii.github.io/zh-cn/leetcode/200_number_of_islands/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "2515_到目标字符串的最短距离",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/loommii.github.io\/zh-cn\/leetcode\/2515_shortest_distance_to_a_target_string\/"
+        },"genre": "leetcode","keywords": "LeetCode, 算法, Go, 题解","wordcount":  1588 ,
+        "url": "https:\/\/loommii.github.io\/zh-cn\/leetcode\/2515_shortest_distance_to_a_target_string\/","datePublished": "2026-04-16T12:02:31+08:00","dateModified": "2026-04-16T12:02:31+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "loommii"
+            },"description": "LeetCode题解 - 2515_到目标字符串的最短距离 解析与实现"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/zh-cn/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"> 文章 </a><a class="menu-item" href="/zh-cn/go_practise/"> Go练习题 </a><a class="menu-item" href="/zh-cn/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/zh-cn/categories/"> 分类 </a><a class="menu-item" href="/zh-cn/tags/"> 标签 </a><a class="menu-item" href="/zh-cn/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/leetcode/2515_shortest_distance_to_a_target_string/" selected>简体中文</option><option value="/en/leetcode/2515_shortest_distance_to_a_target_string/">English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/zh-cn/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/zh-cn/posts/" title="">文章</a><a class="menu-item" href="/zh-cn/go_practise/" title="">Go练习题</a><a class="menu-item" href="/zh-cn/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/zh-cn/categories/" title="">分类</a><a class="menu-item" href="/zh-cn/tags/" title="">标签</a><a class="menu-item" href="/zh-cn/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/leetcode/2515_shortest_distance_to_a_target_string/" selected>简体中文</option><option value="/en/leetcode/2515_shortest_distance_to_a_target_string/">English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">2515_到目标字符串的最短距离</h1><div class="content" id="content"><h1 id="leetcode-2515-到目标字符串的最短距离">LeetCode 2515. 到目标字符串的最短距离</h1>
+<h2 id="-题目描述">📝 题目描述</h2>
+<p>给你一个下标从 <code>0</code> 开始的 <strong>循环</strong> 字符串数组 <code>words</code> 和一个字符串 <code>target</code>。</p>
+<p><strong>循环</strong> 数组意味着 <code>words</code> 的最后一个元素和第一个元素是相邻的。</p>
+<p>要从 <code>words[i]</code> 到 <code>words[j]</code>，你可以从 <code>i</code> 向右或向左移动。</p>
+<p>返回从 <code>words[startIndex]</code> 到 <code>target</code> 的最短距离。如果 <code>target</code> 不在 <code>words</code> 中，返回 <code>-1</code>。</p>
+<hr>
+<h2 id="-示例">📥 示例</h2>
+<h3 id="示例-1">示例 1</h3>
+<p><strong>输入：</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-text">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">words = [&#34;hello&#34;,&#34;i&#34;,&#34;am&#34;,&#34;leetcode&#34;,&#34;hello&#34;], target = &#34;hello&#34;, startIndex = 1</span></span></code></pre></div></div>
+<p><strong>输出：</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-text">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">1</span></span></code></pre></div></div>
+<p><strong>解释：</strong>
+从索引 <code>1</code> 开始，我们可以移动到索引 <code>4</code> 或索引 <code>0</code>。</p>
+<ul>
+<li>移动到索引 <code>4</code> 需要向右走 <code>3</code> 步。</li>
+<li>移动到索引 <code>0</code> 需要向左走 <code>1</code> 步（利用循环特性）。</li>
+</ul>
+<p>最短距离是 <code>1</code>。</p>
+<h3 id="示例-2">示例 2</h3>
+<p><strong>输入：</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-text">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">words = [&#34;a&#34;,&#34;b&#34;,&#34;leetcode&#34;], target = &#34;leetcode&#34;, startIndex = 0</span></span></code></pre></div></div>
+<p><strong>输出：</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-text">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">1</span></span></code></pre></div></div>
+<p><strong>解释：</strong>
+从索引 <code>0</code> 开始，向左移动 <code>1</code> 步即可到达索引 <code>2</code>（即 <code>&quot;leetcode&quot;</code>）。距离为 <code>1</code>。</p>
+<h3 id="示例-3">示例 3</h3>
+<p><strong>输入：</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-text">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">words = [&#34;i&#34;,&#34;eat&#34;,&#34;leetcode&#34;], target = &#34;ate&#34;, startIndex = 0</span></span></code></pre></div></div>
+<p><strong>输出：</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-text">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">-1</span></span></code></pre></div></div>
+<p><strong>解释：</strong>
+<code>&quot;ate&quot;</code> 不在 <code>words</code> 数组中，因此返回 <code>-1</code>。</p>
+<hr>
+<h2 id="-提示">📏 提示</h2>
+<ul>
+<li><code>1 &lt;= words.length &lt;= 100</code></li>
+<li><code>1 &lt;= words[i].length &lt;= 100</code></li>
+<li><code>words[i]</code> 和 <code>target</code> 仅由小写英文字母组成</li>
+<li><code>0 &lt;= startIndex &lt; words.length</code></li>
+</ul>
+<hr>
+<h2 id="-go-模板">💻 Go 模板</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">closestTarget</span><span class="p">(</span><span class="nx">words</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">target</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">startIndex</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">words</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 搜索半径 ans 从 0 开始。</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 我们只需要搜索到数组长度的一半，因为任何更长的路径在另一个方向上都有更短的对应路径。</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">ans</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">ans</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">ans</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 计算向右（顺时针）移动 ans 步的索引</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">rightIndex</span> <span class="o">:=</span> <span class="p">(</span><span class="nx">startIndex</span> <span class="o">+</span> <span class="nx">ans</span><span class="p">)</span> <span class="o">%</span> <span class="nx">n</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 计算向左（逆时针）移动 ans 步的索引</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">leftIndex</span> <span class="o">:=</span> <span class="p">(</span><span class="nx">startIndex</span> <span class="o">-</span> <span class="nx">ans</span> <span class="o">+</span> <span class="nx">n</span><span class="p">)</span> <span class="o">%</span> <span class="nx">n</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="c1">// 如果在任一索引处找到目标，我们就找到了最短路径。</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">words</span><span class="p">[</span><span class="nx">rightIndex</span><span class="p">]</span> <span class="o">==</span> <span class="nx">target</span> <span class="o">||</span> <span class="nx">words</span><span class="p">[</span><span class="nx">leftIndex</span><span class="p">]</span> <span class="o">==</span> <span class="nx">target</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nx">ans</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 如果循环完成仍未找到目标，则返回 -1。</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<hr>
+<h2 id="-测试用例">🧪 测试用例</h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>words</th>
+          <th>target</th>
+          <th>startIndex</th>
+          <th>期望输出</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td><code>[&quot;hello&quot;,&quot;i&quot;,&quot;am&quot;,&quot;leetcode&quot;,&quot;hello&quot;]</code></td>
+          <td><code>&quot;hello&quot;</code></td>
+          <td><code>1</code></td>
+          <td><code>1</code></td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td><code>[&quot;a&quot;,&quot;b&quot;,&quot;leetcode&quot;]</code></td>
+          <td><code>&quot;leetcode&quot;</code></td>
+          <td><code>0</code></td>
+          <td><code>1</code></td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td><code>[&quot;i&quot;,&quot;eat&quot;,&quot;leetcode&quot;]</code></td>
+          <td><code>&quot;ate&quot;</code></td>
+          <td><code>0</code></td>
+          <td><code>-1</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析： 👈点击</button>
+<div class="toggle-content">
+  <h3 id="算法说明">算法说明</h3>
+<p>这个问题的核心是“在循环数组中寻找最短距离”。一个直观且高效的思路是<strong>双向扩展搜索</strong>。</p>
+<ol>
+<li><strong>从起点开始</strong>：我们的搜索从 <code>startIndex</code> 开始，而不是遍历整个数组。</li>
+<li><strong>同步扩展</strong>：我们模拟一个逐渐扩大的搜索“半径”。在每一步中，我们同时检查向左和向右相同距离的位置。
+<ul>
+<li>距离为 <code>d</code> 时，检查 <code>startIndex + d</code> 和 <code>startIndex - d</code> 的位置（注意处理循环边界）。</li>
+</ul>
+</li>
+<li><strong>找到即停</strong>：因为我们是从近到远（距离从小到大）进行搜索的，所以第一次找到 <code>target</code> 时，其对应的距离必然是最短的。此时可以直接返回结果。</li>
+<li><strong>关键优化</strong>：在长度为 <code>n</code> 的循环数组中，任意两点之间的最短距离不会超过 <code>n / 2</code>。如果一个方向的距离 <code>d</code> 大于 <code>n / 2</code>，那么反方向的距离 <code>n - d</code> 必然小于 <code>n / 2</code>。因此，我们的搜索半径只需要扩展到 <code>n / 2</code> 即可，无需完整遍历。</li>
+</ol>
+<h3 id="示例-1-演练">示例 1 演练</h3>
+<p>让我们用 <code>words = [&quot;hello&quot;,&quot;i&quot;,&quot;am&quot;,&quot;leetcode&quot;,&quot;hello&quot;]</code>, <code>target = &quot;hello&quot;</code>, <code>startIndex = 1</code> 来详细走一遍流程。</p>
+<ul>
+<li>
+<p><strong>初始化</strong>: <code>n = 5</code>, <code>startIndex = 1</code>。搜索半径 <code>ans</code> 将从 <code>0</code> 遍历到 <code>5 / 2 = 2</code>。</p>
+</li>
+<li>
+<p><strong><code>ans = 0</code></strong>:</p>
+<ul>
+<li>向右 <code>0</code> 步: <code>rightIndex = (1 + 0) % 5 = 1</code>。<code>words[1]</code> 是 <code>&quot;i&quot;</code>。</li>
+<li>向左 <code>0</code> 步: <code>leftIndex = (1 - 0 + 5) % 5 = 1</code>。<code>words[1]</code> 是 <code>&quot;i&quot;</code>。</li>
+<li><code>&quot;i&quot;</code> 不是 <code>&quot;hello&quot;</code>，继续。</li>
+</ul>
+</li>
+<li>
+<p><strong><code>ans = 1</code></strong>:</p>
+<ul>
+<li>向右 <code>1</code> 步: <code>rightIndex = (1 + 1) % 5 = 2</code>。<code>words[2]</code> 是 <code>&quot;am&quot;</code>。</li>
+<li>向左 <code>1</code> 步: <code>leftIndex = (1 - 1 + 5) % 5 = 0</code>。<code>words[0]</code> 是 <code>&quot;hello&quot;</code>。</li>
+<li><strong>找到目标！</strong> <code>words[leftIndex]</code> 等于 <code>target</code>。</li>
+<li>函数立即返回当前的 <code>ans</code> 值，即 <strong><code>1</code></strong>。</li>
+</ul>
+</li>
+</ul>
+<p>算法结束，最短距离为 <code>1</code>。</p>
+<hr>
+<h2 id="-完整可运行代码go">🚀 完整可运行代码（Go）</h2>
+<blockquote>
+<p>复制以下代码到本地或在线 Go 环境中，填写 <code>closestTarget</code> 函数后直接运行即可验证结果。</p></blockquote>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 测试用例 1</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">result1</span> <span class="o">:=</span> <span class="nf">closestTarget</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;hello&#34;</span><span class="p">,</span> <span class="s">&#34;i&#34;</span><span class="p">,</span> <span class="s">&#34;am&#34;</span><span class="p">,</span> <span class="s">&#34;leetcode&#34;</span><span class="p">,</span> <span class="s">&#34;hello&#34;</span><span class="p">},</span> <span class="s">&#34;hello&#34;</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;测试用例 1: 期望输出 = 1, 实际输出 = %d, 通过 = %t
+</span></span></span><span class="line"><span class="cl"><span class="s">&#34;</span><span class="p">,</span> <span class="nx">result1</span><span class="p">,</span> <span class="nx">result1</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 测试用例 2</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">result2</span> <span class="o">:=</span> <span class="nf">closestTarget</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">,</span> <span class="s">&#34;b&#34;</span><span class="p">,</span> <span class="s">&#34;leetcode&#34;</span><span class="p">},</span> <span class="s">&#34;leetcode&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;测试用例 2: 期望输出 = 1, 实际输出 = %d, 通过 = %t
+</span></span></span><span class="line"><span class="cl"><span class="s">&#34;</span><span class="p">,</span> <span class="nx">result2</span><span class="p">,</span> <span class="nx">result2</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="c1">// 测试用例 3</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">result3</span> <span class="o">:=</span> <span class="nf">closestTarget</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;i&#34;</span><span class="p">,</span> <span class="s">&#34;eat&#34;</span><span class="p">,</span> <span class="s">&#34;leetcode&#34;</span><span class="p">},</span> <span class="s">&#34;ate&#34;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;测试用例 3: 期望输出 = -1, 实际输出 = %d, 通过 = %t
+</span></span></span><span class="line"><span class="cl"><span class="s">&#34;</span><span class="p">,</span> <span class="nx">result3</span><span class="p">,</span> <span class="nx">result3</span> <span class="o">==</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">closestTarget</span><span class="p">(</span><span class="nx">words</span> <span class="p">[]</span><span class="kt">string</span><span class="p">,</span> <span class="nx">target</span> <span class="kt">string</span><span class="p">,</span> <span class="nx">startIndex</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">words</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 搜索半径 ans 从 0 开始。</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 我们只需要搜索到数组长度的一半，因为任何更长的路径在另一个方向上都有更短的对应路径。</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">ans</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">ans</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="o">/</span><span class="mi">2</span><span class="o">+</span><span class="mi">1</span><span class="p">;</span> <span class="nx">ans</span><span class="o">++</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 计算向右（顺时针）移动 ans 步的索引</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">rightIndex</span> <span class="o">:=</span> <span class="p">(</span><span class="nx">startIndex</span> <span class="o">+</span> <span class="nx">ans</span><span class="p">)</span> <span class="o">%</span> <span class="nx">n</span>
+</span></span><span class="line"><span class="cl">		<span class="c1">// 计算向左（逆时针）移动 ans 步的索引</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">leftIndex</span> <span class="o">:=</span> <span class="p">(</span><span class="nx">startIndex</span> <span class="o">-</span> <span class="nx">ans</span> <span class="o">+</span> <span class="nx">n</span><span class="p">)</span> <span class="o">%</span> <span class="nx">n</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="c1">// 如果在任一索引处找到目标，我们就找到了最短路径。</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">words</span><span class="p">[</span><span class="nx">rightIndex</span><span class="p">]</span> <span class="o">==</span> <span class="nx">target</span> <span class="o">||</span> <span class="nx">words</span><span class="p">[</span><span class="nx">leftIndex</span><span class="p">]</span> <span class="o">==</span> <span class="nx">target</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="k">return</span> <span class="nx">ans</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// 如果循环完成仍未找到目标，则返回 -1。</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>
+
+</div><div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></div></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOQ1YU8M4C1aXA","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"specific","reactionsEnabled":"1","repo":"loommii/loommii.github.io","repoId":"R_kgDOQ1YU8A","term":"2515-shortest-distance-to-a-target-string"}},"lightgallery":true,"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30}};</script><script src="/js/theme.min.js"></script><script>
+        let r = new XMLHttpRequest();
+        let views = document.getElementById("page-views");
+
+        var get_path = function() {
+            var loc = location,
+                c = document.querySelector('link[rel="canonical"][href]')
+            if (c) {  
+                var a = document.createElement('a')
+                a.href = c.href
+                if (a.hostname.replace(/^www\./, '') === location.hostname.replace(/^www\./, ''))
+                    loc = a
+            }
+            let path = loc.pathname;
+            if(path.endsWith('/')) path = path.slice(0, -1);
+            return path || '/';
+        }
+
+        if(views) {
+            r.addEventListener('load', function() {
+                const count = JSON.parse(this.responseText);
+                views.innerHTML = `${count.count_unique} views on this page (powered by <a href="https://www.goatcounter.com/">Goat Counter</a>)`
+            })
+
+            r.open('GET', 'https://linjjj.goatcounter.com/counter/' + encodeURIComponent(get_path()) + '.json')
+            r.send()
+        }
+    </script>
+    <script data-goatcounter="https://linjjj.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script></body>
+</html>

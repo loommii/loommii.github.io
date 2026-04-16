@@ -3,7 +3,19 @@
         <title>Go - 标签 - loommii</title>
         <link>https://loommii.github.io/zh-cn/tags/go/</link>
         <description>Go - 标签 - loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 16 Jan 2026 01:28:43 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/go/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 16 Apr 2026 12:02:31 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/go/" rel="self" type="application/rss+xml" /><item>
+    <title>2515_到目标字符串的最短距离</title>
+    <link>https://loommii.github.io/zh-cn/leetcode/2515_shortest_distance_to_a_target_string/</link>
+    <pubDate>Thu, 16 Apr 2026 12:02:31 &#43;0800</pubDate>
+    <author>loommii</author>
+    <guid>https://loommii.github.io/zh-cn/leetcode/2515_shortest_distance_to_a_target_string/</guid>
+    <description><![CDATA[<h1 id="leetcode-2515-到目标字符串的最短距离">LeetCode 2515. 到目标字符串的最短距离</h1>
+<h2 id="-题目描述">📝 题目描述</h2>
+<p>给你一个下标从 <code>0</code> 开始的 <strong>循环</strong> 字符串数组 <code>words</code> 和一个字符串 <code>target</code>。</p>
+<p><strong>循环</strong> 数组意味着 <code>words</code> 的最后一个元素和第一个元素是相邻的。</p>
+<p>要从 <code>words[i]</code> 到 <code>words[j]</code>，你可以从 <code>i</code> 向右或向左移动。</p>]]></description>
+</item>
+<item>
     <title>Windows下使用WSL配置Go开发环境完整指南</title>
     <link>https://loommii.github.io/zh-cn/posts/wsl-golang-goland-setup/</link>
     <pubDate>Fri, 16 Jan 2026 01:28:43 &#43;0800</pubDate>
@@ -407,76 +419,6 @@
     <author>loommii</author>
     <guid>https://loommii.github.io/zh-cn/leetcode/209_minimum_size_subarray_sum/</guid>
     <description><![CDATA[LeetCode题解 - 209. 长度最小的子数组 解析与实现]]></description>
-</item>
-<item>
-    <title>42. 接雨水</title>
-    <link>https://loommii.github.io/zh-cn/leetcode/42_trapping_rain_water/</link>
-    <pubDate>Mon, 05 May 2025 17:11:10 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/leetcode/42_trapping_rain_water/</guid>
-    <description><![CDATA[<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">trap</span><span class="p">(</span><span class="nx">height</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<hr>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">trap</span><span class="p">(</span><span class="nx">height</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ans</span> <span class="o">:=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">height</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">prefixMaxNum</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">suffixMaxNum</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">n</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">prefixMaxNum</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="nx">height</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">prefixMaxNum</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">max</span><span class="p">(</span><span class="nx">height</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">prefixMaxNum</span><span class="p">[</span><span class="nx">i</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">suffixMaxNum</span><span class="p">[</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="nx">height</span><span class="p">[</span><span class="nx">n</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="nx">n</span> <span class="o">-</span> <span class="mi">2</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&gt;=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span><span class="o">--</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">suffixMaxNum</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nb">max</span><span class="p">(</span><span class="nx">height</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">suffixMaxNum</span><span class="p">[</span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">n</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">ans</span> <span class="o">+=</span> <span class="nb">min</span><span class="p">(</span><span class="nx">prefixMaxNum</span><span class="p">[</span><span class="nx">i</span><span class="p">],</span> <span class="nx">suffixMaxNum</span><span class="p">[</span><span class="nx">i</span><span class="p">])</span> <span class="o">-</span> <span class="nx">height</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">ans</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">trap</span><span class="p">(</span><span class="nx">height</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">ans</span> <span class="o">:=</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">height</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">left</span> <span class="o">:=</span> <span class="mi">0</span>      <span class="c1">// 指向最左边</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">right</span> <span class="o">:=</span> <span class="nx">n</span> <span class="o">-</span> <span class="mi">1</span> <span class="c1">// 指向最右边</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">pro_max</span> <span class="o">:=</span> <span class="mi">0</span>   <span class="c1">// 前缀最大值</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">suf_max</span> <span class="o">:=</span> <span class="mi">0</span>   <span class="c1">// 后缀最大值</span>
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">left</span> <span class="o">&lt;=</span> <span class="nx">right</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">pro_max</span> <span class="p">=</span> <span class="nb">max</span><span class="p">(</span><span class="nx">pro_max</span><span class="p">,</span> <span class="nx">height</span><span class="p">[</span><span class="nx">left</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">suf_max</span> <span class="p">=</span> <span class="nb">max</span><span class="p">(</span><span class="nx">suf_max</span><span class="p">,</span> <span class="nx">height</span><span class="p">[</span><span class="nx">right</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">pro_max</span> <span class="p">&lt;</span> <span class="nx">suf_max</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">ans</span> <span class="o">+=</span> <span class="nx">pro_max</span> <span class="o">-</span> <span class="nx">height</span><span class="p">[</span><span class="nx">left</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">left</span><span class="o">++</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">ans</span> <span class="o">+=</span> <span class="nx">suf_max</span> <span class="o">-</span> <span class="nx">height</span><span class="p">[</span><span class="nx">right</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">right</span><span class="o">--</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">ans</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>]]></description>
 </item>
 </channel>
 </rss>
