@@ -1,0 +1,495 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>3488. Closest Equal Element Queries - loommii</title><meta name="Description" content="LeetCode Solution - 3488. Closest Equal Element Queries: Analysis and Implementation"><meta property="og:url" content="https://loommii.github.io/en/leetcode/3488_closest-equal-element-queries/">
+  <meta property="og:site_name" content="loommii">
+  <meta property="og:title" content="3488. Closest Equal Element Queries">
+  <meta property="og:description" content="LeetCode Solution - 3488. Closest Equal Element Queries: Analysis and Implementation">
+  <meta property="og:locale" content="en">
+  <meta property="og:type" content="article">
+    <meta property="article:section" content="leetcode">
+    <meta property="article:published_time" content="2026-04-16T12:02:31+08:00">
+    <meta property="article:modified_time" content="2026-04-16T12:02:31+08:00">
+    <meta property="article:tag" content="LeetCode">
+    <meta property="article:tag" content="Algorithm">
+    <meta property="article:tag" content="Go">
+    <meta property="article:tag" content="Solution">
+    <meta property="article:tag" content="Hash Table">
+    <meta property="article:tag" content="Binary Search">
+    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+  <meta name="twitter:title" content="3488. Closest Equal Element Queries">
+  <meta name="twitter:description" content="LeetCode Solution - 3488. Closest Equal Element Queries: Analysis and Implementation">
+<meta name="application-name" content="My cool site">
+<meta name="apple-mobile-web-app-title" content="My cool site">
+<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/en/leetcode/3488_closest-equal-element-queries/" /><link rel="next" href="https://loommii.github.io/en/leetcode/2515_shortest_distance_to_a_target_string/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "3488. Closest Equal Element Queries",
+        "inLanguage": "en",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/loommii.github.io\/en\/leetcode\/3488_closest-equal-element-queries\/"
+        },"genre": "leetcode","keywords": "LeetCode, Algorithm, Go, Solution, Hash Table, Binary Search","wordcount":  1160 ,
+        "url": "https:\/\/loommii.github.io\/en\/leetcode\/3488_closest-equal-element-queries\/","datePublished": "2026-04-16T12:02:31+08:00","dateModified": "2026-04-16T12:02:31+08:00","publisher": {
+            "@type": "Organization",
+            "name": ""},"author": {
+                "@type": "Person",
+                "name": "loommii"
+            },"description": "LeetCode Solution - 3488. Closest Equal Element Queries: Analysis and Implementation"
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
+          const query = window.matchMedia('(prefers-color-scheme: dark)');
+          function applyTheme() {
+            let theme = window.localStorage?.getItem('theme') || 'auto';
+            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
+            document.body.setAttribute('theme', isDark? 'dark' : 'light');
+            document.body.setAttribute('cfg-theme', theme);
+          }
+
+          applyTheme();
+          query.addEventListener('change', applyTheme);
+        </script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/en/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/en/posts/"> Posts </a><a class="menu-item" href="/en/go_practise/"> Go Practice </a><a class="menu-item" href="/en/leetcode/"> LeetCode Solutions </a><a class="menu-item" href="/en/categories/"> Categories </a><a class="menu-item" href="/en/tags/"> Tags </a><a class="menu-item" href="/en/posts/"> Archives </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
+                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/leetcode/3488_closest-equal-element-queries/">简体中文</option><option value="/en/leetcode/3488_closest-equal-element-queries/" selected>English</option></select>
+                </a></div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/en/" title="loommii"><img
+        class="lazyload logo"
+        src="/svg/loading.min.svg"
+        data-src="/images/logo.png"
+        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
+        data-sizes="auto"
+        alt="/images/logo.png"
+        title="/images/logo.png" />loommii</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
+                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+                        Cancel
+                    </a>
+                </div><a class="menu-item" href="/en/posts/" title="">Posts</a><a class="menu-item" href="/en/go_practise/" title="">Go Practice</a><a class="menu-item" href="/en/leetcode/" title="">LeetCode Solutions</a><a class="menu-item" href="/en/categories/" title="">Categories</a><a class="menu-item" href="/en/tags/" title="">Tags</a><a class="menu-item" href="/en/posts/" title="">Archives</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
+                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
+            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
+                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
+                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/leetcode/3488_closest-equal-element-queries/">简体中文</option><option value="/en/leetcode/3488_closest-equal-element-queries/" selected>English</option></select>
+                </a></div>
+    </div>
+</header><div class="search-dropdown desktop">
+        <div id="search-dropdown-desktop"></div>
+    </div>
+    <div class="search-dropdown mobile">
+        <div id="search-dropdown-mobile"></div>
+    </div><main class="main">
+                <div class="container"><div class="page single special"><h1 class="single-title animate__animated animate__pulse animate__faster">3488. Closest Equal Element Queries</h1><div class="content" id="content"><h1 id="leetcode-3488-closest-equal-element-queries">LeetCode 3488. Closest Equal Element Queries</h1>
+<h2 id="-problem-description">📝 Problem Description</h2>
+<p>You are given a <strong>circular</strong> array <code>nums</code> and an array <code>queries</code>.</p>
+<p>For each query <code>i</code>, you need to find the following:</p>
+<ul>
+<li>The <strong>minimum</strong> distance between the element at index <code>queries[i]</code> in the array <code>nums</code> and <strong>any</strong> other index <code>j</code> (where <code>nums[j] == nums[queries[i]]</code>). If no such index <code>j</code> exists, the result for that query is <code>-1</code>.</li>
+</ul>
+<p>Return an array <code>answer</code> of the same size as <code>queries</code>, where <code>answer[i]</code> is the result for query <code>i</code>.</p>
+<hr>
+<h2 id="-examples">📥 Examples</h2>
+<h3 id="example-1">Example 1</h3>
+<p><strong>Input:</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-text">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">nums = [1,3,1,4,1,3,2], queries = [0,3,5]</span></span></code></pre></div></div>
+<p><strong>Output:</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-text">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[2,-1,3]</span></span></code></pre></div></div>
+<p><strong>Explanation:</strong></p>
+<ul>
+<li>Query 0: The element at index <code>queries[0] = 0</code> is <code>nums[0] = 1</code>. The closest index with the same value is 2, and the distance is 2.</li>
+<li>Query 1: The element at index <code>queries[1] = 3</code> is <code>nums[3] = 4</code>. There are no other indices with the value 4, so the result is -1.</li>
+<li>Query 2: The element at index <code>queries[2] = 5</code> is <code>nums[5] = 3</code>. The closest index with the same value is 1, and the distance is 3 (along the circular path: <code>5 -&gt; 6 -&gt; 0 -&gt; 1</code>).</li>
+</ul>
+<h3 id="example-2">Example 2</h3>
+<p><strong>Input:</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-text">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">nums = [1,2,3,4], queries = [0,1,2,3]</span></span></code></pre></div></div>
+<p><strong>Output:</strong></p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-text">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[-1,-1,-1,-1]</span></span></code></pre></div></div>
+<p><strong>Explanation:</strong>
+Each value in the <code>nums</code> array is unique, so there are no other indices with the same value as the queried element. The result for all queries is -1.</p>
+<hr>
+<h2 id="-constraints">📏 Constraints</h2>
+<ul>
+<li><code>1 &lt;= queries.length &lt;= nums.length &lt;= 10^5</code></li>
+<li><code>1 &lt;= nums[i] &lt;= 10^6</code></li>
+<li><code>0 &lt;= queries[i] &lt; nums.length</code></li>
+</ul>
+<hr>
+<h2 id="-go-template">💻 Go Template</h2>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;sort&#34;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">solveQueries</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">queries</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">pos</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">][]</span><span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">x</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">nums</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">pos</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">pos</span><span class="p">[</span><span class="nx">x</span><span class="p">],</span> <span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">ans</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">queries</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">q</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">queries</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">x</span> <span class="o">:=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">q</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">indices</span> <span class="o">:=</span> <span class="nx">pos</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">ans</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">			<span class="k">continue</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// Find the position of the current query index q in the list of same-value indices</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">p</span> <span class="o">:=</span> <span class="nx">sort</span><span class="p">.</span><span class="nf">SearchInts</span><span class="p">(</span><span class="nx">indices</span><span class="p">,</span> <span class="nx">q</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="c1">// Find the previous neighbor of q in the circular list of indices</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">prevNeighbor</span> <span class="o">:=</span> <span class="nx">indices</span><span class="p">[(</span><span class="nx">p</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">))</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">distPrev</span> <span class="o">:=</span> <span class="nf">abs</span><span class="p">(</span><span class="nx">q</span> <span class="o">-</span> <span class="nx">prevNeighbor</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// Find the next neighbor of q in the circular list of indices</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">nextNeighbor</span> <span class="o">:=</span> <span class="nx">indices</span><span class="p">[(</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">distNext</span> <span class="o">:=</span> <span class="nf">abs</span><span class="p">(</span><span class="nx">q</span> <span class="o">-</span> <span class="nx">nextNeighbor</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="c1">// Calculate the circular distances in both directions and take the minimum</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">minDist</span> <span class="o">:=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nx">distPrev</span><span class="p">,</span> <span class="nx">n</span> <span class="o">-</span> <span class="nx">distPrev</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="nx">distNext</span><span class="p">,</span> <span class="nx">n</span> <span class="o">-</span> <span class="nx">distNext</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ans</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">minDist</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">ans</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">abs</span><span class="p">(</span><span class="nx">x</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">x</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">-</span><span class="nx">x</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">x</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nb">min</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">a</span> <span class="p">&lt;</span> <span class="nx">b</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">a</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+<hr>
+<h2 id="-test-cases">🧪 Test Cases</h2>
+<table>
+  <thead>
+      <tr>
+          <th>#</th>
+          <th>nums</th>
+          <th>queries</th>
+          <th>Expected Output</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td><code>[1,3,1,4,1,3,2]</code></td>
+          <td><code>[0,3,5]</code></td>
+          <td><code>[2,-1,3]</code></td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td><code>[1,2,3,4]</code></td>
+          <td><code>[0,1,2,3]</code></td>
+          <td><code>[-1,-1,-1,-1]</code></td>
+      </tr>
+  </tbody>
+</table>
+<hr>
+<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Solution Analysis: 👈Click</button>
+<div class="toggle-content">
+  <h3 id="algorithm-explanation">Algorithm Explanation</h3>
+<p>The core of this problem is to efficiently find the minimum distance to the nearest element with the same value for multiple queries in a circular array. An efficient solution combines <strong>hash table preprocessing</strong> and <strong>binary search</strong>.</p>
+<ol>
+<li>
+<p><strong>Preprocessing</strong>: We first iterate through the <code>nums</code> array once, using a hash table <code>pos</code> to store all indices where each number appears. The keys of <code>pos</code> are the numbers in <code>nums</code>, and the values are lists of indices where that number appears. Since we iterate through <code>nums</code> in order, each list of indices will naturally be <strong>sorted</strong>.</p>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><pre tabindex="0"><code>// Example: nums = [1,3,1,4,1,3,2]
+// pos = {
+//   1: [0, 2, 4],
+//   3: [1, 5],
+//   4: [3],
+//   2: [6]
+// }</code></pre></div>
+</li>
+<li>
+<p><strong>Processing Queries</strong>: Iterate through each query index <code>q</code> in <code>queries</code>.</p>
+<ul>
+<li>Get the corresponding value <code>val = nums[q]</code>.</li>
+<li>Retrieve the list of all indices <code>indices</code> for <code>val</code> from the hash table <code>pos</code>.</li>
+<li>If the length of <code>indices</code> is 1 or less, it means <code>val</code> appears only once or not at all in <code>nums</code>. There is no &ldquo;other&rdquo; equal element, so the result for the current query is <code>-1</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Locating and Searching</strong>:</p>
+<ul>
+<li>In the sorted <code>indices</code> list, use <strong>binary search</strong> (<code>sort.SearchInts</code>) to locate the position of <code>q</code> itself. Let&rsquo;s say the index of <code>q</code> within <code>indices</code> is <code>p</code>.</li>
+<li>The nearest neighbors of <code>q</code> can only be the two elements adjacent to it in the <code>indices</code> list: <code>indices[p-1]</code> (predecessor) and <code>indices[p+1]</code> (successor).</li>
+<li>Since the <code>indices</code> list also represents a circle (the first element is the successor of the last), we can easily find the circular neighbors using the modulo operator: <code>(p-1+len(indices))%len(indices)</code> and <code>(p+1)%len(indices)</code>.</li>
+</ul>
+</li>
+<li>
+<p><strong>Calculating the Shortest Distance</strong>:</p>
+<ul>
+<li>For <code>q</code> and its two neighbors (<code>prevNeighbor</code>, <code>nextNeighbor</code>), we need to calculate their <strong>circular distance</strong>.</li>
+<li>In a circle of length <code>n</code>, the distance between two indices <code>i</code> and <code>j</code> is <code>min(abs(i-j), n - abs(i-j))</code>. This represents the shorter path in both clockwise and counter-clockwise directions.</li>
+<li>We calculate the circular distance from <code>q</code> to <code>prevNeighbor</code> and from <code>q</code> to <code>nextNeighbor</code> separately, and then take the smaller of the two, which is our final answer.</li>
+</ul>
+</li>
+</ol>
+<p>With this &ldquo;preprocess + query&rdquo; pattern, we can respond to each query efficiently without having to re-iterate through the entire <code>nums</code> array every time.</p>
+<h3 id="example-1-walkthrough-query--5">Example 1 Walkthrough (<code>query = 5</code>)</h3>
+<ul>
+<li><strong>Input</strong>: <code>nums = [1,3,1,4,1,3,2]</code>, <code>queries = [0,3,5]</code>, <code>n=7</code>.</li>
+<li><strong>Preprocessing</strong>: <code>pos[3] = [1, 5]</code>.</li>
+<li><strong>Query</strong>: <code>q = 5</code>, the corresponding value is <code>nums[5] = 3</code>.</li>
+<li><strong>Locating</strong>: <code>indices = [1, 5]</code>. The position of <code>q=5</code> in <code>indices</code> is <code>p=1</code>.</li>
+<li><strong>Finding Neighbors</strong>:
+<ul>
+<li>Predecessor: <code>indices[(1-1+2)%2]</code> = <code>indices[0]</code> = <code>1</code>.</li>
+<li>Successor: <code>indices[(1+1)%2]</code> = <code>indices[0]</code> = <code>1</code>.</li>
+<li>Both neighbors are <code>1</code>.</li>
+</ul>
+</li>
+<li><strong>Calculating Distance</strong>:
+<ul>
+<li>Calculate the distance between <code>q=5</code> and neighbor <code>1</code>.</li>
+<li>Direct distance: <code>abs(5 - 1) = 4</code>.</li>
+<li>Circular wrap-around distance: <code>n - abs(5 - 1) = 7 - 4 = 3</code>.</li>
+<li>The shortest distance is <code>min(4, 3) = 3</code>.</li>
+</ul>
+</li>
+<li><strong>Result</strong>: The answer for <code>query=5</code> is <code>3</code>.</li>
+</ul>
+<hr>
+<h2 id="-complete-runnable-code-go">🚀 Complete Runnable Code (Go)</h2>
+<blockquote>
+<p>Copy the code below into a local or online Go environment to run and verify the results.</p></blockquote>
+<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
+    <div class="code-header language-go">
+        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
+        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
+        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
+    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;reflect&#34;</span>
+</span></span><span class="line"><span class="cl">	<span class="s">&#34;sort&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="c1">// Test Cases</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">testCases</span> <span class="o">:=</span> <span class="p">[]</span><span class="kd">struct</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">nums</span>     <span class="p">[]</span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">queries</span>  <span class="p">[]</span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">expected</span> <span class="p">[]</span><span class="kt">int</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}{</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">			<span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">			<span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">		<span class="p">},</span>
+</span></span><span class="line"><span class="cl">		<span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">			<span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">			<span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">},</span>
+</span></span><span class="line"><span class="cl">		<span class="p">},</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">tc</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">testCases</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">result</span> <span class="o">:=</span> <span class="nf">solveQueries</span><span class="p">(</span><span class="nx">tc</span><span class="p">.</span><span class="nx">nums</span><span class="p">,</span> <span class="nx">tc</span><span class="p">.</span><span class="nx">queries</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Test Case %d: Expected = %v, Got = %v, Passed = %t
+</span></span></span><span class="line"><span class="cl"><span class="s">&#34;</span><span class="p">,</span> <span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span> <span class="nx">tc</span><span class="p">.</span><span class="nx">expected</span><span class="p">,</span> <span class="nx">result</span><span class="p">,</span> <span class="nx">reflect</span><span class="p">.</span><span class="nf">DeepEqual</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span> <span class="nx">tc</span><span class="p">.</span><span class="nx">expected</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">solveQueries</span><span class="p">(</span><span class="nx">nums</span> <span class="p">[]</span><span class="kt">int</span><span class="p">,</span> <span class="nx">queries</span> <span class="p">[]</span><span class="kt">int</span><span class="p">)</span> <span class="p">[]</span><span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">n</span> <span class="o">:=</span> <span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="nx">pos</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">][]</span><span class="kt">int</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">x</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">nums</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">pos</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span> <span class="p">=</span> <span class="nb">append</span><span class="p">(</span><span class="nx">pos</span><span class="p">[</span><span class="nx">x</span><span class="p">],</span> <span class="nx">i</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">	<span class="nx">ans</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span> <span class="nb">len</span><span class="p">(</span><span class="nx">queries</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">q</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">queries</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">x</span> <span class="o">:=</span> <span class="nx">nums</span><span class="p">[</span><span class="nx">q</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">indices</span> <span class="o">:=</span> <span class="nx">pos</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">			<span class="nx">ans</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="o">-</span><span class="mi">1</span>
+</span></span><span class="line"><span class="cl">			<span class="k">continue</span>
+</span></span><span class="line"><span class="cl">		<span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nx">p</span> <span class="o">:=</span> <span class="nx">sort</span><span class="p">.</span><span class="nf">SearchInts</span><span class="p">(</span><span class="nx">indices</span><span class="p">,</span> <span class="nx">q</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">		
+</span></span><span class="line"><span class="cl">		<span class="nx">prevNeighbor</span> <span class="o">:=</span> <span class="nx">indices</span><span class="p">[(</span><span class="nx">p</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">))</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">distPrev</span> <span class="o">:=</span> <span class="nf">abs</span><span class="p">(</span><span class="nx">q</span> <span class="o">-</span> <span class="nx">prevNeighbor</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nx">nextNeighbor</span> <span class="o">:=</span> <span class="nx">indices</span><span class="p">[(</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">)]</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">distNext</span> <span class="o">:=</span> <span class="nf">abs</span><span class="p">(</span><span class="nx">q</span> <span class="o">-</span> <span class="nx">nextNeighbor</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">		<span class="nx">minDist</span> <span class="o">:=</span> <span class="nb">min</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nx">distPrev</span><span class="p">,</span> <span class="nx">n</span> <span class="o">-</span> <span class="nx">distPrev</span><span class="p">),</span> <span class="nb">min</span><span class="p">(</span><span class="nx">distNext</span><span class="p">,</span> <span class="nx">n</span> <span class="o">-</span> <span class="nx">distNext</span><span class="p">))</span>
+</span></span><span class="line"><span class="cl">		<span class="nx">ans</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">minDist</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">ans</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">abs</span><span class="p">(</span><span class="nx">x</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">x</span> <span class="p">&lt;</span> <span class="mi">0</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="o">-</span><span class="nx">x</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">x</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nb">min</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span> <span class="nx">b</span> <span class="kt">int</span><span class="p">)</span> <span class="kt">int</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">	<span class="k">if</span> <span class="nx">a</span> <span class="p">&lt;</span> <span class="nx">b</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">		<span class="k">return</span> <span class="nx">a</span>
+</span></span><span class="line"><span class="cl">	<span class="p">}</span>
+</span></span><span class="line"><span class="cl">	<span class="k">return</span> <span class="nx">b</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
+
+</div>
+<style>
+  .toggle-content {
+    display: none;
+    margin-top: 10px;
+  }
+  .toggle-content.show {
+    display: block;
+  }
+</style>
+
+</div><div id="comments"><div id="giscus" class="comment"></div><noscript>
+                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
+            </noscript></div></div></div>
+            </main><footer class="footer">
+        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
+                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/en/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+        </div>
+    </footer></div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
+                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
+            </a>
+        </div>
+
+        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
+                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
+            </a>
+        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOQ1YU8M4C1aXA","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"en","lazyLoading":false,"lightTheme":"light","mapping":"specific","reactionsEnabled":"1","repo":"loommii/loommii.github.io","repoId":"R_kgDOQ1YU8A","term":"3488-closest-equal-element-queries"}},"lightgallery":true,"search":{"highlightTag":"em","lunrLanguageCode":"en","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script><script>
+        let r = new XMLHttpRequest();
+        let views = document.getElementById("page-views");
+
+        var get_path = function() {
+            var loc = location,
+                c = document.querySelector('link[rel="canonical"][href]')
+            if (c) {  
+                var a = document.createElement('a')
+                a.href = c.href
+                if (a.hostname.replace(/^www\./, '') === location.hostname.replace(/^www\./, ''))
+                    loc = a
+            }
+            let path = loc.pathname;
+            if(path.endsWith('/')) path = path.slice(0, -1);
+            return path || '/';
+        }
+
+        if(views) {
+            r.addEventListener('load', function() {
+                const count = JSON.parse(this.responseText);
+                views.innerHTML = `${count.count_unique} views on this page (powered by <a href="https://www.goatcounter.com/">Goat Counter</a>)`
+            })
+
+            r.open('GET', 'https://linjjj.goatcounter.com/counter/' + encodeURIComponent(get_path()) + '.json')
+            r.send()
+        }
+    </script>
+    <script data-goatcounter="https://linjjj.goatcounter.com/count"
+            async src="//gc.zgo.at/count.js"></script></body>
+</html>
