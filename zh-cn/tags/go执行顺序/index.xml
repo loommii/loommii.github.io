@@ -1,65 +1,237 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Go执行顺序 - 标签 - loommii</title>
-        <link>https://loommii.github.io/zh-cn/tags/go%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</link>
-        <description>Go执行顺序 - 标签 - loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 13 Dec 2024 15:43:57 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/go%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/" rel="self" type="application/rss+xml" /><item>
-    <title>Go每日一题_130</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_130/</link>
-    <pubDate>Fri, 13 Dec 2024 15:43:57 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_130/</guid>
-    <description><![CDATA[<p>以下代码有什么问题？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;sync&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">N</span> <span class="p">=</span> <span class="mi">10</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">wg</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="nb">println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="k">defer</span> <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}(</span><span class="nx">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>运行后的现象为什么都没有输出
-WaitGroup(等待组)的目的是用于等待一组协程的结束。
-内部会维护一个计数器
-Add方法向内部计数加上delta
-Done方法减少WaitGroup计数器的值
-Wait方法阻塞直到WaitGroup计数器减为0。</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_126</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_126/</link>
-    <pubDate>Mon, 09 Dec 2024 11:58:52 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_126/</guid>
-    <description><![CDATA[<p>关于 init 函数，下面说法正确的是：</p>
-<ul>
-<li>A. 一个包中，可以包含多个 init 函数；</li>
-<li>B. 程序运行时，先执行依赖包的 init 函数，再执行 main 包内的 init 函数；</li>
-<li>C. main 包中，不能有 init 函数；</li>
-<li>D. init 函数可以被其他函数调用；</li>
-</ul>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>A B</p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go执行顺序 - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/go%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 04 Aug 2026 00:55:54 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/go%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_20250523</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250523/</link>
+      <pubDate>Fri, 23 May 2025 15:37:19 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250523/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;以下代码输出什么：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;func main() {&#xA;  var x *struct {&#xA;    s [][32]byte&#xA;  }&#xA;  &#xA;  println(len(x.s[99]))&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A：运行时 panic；B：32；C：编译错误；D：0&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;答案B&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;返回结果总是 int；&lt;/li&gt;&#xA;&lt;li&gt;返回结果有可能是常量；&lt;/li&gt;&#xA;&lt;li&gt;有时对函数参数不求值，即编译期确定返回值；&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;p&gt;这里 len(x.s[99])&#xA;因为s的切片类型是[32]byte，因此得len(x.s[99]) = 32&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_20250522</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250522/</link>
+      <pubDate>Thu, 22 May 2025 13:48:09 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250522/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    a := 1&#xA;    b := 2&#xA;    defer calc(&amp;#34;1&amp;#34;, a, calc(&amp;#34;10&amp;#34;, a, b))&#xA;    a = 0&#xA;    defer calc(&amp;#34;2&amp;#34;, a, calc(&amp;#34;20&amp;#34;, a, b))&#xA;    b = 1&#xA;}&#xA;&#xA;func calc(index string, a, b int) int {&#xA;    ret := a &amp;#43; b&#xA;    fmt.Println(index, a, b, ret)&#xA;    return ret&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;10 1 2 3&#xA;20 0 2 2&#xA;2 0 2 2&#xA;1 1 3 4&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;程序执行到 main() 函数三行代码的时候，会先执行 calc() 函数的 b 参数，即：calc(&amp;ldquo;10&amp;rdquo;,a,b)，输出：10 1 2 3，得到值 3，因为&#xA;defer 定义的函数是延迟函数，故 calc(&amp;ldquo;1&amp;rdquo;,1,3) 会被延迟执行；&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_20250511</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250511/</link>
+      <pubDate>Sun, 11 May 2025 00:27:21 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250511/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码正确的输出是什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func f() {&#xA;    defer fmt.Println(&amp;#34;D&amp;#34;)&#xA;    fmt.Println(&amp;#34;F&amp;#34;)&#xA;}&#xA;&#xA;func main() {&#xA;    f()&#xA;    fmt.Println(&amp;#34;M&amp;#34;)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. F M D&lt;/li&gt;&#xA;&lt;li&gt;B. D F M&lt;/li&gt;&#xA;&lt;li&gt;C. F D M&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;blockquote&gt;&#xA;&lt;p&gt;🔑 &lt;strong&gt;答案解析：&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;C&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/e6iBnPWk-UM&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_204</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_204/</link>
+      <pubDate>Wed, 05 Mar 2025 11:58:52 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_204/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;关于 init 函数，下面说法正确的是：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;A. 一个包中，可以包含多个 init 函数；&lt;/li&gt;&#xA;&lt;li&gt;B. 程序运行时，先执行依赖包的 init 函数，再执行 main 包内的 init 函数；&lt;/li&gt;&#xA;&lt;li&gt;C. main 包中，不能有 init 函数；&lt;/li&gt;&#xA;&lt;li&gt;D. init 函数可以被其他函数调用；&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;A B&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_200</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_200/</link>
+      <pubDate>Sat, 01 Mar 2025 02:08:44 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_200/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;init() 函数是什么时候执行的？&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;答:init()是再main()函数执行前&lt;/p&gt;&#xA;&lt;p&gt;一句话总结： &lt;code&gt;import –&amp;gt; const –&amp;gt; var –&amp;gt; init() –&amp;gt; main()&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;如果有多个init就要分情况&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_183</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_183/</link>
+      <pubDate>Wed, 12 Feb 2025 00:20:07 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_183/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码输出正确的是？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;    i := 1&#xA;    s := []string{&amp;#34;A&amp;#34;, &amp;#34;B&amp;#34;, &amp;#34;C&amp;#34;}&#xA;    i, s[i-1] = 2, &amp;#34;Z&amp;#34;&#xA;    fmt.Printf(&amp;#34;s: %v \n&amp;#34;, s)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. s: [Z,B,C]&lt;/li&gt;&#xA;&lt;li&gt;B. s: [A,Z,C]&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;h3 class=&#34;heading-element&#34; id=&#34;答案a&#34;&gt;&lt;span&gt;答案：A&lt;/span&gt;&#xA;  &lt;a href=&#34;#%e7%ad%94%e6%a1%88a&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h3&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/cLui57mACBf&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Go在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_167</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_167/</link>
+      <pubDate>Mon, 20 Jan 2025 21:36:34 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_167/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码正确的输出是什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func f() {&#xA;    defer fmt.Println(&amp;#34;D&amp;#34;)&#xA;    fmt.Println(&amp;#34;F&amp;#34;)&#xA;}&#xA;&#xA;func main() {&#xA;    f()&#xA;    fmt.Println(&amp;#34;M&amp;#34;)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. F M D&lt;/li&gt;&#xA;&lt;li&gt;B. D F M&lt;/li&gt;&#xA;&lt;li&gt;C. F D M&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;C&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/e6iBnPWk-UM&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_147</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_147/</link>
+      <pubDate>Mon, 30 Dec 2024 20:54:49 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_147/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;       &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func hello(i int) {&#xA;       fmt.Println(i)&#xA;}&#xA;func main() {&#xA;       i := 5&#xA;       defer hello(i)&#xA;       i = i &amp;#43; 10&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;5&#xA;&lt;a href=&#34;https://go.dev/play/p/hMcMm9tJw2k&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&#xA;Go传递只有值传递&lt;br&gt;&#xA;运行到defer hello(i)的时候就已经确定i的值了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_130</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_130/</link>
+      <pubDate>Fri, 13 Dec 2024 15:43:57 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_130/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;以下代码有什么问题？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;const N = 10&#xA;&#xA;var wg = &amp;amp;sync.WaitGroup{}&#xA;&#xA;func main() {&#xA;    for i := 0; i &amp;lt; N; i&amp;#43;&amp;#43; {&#xA;        go func(i int) {&#xA;            wg.Add(1)&#xA;            println(i)&#xA;            defer wg.Done()&#xA;        }(i)&#xA;    }&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;运行后的现象为什么都没有输出&#xA;WaitGroup(等待组)的目的是用于等待一组协程的结束。&#xA;内部会维护一个计数器&#xA;Add方法向内部计数加上delta&#xA;Done方法减少WaitGroup计数器的值&#xA;Wait方法阻塞直到WaitGroup计数器减为0。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_126</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_126/</link>
+      <pubDate>Mon, 09 Dec 2024 11:58:52 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_126/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;关于 init 函数，下面说法正确的是：&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;A. 一个包中，可以包含多个 init 函数；&lt;/li&gt;&#xA;&lt;li&gt;B. 程序运行时，先执行依赖包的 init 函数，再执行 main 包内的 init 函数；&lt;/li&gt;&#xA;&lt;li&gt;C. main 包中，不能有 init 函数；&lt;/li&gt;&#xA;&lt;li&gt;D. init 函数可以被其他函数调用；&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;A B&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_125</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_125/</link>
+      <pubDate>Sun, 08 Dec 2024 21:11:41 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_125/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;今天给两道类似的题目，注意，有半数以上的人可能会做错！&lt;/p&gt;&#xA;&lt;p&gt;题一:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;func main() {&#xA;    var a int8 = -1&#xA;    var b int8 = -128 / a&#xA;&#xA;    println(b)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;题二：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;func main() {&#xA;    const a int8 = -1&#xA;    var b int8 = -128 / a&#xA;&#xA;    println(b)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;上面2个问题能否通过编译,能编译通过的话会输出什么内容&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_107</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_107/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:46 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_107/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码输出正确的是？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    i := 1&#xA;    s := []string{&amp;#34;A&amp;#34;, &amp;#34;B&amp;#34;, &amp;#34;C&amp;#34;}&#xA;    i, s[i-1] = 2, &amp;#34;Z&amp;#34;&#xA;    fmt.Printf(&amp;#34;s: %v \n&amp;#34;, s)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. s: [Z,B,C]&#xA;B. s: [A,Z,C]&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;A&lt;/p&gt;&#xA;&lt;p&gt;平行赋值a[i], a[j] = a[j], a[i]&lt;/p&gt;&#xA;&lt;p&gt;多重赋值分为两个步骤，有先后顺序：&#xA;计算等号左边的索引表达式和取址表达式，接着计算等号右边的表达式；&#xA;赋值；&#xA;所以本例，会先计算 s[i-1]，等号右边是两个表达式是常量，所以赋值运算等同于 i, s[0] = 2, &amp;ldquo;Z&amp;rdquo;。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_100</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_100/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:29 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_100/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func f(n int) (r int) {&#xA;    defer func() {&#xA;        r &amp;#43;= n&#xA;        recover()&#xA;    }()&#xA;&#xA;    var f func()&#xA;&#xA;    defer f()&#xA;    &#xA;    f = func() {&#xA;        r &amp;#43;= 2&#xA;    }&#xA;    return n &amp;#43; 1&#xA;}&#xA;&#xA;func main() {&#xA;    fmt.Println(f(3))&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;7&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;// 先执行这一段代码, 然后 r 被赋值为 4&#xA;return n&amp;#43;1&#xA;&#xA;// 然后执行，但是会触发panic&#xA;defer f()&#xA;&#xA;// 最后执行，r 再加3 r=7,然后recover(),最后函数返回 7&#xA;defer func() {&#xA;        r &amp;#43;= n&#xA;        recover()&#xA;    }()&lt;/code&gt;&lt;/pre&gt;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_095</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_095/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:23 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_095/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;以下代码的输出结果：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;sync&amp;#34;&#xA;&#xA;func main() {&#xA;    var wg sync.WaitGroup&#xA;    foo := make(chan int)&#xA;    bar := make(chan int)&#xA;    wg.Add(1)&#xA;    go func() {&#xA;        defer wg.Done()&#xA;        select {&#xA;        case foo &amp;lt;- &amp;lt;-bar:&#xA;        default:&#xA;            println(&amp;#34;default&amp;#34;)&#xA;        }&#xA;    }()&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A：default&#xA;B：panic&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;按常规理解，go func 中的 select 应该执行 default 分支，程序正常运行。但结果却不是，而是死锁。可以通过该链接测试：&lt;a href=&#34;https://play.studygolang.com/p/kF4pOjYXbXf%e3%80%82&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://play.studygolang.com/p/kF4pOjYXbXf。&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_087</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_087/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:13 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_087/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    a := 1&#xA;    b := 2&#xA;    defer calc(&amp;#34;1&amp;#34;, a, calc(&amp;#34;10&amp;#34;, a, b))&#xA;    a = 0&#xA;    defer calc(&amp;#34;2&amp;#34;, a, calc(&amp;#34;20&amp;#34;, a, b))&#xA;    b = 1&#xA;}&#xA;&#xA;func calc(index string, a, b int) int {&#xA;    ret := a &amp;#43; b&#xA;    fmt.Println(index, a, b, ret)&#xA;    return ret&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;10 1 2 3&#xA;20 0 2 2&#xA;2 0 2 2&#xA;1 1 3 4&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;程序执行到 main() 函数三行代码的时候，会先执行 calc() 函数的 b 参数，即：calc(&amp;ldquo;10&amp;rdquo;,a,b)，输出：10 1 2 3，得到值 3，因为&#xA;defer 定义的函数是延迟函数，故 calc(&amp;ldquo;1&amp;rdquo;,1,3) 会被延迟执行；&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_077</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_077/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:01 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_077/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码输出什么？&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_076</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_076/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:00 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_076/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码正确的输出是什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func f() {&#xA;    defer fmt.Println(&amp;#34;D&amp;#34;)&#xA;    fmt.Println(&amp;#34;F&amp;#34;)&#xA;}&#xA;&#xA;func main() {&#xA;    f()&#xA;    fmt.Println(&amp;#34;M&amp;#34;)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;FDM&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_075</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_075/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:59 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_075/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码段输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Person struct {&#xA;    age int&#xA;}&#xA;&#xA;func main() {&#xA;    person := &amp;amp;Person{28}&#xA;&#xA;    // 1. &#xA;    defer fmt.Println(person.age)&#xA;&#xA;    // 2.&#xA;    defer func(p *Person) {&#xA;        fmt.Println(p.age)&#xA;    }(person)  &#xA;&#xA;    // 3.&#xA;    defer func() {&#xA;        fmt.Println(person.age)&#xA;    }()&#xA;&#xA;    person.age = 29&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;29&#xA;29&#xA;28&#xA;defer是先进后出的&#xA;因此会运行 // 3 的内容 输出29&#xA;后运行 //2 这里传入的是指针类型，因此会数据也是29&#xA;最后运行//1 因为入参的值在运行defer就已经定下来了 因此输出28&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_073</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_073/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:57 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_073/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;f1()、f2()、f3() 函数分别返回什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func f1() (r int) {&#xA;    defer func() {&#xA;        r&amp;#43;&amp;#43;&#xA;    }()&#xA;    return 0&#xA;}&#xA;&#xA;&#xA;func f2() (r int) {&#xA;    t := 5&#xA;    defer func() {&#xA;        t = t &amp;#43; 5&#xA;    }()&#xA;    return t&#xA;}&#xA;&#xA;&#xA;func f3() (r int) {&#xA;    defer func(r int) {&#xA;        r = r &amp;#43; 5&#xA;    }(r)&#xA;    return 1&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;f1 1&#xA;f2 5&#xA;f3 1&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_071</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_071/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:54 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_071/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func increaseA() int {&#xA;    var i int&#xA;    defer func() {&#xA;        i&amp;#43;&amp;#43;&#xA;    }()&#xA;    return i&#xA;}&#xA;&#xA;func increaseB() (r int) {&#xA;    defer func() {&#xA;        r&amp;#43;&amp;#43;&#xA;    }()&#xA;    return r&#xA;}&#xA;&#xA;func main() {&#xA;    fmt.Println(increaseA())&#xA;    fmt.Println(increaseB())&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. 1 1&#xA;B. 0 1&#xA;C. 1 0&#xA;D. 0 0&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;参考答案及解析：B。&lt;/p&gt;&#xA;&lt;p&gt;知识点：defer、返回值。注意一下，increaseA() 的返回参数是匿名，increaseB() 是具名。&#xA;increaseA  return r 已经将r的值 返回了 r再改变并不影响&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_060</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_060/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:41 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_060/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;以下代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;time&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    ch1 := make(chan int)&#xA;    go fmt.Println(&amp;lt;-ch1)&#xA;    ch1 &amp;lt;- 5&#xA;    time.Sleep(1 * time.Second)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A：5、B：不能编译；C：运行时死锁&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;C&#xA;解析 因为 &amp;lt;-ch1 是个参数,可以理解为他要先取出来得到结果后再创建协程 因此运行时死锁。因修改成下方的形式&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_055</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_055/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:35 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_055/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func hello(i int) {  &#xA;    fmt.Println(i)&#xA;}&#xA;func main() {  &#xA;    i := 5&#xA;    defer hello(i)&#xA;    i = i &amp;#43; 10&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;答 5&#xA;hello() 函数的参数在执行 defer 语句的时候会保存一份副本，在实际调用 hello() 函数时用，所以是 5.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_034</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_034/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:10 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_034/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;关于 init 函数，下面说法正确的是：(多选)&lt;/p&gt;&#xA;&lt;p&gt;A. 一个包中，可以包含多个 init 函数；&#xA;B. 程序运行时，先执行依赖包的 init 函数，再执行 main 包内的 init 函数；&#xA;C. main 包中，不能有 init 函数；&#xA;D. init 函数可以被其他函数调用；&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_002</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_002/</link>
+      <pubDate>Fri, 06 Dec 2024 19:40:53 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_002/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出的内容&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    defer_call()&#xA;}&#xA;&#xA;func defer_call() {&#xA;    defer func() { fmt.Println(&amp;#34;打印前&amp;#34;) }()&#xA;    defer func() { fmt.Println(&amp;#34;打印中&amp;#34;) }()&#xA;    defer func() { fmt.Println(&amp;#34;打印后&amp;#34;) }()&#xA;&#xA;    panic(&amp;#34;触发异常&amp;#34;)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;打印后&#xA;打印中&#xA;打印前&#xA;panic: 触发异常&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;解析：defer 的执行顺序是后进先出。当出现 panic 语句的时候，会先按照 defer 的后进先出的顺序执行，最后才会执行panic。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_010</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_010/</link>
+      <pubDate>Fri, 06 Dec 2024 19:40:52 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_010/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;init() 函数是什么时候执行的？&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;答:init()是再main()函数执行前&lt;/p&gt;&#xA;&lt;p&gt;一句话总结： &lt;code&gt;import –&amp;gt; const –&amp;gt; var –&amp;gt; init() –&amp;gt; main()&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;如果有多个init就要分情况&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

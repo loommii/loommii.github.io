@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GoTypeAssertion - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/gotypeassertion/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/gotypeassertion/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 20250507</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250507/</link>
+      <pubDate>Wed, 07 May 2025 00:29:12 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250507/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;type A interface {&#xA;    ShowA() int&#xA;}&#xA;&#xA;type B interface {&#xA;    ShowB() int&#xA;}&#xA;&#xA;type Work struct {&#xA;    i int&#xA;}&#xA;&#xA;func (w Work) ShowA() int {&#xA;    return w.i &amp;#43; 10&#xA;}&#xA;&#xA;func (w Work) ShowB() int {&#xA;    return w.i &amp;#43; 20&#xA;}&#xA;&#xA;func main() {&#xA;    var a A = Work{3}&#xA;    s := a.(Work)&#xA;    fmt.Println(s.ShowA())&#xA;    fmt.Println(s.ShowB())&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. 13 23&lt;/li&gt;&#xA;&lt;li&gt;B. compilation error&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;A&#xA;&lt;a href=&#34;https://go.dev/play/p/dy8gUTSGZz8&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 206</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_206/</link>
+      <pubDate>Fri, 07 Mar 2025 01:13:20 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_206/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile? If so, what will be the output?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func GetValue() int {&#xA;    return 1&#xA;}&#xA;&#xA;func main() {&#xA;    i := GetValue()&#xA;    switch i.(type) {&#xA;    case int:&#xA;        println(&amp;#34;int&amp;#34;)&#xA;    case string:&#xA;        println(&amp;#34;string&amp;#34;)&#xA;    case interface{}:&#xA;        println(&amp;#34;interface&amp;#34;)&#xA;    default:&#xA;        println(&amp;#34;unknown&amp;#34;)&#xA;    }&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Compilation fails.&#xA;&lt;code&gt;i.(type)&lt;/code&gt;&#xA;The syntax for type assertion is &lt;code&gt;i.(type)&lt;/code&gt;, where &lt;code&gt;i&lt;/code&gt; is an interface and &lt;code&gt;type&lt;/code&gt; is a fixed keyword. It&amp;rsquo;s important to note that only interface types can use type assertion.&#xA;Official: &lt;a href=&#34;https://go.dev/tour/methods/16&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://go.dev/tour/methods/16&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 184</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_184/</link>
+      <pubDate>Thu, 13 Feb 2025 00:20:25 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_184/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Regarding type conversion, which of the following options is correct?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;A.&#xA;type MyInt int&#xA;var i int = 1&#xA;var j MyInt = i&#xA;&#xA;B.&#xA;type MyInt int&#xA;var i int = 1&#xA;var j MyInt = (MyInt)i&#xA;&#xA;C.&#xA;type MyInt int&#xA;var i int = 1&#xA;var j MyInt = MyInt(i)&#xA;&#xA;D.&#xA;type MyInt int&#xA;var i int = 1&#xA;var j MyInt = i.(MyInt)&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;C&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type MyInt int // Defines a type alias&#xA;var i int = 1  // Declares and assigns variable i with value 1&#xA;// A&#xA;var j MyInt = i // Error, because the type of variable i is int, and the type of variable j is MyInt, they are not the same type and cannot be directly assigned.&#xA;// B&#xA;var j MyInt = (MyInt)i // Error, C/C&amp;#43;&amp;#43; style type casting syntax, invalid in Go.&#xA;// C&#xA;var j MyInt = MyInt(i) // Correct, Go&amp;#39;s type conversion syntax, converts variable i to MyInt type.&#xA;// D&#xA;var j MyInt = i.(MyInt) // Error, this is Go&amp;#39;s type assertion syntax, type assertion is used on empty interfaces or `any`.&lt;/code&gt;&lt;/pre&gt;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 163</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_163/</link>
+      <pubDate>Thu, 16 Jan 2025 13:09:00 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_163/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;type A interface {&#xA;    ShowA() int&#xA;}&#xA;&#xA;type B interface {&#xA;    ShowB() int&#xA;}&#xA;&#xA;type Work struct {&#xA;    i int&#xA;}&#xA;&#xA;func (w Work) ShowA() int {&#xA;    return w.i &amp;#43; 10&#xA;}&#xA;&#xA;func (w Work) ShowB() int {&#xA;    return w.i &amp;#43; 20&#xA;}&#xA;&#xA;func main() {&#xA;    var a A = Work{3}&#xA;    s := a.(Work)&#xA;    fmt.Println(s.ShowA())&#xA;    fmt.Println(s.ShowB())&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. 13 23&lt;/li&gt;&#xA;&lt;li&gt;B. compilation error&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;A&#xA;&lt;a href=&#34;https://go.dev/play/p/dy8gUTSGZz8&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 128</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_128/</link>
+      <pubDate>Wed, 11 Dec 2024 01:13:20 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_128/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile? If so, what will be the output?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func GetValue() int {&#xA;    return 1&#xA;}&#xA;&#xA;func main() {&#xA;    i := GetValue()&#xA;    switch i.(type) {&#xA;    case int:&#xA;        println(&amp;#34;int&amp;#34;)&#xA;    case string:&#xA;        println(&amp;#34;string&amp;#34;)&#xA;    case interface{}:&#xA;        println(&amp;#34;interface&amp;#34;)&#xA;    default:&#xA;        println(&amp;#34;unknown&amp;#34;)&#xA;    }&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Compilation fails.&#xA;&lt;code&gt;i.(type)&lt;/code&gt;&#xA;The syntax for type assertion is &lt;code&gt;i.(type)&lt;/code&gt;, where &lt;code&gt;i&lt;/code&gt; is an interface and &lt;code&gt;type&lt;/code&gt; is a fixed keyword. It&amp;rsquo;s important to note that only interface types can use type assertion.&#xA;Official: &lt;a href=&#34;https://go.dev/tour/methods/16&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://go.dev/tour/methods/16&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 112</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_112/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:52 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_112/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;type A interface {&#xA;    ShowA() int&#xA;}&#xA;&#xA;type B interface {&#xA;    ShowB() int&#xA;}&#xA;&#xA;type Work struct {&#xA;    i int&#xA;}&#xA;&#xA;func (w Work) ShowA() int {&#xA;    return w.i &amp;#43; 10&#xA;}&#xA;&#xA;func (w Work) ShowB() int {&#xA;    return w.i &amp;#43; 20&#xA;}&#xA;&#xA;func main() {&#xA;    var a A = Work{3}&#xA;    // Type Assertion&#xA;    // http://c.biancheng.net/view/4281.html&#xA;    s := a.(Work)&#xA;    fmt.Println(s.ShowA())&#xA;    fmt.Println(s.ShowB())&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. 13 23&lt;/li&gt;&#xA;&lt;li&gt;B. compilation error&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;13&#xA;23&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Reference Answer and Analysis: A.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 110</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_110/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:50 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_110/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;If the calling code for the &lt;code&gt;Add()&lt;/code&gt; function is:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    var a Integer = 1&#xA;    var b Integer = 2&#xA;    var i interface{} = &amp;amp;a&#xA;    sum := i.(*Integer).Add(b)&#xA;    fmt.Println(sum)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Then the correct definition for the &lt;code&gt;Add&lt;/code&gt; function is:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;A.&#xA;type Integer int&#xA;func (a Integer) Add(b Integer) Integer {&#xA;        return a &amp;#43; b&#xA;}&#xA;&#xA;B.&#xA;type Integer int&#xA;func (a Integer) Add(b *Integer) Integer {&#xA;        return a &amp;#43; *b&#xA;}&#xA;&#xA;C.&#xA;type Integer int&#xA;func (a *Integer) Add(b Integer) Integer {&#xA;        return *a &amp;#43; b&#xA;}&#xA;&#xA;D.&#xA;type Integer int&#xA;func (a *Integer) Add(b *Integer) Integer {&#xA;        return *a &amp;#43; *b&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;AC&#xA;If it&amp;rsquo;s &lt;code&gt;func (a Integer)&lt;/code&gt;, the compiler will automatically add &lt;code&gt;func (a *Integer)&lt;/code&gt; for you.&#xA;The reverse is not true.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 072</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_072/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:55 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_072/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type A interface {&#xA;    ShowA() int&#xA;}&#xA;&#xA;type B interface {&#xA;    ShowB() int&#xA;}&#xA;&#xA;type Work struct {&#xA;    i int&#xA;}&#xA;&#xA;func (w Work) ShowA() int {&#xA;    return w.i &amp;#43; 10&#xA;}&#xA;&#xA;func (w Work) ShowB() int {&#xA;    return w.i &amp;#43; 20&#xA;}&#xA;&#xA;func main() {&#xA;    var a A = Work{3}&#xA;    s := a.(Work)&#xA;    fmt.Println(s.ShowA())&#xA;    fmt.Println(s.ShowB())&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. 13 23&#xA;B. compilation error&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;A: Type assertion.&#xA;No pitfalls.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 036</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_036/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:12 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_036/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile? If so, what will be the output?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func GetValue() int {&#xA;    return 1&#xA;}&#xA;&#xA;func main() {&#xA;    i := GetValue()&#xA;    switch i.(type) {&#xA;    case int:&#xA;        println(&amp;#34;int&amp;#34;)&#xA;    case string:&#xA;        println(&amp;#34;string&amp;#34;)&#xA;    case interface{}:&#xA;        println(&amp;#34;interface&amp;#34;)&#xA;    default:&#xA;        println(&amp;#34;unknown&amp;#34;)&#xA;    }&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: Compilation error.&#xA;Type assertion is used here. However, note that only interface types can perform type assertion. &lt;code&gt;i.(type)&lt;/code&gt; is used here, but the type of &lt;code&gt;i&lt;/code&gt; is &lt;code&gt;int&lt;/code&gt;, not an interface.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

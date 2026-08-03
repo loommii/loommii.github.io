@@ -1,239 +1,45 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>并发 - 标签 - loommii</title>
-        <link>https://loommii.github.io/zh-cn/tags/%E5%B9%B6%E5%8F%91/</link>
-        <description>并发 - 标签 - loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 08 Dec 2024 00:28:39 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/%E5%B9%B6%E5%8F%91/" rel="self" type="application/rss+xml" /><item>
-    <title>锁</title>
-    <link>https://loommii.github.io/zh-cn/posts/locks/</link>
-    <pubDate>Sun, 08 Dec 2024 00:28:39 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/posts/locks/</guid>
-    <description><![CDATA[<p>计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了&quot;锁&quot;用于解决该类问题。
-常见的锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁</p>]]></description>
-</item>
-<item>
-    <title>进程、线程、协程</title>
-    <link>https://loommii.github.io/zh-cn/posts/processes_threads_coroutines/</link>
-    <pubDate>Sun, 08 Dec 2024 00:28:02 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/posts/processes_threads_coroutines/</guid>
-    <description><![CDATA[<blockquote>
-<p>从计算机的发展上,这概念从大到小的顺序是<code>程序-&gt;进程-&gt;线程-&gt;协程</code></p></blockquote>]]></description>
-</item>
-<item>
-    <title>Go每日一题_095</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_095/</link>
-    <pubDate>Fri, 06 Dec 2024 20:45:23 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_095/</guid>
-    <description><![CDATA[<p>以下代码的输出结果：</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;sync&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">foo</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">bar</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">defer</span> <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="k">select</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">case</span> <span class="nx">foo</span> <span class="o">&lt;-</span> <span class="o">&lt;-</span><span class="nx">bar</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">        <span class="k">default</span><span class="p">:</span>
-</span></span><span class="line"><span class="cl">            <span class="nb">println</span><span class="p">(</span><span class="s">&#34;default&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}()</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>A：default
-B：panic
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>按常规理解，go func 中的 select 应该执行 default 分支，程序正常运行。但结果却不是，而是死锁。可以通过该链接测试：<a href="https://play.studygolang.com/p/kF4pOjYXbXf%e3%80%82" target="_blank" rel="noopener noreffer ">https://play.studygolang.com/p/kF4pOjYXbXf。</a></p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_060</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_060/</link>
-    <pubDate>Fri, 06 Dec 2024 20:44:41 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_060/</guid>
-    <description><![CDATA[<p>以下代码输出什么？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;time&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">ch1</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="o">&lt;-</span><span class="nx">ch1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">ch1</span> <span class="o">&lt;-</span> <span class="mi">5</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="mi">1</span> <span class="o">*</span> <span class="nx">time</span><span class="p">.</span><span class="nx">Second</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>A：5、B：不能编译；C：运行时死锁
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>C
-解析 因为 &lt;-ch1 是个参数,可以理解为他要先取出来得到结果后再创建协程 因此运行时死锁。因修改成下方的形式</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_044</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_044/</link>
-    <pubDate>Fri, 06 Dec 2024 20:44:22 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_044/</guid>
-    <description><![CDATA[<p>以下代码有什么问题，怎么解决？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">total</span><span class="p">,</span> <span class="nx">sum</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">i</span>
-</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">total</span> <span class="o">+=</span> <span class="nx">i</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;total:%d sum %d&#34;</span><span class="p">,</span> <span class="nx">total</span><span class="p">,</span> <span class="nx">sum</span><span class="p">)</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>sum 的值 55
-total 的值 55 - 100 之前</p>
-<p>考点一：
-知道输出的效果是什么，且知道如何解决。
-考点二：
-data race。因为存在多 goroutine 同时写 total 变量的问题，所以有数据竞争。
-考点三：
-main 函数先退出了，开启的 goroutine 根本没有机会执行。</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_039</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_039/</link>
-    <pubDate>Fri, 06 Dec 2024 20:44:16 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_039/</guid>
-    <description><![CDATA[<p>关于 channel，下面语法正确的是：</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">A</span><span class="p">.</span> <span class="kd">var</span> <span class="nx">ch</span> <span class="kd">chan</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="nx">B</span><span class="p">.</span> <span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="nx">C</span><span class="p">.</span> <span class="o">&lt;-</span> <span class="nx">ch</span>
-</span></span><span class="line"><span class="cl"><span class="nx">D</span><span class="p">.</span> <span class="nx">ch</span> <span class="o">&lt;-</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>答：ABC</p>
-<p>A、B 都是声明 channel；C 读取 channel；
-写 channel 是必须带上值，所以 D 错误。</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_038</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_038/</link>
-    <pubDate>Fri, 06 Dec 2024 20:44:15 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_038/</guid>
-    <description><![CDATA[<p>以下代码有什么问题？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;sync&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">N</span> <span class="p">=</span> <span class="mi">10</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">wg</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="nb">println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="k">defer</span> <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}(</span><span class="nx">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>答：输出结果不唯一，代码存在风险, 所有 go 语句未必都能执行到。
-解析：</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_037</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_037/</link>
-    <pubDate>Fri, 06 Dec 2024 20:44:14 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_037/</guid>
-    <description><![CDATA[<p>执行下面的代码会发生什么？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;time&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">ch</span> <span class="o">&lt;-</span> <span class="nx">i</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}()</span>
-</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">a</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;close&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                <span class="k">return</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a: &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}()</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">close</span><span class="p">(</span><span class="nx">ch</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;ok&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  答
-输出&quot;ok&quot;后panic
-启动协程需要时间,这里程序运行close(ch)一句关闭channel了,往已关闭的channel写数据会导致程序panic
-</div>
-<style>
-  .toggle-content {
-    display: none;
-    margin-top: 10px;
-  }
-  .toggle-content.show {
-    display: block;
-  }
-</style>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>并发 - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/%E5%B9%B6%E5%8F%91/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/%E5%B9%B6%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go中Channel可能会引发Goroutine泄漏</title>
+      <link>https://loommii.github.io/zh-cn/posts/channel_may_cause_goroutine_leak/</link>
+      <pubDate>Fri, 07 Mar 2025 14:12:02 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/posts/channel_may_cause_goroutine_leak/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      <description>详解Go语言中Channel可能导致Goroutine泄漏的原因和解决方案</description>
+    </item>
+    <item>
+      <title>锁</title>
+      <link>https://loommii.github.io/zh-cn/posts/locks/</link>
+      <pubDate>Sun, 08 Dec 2024 00:28:39 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/posts/locks/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      <description>&lt;p&gt;计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了&amp;quot;锁&amp;quot;用于解决该类问题。&#xA;常见的锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>进程、线程、协程</title>
+      <link>https://loommii.github.io/zh-cn/posts/processes_threads_coroutines/</link>
+      <pubDate>Sun, 08 Dec 2024 00:28:02 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/posts/processes_threads_coroutines/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      <description>&lt;blockquote&gt;&#xA;&lt;p&gt;从计算机的发展上,这概念从大到小的顺序是&lt;code&gt;程序-&amp;gt;进程-&amp;gt;线程-&amp;gt;协程&lt;/code&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_039</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_039/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:16 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_039/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;关于 channel，下面语法正确的是：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;A. var ch chan int&#xA;B. ch := make(chan int)&#xA;C. &amp;lt;- ch&#xA;D. ch &amp;lt;-&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;答：ABC&lt;/p&gt;&#xA;&lt;p&gt;A、B 都是声明 channel；C 读取 channel；&#xA;写 channel 是必须带上值，所以 D 错误。&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

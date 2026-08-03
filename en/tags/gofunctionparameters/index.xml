@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GoFunctionParameters - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/gofunctionparameters/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/gofunctionparameters/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 087</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_087/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:13 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_087/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    a := 1&#xA;    b := 2&#xA;    defer calc(&amp;#34;1&amp;#34;, a, calc(&amp;#34;10&amp;#34;, a, b))&#xA;    a = 0&#xA;    defer calc(&amp;#34;2&amp;#34;, a, calc(&amp;#34;20&amp;#34;, a, b))&#xA;    b = 1&#xA;}&#xA;&#xA;func calc(index string, a, b int) int {&#xA;    ret := a &amp;#43; b&#xA;    fmt.Println(index, a, b, ret)&#xA;    return ret&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;10 1 2 3&#xA;20 0 2 2&#xA;2 0 2 2&#xA;1 1 3 4&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;When the program executes to the third line of the &lt;code&gt;main()&lt;/code&gt; function, it first executes the &lt;code&gt;b&lt;/code&gt; parameter of the &lt;code&gt;calc()&lt;/code&gt; function, i.e., &lt;code&gt;calc(&amp;quot;10&amp;quot;, a, b)&lt;/code&gt;, which outputs: &lt;code&gt;10 1 2 3&lt;/code&gt; and gets the value 3. Because the function defined by &lt;code&gt;defer&lt;/code&gt; is a deferred function, &lt;code&gt;calc(&amp;quot;1&amp;quot;, 1, 3)&lt;/code&gt; will be executed later.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 079</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_079/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:04 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_079/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>Go Language Daily Question Series - Analysis of Go Daily Question 079</description>
+    </item>
+    <item>
+      <title>Go Daily Question 055</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_055/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:35 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_055/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func hello(i int) {  &#xA;    fmt.Println(i)&#xA;}&#xA;func main() {  &#xA;    i := 5&#xA;    defer hello(i)&#xA;    i = i &amp;#43; 10&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: 5&#xA;The parameters of the &lt;code&gt;hello()&lt;/code&gt; function save a copy when the &lt;code&gt;defer&lt;/code&gt; statement is executed, and this copy is used when the &lt;code&gt;hello()&lt;/code&gt; function is actually called. Therefore, it is 5.&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+  </channel>
+</rss>

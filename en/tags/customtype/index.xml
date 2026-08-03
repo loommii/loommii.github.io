@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>CustomType - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/customtype/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/customtype/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 108</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_108/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:48 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_108/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Regarding type conversion, which of the following options is correct?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;A.&#xA;type MyInt int&#xA;var i int = 1&#xA;var j MyInt = i&#xA;&#xA;B.&#xA;type MyInt int&#xA;var i int = 1&#xA;var j MyInt = (MyInt)i&#xA;&#xA;C.&#xA;type MyInt int&#xA;var i int = 1&#xA;var j MyInt = MyInt(i)&#xA;&#xA;D.&#xA;type MyInt int&#xA;var i int = 1&#xA;var j MyInt = i.(MyInt)&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;C&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 089</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_089/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:16 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_089/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code? Why?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func (i int) PrintInt ()  {&#xA;    fmt.Println(i)&#xA;}&#xA;&#xA;func main() {&#xA;    var i int = 1&#xA;    i.PrintInt()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;It will result in a compilation error. Methods can only be created for custom types and must be defined within the same package as the type.&lt;/p&gt;&#xA;&lt;p&gt;Reference Answer and Analysis: B.&lt;/p&gt;&#xA;&lt;p&gt;Methods based on a type must be defined within the same package. The code above creates a &lt;code&gt;PrintInt()&lt;/code&gt; method based on the &lt;code&gt;int&lt;/code&gt; type. Since &lt;code&gt;int&lt;/code&gt; type and the &lt;code&gt;PrintInt()&lt;/code&gt; method are defined in different packages, it results in a compilation error. A solution is to define a new type:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 024</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_024/</link>
+      <pubDate>Fri, 06 Dec 2024 19:49:56 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_024/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile? If so, what will be the output?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;type MyInt1 int&#xA;type MyInt2 = int&#xA;&#xA;func main() {&#xA;    var i int =0&#xA;    var i1 MyInt1 = i &#xA;    var i2 MyInt2 = i&#xA;    fmt.Println(i1,i2)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: No.&#xA;Reference analysis: This question tests the difference between type aliases and type definitions.&#xA;Type alias: &lt;code&gt;type MyInt2 = int&lt;/code&gt;&#xA;Type definition: &lt;code&gt;type MyInt1 int&lt;/code&gt;&#xA;In Go, the types on both sides of the assignment operator &lt;code&gt;=&lt;/code&gt; must be consistent.&#xA;&lt;code&gt;MyInt1&lt;/code&gt; is a new type defined based on &lt;code&gt;int&lt;/code&gt;, so it cannot be directly assigned. If an assignment is needed, type conversion is required: &lt;code&gt;var i1 MyInt1 = MyInt1(i)&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

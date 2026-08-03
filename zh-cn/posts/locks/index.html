@@ -1,158 +1,138 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>锁 - loommii</title><meta name="Description" content="详解计算机中的各种锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁"><meta property="og:url" content="https://loommii.github.io/zh-cn/posts/locks/">
-  <meta property="og:site_name" content="loommii">
-  <meta property="og:title" content="锁">
-  <meta property="og:description" content="详解计算机中的各种锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁">
-  <meta property="og:locale" content="zh_CN">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2024-12-08T00:28:39+08:00">
-    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
-    <meta property="article:tag" content="锁">
-    <meta property="article:tag" content="并发">
-    <meta property="article:tag" content="互斥锁">
-    <meta property="article:tag" content="自旋锁">
-    <meta property="article:tag" content="读写锁">
-    <meta property="article:tag" content="乐观锁">
-    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>锁 - loommii</title><meta name="author" content="loommii">
+<meta name="description" content="详解计算机中的各种锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁"><meta name="keywords" content='锁, 并发, 同步'>
+	<meta itemprop="name" content="锁">
+	<meta itemprop="description" content="详解计算机中的各种锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁">
+	<meta itemprop="datePublished" content="2024-12-08T00:28:39+08:00">
+	<meta itemprop="dateModified" content="2026-01-16T01:28:43+08:00">
+	<meta itemprop="wordCount" content="707">
+	<meta itemprop="image" content="https://loommii.github.io/images/logo.png">
+	<meta itemprop="keywords" content="锁,并发,同步"><meta property="og:url" content="https://loommii.github.io/zh-cn/posts/locks/">
+	<meta property="og:site_name" content="loommii">
+	<meta property="og:title" content="锁">
+	<meta property="og:description" content="详解计算机中的各种锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁">
+	<meta property="og:locale" content="zh_CN">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2024-12-08T00:28:39+08:00">
+		<meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+		<meta property="article:tag" content="锁">
+		<meta property="article:tag" content="并发">
+		<meta property="article:tag" content="同步">
+		<meta property="og:image" content="https://loommii.github.io/images/logo.png">
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
-  <meta name="twitter:title" content="锁">
-  <meta name="twitter:description" content="详解计算机中的各种锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁">
-<meta name="application-name" content="My cool site">
-<meta name="apple-mobile-web-app-title" content="My cool site">
-<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/zh-cn/posts/locks/" /><link rel="prev" href="https://loommii.github.io/zh-cn/posts/the_relationship_between_program_and_memory/" /><link rel="next" href="https://loommii.github.io/zh-cn/posts/a_brief_discussion_on_go_gc_garbage_collection/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "锁",
-        "inLanguage": "zh-CN",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/loommii.github.io\/zh-cn\/posts\/locks\/"
-        },"genre": "posts","keywords": "锁, 并发, 互斥锁, 自旋锁, 读写锁, 乐观锁, 悲观锁, 同步机制","wordcount":  707 ,
-        "url": "https:\/\/loommii.github.io\/zh-cn\/posts\/locks\/","datePublished": "2024-12-08T00:28:39+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "loommii"
-            },"description": "详解计算机中的各种锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁"
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
-          const query = window.matchMedia('(prefers-color-scheme: dark)');
-          function applyTheme() {
-            let theme = window.localStorage?.getItem('theme') || 'auto';
-            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
-            document.body.setAttribute('theme', isDark? 'dark' : 'light');
-            document.body.setAttribute('cfg-theme', theme);
-          }
-
-          applyTheme();
-          query.addEventListener('change', applyTheme);
-        </script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+	<meta name="twitter:title" content="锁">
+	<meta name="twitter:description" content="详解计算机中的各种锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁">
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://loommii.github.io/zh-cn/posts/locks/" title="锁 - loommii" /><link rel="prev" type="text/html" href="https://loommii.github.io/zh-cn/posts/the_relationship_between_program_and_memory/" title="程序与内存之间的关系" /><link rel="next" type="text/html" href="https://loommii.github.io/zh-cn/go_practise/go_daily_question_125/" title="Go每日一题_125" /><link rel="alternate" type="text/markdown" href="https://loommii.github.io/zh-cn/posts/locks/index.md" title="锁 - loommii"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "锁",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/loommii.github.io\/zh-cn\/posts\/locks\/"
+    },"genre": "posts","keywords": "锁, 并发, 同步","wordcount":  707 ,
+    "url": "https:\/\/loommii.github.io\/zh-cn\/posts\/locks\/","datePublished": "2024-12-08T00:28:39+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "loommii"
+      },"description": "详解计算机中的各种锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁"
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/zh-cn/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="32" width="32"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/zh-cn/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/zh-cn/go_practise/">Go练习题</a></li><li class="menu-item">
+              <a class="menu-link" href="/zh-cn/leetcode/">LeetCode题解</a></li><li class="menu-item">
+              <a class="menu-link" href="/zh-cn/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/zh-cn/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/zh-cn/archives/">归档</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li><li class="menu-item language-switch">
+            <span role="button" aria-label="选择语言" title="选择语言"><i class="fa-solid fa-language" aria-hidden="true"></i></span>
+            <ul class="sub-menu"><li class="menu-item"><span class="text-secondary" title="简体中文">简体中文</span></li><li class="menu-item"><a href="/en/posts/locks/" class="menu-link" title="English">English</a></li></ul>
+          </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/zh-cn/" title="loommii"><img
-        class="lazyload logo"
-        src="/svg/loading.min.svg"
-        data-src="/images/logo.png"
-        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
-        data-sizes="auto"
-        alt="/images/logo.png"
-        title="/images/logo.png" />loommii</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/zh-cn/posts/"> 文章 </a><a class="menu-item" href="/zh-cn/go_practise/"> Go练习题 </a><a class="menu-item" href="/zh-cn/leetcode/"> LeetCode题解 </a><a class="menu-item" href="/zh-cn/categories/"> 分类 </a><a class="menu-item" href="/zh-cn/tags/"> 标签 </a><a class="menu-item" href="/zh-cn/posts/"> 归档 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a><a href="javascript:void(0);" class="menu-item language" title="选择语言">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/posts/locks/" selected>简体中文</option><option value="/en/posts/locks/">English</option></select>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="/zh-cn/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="26" width="26"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/zh-cn/" title="loommii"><img
-        class="lazyload logo"
-        src="/svg/loading.min.svg"
-        data-src="/images/logo.png"
-        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
-        data-sizes="auto"
-        alt="/images/logo.png"
-        title="/images/logo.png" />loommii</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        取消
-                    </a>
-                </div><a class="menu-item" href="/zh-cn/posts/" title="">文章</a><a class="menu-item" href="/zh-cn/go_practise/" title="">Go练习题</a><a class="menu-item" href="/zh-cn/leetcode/" title="">LeetCode题解</a><a class="menu-item" href="/zh-cn/categories/" title="">分类</a><a class="menu-item" href="/zh-cn/tags/" title="">标签</a><a class="menu-item" href="/zh-cn/posts/" title="">归档</a><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="选择语言">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/posts/locks/" selected>简体中文</option><option value="/en/posts/locks/">English</option></select>
-                </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/zh-cn/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/go_practise/">Go练习题</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/leetcode/">LeetCode题解</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/archives/">归档</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch">
+              <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+              <select id="language-select" class="language-select" onchange="location = this.value;"><option value="/zh-cn/posts/locks/" selected disabled>简体中文</option><option value="/en/posts/locks/">English</option></select>
+            </span></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">目录</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">锁</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/loommii" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">收录于 <a href="/zh-cn/categories/%E5%B9%B6%E5%8F%91%E7%BC%96%E7%A8%8B/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>并发编程</a>&nbsp;<a href="/zh-cn/categories/%E7%B3%BB%E7%BB%9F%E7%BC%96%E7%A8%8B/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>系统编程</a>&nbsp;<a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>技术文章</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-12-08">2024-12-08</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;约 707 字&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;预计阅读 2 分钟&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>目录</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>锁</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      loommii</span></span><span class="post-included-in">&nbsp;收录于 <a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" class="post-category" title="分类 - 技术文章"><i class="fa-regular fa-folder" aria-hidden="true"></i> 技术文章</a></span></div><div class="post-meta-line"><span title="发布于 2024-12-08 00:28:39"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-12-08">2024-12-08</time></span>&nbsp;<span title="更新于 2026-01-16 01:28:43"><i class="fa-regular fa-calendar-check me-1" aria-hidden="true"></i><time datetime="2026-01-16">2026-01-16</time></span>&nbsp;<span title="707 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 800 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 2 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li><a href="#互斥锁">互斥锁</a></li>
     <li><a href="#自旋锁">自旋锁</a></li>
@@ -160,14 +140,20 @@
     <li><a href="#乐观锁与悲观锁">乐观锁与悲观锁</a></li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><p>计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了&quot;锁&quot;用于解决该类问题。
+      </div><div class="content" id="content"><p>计算机在并发的情况下很大可能会出现数据错乱的问题，因此运入了&quot;锁&quot;用于解决该类问题。
 常见的锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁</p>
-<h2 id="互斥锁">互斥锁</h2>
-<p>特点：容易实现，最基础的锁概念</p>
+<h2 class="heading-element" id="互斥锁"><span>互斥锁</span>
+  <a href="#%e4%ba%92%e6%96%a5%e9%94%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>特点：容易实现，最基础的锁概念</p>
 <p>解释：在使用一个资源时，先上锁使用。上锁后其他线程都无法再上锁。直到解锁后，其他线程才能上锁使用。</p>
 <p>生活例子：公共厕所，谁要上厕所就要先上锁后使用，避免其他人也闯入使用厕所。</p>
-<h2 id="自旋锁">自旋锁</h2>
-<p>自旋锁与互斥锁十分类似。
+<h2 class="heading-element" id="自旋锁"><span>自旋锁</span>
+  <a href="#%e8%87%aa%e6%97%8b%e9%94%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>自旋锁与互斥锁十分类似。
 区别：</p>
 <ul>
 <li>自旋锁：加锁失败，线程还是会不断的去申请加锁，直到他拿到锁</li>
@@ -176,8 +162,11 @@
 <p>生活例子 -&gt; 公共厕所
 自旋锁：不断的在门口敲门，直到里面的人出来
 互斥锁：不动了，直到里面的人出来叫你。</p>
-<h2 id="读写锁">读写锁</h2>
-<p>顾名思义就是由<code>读锁</code>和<code>写锁</code>组成的。读数据往往是可以并发的读，并发写数据可能会导致数据不符合预期的情况</p>
+<h2 class="heading-element" id="读写锁"><span>读写锁</span>
+  <a href="#%e8%af%bb%e5%86%99%e9%94%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>顾名思义就是由<code>读锁</code>和<code>写锁</code>组成的。读数据往往是可以并发的读，并发写数据可能会导致数据不符合预期的情况</p>
 <ul>
 <li>读数据需要满足目前无写锁。</li>
 <li>写数据需要满足目前无写锁、读锁。
@@ -204,78 +193,78 @@
 </ul>
 </li>
 </ul>
-<h2 id="乐观锁与悲观锁">乐观锁与悲观锁</h2>
-<p>互斥锁、自旋锁、读写锁都是悲观锁</p>
+<h2 class="heading-element" id="乐观锁与悲观锁"><span>乐观锁与悲观锁</span>
+  <a href="#%e4%b9%90%e8%a7%82%e9%94%81%e4%b8%8e%e6%82%b2%e8%a7%82%e9%94%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>互斥锁、自旋锁、读写锁都是悲观锁</p>
 <p>悲观锁：多线程同时修改共享资源的概率比较高，容易发生冲突。因此访问共享资源前需要上锁。
 乐观锁：认为发生冲突的概率比较低。并不会上任何的锁，而是校验该数据是否别修改过，修改过着放弃本次操作</p></div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>更新于 2026-01-16</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="分享到 X" data-sharer="x" data-url="https://loommii.github.io/zh-cn/posts/locks/" data-title="锁" data-hashtags="锁,并发,互斥锁,自旋锁,读写锁,乐观锁,悲观锁,同步机制"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Threads" data-sharer="threads" data-url="https://loommii.github.io/zh-cn/posts/locks/" data-title="锁"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://loommii.github.io/zh-cn/posts/locks/" data-hashtag="锁"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/zh-cn/posts/locks/" data-title="锁"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Line" data-sharer="line" data-url="https://loommii.github.io/zh-cn/posts/locks/" data-title="锁"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://loommii.github.io/zh-cn/posts/locks/" data-title="锁"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="分享到 Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/zh-cn/posts/locks/" data-title="锁" data-description="详解计算机中的各种锁：互斥锁、自旋锁、读写锁、悲观锁、乐观锁"><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fzh-cn%2fposts%2flocks%2f&amp;text=%e9%94%81" target="_blank" title="分享到 Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2026-01-16 01:28:43">更新于 2026-01-16&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"><span><a href="/zh-cn/posts/locks/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://loommii.github.io/zh-cn/posts/locks/" data-title="锁" data-hashtags="锁,并发,同步"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://loommii.github.io/zh-cn/posts/locks/" data-hashtag="锁"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://loommii.github.io/zh-cn/posts/locks/" data-title="锁"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/zh-cn/tags/%E9%94%81/">锁</a>,&nbsp;<a href="/zh-cn/tags/%E5%B9%B6%E5%8F%91/">并发</a>,&nbsp;<a href="/zh-cn/tags/%E4%BA%92%E6%96%A5%E9%94%81/">互斥锁</a>,&nbsp;<a href="/zh-cn/tags/%E8%87%AA%E6%97%8B%E9%94%81/">自旋锁</a>,&nbsp;<a href="/zh-cn/tags/%E8%AF%BB%E5%86%99%E9%94%81/">读写锁</a>,&nbsp;<a href="/zh-cn/tags/%E4%B9%90%E8%A7%82%E9%94%81/">乐观锁</a>,&nbsp;<a href="/zh-cn/tags/%E6%82%B2%E8%A7%82%E9%94%81/">悲观锁</a>,&nbsp;<a href="/zh-cn/tags/%E5%90%8C%E6%AD%A5%E6%9C%BA%E5%88%B6/">同步机制</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/zh-cn/posts/the_relationship_between_program_and_memory/" class="prev" rel="prev" title="程序与内存之间的关系"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>程序与内存之间的关系</a>
-            <a href="/zh-cn/posts/a_brief_discussion_on_go_gc_garbage_collection/" class="next" rel="next" title="浅谈GO GC (垃圾回收)">浅谈GO GC (垃圾回收)<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/zh-cn/tags/%E9%94%81/" class="post-tag" title="标签 - 锁">锁</a><a href="/zh-cn/tags/%E5%B9%B6%E5%8F%91/" class="post-tag" title="标签 - 并发">并发</a><a href="/zh-cn/tags/%E5%90%8C%E6%AD%A5/" class="post-tag" title="标签 - 同步">同步</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+    </section>
+  </div><div class="post-nav"></div>
 </div>
-<div id="comments"><div id="giscus" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
-            </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/zh-cn/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+<div id="comments"><div id="giscus" class="comment">
+            <script
+                src="https://giscus.app/client.js"
+                data-repo="loommii/loommii.github.io"
+                data-repo-id="R_kgDOQ1YU8A"
+                data-category="Announcements"
+                data-category-id="DIC_kwDOQ1YU8M4C1aXA"
+                data-mapping="specific"
+                data-strict="0"
+                data-term="locks"
+                data-theme="preferred_color_scheme"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="bottom"
+                data-lang="zh-CN"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async
+            ></script>
         </div>
-    </footer></div>
+        <noscript>
+            Please enable JavaScript to view the comments powered by <a href="https://giscus.app">giscus</a>.
+        </noscript></div></article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a>
-        </div>
-
-        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="查看评论">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOQ1YU8M4C1aXA","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"zh-CN","lazyLoading":false,"lightTheme":"light","mapping":"specific","reactionsEnabled":"1","repo":"loommii/loommii.github.io","repoId":"R_kgDOQ1YU8A","term":"locks"}},"lightgallery":true,"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":30}};</script><script src="/js/theme.min.js"></script><script>
-        let r = new XMLHttpRequest();
-        let views = document.getElementById("page-views");
-
-        var get_path = function() {
-            var loc = location,
-                c = document.querySelector('link[rel="canonical"][href]')
-            if (c) {  
-                var a = document.createElement('a')
-                a.href = c.href
-                if (a.hostname.replace(/^www\./, '') === location.hostname.replace(/^www\./, ''))
-                    loc = a
-            }
-            let path = loc.pathname;
-            if(path.endsWith('/')) path = path.slice(0, -1);
-            return path || '/';
-        }
-
-        if(views) {
-            r.addEventListener('load', function() {
-                const count = JSON.parse(this.responseText);
-                views.innerHTML = `${count.count_unique} views on this page (powered by <a href="https://www.goatcounter.com/">Goat Counter</a>)`
-            })
-
-            r.open('GET', 'https://linjjj.goatcounter.com/counter/' + encodeURIComponent(get_path()) + '.json')
-            r.send()
-        }
-    </script>
-    <script data-goatcounter="https://linjjj.goatcounter.com/count"
-            async src="//gc.zgo.at/count.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#互斥锁">互斥锁</a></li>
+    <li><a href="#自旋锁">自旋锁</a></li>
+    <li><a href="#读写锁">读写锁</a></li>
+    <li><a href="#乐观锁与悲观锁">乐观锁与悲观锁</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.164.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/zh-cn/">loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="查看评论"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/zh-cn/js/config/71254a2746b471db0f770c4847a02a0a.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

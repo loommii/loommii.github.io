@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GoMemory - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/gomemory/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 04 Aug 2026 00:55:54 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/gomemory/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go: Channel Might Lead to Goroutine Leaks</title>
+      <link>https://loommii.github.io/en/posts/channel_may_cause_goroutine_leak/</link>
+      <pubDate>Fri, 07 Mar 2025 14:12:02 +0800</pubDate>
+      <guid>https://loommii.github.io/en/posts/channel_may_cause_goroutine_leak/</guid>
+      <category domain="https://loommii.github.io/en/categories/techarticle/">TechArticle</category>
+      <description>Detailed explanation of why Channels in Go might cause Goroutine leaks and their solutions.</description>
+    </item>
+    <item>
+      <title>Go Daily Question 199</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_199/</link>
+      <pubDate>Fri, 28 Feb 2025 16:08:33 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_199/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;How much space does an empty struct{} occupy? What are its uses?&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: 0, used as a placeholder.&lt;/p&gt;&#xA;&lt;p&gt;For example:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;map[string]struct{}, can be used to save memory if you only care about the existence of the key.&lt;/li&gt;&#xA;&lt;li&gt;ch := make(chan struct{}, 1), when using channels for concurrency control, we only need a signal but not to pass a value; in this case, struct{} can be used instead.&lt;/li&gt;&#xA;&lt;li&gt;type Lamp struct{} , declares a struct that only contains methods.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Lamp struct{}&#xA;&#xA;func (l Lamp) On() {&#xA;        println(&amp;#34;On&amp;#34;)&#xA;&#xA;}&#xA;func (l Lamp) Off() {&#xA;        println(&amp;#34;Off&amp;#34;)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Analysis:&#xA;Go has globally unique type metadata for each type, which records the size of that type. Since an empty struct has no types within it, its size is 0. However, because type metadata is created, it can be used as a placeholder like a normal type.&#xA;It is recommended to refer to &lt;code&gt;【幼麟实验室】- Go类型系统讲解&lt;/code&gt; for more details.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 190</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_190/</link>
+      <pubDate>Wed, 19 Feb 2025 02:08:43 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_190/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What are the scenarios for memory leaks?&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;ul&gt;&#xA;&lt;li&gt;Long-lived objects holding references to short-lived objects: For example, objects referenced by global variables.&lt;/li&gt;&#xA;&lt;li&gt;Unclosed Goroutines: If a Goroutine starts but fails to terminate normally due to some reason (e.g., deadlock, infinite loop, channel blocking), it will continue to occupy memory.&lt;/li&gt;&#xA;&lt;li&gt;Improper use of the &lt;code&gt;time&lt;/code&gt; package.&lt;/li&gt;&#xA;&lt;li&gt;Improper string operations.&lt;/li&gt;&#xA;&lt;li&gt;Unclosed resources like files and network connections.&lt;/li&gt;&#xA;&lt;li&gt;Improper CGO memory management: If your Go code uses CGO and allocates memory in C code, you need to manually free that memory. Otherwise, it will lead to a memory leak.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 123</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_123/</link>
+      <pubDate>Fri, 06 Dec 2024 23:55:50 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_123/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What does the following code print, and why?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;type People interface {&#xA;    Show()&#xA;}&#xA;&#xA;type Student struct{}&#xA;&#xA;func (stu *Student) Show() {&#xA;&#xA;}&#xA;&#xA;func live() People {&#xA;    var stu *Student&#xA;    return stu&#xA;}&#xA;&#xA;func main() {&#xA;    if live() == nil {&#xA;        fmt.Println(&amp;#34;AAAAAAA&amp;#34;)&#xA;    } else {&#xA;        fmt.Println(&amp;#34;BBBBBBB&amp;#34;)&#xA;    }&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: BBBBBBB&#xA;Simply put, an interface variable has two values: one is its type, and the other is its value.&#xA;For an &lt;code&gt;if&lt;/code&gt; interface, the &lt;code&gt;live() == nil&lt;/code&gt; condition is true only when both the value and the type are zero values.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 058</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_058/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:39 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_058/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func incr(p *int) int {&#xA;    *p&amp;#43;&amp;#43;&#xA;    return *p&#xA;}&#xA;&#xA;func main() {&#xA;    p :=1&#xA;    incr(&amp;amp;p)&#xA;    fmt.Println(p)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. 1&lt;/li&gt;&#xA;&lt;li&gt;B. 2&lt;/li&gt;&#xA;&lt;li&gt;C. 3&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: B.&lt;/p&gt;&#xA;&lt;p&gt;Key takeaway: Pointers. &lt;code&gt;p&lt;/code&gt; in the &lt;code&gt;incr()&lt;/code&gt; function is a pointer of type &lt;code&gt;*int&lt;/code&gt;, pointing to the address of the variable &lt;code&gt;p&lt;/code&gt; in the &lt;code&gt;main()&lt;/code&gt; function. The second line of code performs an increment operation on the value at that address. &lt;code&gt;incr()&lt;/code&gt; returns the result after the increment.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 007</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_007/</link>
+      <pubDate>Fri, 06 Dec 2024 19:40:52 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_007/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;    m := make(map[string]int)&#xA;&#xA;    fmt.Println(&amp;amp;m[&amp;#34;qcrao&amp;#34;])&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: No, it will cause a compilation error.&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;.\main.go:8:15: invalid operation: cannot take address of m[&amp;ldquo;qcrao&amp;rdquo;] (map index expression of type int)&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;Analysis:&#xA;This question is equivalent to asking: can you directly take the address of a map&amp;rsquo;s element?&lt;/p&gt;&#xA;&lt;p&gt;Key takeaway: &lt;code&gt;You cannot directly take the address of a map&#39;s key or value.&lt;/code&gt; Even if you obtain the address of a key or value through other &amp;ldquo;hacky&amp;rdquo; methods, such as &lt;code&gt;unsafe.Pointer&lt;/code&gt;, you cannot hold it long-term because once the map resizes, the positions of keys and values change, and the previously saved addresses become invalid.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 009</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_009/</link>
+      <pubDate>Fri, 06 Dec 2024 19:40:52 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_009/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;How much space does an empty struct{} occupy? What are its uses?&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: 0, used as a placeholder.&lt;/p&gt;&#xA;&lt;p&gt;For example:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;map[string]struct{}, can be used to save memory if you only care about the existence of the key.&lt;/li&gt;&#xA;&lt;li&gt;ch := make(chan struct{}, 1), when using channels for concurrency control, we only need a signal but not to pass a value; in this case, struct{} can be used instead.&lt;/li&gt;&#xA;&lt;li&gt;type Lamp struct{} , declares a struct that only contains methods.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Lamp struct{}&#xA;&#xA;func (l Lamp) On() {&#xA;        println(&amp;#34;On&amp;#34;)&#xA;&#xA;}&#xA;func (l Lamp) Off() {&#xA;        println(&amp;#34;Off&amp;#34;)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Analysis:&#xA;Go has globally unique type metadata for each type, which records the size of that type. Since an empty struct has no types within it, its size is 0. However, because type metadata is created, it can be used as a placeholder like a normal type.&#xA;It is recommended to refer to &lt;code&gt;【幼麟实验室】- Go类型系统讲解&lt;/code&gt; for more details.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 018</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_018/</link>
+      <pubDate>Fri, 06 Dec 2024 18:34:52 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_018/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What&amp;rsquo;s wrong with the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;const cl = 100&#xA;&#xA;var bl = 123&#xA;&#xA;func main()  {&#xA;    println(&amp;amp;bl,bl)&#xA;    println(&amp;amp;cl,cl)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: It won&amp;rsquo;t compile.&#xA;&lt;code&gt;cl&lt;/code&gt; is a constant. The address of a constant cannot be taken.&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,72 +1,39 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Go相等性 - 标签 - loommii</title>
-        <link>https://loommii.github.io/zh-cn/tags/go%E7%9B%B8%E7%AD%89%E6%80%A7/</link>
-        <description>Go相等性 - 标签 - loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 13 Mar 2025 00:33:25 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/go%E7%9B%B8%E7%AD%89%E6%80%A7/" rel="self" type="application/rss+xml" /><item>
-    <title>Go每日一题_212</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_212/</link>
-    <pubDate>Thu, 13 Mar 2025 00:33:25 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_212/</guid>
-    <description><![CDATA[<p>下面代码是否可以编译通过？为什么？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nx">sn1</span> <span class="o">:=</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">age</span>  <span class="kt">int</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">name</span> <span class="kt">string</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}{</span><span class="nx">age</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">name</span><span class="p">:</span> <span class="s">&#34;qq&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nx">sn2</span> <span class="o">:=</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">age</span>  <span class="kt">int</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">name</span> <span class="kt">string</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}{</span><span class="nx">age</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">name</span><span class="p">:</span> <span class="s">&#34;qq&#34;</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">sn1</span> <span class="o">==</span> <span class="nx">sn2</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;sn1 == sn2&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nx">sm1</span> <span class="o">:=</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">age</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">m</span>   <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}{</span><span class="nx">age</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">m</span><span class="p">:</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">:</span> <span class="s">&#34;1&#34;</span><span class="p">}}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nx">sm2</span> <span class="o">:=</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">age</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">m</span>   <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}{</span><span class="nx">age</span><span class="p">:</span> <span class="mi">11</span><span class="p">,</span> <span class="nx">m</span><span class="p">:</span> <span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">:</span> <span class="s">&#34;1&#34;</span><span class="p">}}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">sm1</span> <span class="o">==</span> <span class="nx">sm2</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;sm1 == sm2&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>答: 无法通过编译</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_198</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_198/</link>
-    <pubDate>Thu, 27 Feb 2025 02:02:47 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_198/</guid>
-    <description><![CDATA[<p>如何确认两个 map 是否相等？</p>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>map 深度相等的条件：</p>
-<p>都为 nil
-非空、长度相等，指向同一个 map 实体对象
-相应的 key 指向的 value “深度”相等</p>
-<p>直接将使用 <code>map1 == map2</code> 是<code>错误</code>的。这种写法只能比较 map 是否为 nil。</p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go相等性 - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/go%E7%9B%B8%E7%AD%89%E6%80%A7/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Tue, 04 Aug 2026 00:55:54 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/go%E7%9B%B8%E7%AD%89%E6%80%A7/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_212</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_212/</link>
+      <pubDate>Thu, 13 Mar 2025 00:33:25 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_212/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码是否可以编译通过？为什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;&#xA;    sn1 := struct {&#xA;        age  int&#xA;        name string&#xA;    }{age: 11, name: &amp;#34;qq&amp;#34;}&#xA;&#xA;    sn2 := struct {&#xA;        age  int&#xA;        name string&#xA;    }{age: 11, name: &amp;#34;qq&amp;#34;}&#xA;&#xA;    if sn1 == sn2 {&#xA;        fmt.Println(&amp;#34;sn1 == sn2&amp;#34;)&#xA;    }&#xA;&#xA;    sm1 := struct {&#xA;        age int&#xA;        m   map[string]string&#xA;    }{age: 11, m: map[string]string{&amp;#34;a&amp;#34;: &amp;#34;1&amp;#34;}}&#xA;&#xA;    sm2 := struct {&#xA;        age int&#xA;        m   map[string]string&#xA;    }{age: 11, m: map[string]string{&amp;#34;a&amp;#34;: &amp;#34;1&amp;#34;}}&#xA;&#xA;    if sm1 == sm2 {&#xA;        fmt.Println(&amp;#34;sm1 == sm2&amp;#34;)&#xA;    }&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;答: 无法通过编译&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_198</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_198/</link>
+      <pubDate>Thu, 27 Feb 2025 02:02:47 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_198/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;如何确认两个 map 是否相等？&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;map 深度相等的条件：&lt;/p&gt;&#xA;&lt;p&gt;都为 nil&#xA;非空、长度相等，指向同一个 map 实体对象&#xA;相应的 key 指向的 value “深度”相等&lt;/p&gt;&#xA;&lt;p&gt;直接将使用 &lt;code&gt;map1 == map2&lt;/code&gt; 是&lt;code&gt;错误&lt;/code&gt;的。这种写法只能比较 map 是否为 nil。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_008</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_008/</link>
+      <pubDate>Fri, 06 Dec 2024 19:40:52 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_008/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;如何确认两个 map 是否相等？&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;map 深度相等的条件：&lt;/p&gt;&#xA;&lt;p&gt;都为 nil&#xA;非空、长度相等，指向同一个 map 实体对象&#xA;相应的 key 指向的 value “深度”相等&lt;/p&gt;&#xA;&lt;p&gt;直接将使用 &lt;code&gt;map1 == map2&lt;/code&gt; 是&lt;code&gt;错误&lt;/code&gt;的。这种写法只能比较 map 是否为 nil。&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

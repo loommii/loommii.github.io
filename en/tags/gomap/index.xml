@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gomap - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/gomap/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 04 Aug 2026 00:55:54 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/gomap/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 20250609</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250609/</link>
+      <pubDate>Mon, 09 Jun 2025 11:37:59 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250609/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output value of &lt;code&gt;counter&lt;/code&gt; in the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;&#x9;var m = map[string]int{&#xA;&#x9;&#x9;&amp;#34;A&amp;#34;: 21,&#xA;&#x9;&#x9;&amp;#34;B&amp;#34;: 22,&#xA;&#x9;&#x9;&amp;#34;C&amp;#34;: 23,&#xA;&#x9;}&#xA;&#x9;counter := 0&#xA;&#x9;for k, v := range m {&#xA;&#x9;&#x9;if counter == 0 {&#xA;&#x9;&#x9;&#x9;delete(m, &amp;#34;A&amp;#34;)&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;counter&amp;#43;&amp;#43;&#xA;&#x9;&#x9;fmt.Println(k, v)&#xA;&#x9;}&#xA;&#x9;fmt.Println(&amp;#34;counter is &amp;#34;, counter)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. 2&lt;/li&gt;&#xA;&lt;li&gt;B. 3&lt;/li&gt;&#xA;&lt;li&gt;C. 2 or 3&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;C&#xA;&lt;a href=&#34;https://go.dev/play/p/-OKOFSeE6GS&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Go Online Run&lt;/a&gt;&#xA;The iteration order of &lt;code&gt;for range map&lt;/code&gt; is unordered. If &lt;code&gt;A&lt;/code&gt; is encountered in the first iteration, the output is 3; otherwise, it is 2.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 20250529</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250529/</link>
+      <pubDate>Thu, 29 May 2025 12:27:56 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250529/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;type Math struct {&#xA;&#x9;x, y int&#xA;}&#xA;&#xA;var m = map[string]Math{&#xA;&#x9;&amp;#34;foo&amp;#34;: Math{2, 3},&#xA;}&#xA;&#xA;func main() {&#xA;&#x9;m[&amp;#34;foo&amp;#34;].x = 4&#xA;&#x9;fmt.Println(m[&amp;#34;foo&amp;#34;].x)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. 4&#xA;B. compilation error&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Reference answer and explanation: B, compilation error &lt;code&gt;cannot assign to struct field m[&amp;quot;foo&amp;quot;].x in map&lt;/code&gt;. Reason for error: For an assignment operation similar to &lt;code&gt;X = Y&lt;/code&gt;, the address of &lt;code&gt;X&lt;/code&gt; must be known to assign the value of &lt;code&gt;Y&lt;/code&gt; to &lt;code&gt;X&lt;/code&gt;, but the value of a map itself in Go is not addressable.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 20250525</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250525/</link>
+      <pubDate>Sun, 25 May 2025 12:23:32 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250525/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Is map thread-safe? How to implement a thread-safe map?&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;It is not concurrently safe. For scenarios with concurrent map writes, you can use the official &lt;code&gt;sync.Map&lt;/code&gt;. If implementing it yourself, use locks or serialize access through channels.&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 20250521</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250521/</link>
+      <pubDate>Wed, 21 May 2025 15:28:59 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250521/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;&#x9;&amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;&#x9;m := map[int]string{0: &amp;#34;zero&amp;#34;, 1: &amp;#34;one&amp;#34;}&#xA;&#x9;for k, v := range m {&#xA;&#x9;&#x9;fmt.Println(k, v)&#xA;&#x9;}&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer Analysis:&#xA;Reference Answer and Analysis:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;0 zero&#xA;1 one&#xA;// Or&#xA;1 one&#xA;0 zero&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/9oYfWSMuJBr&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;The output of a map is unordered.&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 198</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_198/</link>
+      <pubDate>Thu, 27 Feb 2025 02:02:47 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_198/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;How to check if two maps are equal?&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Conditions for deep equality of maps:&lt;/p&gt;&#xA;&lt;p&gt;Both are nil&#xA;Non-empty, equal length, pointing to the same map entity object&#xA;Corresponding keys point to &amp;ldquo;deeply&amp;rdquo; equal values&lt;/p&gt;&#xA;&lt;p&gt;Directly using &lt;code&gt;map1 == map2&lt;/code&gt; is &lt;code&gt;incorrect&lt;/code&gt;. This syntax can only compare if a map is nil.&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;    var m map[string]int&#xA;    var n map[string]int&#xA;&#xA;    fmt.Println(m == nil)&#xA;    fmt.Println(n == nil)&#xA;&#xA;    // Does not compile&#xA;    //fmt.Println(m == n)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Solution 1: Iteration (more cumbersome)&#xA;Iterate through each element of the map and compare if all elements are deeply equal.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 197</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_197/</link>
+      <pubDate>Wed, 26 Feb 2025 01:01:24 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_197/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;    m := make(map[string]int)&#xA;    m[&amp;#34;qcrao&amp;#34;] = 1&#xA;    fmt.Println(&amp;amp;m[&amp;#34;qcrao&amp;#34;])&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;No.&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;./prog.go:8:15: invalid operation: cannot take address of m[&amp;#34;qcrao&amp;#34;] (map index expression of type int)&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/4W5-rMuIiYI&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&#xA;The address of a map element cannot be taken directly.&#xA;Once a map expands, the positions of keys and values change, and previously saved addresses become invalid.&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 196</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_196/</link>
+      <pubDate>Tue, 25 Feb 2025 00:52:39 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_196/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;    m := make(map[string]int)&#xA;    fmt.Println(&amp;amp;m[&amp;#34;qcrao&amp;#34;])&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;No.&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;./prog.go:8:15: invalid operation: cannot take address of m[&amp;#34;qcrao&amp;#34;] (map index expression of type int)&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/F-dYKNEFmvp&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&#xA;The address of a map element cannot be taken directly.&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 194</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_194/</link>
+      <pubDate>Sun, 23 Feb 2025 13:00:00 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_194/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Can Go maps be iterated over and deleted from concurrently?&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;This question needs to be analyzed based on different scenarios.&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;If in different goroutines, a map cannot be iterated over and deleted from concurrently. A map is not a thread-safe data structure. Simultaneously reading and writing to a map is undefined behavior, and if detected, it will directly panic.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;If in the same goroutine, a map can be iterated over and deleted from concurrently:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 192</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_192/</link>
+      <pubDate>Fri, 21 Feb 2025 00:46:16 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_192/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;When iterating over a map, we find that the output keys are unordered. Why?&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;The fundamental reason why the output keys are unordered is that when traversing a map, it doesn&amp;rsquo;t always start traversing from bucket #0. Instead, it starts from a randomly numbered bucket, and from a randomly numbered cell within that bucket.&#xA;This random starting point was introduced starting from Go 1.0.&#xA;Why introduce random seeding? Because in older versions, if no reallocation occurred, the iteration order was fixed. However, after reallocation, the iteration order would become non-deterministic. This could lead to ambiguity.&#xA;During reallocation, keys that were originally in the same bucket might be distributed to different buckets, causing the iteration order to change.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 181</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_181/</link>
+      <pubDate>Mon, 10 Feb 2025 21:03:10 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_181/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output value of &lt;code&gt;counter&lt;/code&gt; in the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;    var m = map[string]int{&#xA;        &amp;#34;A&amp;#34;: 21,&#xA;        &amp;#34;B&amp;#34;: 22,&#xA;        &amp;#34;C&amp;#34;: 23,&#xA;    }&#xA;    counter := 0&#xA;    for k, v := range m {&#xA;        if counter == 0 {&#xA;            delete(m, &amp;#34;A&amp;#34;)&#xA;        }&#xA;        counter&amp;#43;&amp;#43;&#xA;        fmt.Println(k, v)&#xA;    }&#xA;    fmt.Println(&amp;#34;counter is &amp;#34;, counter)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. 2&lt;/li&gt;&#xA;&lt;li&gt;B. 3&lt;/li&gt;&#xA;&lt;li&gt;C. 2 or 3&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;C&#xA;&lt;a href=&#34;https://go.dev/play/p/-OKOFSeE6GS&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Go Online Run&lt;/a&gt;&#xA;The iteration order of &lt;code&gt;for range map&lt;/code&gt; is unordered. If &lt;code&gt;A&lt;/code&gt; is encountered in the first iteration, the output is 3; otherwise, it is 2.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 142</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_142/</link>
+      <pubDate>Wed, 25 Dec 2024 00:24:33 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_142/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;       var s map[string]int&#xA;       delete(s, &amp;#34;h&amp;#34;)&#xA;       fmt.Println(s[&amp;#34;h&amp;#34;])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. runtime panic&lt;/li&gt;&#xA;&lt;li&gt;B. 0&lt;/li&gt;&#xA;&lt;li&gt;C. compilation error&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;B&#xA;&lt;a href=&#34;https://go.dev/play/p/rfK0pIKBRRx&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Using &lt;code&gt;delete&lt;/code&gt; on an uninitialized map (not made with &lt;code&gt;make&lt;/code&gt;) will not cause an error.&lt;/li&gt;&#xA;&lt;li&gt;Accessing an uninitialized map returns the zero value corresponding to the value type.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 class=&#34;heading-element&#34; id=&#34;extension&#34;&gt;&lt;span&gt;Extension&lt;/span&gt;&#xA;  &lt;a href=&#34;#extension&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h4&gt;&lt;p&gt;Assigning to an uninitialized map will cause a panic.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 141</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_141/</link>
+      <pubDate>Wed, 25 Dec 2024 00:09:11 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_141/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    s := make(map[string]int)&#xA;    delete(s, &amp;#34;h&amp;#34;)&#xA;    fmt.Println(s[&amp;#34;h&amp;#34;])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. runtime panic&lt;/li&gt;&#xA;&lt;li&gt;B. 0&lt;/li&gt;&#xA;&lt;li&gt;C. compilation error&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;B&#xA;&lt;a href=&#34;https://go.dev/play/p/uvHvPF8EdU-&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&#xA;Deleting a non-existent key does not cause a panic.&lt;/p&gt;&#xA;&lt;h4 class=&#34;heading-element&#34; id=&#34;extended-question&#34;&gt;&lt;span&gt;Extended Question&lt;/span&gt;&#xA;  &lt;a href=&#34;#extended-question&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h4&gt;&lt;p&gt;In this problem, &lt;code&gt;s&lt;/code&gt; is already initialized. Would the behavior be the same if it were uninitialized?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go: Are Maps Concurrency-Safe?</title>
+      <link>https://loommii.github.io/en/posts/is_go_map_concurrently_safe/</link>
+      <pubDate>Mon, 16 Dec 2024 20:06:16 +0800</pubDate>
+      <guid>https://loommii.github.io/en/posts/is_go_map_concurrently_safe/</guid>
+      <category domain="https://loommii.github.io/en/categories/techarticle/">TechArticle</category>
+      <description>&lt;h2 class=&#34;heading-element&#34; id=&#34;conclusion&#34;&gt;&lt;span&gt;Conclusion&lt;/span&gt;&#xA;  &lt;a href=&#34;#conclusion&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;p&gt;Concurrent reads are safe, but concurrent writes are not safe.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go: Why Are Maps Unordered?</title>
+      <link>https://loommii.github.io/en/posts/why_is_go_map_unordered/</link>
+      <pubDate>Mon, 16 Dec 2024 19:47:30 +0800</pubDate>
+      <guid>https://loommii.github.io/en/posts/why_is_go_map_unordered/</guid>
+      <category domain="https://loommii.github.io/en/categories/techarticle/">TechArticle</category>
+      <description>Detailed explanation of why Map is unordered in Go.</description>
+    </item>
+    <item>
+      <title>Go: What Happens with Uninitialized Slice and Map Operations?</title>
+      <link>https://loommii.github.io/en/posts/what_happens_if_go_map_slice_is_not_initialized/</link>
+      <pubDate>Mon, 16 Dec 2024 19:03:04 +0800</pubDate>
+      <guid>https://loommii.github.io/en/posts/what_happens_if_go_map_slice_is_not_initialized/</guid>
+      <category domain="https://loommii.github.io/en/categories/techarticle/">TechArticle</category>
+      <description>Detailed explanation of the behavior and impact of uninitialized slice and map operations in Go.</description>
+    </item>
+    <item>
+      <title>Go Daily Question 132</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_132/</link>
+      <pubDate>Sun, 15 Dec 2024 13:02:42 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_132/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type person struct {  &#xA;    name string&#xA;}&#xA;&#xA;func main() {  &#xA;    var m map[person]int&#xA;    p := person{&amp;#34;mike&amp;#34;}&#xA;    fmt.Println(m[p])&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: 0&lt;/p&gt;&#xA;&lt;p&gt;Uninitialized map: reads zero value, writes panic.&lt;/p&gt;&#xA;&lt;p&gt;Run online:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Reading from an uninitialized map: &lt;a href=&#34;https://go.dev/play/p/yVjXasOREaH&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://go.dev/play/p/yVjXasOREaH&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Writing to an uninitialized map: &lt;a href=&#34;https://go.dev/play/p/2zmJGtrH-8v&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://go.dev/play/p/2zmJGtrH-8v&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Writing to an initialized map: &lt;a href=&#34;https://go.dev/play/p/eUh6csag8rh&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://go.dev/play/p/eUh6csag8rh&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 105</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_105/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:44 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_105/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output value of &lt;code&gt;counter&lt;/code&gt; in the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    var m = map[string]int{&#xA;        &amp;#34;A&amp;#34;: 21,&#xA;        &amp;#34;B&amp;#34;: 22,&#xA;        &amp;#34;C&amp;#34;: 23,&#xA;    }&#xA;    counter := 0&#xA;    for k, v := range m {&#xA;        if counter == 0 {&#xA;            delete(m, &amp;#34;A&amp;#34;)&#xA;        }&#xA;        counter&amp;#43;&amp;#43;&#xA;        fmt.Println(k, v)&#xA;    }&#xA;    fmt.Println(&amp;#34;counter is &amp;#34;, counter)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. 2&lt;/li&gt;&#xA;&lt;li&gt;B. 3&lt;/li&gt;&#xA;&lt;li&gt;C. 2 or 3&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;C&#xA;Maps are reference types and will affect the original map.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 094</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_094/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:22 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_094/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Math struct {&#xA;    x, y int&#xA;}&#xA;&#xA;var m = map[string]Math{&#xA;    &amp;#34;foo&amp;#34;: Math{2, 3},&#xA;}&#xA;&#xA;func main() {&#xA;    m[&amp;#34;foo&amp;#34;].x = 4&#xA;    fmt.Println(m[&amp;#34;foo&amp;#34;].x)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. 4&#xA;B. compilation error&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Reference answer and explanation: B, compilation error &amp;ldquo;cannot assign to struct field m[&amp;ldquo;foo&amp;rdquo;].x in map&amp;rdquo;. The reason for the error is that for an assignment operation like &lt;code&gt;X = Y&lt;/code&gt;, the address of &lt;code&gt;X&lt;/code&gt; must be known to assign the value of &lt;code&gt;Y&lt;/code&gt; to &lt;code&gt;X&lt;/code&gt;. However, in Go, the value of a map itself is not addressable.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 086</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_086/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:12 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_086/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    m := map[int]string{0:&amp;#34;zero&amp;#34;,1:&amp;#34;one&amp;#34;}&#xA;    for k,v := range m {&#xA;        fmt.Println(k,v)&#xA;    }&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;0 zero&#xA;1 one&#xA;// Or&#xA;1 one&#xA;0 zero&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The output of a map is unordered.&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 066</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_066/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:48 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_066/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;How should A and B in the following code be modified to compile successfully?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    var m map[string]int        //A&#xA;    m[&amp;#34;a&amp;#34;] = 1&#xA;    if v := m[&amp;#34;b&amp;#34;]; v != nil {  //B&#xA;        fmt.Println(v)&#xA;    }&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;func main() {&#xA;    m := make(map[string]int)&#xA;    m[&amp;#34;a&amp;#34;] = 1&#xA;    if v,ok := m[&amp;#34;b&amp;#34;]; ok {&#xA;        fmt.Println(v)&#xA;    }&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;At point A, &lt;code&gt;map m&lt;/code&gt; is only declared, but no memory space is allocated. It cannot be directly assigned. &lt;code&gt;make()&lt;/code&gt; needs to be used. It is generally recommended to initialize maps directly using &lt;code&gt;make()&lt;/code&gt; or a literal.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 050</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_050/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:29 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_050/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {  &#xA;    s := make(map[string]int)&#xA;    delete(s, &amp;#34;h&amp;#34;)&#xA;    fmt.Println(s[&amp;#34;h&amp;#34;])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. runtime panic&#xA;B. 0&#xA;C. compilation error&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;B 0&#xA;Deleting a non-existent key will not cause a panic.&#xA;Outputting a non-existent key will return the zero value of its type.&lt;/p&gt;&#xA;&lt;p&gt;Extension:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    var s map[string]int&#xA;    delete(s, &amp;#34;h&amp;#34;)&#xA;    s[&amp;#34;h&amp;#34;] = 1&#xA;    fmt.Println(s[&amp;#34;h&amp;#34;])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Deleting from a nil map will also not panic.&#xA;However, writing to a nil map will panic.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 040</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_040/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:17 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_040/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type person struct {  &#xA;    name string&#xA;}&#xA;&#xA;func main() {  &#xA;    var m map[person]int&#xA;    p := person{&amp;#34;mike&amp;#34;}&#xA;    fmt.Println(m[p])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A.0&#xA;B.1&#xA;C.Compilation error&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: A 0&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;m&lt;/code&gt; is a map, and its value is &lt;code&gt;nil&lt;/code&gt;. Getting a value from a &lt;code&gt;nil&lt;/code&gt; map will not cause an error; instead, it returns the corresponding zero value. Here, the value is of type &lt;code&gt;int&lt;/code&gt;, so it returns 0.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 026</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_026/</link>
+      <pubDate>Fri, 06 Dec 2024 19:49:56 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_026/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;type Student struct {&#xA;    Name string&#xA;}&#xA;&#xA;var list map[string]Student&#xA;&#xA;func main() {&#xA;&#xA;    list = make(map[string]Student)&#xA;&#xA;    student := Student{&amp;#34;Aceld&amp;#34;}&#xA;&#xA;    list[&amp;#34;student&amp;#34;] = student&#xA;    list[&amp;#34;student&amp;#34;].Name = &amp;#34;LDB&amp;#34;&#xA;&#xA;    fmt.Println(list[&amp;#34;student&amp;#34;])&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: Compilation fails.&#xA;The value of &lt;code&gt;map[string]Student&lt;/code&gt; is a &lt;code&gt;Student&lt;/code&gt; struct value, so when &lt;code&gt;list[&amp;quot;student&amp;quot;] = student&lt;/code&gt;, it&amp;rsquo;s a value copy process. However, &lt;code&gt;list[&amp;quot;student&amp;quot;]&lt;/code&gt; then becomes a value reference. The characteristic of a value reference is that it is &lt;code&gt;read-only&lt;/code&gt;. Therefore, modifying &lt;code&gt;list[&amp;quot;student&amp;quot;].Name = &amp;quot;LDB&amp;quot;&lt;/code&gt; is not allowed.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 003</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_003/</link>
+      <pubDate>Fri, 06 Dec 2024 19:40:53 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_003/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Why are map keys unordered?&lt;/p&gt;&#xA;&lt;p&gt;When iterating over a map, we find that the output keys are unordered. Why is that?&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;After Go &amp;lt;= 1.0, iterating over a map results in unordered keys.&#xA;This is due to the implementation principle of Golang maps. During resizing, a map points to new buckets, but it does not immediately migrate all entries; instead, it points to both new and old buckets. Iterating over a map essentially iterates over these two sets of buckets. However, if resizing occurs, the key positions change, leading to different iteration results.&#xA;Before Go &amp;gt; 1.0, iterating over a map was ordered when not resizing, and unordered after resizing. To unify this, Go &amp;gt;= 1.0 introduced random seeding for map iteration, making the iteration unordered.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 007</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_007/</link>
+      <pubDate>Fri, 06 Dec 2024 19:40:52 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_007/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;    m := make(map[string]int)&#xA;&#xA;    fmt.Println(&amp;amp;m[&amp;#34;qcrao&amp;#34;])&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: No, it will cause a compilation error.&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;.\main.go:8:15: invalid operation: cannot take address of m[&amp;ldquo;qcrao&amp;rdquo;] (map index expression of type int)&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;Analysis:&#xA;This question is equivalent to asking: can you directly take the address of a map&amp;rsquo;s element?&lt;/p&gt;&#xA;&lt;p&gt;Key takeaway: &lt;code&gt;You cannot directly take the address of a map&#39;s key or value.&lt;/code&gt; Even if you obtain the address of a key or value through other &amp;ldquo;hacky&amp;rdquo; methods, such as &lt;code&gt;unsafe.Pointer&lt;/code&gt;, you cannot hold it long-term because once the map resizes, the positions of keys and values change, and the previously saved addresses become invalid.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 008</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_008/</link>
+      <pubDate>Fri, 06 Dec 2024 19:40:52 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_008/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;How to check if two maps are equal?&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Conditions for deep equality of maps:&lt;/p&gt;&#xA;&lt;p&gt;Both are nil&#xA;Non-empty, equal length, pointing to the same map entity object&#xA;Corresponding keys point to &amp;ldquo;deeply&amp;rdquo; equal values&lt;/p&gt;&#xA;&lt;p&gt;Directly using &lt;code&gt;map1 == map2&lt;/code&gt; is &lt;code&gt;incorrect&lt;/code&gt;. This syntax can only compare if a map is nil.&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;    var m map[string]int&#xA;    var n map[string]int&#xA;&#xA;    fmt.Println(m == nil)&#xA;    fmt.Println(n == nil)&#xA;&#xA;    // Does not compile&#xA;    //fmt.Println(m == n)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Solution 1: Iteration (more cumbersome)&#xA;Iterate through each element of the map and compare if all elements are deeply equal.&#xA;Solution 2: Reflection&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 017</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_017/</link>
+      <pubDate>Fri, 06 Dec 2024 18:34:52 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_017/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile? Why or why not?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;&#xA;    sn1 := struct {&#xA;        age  int&#xA;        name string&#xA;    }{age: 11, name: &amp;#34;qq&amp;#34;}&#xA;&#xA;    sn2 := struct {&#xA;        age  int&#xA;        name string&#xA;    }{age: 11, name: &amp;#34;qq&amp;#34;}&#xA;&#xA;    if sn1 == sn2 {&#xA;        fmt.Println(&amp;#34;sn1 == sn2&amp;#34;)&#xA;    }&#xA;&#xA;    sm1 := struct {&#xA;        age int&#xA;        m   map[string]string&#xA;    }{age: 11, m: map[string]string{&amp;#34;a&amp;#34;: &amp;#34;1&amp;#34;}}&#xA;&#xA;    sm2 := struct {&#xA;        age int&#xA;        m   map[string]string&#xA;    }{age: 11, m: map[string]string{&amp;#34;a&amp;#34;: &amp;#34;1&amp;#34;}}&#xA;&#xA;    if sm1 == sm2 {&#xA;        fmt.Println(&amp;#34;sm1 == sm2&amp;#34;)&#xA;    }&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: Cannot compile.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

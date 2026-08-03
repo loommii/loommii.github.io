@@ -1,190 +1,119 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Go数组 - 标签 - loommii</title>
-        <link>https://loommii.github.io/zh-cn/tags/go%E6%95%B0%E7%BB%84/</link>
-        <description>Go数组 - 标签 - loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 05 Jun 2025 11:16:20 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/go%E6%95%B0%E7%BB%84/" rel="self" type="application/rss+xml" /><item>
-    <title>Go每日一题_20250605</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250605/</link>
-    <pubDate>Thu, 05 Jun 2025 11:16:20 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250605/</guid>
-    <description><![CDATA[<p>下面这段代码输出什么？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">	<span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">a</span> <span class="p">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="kd">var</span> <span class="nx">r</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">12</span>
-</span></span><span class="line"><span class="cl">			<span class="nx">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="mi">13</span>
-</span></span><span class="line"><span class="cl">		<span class="p">}</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">v</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;r = &#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a = &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">r</span> <span class="p">=</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="p">=</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span></span></span></code></pre></div></div>
-<p><a href="https://go.dev/play/p/rUJZHJQLR1b" target="_blank" rel="noopener noreffer ">Go在线运行</a></p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_20250531</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250531/</link>
-    <pubDate>Sat, 31 May 2025 11:36:42 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250531/</guid>
-    <description><![CDATA[<p>下面的代码有什么问题？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">([</span><span class="o">...</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="o">==</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">})</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">([]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">}</span> <span class="o">==</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">})</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>有两处错误</p>
-<p>go 中不同类型是不能比较的，而数组长度是数组类型的一部分，所以 [&hellip;]int{1} 和 [2]int{1} 是两种不同的类型，不能比较；
-切片是不能比较的；</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_214</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_214/</link>
-    <pubDate>Sat, 12 Apr 2025 11:40:26 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_214/</guid>
-    <description><![CDATA[<p>unc main() {
-a := [2]int{5, 6}
-b := [3]int{5, 6}
-if a == b {
-fmt.Println(&ldquo;equal&rdquo;)
-} else {
-fmt.Println(&ldquo;not equal&rdquo;)
-}
-}</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><pre tabindex="0"><code>
-- A. compilation error
-- B. equal
-- C. not equal
-
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p><a href="https://go.dev/play/p/rNBNzx3dOUY" target="_blank" rel="noopener noreffer ">在线运行</a>
-A  [2]int 和 [3]int 在Go中是不同的类型 不能通过 == 运算符对比</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_186</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_186/</link>
-    <pubDate>Sat, 15 Feb 2025 23:23:41 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_186/</guid>
-    <description><![CDATA[<p>数组和切片的区别</p>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <ol>
-<li>从结构上对比：切片的的结构是由长度、容量、底层数组这3部分组成的。数组的结构是一段连续连续的内存。</li>
-<li>从功能上对比：切片是相对灵活的支持容量的动态地扩容。数组的容量的固定不变的。</li>
-<li>从限制上对比：相同类型且容量相同的数组是可以通过==运算符对比的，而切片则不行。</li>
-</ol>
-<p>常考资料 🔗:<a href="https://golang.design/go-questions/slice/vs-array/" target="_blank" rel="noopener noreffer ">数组和切片有什么不同</a></p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_177</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_177/</link>
-    <pubDate>Thu, 06 Feb 2025 00:45:26 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_177/</guid>
-    <description><![CDATA[<p>下面这段代码输出什么？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">       <span class="kd">var</span> <span class="nx">a</span> <span class="p">=</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">       <span class="kd">var</span> <span class="nx">r</span> <span class="p">[</span><span class="mi">5</span><span class="p">]</span><span class="kt">int</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">       <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">a</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">              <span class="k">if</span> <span class="nx">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                     <span class="nx">a</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="p">=</span> <span class="mi">12</span>
-</span></span><span class="line"><span class="cl">                     <span class="nx">a</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="p">=</span> <span class="mi">13</span>
-</span></span><span class="line"><span class="cl">              <span class="p">}</span>
-</span></span><span class="line"><span class="cl">              <span class="nx">r</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span> <span class="p">=</span> <span class="nx">v</span>
-</span></span><span class="line"><span class="cl">       <span class="p">}</span>
-</span></span><span class="line"><span class="cl">       <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;r = &#34;</span><span class="p">,</span> <span class="nx">r</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">       <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a = &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">r</span> <span class="p">=</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">2</span> <span class="mi">3</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="p">=</span>  <span class="p">[</span><span class="mi">1</span> <span class="mi">12</span> <span class="mi">13</span> <span class="mi">4</span> <span class="mi">5</span><span class="p">]</span></span></span></code></pre></div></div>
-<p><a href="https://go.dev/play/p/rUJZHJQLR1b" target="_blank" rel="noopener noreffer ">Go在线运行</a></p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_138</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_138/</link>
-    <pubDate>Sun, 22 Dec 2024 12:52:47 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_138/</guid>
-    <description><![CDATA[<p>下面这段代码输出什么？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">a</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">2</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">b</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="nx">a</span> <span class="o">==</span> <span class="nx">b</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;equal&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;not equal&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<ul>
-<li>A. compilation error</li>
-<li>B. equal</li>
-<li>C. not equal</li>
-</ul>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p><a href="https://go.dev/play/p/rNBNzx3dOUY" target="_blank" rel="noopener noreffer ">在线运行</a>
-A  [2]int 和 [3]int 在Go中是不同的类型 不能通过 == 运算符对比</p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go数组 - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/go%E6%95%B0%E7%BB%84/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/go%E6%95%B0%E7%BB%84/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_20250605</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250605/</link>
+      <pubDate>Thu, 05 Jun 2025 11:16:20 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250605/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;&#x9;&amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;&#x9;var a = [5]int{1, 2, 3, 4, 5}&#xA;&#x9;var r [5]int&#xA;&#xA;&#x9;for i, v := range a {&#xA;&#x9;&#x9;if i == 0 {&#xA;&#x9;&#x9;&#x9;a[1] = 12&#xA;&#x9;&#x9;&#x9;a[2] = 13&#xA;&#x9;&#x9;}&#xA;&#x9;&#x9;r[i] = v&#xA;&#x9;}&#xA;&#x9;fmt.Println(&amp;#34;r = &amp;#34;, r)&#xA;&#x9;fmt.Println(&amp;#34;a = &amp;#34;, a)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;r =  [1 2 3 4 5]&#xA;a =  [1 12 13 4 5]&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/rUJZHJQLR1b&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Go在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_20250531</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250531/</link>
+      <pubDate>Sat, 31 May 2025 11:36:42 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250531/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面的代码有什么问题？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    fmt.Println([...]int{1} == [2]int{1})&#xA;    fmt.Println([]int{1} == []int{1})&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;有两处错误&lt;/p&gt;&#xA;&lt;p&gt;go 中不同类型是不能比较的，而数组长度是数组类型的一部分，所以 [&amp;hellip;]int{1} 和 [2]int{1} 是两种不同的类型，不能比较；&#xA;切片是不能比较的；&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_214</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_214/</link>
+      <pubDate>Sat, 12 Apr 2025 11:40:26 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_214/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;unc main() {&#xA;a := [2]int{5, 6}&#xA;b := [3]int{5, 6}&#xA;if a == b {&#xA;fmt.Println(&amp;ldquo;equal&amp;rdquo;)&#xA;} else {&#xA;fmt.Println(&amp;ldquo;not equal&amp;rdquo;)&#xA;}&#xA;}&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;&#xA;- A. compilation error&#xA;- B. equal&#xA;- C. not equal&#xA;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/rNBNzx3dOUY&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&#xA;A  [2]int 和 [3]int 在Go中是不同的类型 不能通过 == 运算符对比&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_186</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_186/</link>
+      <pubDate>Sat, 15 Feb 2025 23:23:41 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_186/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;数组和切片的区别&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;ol&gt;&#xA;&lt;li&gt;从结构上对比：切片的的结构是由长度、容量、底层数组这3部分组成的。数组的结构是一段连续连续的内存。&lt;/li&gt;&#xA;&lt;li&gt;从功能上对比：切片是相对灵活的支持容量的动态地扩容。数组的容量的固定不变的。&lt;/li&gt;&#xA;&lt;li&gt;从限制上对比：相同类型且容量相同的数组是可以通过==运算符对比的，而切片则不行。&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;p&gt;常考资料 🔗:&lt;a href=&#34;https://golang.design/go-questions/slice/vs-array/&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;数组和切片有什么不同&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_177</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_177/</link>
+      <pubDate>Thu, 06 Feb 2025 00:45:26 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_177/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;       var a = [5]int{1, 2, 3, 4, 5}&#xA;       var r [5]int&#xA;&#xA;       for i, v := range a {&#xA;              if i == 0 {&#xA;                     a[1] = 12&#xA;                     a[2] = 13&#xA;              }&#xA;              r[i] = v&#xA;       }&#xA;       fmt.Println(&amp;#34;r = &amp;#34;, r)&#xA;       fmt.Println(&amp;#34;a = &amp;#34;, a)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;r =  [1 2 3 4 5]&#xA;a =  [1 12 13 4 5]&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/rUJZHJQLR1b&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Go在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_138</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_138/</link>
+      <pubDate>Sun, 22 Dec 2024 12:52:47 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_138/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    a := [2]int{5, 6}&#xA;    b := [3]int{5, 6}&#xA;    if a == b {&#xA;        fmt.Println(&amp;#34;equal&amp;#34;)&#xA;    } else {&#xA;        fmt.Println(&amp;#34;not equal&amp;#34;)&#xA;    }&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. compilation error&lt;/li&gt;&#xA;&lt;li&gt;B. equal&lt;/li&gt;&#xA;&lt;li&gt;C. not equal&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/rNBNzx3dOUY&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&#xA;A  [2]int 和 [3]int 在Go中是不同的类型 不能通过 == 运算符对比&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go: slice(切片) 和array(数组) 的区别</title>
+      <link>https://loommii.github.io/zh-cn/posts/difference_between_go_slice_and_array/</link>
+      <pubDate>Mon, 16 Dec 2024 16:10:18 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/posts/difference_between_go_slice_and_array/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      <description>详解Go语言中slice(切片)和array(数组)的区别</description>
+    </item>
+    <item>
+      <title>Go每日一题_101</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_101/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:39 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_101/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    var a = [5]int{1, 2, 3, 4, 5}&#xA;    var r [5]int&#xA;&#xA;    for i, v := range a {&#xA;        if i == 0 {&#xA;            a[1] = 12&#xA;            a[2] = 13&#xA;        }&#xA;        r[i] = v&#xA;    }&#xA;    fmt.Println(&amp;#34;r = &amp;#34;, r)&#xA;    fmt.Println(&amp;#34;a = &amp;#34;, a)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;r =  [1 2 3 4 5]&#xA;a =  [1 12 13 4 5]&#xA;range 表达式是副本参与循环，就是说例子中参与循环的是 a 的副本，而不是真正的 a。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_096</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_096/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:24 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_096/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面的代码有什么问题？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    fmt.Println([...]int{1} == [2]int{1})&#xA;    fmt.Println([]int{1} == []int{1})&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;有两处错误&lt;/p&gt;&#xA;&lt;p&gt;go 中不同类型是不能比较的，而数组长度是数组类型的一部分，所以 [&amp;hellip;]int{1} 和 [2]int{1} 是两种不同的类型，不能比较；&#xA;切片是不能比较的；&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_048</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_048/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:27 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_048/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>Go语言每日一题系列 - Go每日一题_048 解析</description>
+    </item>
+    <item>
+      <title>Go每日一题_047</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_047/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:26 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_047/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    a := [2]int{5, 6}&#xA;    b := [3]int{5, 6}&#xA;    if a == b {&#xA;        fmt.Println(&amp;#34;equal&amp;#34;)&#xA;    } else {&#xA;        fmt.Println(&amp;#34;not equal&amp;#34;)&#xA;    }&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. compilation error&#xA;B. equal&#xA;C. not equal&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;A&#xA;只有同容量，同类型的数组才能比较&lt;/p&gt;&#xA;&lt;/details&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_046</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_046/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:24 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_046/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (  &#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func main() {  &#xA;    a := [5]int{1, 2, 3, 4, 5}&#xA;    t := a[3:4:4]&#xA;    fmt.Println(t[0])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A.3&#xA;B.4&#xA;C.compilation error&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;答B&#xA;解析 t := a[3:4:4]&#xA;基于a切片生成一个新切片t ,该t的起始指向a[3]的位置,到a[4]停止&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

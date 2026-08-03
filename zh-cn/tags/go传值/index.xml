@@ -1,37 +1,57 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Go传值 - 标签 - loommii</title>
-        <link>https://loommii.github.io/zh-cn/tags/go%E4%BC%A0%E5%80%BC/</link>
-        <description>Go传值 - 标签 - loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 16 Dec 2024 13:37:34 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/go%E4%BC%A0%E5%80%BC/" rel="self" type="application/rss+xml" /><item>
-    <title>Go每日一题_133</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_133/</link>
-    <pubDate>Mon, 16 Dec 2024 13:37:34 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_133/</guid>
-    <description><![CDATA[<p>下面这段代码输出什么？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">hello</span><span class="p">(</span><span class="nx">num</span> <span class="o">...</span><span class="kt">int</span><span class="p">)</span> <span class="p">{</span>  
-</span></span><span class="line"><span class="cl">    <span class="nx">num</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="p">=</span> <span class="mi">18</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>  
-</span></span><span class="line"><span class="cl">    <span class="nx">i</span> <span class="o">:=</span> <span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">hello</span><span class="p">(</span><span class="nx">i</span><span class="o">...</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>A.18
-B.5
-C.Compilation error</p>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>答 18</p>
-<p>Go参数go只有值传递,函数调用每次都会创建一个新的副本，副本的值=原来的值。
-&hellip;int 本质上是个切片。切片的结构是 <code>cap lan 底层数组指针</code></p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go传值 - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/go%E4%BC%A0%E5%80%BC/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/go%E4%BC%A0%E5%80%BC/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_147</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_147/</link>
+      <pubDate>Mon, 30 Dec 2024 20:54:49 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_147/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;       &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func hello(i int) {&#xA;       fmt.Println(i)&#xA;}&#xA;func main() {&#xA;       i := 5&#xA;       defer hello(i)&#xA;       i = i &amp;#43; 10&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;5&#xA;&lt;a href=&#34;https://go.dev/play/p/hMcMm9tJw2k&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&#xA;Go传递只有值传递&lt;br&gt;&#xA;运行到defer hello(i)的时候就已经确定i的值了&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_133</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_133/</link>
+      <pubDate>Mon, 16 Dec 2024 13:37:34 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_133/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func hello(num ...int) {  &#xA;    num[0] = 18&#xA;}&#xA;&#xA;func main() {  &#xA;    i := []int{5, 6, 7}&#xA;    hello(i...)&#xA;    fmt.Println(i[0])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A.18&#xA;B.5&#xA;C.Compilation error&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;答 18&lt;/p&gt;&#xA;&lt;p&gt;Go参数go只有值传递,函数调用每次都会创建一个新的副本，副本的值=原来的值。&#xA;&amp;hellip;int 本质上是个切片。切片的结构是 &lt;code&gt;cap lan 底层数组指针&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_103</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_103/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:42 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_103/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    var a = []int{1, 2, 3, 4, 5}&#xA;    var r [5]int&#xA;&#xA;    for i, v := range a {&#xA;        if i == 0 {&#xA;            a[1] = 12&#xA;            a[2] = 13&#xA;        }&#xA;        r[i] = v&#xA;    }&#xA;    fmt.Println(&amp;#34;r = &amp;#34;, r)&#xA;    fmt.Println(&amp;#34;a = &amp;#34;, a)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;r =  [1 12 13 4 5]&#xA;a =  [1 12 13 4 5]&#xA;rang a 实际是在变量a的副本。由于切片的结构，这2个切片都会指向同一个底层数组。因此改动    a[1] = 12 ， a[2] = 13 会影响v的结构&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_055</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_055/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:35 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_055/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func hello(i int) {  &#xA;    fmt.Println(i)&#xA;}&#xA;func main() {  &#xA;    i := 5&#xA;    defer hello(i)&#xA;    i = i &amp;#43; 10&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;答 5&#xA;hello() 函数的参数在执行 defer 语句的时候会保存一份副本，在实际调用 hello() 函数时用，所以是 5.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_041</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_041/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:18 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_041/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func hello(num ...int) {  &#xA;    num[0] = 18&#xA;}&#xA;&#xA;func main() {  &#xA;    i := []int{5, 6, 7}&#xA;    hello(i...)&#xA;    fmt.Println(i[0])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A.18&#xA;B.5&#xA;C.Compilation error&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;答： A 18&#xA;解析：&amp;hellip; 变质是传切片，又因为未发生切片扩容，因此这2个切片指的底层数组是同一个。因此i[0]被改为18&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

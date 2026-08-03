@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GoScheduler - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/goscheduler/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/goscheduler/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 20250610</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250610/</link>
+      <pubDate>Tue, 10 Jun 2025 19:40:11 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250610/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Regarding goroutines, which of the following statements are correct? ()&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;A. Both goroutines and threads can achieve concurrent program execution;&lt;/li&gt;&#xA;&lt;li&gt;B. Threads are more lightweight than goroutines;&lt;/li&gt;&#xA;&lt;li&gt;C. Goroutines do not have deadlock issues;&lt;/li&gt;&#xA;&lt;li&gt;D. Communication between goroutines is achieved through channels;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;AD&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 166</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_166/</link>
+      <pubDate>Sun, 19 Jan 2025 19:27:29 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_166/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Yesterday there were only 3 G&amp;rsquo;s. What would be the output if the number of G&amp;rsquo;s was changed to 257?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;runtime&amp;#34;&#xA;    &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    runtime.GOMAXPROCS(1)&#xA;&#xA;    var wg sync.WaitGroup&#xA;    wg.Add(257)&#xA;    for i := 1; i &amp;lt;= 257; i&amp;#43;&amp;#43; {&#xA;        go func(i int) {&#xA;            fmt.Println(i)&#xA;            wg.Done()&#xA;        }(i)&#xA;    }&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/pizDb_St91u&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;257&#xA;1&#xA;2&#xA;3&#xA;...&#xA;255&#xA;256&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The result is consistent with the case of 3 Goroutines, because the local runq&amp;rsquo;s capacity limit is 256. When G257 is added to P, it will enter the &lt;code&gt;runnext&lt;/code&gt; slot (the clip has a maximum capacity of 256, but one bullet can be chambered. Thus, up to 257).&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 165</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_165/</link>
+      <pubDate>Sat, 18 Jan 2025 19:27:10 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_165/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code and explain it?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;       &amp;#34;runtime&amp;#34;&#xA;       &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;       runtime.GOMAXPROCS(1)&#xA;&#xA;       var wg sync.WaitGroup&#xA;       wg.Add(3)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(1)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(2)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(3)&#xA;       wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/XqH_qtG5s5C&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;3&#xA;1&#xA;2&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Brief explanation:&#xA;A &lt;code&gt;go&lt;/code&gt; function creates a new Goroutine (G). Each Processor (P) has a record of the next G to run and a local queue (like loading a pistol). G1, G2, G3 enter P sequentially. Eventually, the next G to run is G3, and G1, G2 are in the queue.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go: GPM Quantity Limits</title>
+      <link>https://loommii.github.io/en/posts/go_gpm_quantity_limit/</link>
+      <pubDate>Wed, 18 Dec 2024 14:16:42 +0800</pubDate>
+      <guid>https://loommii.github.io/en/posts/go_gpm_quantity_limit/</guid>
+      <category domain="https://loommii.github.io/en/categories/techarticle/">TechArticle</category>
+      <description>Detailed explanation of the quantity limits in Go&#39;s GPM model.</description>
+    </item>
+  </channel>
+</rss>

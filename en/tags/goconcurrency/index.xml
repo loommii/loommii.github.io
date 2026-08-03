@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GoConcurrency - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/goconcurrency/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/goconcurrency/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 20250610</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250610/</link>
+      <pubDate>Tue, 10 Jun 2025 19:40:11 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250610/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Regarding goroutines, which of the following statements are correct? ()&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;A. Both goroutines and threads can achieve concurrent program execution;&lt;/li&gt;&#xA;&lt;li&gt;B. Threads are more lightweight than goroutines;&lt;/li&gt;&#xA;&lt;li&gt;C. Goroutines do not have deadlock issues;&lt;/li&gt;&#xA;&lt;li&gt;D. Communication between goroutines is achieved through channels;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;AD&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 20250527</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250527/</link>
+      <pubDate>Tue, 27 May 2025 12:23:26 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250527/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Process of sending and receiving data on a channel&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;ul&gt;&#xA;&lt;li&gt;Sending data&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Uninitialized channels will deadlock.&lt;/li&gt;&#xA;&lt;li&gt;Closed channels will panic.&lt;/li&gt;&#xA;&lt;li&gt;If a blocked Goroutine is waiting to read, data is written and the reader is unblocked.&lt;/li&gt;&#xA;&lt;li&gt;If no blocked reader exists, and the channel is buffered, it checks for available space. If space exists, data is written to the buffer.&lt;/li&gt;&#xA;&lt;li&gt;If the buffer is full, the sender blocks.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Receiving data&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Uninitialized channels will deadlock.&lt;/li&gt;&#xA;&lt;li&gt;Closed channels will return the zero value.&lt;/li&gt;&#xA;&lt;li&gt;Unbuffered:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;If a blocked Goroutine is waiting to write, data is read and the writer is unblocked.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Buffered: checks if there&amp;rsquo;s available space. If no content, the receiver Goroutine blocks and is added to the read queue. If content exists, data is read from the buffer.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 20250520</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250520/</link>
+      <pubDate>Tue, 20 May 2025 15:28:54 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250520/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is wrong with the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;const N = 10&#xA;&#xA;var wg = &amp;amp;sync.WaitGroup{}&#xA;&#xA;func main() {&#xA;    for i := 0; i &amp;lt; N; i&amp;#43;&amp;#43; {&#xA;        go func(i int) {&#xA;            wg.Add(1)&#xA;            println(i)&#xA;            defer wg.Done()&#xA;        }(i)&#xA;    }&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Why is there no output after running?&#xA;The purpose of a WaitGroup is to wait for a group of goroutines to finish.&#xA;It maintains an internal counter.&#xA;The &lt;code&gt;Add&lt;/code&gt; method adds &lt;code&gt;delta&lt;/code&gt; to the internal counter.&#xA;The &lt;code&gt;Done&lt;/code&gt; method decrements the WaitGroup counter.&#xA;The &lt;code&gt;Wait&lt;/code&gt; method blocks until the WaitGroup counter becomes 0.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 194</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_194/</link>
+      <pubDate>Sun, 23 Feb 2025 13:00:00 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_194/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Can Go maps be iterated over and deleted from concurrently?&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;This question needs to be analyzed based on different scenarios.&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;If in different goroutines, a map cannot be iterated over and deleted from concurrently. A map is not a thread-safe data structure. Simultaneously reading and writing to a map is undefined behavior, and if detected, it will directly panic.&lt;/p&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;If in the same goroutine, a map can be iterated over and deleted from concurrently:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 166</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_166/</link>
+      <pubDate>Sun, 19 Jan 2025 19:27:29 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_166/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Yesterday there were only 3 G&amp;rsquo;s. What would be the output if the number of G&amp;rsquo;s was changed to 257?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;runtime&amp;#34;&#xA;    &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    runtime.GOMAXPROCS(1)&#xA;&#xA;    var wg sync.WaitGroup&#xA;    wg.Add(257)&#xA;    for i := 1; i &amp;lt;= 257; i&amp;#43;&amp;#43; {&#xA;        go func(i int) {&#xA;            fmt.Println(i)&#xA;            wg.Done()&#xA;        }(i)&#xA;    }&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/pizDb_St91u&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;257&#xA;1&#xA;2&#xA;3&#xA;...&#xA;255&#xA;256&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;The result is consistent with the case of 3 Goroutines, because the local runq&amp;rsquo;s capacity limit is 256. When G257 is added to P, it will enter the &lt;code&gt;runnext&lt;/code&gt; slot (the clip has a maximum capacity of 256, but one bullet can be chambered. Thus, up to 257).&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 165</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_165/</link>
+      <pubDate>Sat, 18 Jan 2025 19:27:10 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_165/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code and explain it?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;       &amp;#34;runtime&amp;#34;&#xA;       &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;       runtime.GOMAXPROCS(1)&#xA;&#xA;       var wg sync.WaitGroup&#xA;       wg.Add(3)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(1)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(2)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(3)&#xA;       wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/XqH_qtG5s5C&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;3&#xA;1&#xA;2&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Brief explanation:&#xA;A &lt;code&gt;go&lt;/code&gt; function creates a new Goroutine (G). Each Processor (P) has a record of the next G to run and a local queue (like loading a pistol). G1, G2, G3 enter P sequentially. Eventually, the next G to run is G3, and G1, G2 are in the queue.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 130</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_130/</link>
+      <pubDate>Fri, 13 Dec 2024 15:43:57 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_130/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What&amp;rsquo;s wrong with the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;const N = 10&#xA;&#xA;var wg = &amp;amp;sync.WaitGroup{}&#xA;&#xA;func main() {&#xA;    for i := 0; i &amp;lt; N; i&amp;#43;&amp;#43; {&#xA;        go func(i int) {&#xA;            wg.Add(1)&#xA;            println(i)&#xA;            defer wg.Done()&#xA;        }(i)&#xA;    }&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Why is there no output after running?&#xA;The purpose of a WaitGroup is to wait for a collection of goroutines to finish.&#xA;It maintains an internal counter.&#xA;The &lt;code&gt;Add&lt;/code&gt; method increments the internal counter by &lt;code&gt;delta&lt;/code&gt;.&#xA;The &lt;code&gt;Done&lt;/code&gt; method decrements the WaitGroup counter.&#xA;The &lt;code&gt;Wait&lt;/code&gt; method blocks until the WaitGroup counter becomes zero.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 129</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_129/</link>
+      <pubDate>Thu, 12 Dec 2024 00:59:04 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_129/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What happens when the following code is executed?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;time&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    ch := make(chan int, 1000)&#xA;    go func() {&#xA;        for i := 0; i &amp;lt; 10; i&amp;#43;&amp;#43; {&#xA;            ch &amp;lt;- i&#xA;        }&#xA;    }()&#xA;    go func() {&#xA;        for {&#xA;            a, ok := &amp;lt;-ch&#xA;            if !ok {&#xA;                fmt.Println(&amp;#34;close&amp;#34;)&#xA;                return&#xA;            }&#xA;            fmt.Println(&amp;#34;a: &amp;#34;, a)&#xA;        }&#xA;    }()&#xA;    close(ch)&#xA;    fmt.Println(&amp;#34;ok&amp;#34;)&#xA;    time.Sleep(time.Second * 100)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;ok&#xA;close&#xA;panic: send on closed channel&#xA;&#xA;goroutine 6 [running]:&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Writing data to a closed channel will cause a panic.&#xA;Reading data from a closed channel, when there&amp;rsquo;s no buffered data, will read the zero value.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

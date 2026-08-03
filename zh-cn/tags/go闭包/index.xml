@@ -1,137 +1,102 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Go闭包 - 标签 - loommii</title>
-        <link>https://loommii.github.io/zh-cn/tags/go%E9%97%AD%E5%8C%85/</link>
-        <description>Go闭包 - 标签 - loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 03 Jun 2025 14:02:47 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/go%E9%97%AD%E5%8C%85/" rel="self" type="application/rss+xml" /><item>
-    <title>Go每日一题_20250603</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250603/</link>
-    <pubDate>Tue, 03 Jun 2025 14:02:47 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250603/</guid>
-    <description><![CDATA[<p>下面这段代码输出什么？为什么？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">m</span> <span class="p">=</span> <span class="p">[</span><span class="o">...</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span><span class="p">,</span> <span class="nx">v</span> <span class="o">:=</span> <span class="k">range</span> <span class="nx">m</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">,</span> <span class="nx">v</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}()</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">3</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>go 1.22 前会出现
-2 3
-2 3
-2 3
-for range 使用短变量声明 (:=) 的形式迭代变量，需要注意的是，变量 i、v 在每次循环体中都会被重用，而不是重新声明。</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_20250512</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250512/</link>
-    <pubDate>Mon, 12 May 2025 00:27:08 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250512/</guid>
-    <description><![CDATA[<p>下面代码输出什么？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">age</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">	<span class="nx">person</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Person</span><span class="p">{</span><span class="mi">28</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">// 1.</span>
-</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">age</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">// 2.</span>
-</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="kd">func</span><span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Person</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">age</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}(</span><span class="nx">person</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="c1">// 3.</span>
-</span></span><span class="line"><span class="cl">	<span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">		<span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">age</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">	<span class="p">}()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">	<span class="nx">person</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Person</span><span class="p">{</span><span class="mi">29</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p><strong>答案解析：</strong></p>
-<p>参考答案及解析：<code>29</code> <code>28</code> <code>28</code>。</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_20250509</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250509/</link>
-    <pubDate>Fri, 09 May 2025 13:53:06 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250509/</guid>
-    <description><![CDATA[<p>通常，JS 面试，闭包应该是必考的题目。随着越来越多的语言对函数式范式的支持，闭包问题经常出现。在 Go 语言中也是如此。</p>
-<p>这是 Go 语言爱好者周刊第 90 期的一道题目。以下代码输出什么？</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_168</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_168/</link>
-    <pubDate>Tue, 21 Jan 2025 22:53:38 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_168/</guid>
-    <description><![CDATA[<p>下面代码输出什么？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Person</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">age</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">person</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">Person</span><span class="p">{</span><span class="mi">28</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1">// 1.</span>
-</span></span><span class="line"><span class="cl">    <span class="k">defer</span> <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">age</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1">// 2.</span>
-</span></span><span class="line"><span class="cl">    <span class="k">defer</span> <span class="kd">func</span><span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">Person</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">age</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}(</span><span class="nx">person</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="c1">// 3.</span>
-</span></span><span class="line"><span class="cl">    <span class="k">defer</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">person</span><span class="p">.</span><span class="nx">age</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}()</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nx">person</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">Person</span><span class="p">{</span><span class="mi">29</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><pre tabindex="0"><code>29
-28
-28</code></pre></div>
-<p><a href="https://go.dev/play/p/9GBgmy_wQsn" target="_blank" rel="noopener noreffer ">在线运行</a></p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go闭包 - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/go%E9%97%AD%E5%8C%85/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/go%E9%97%AD%E5%8C%85/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_20250603</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250603/</link>
+      <pubDate>Tue, 03 Jun 2025 14:02:47 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250603/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？为什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;&#xA;    var m = [...]int{1, 2, 3}&#xA;&#xA;    for i, v := range m {&#xA;        go func() {&#xA;            fmt.Println(i, v)&#xA;        }()&#xA;    }&#xA;&#xA;    time.Sleep(time.Second * 3)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;go 1.22 前会出现&#xA;2 3&#xA;2 3&#xA;2 3&#xA;for range 使用短变量声明 (:=) 的形式迭代变量，需要注意的是，变量 i、v 在每次循环体中都会被重用，而不是重新声明。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_20250512</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250512/</link>
+      <pubDate>Mon, 12 May 2025 00:27:08 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250512/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Person struct {&#xA;&#x9;age int&#xA;}&#xA;&#xA;func main() {&#xA;&#x9;person := &amp;amp;Person{28}&#xA;&#xA;&#x9;// 1.&#xA;&#x9;defer fmt.Println(person.age)&#xA;&#xA;&#x9;// 2.&#xA;&#x9;defer func(p *Person) {&#xA;&#x9;&#x9;fmt.Println(p.age)&#xA;&#x9;}(person)&#xA;&#xA;&#x9;// 3.&#xA;&#x9;defer func() {&#xA;&#x9;&#x9;fmt.Println(person.age)&#xA;&#x9;}()&#xA;&#xA;&#x9;person = &amp;amp;Person{29}&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;&lt;strong&gt;答案解析：&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;参考答案及解析：&lt;code&gt;29&lt;/code&gt; &lt;code&gt;28&lt;/code&gt; &lt;code&gt;28&lt;/code&gt;。&lt;/p&gt;&#xA;&lt;p&gt;这道题之前题目的基础上做了一点点小改动，前一题最后一行代码 &lt;code&gt;person.age = 29&lt;/code&gt; 是修改引用对象的成员 &lt;code&gt;age&lt;/code&gt;，这题最后一行代码 &lt;code&gt;person = &amp;amp;Person{29}&lt;/code&gt; 是修改引用对象本身，来看看有什么区别。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_20250509</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250509/</link>
+      <pubDate>Fri, 09 May 2025 13:53:06 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250509/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;通常，JS 面试，闭包应该是必考的题目。随着越来越多的语言对函数式范式的支持，闭包问题经常出现。在 Go 语言中也是如此。&lt;/p&gt;&#xA;&lt;p&gt;这是 Go 语言爱好者周刊第 90 期的一道题目。以下代码输出什么？&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_168</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_168/</link>
+      <pubDate>Tue, 21 Jan 2025 22:53:38 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_168/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;type Person struct {&#xA;    age int&#xA;}&#xA;&#xA;func main() {&#xA;    person := &amp;amp;Person{28}&#xA;&#xA;    // 1.&#xA;    defer fmt.Println(person.age)&#xA;&#xA;    // 2.&#xA;    defer func(p *Person) {&#xA;        fmt.Println(p.age)&#xA;    }(person)&#xA;&#xA;    // 3.&#xA;    defer func() {&#xA;        fmt.Println(person.age)&#xA;    }()&#xA;&#xA;    person = &amp;amp;Person{29}&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;29&#xA;28&#xA;28&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/9GBgmy_wQsn&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_113</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_113/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:54 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_113/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;f1()、f2()、f3() 函数分别返回什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func f1() (r int) {&#xA;    defer func() {&#xA;        r&amp;#43;&amp;#43;&#xA;    }()&#xA;    return 0&#xA;}&#xA;&#xA;func f2() (r int) {&#xA;    t := 5&#xA;    defer func() {&#xA;        t = t &amp;#43; 5&#xA;    }()&#xA;    return t&#xA;}&#xA;&#xA;func f3() (r int) {&#xA;    defer func(r int) {&#xA;        r = r &amp;#43; 5&#xA;    }(r)&#xA;    return 1&#xA;}&#xA;&#xA;func main() {&#xA;&#xA;    fmt.Println(f1())&#xA;    fmt.Println(f2())&#xA;    fmt.Println(f3())&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;参考答案及解析：1 5 1。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_099</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_099/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:28 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_099/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？为什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;&#xA;    var m = [...]int{1, 2, 3}&#xA;&#xA;    for i, v := range m {&#xA;        go func() {&#xA;            fmt.Println(i, v)&#xA;        }()&#xA;    }&#xA;&#xA;    time.Sleep(time.Second * 3)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;go 1.22 前会出现&#xA;2 3&#xA;2 3&#xA;2 3&#xA;for range 使用短变量声明 (:=) 的形式迭代变量，需要注意的是，变量 i、v 在每次循环体中都会被重用，而不是重新声明。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_077</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_077/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:01 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_077/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码输出什么？&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_075</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_075/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:59 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_075/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码段输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Person struct {&#xA;    age int&#xA;}&#xA;&#xA;func main() {&#xA;    person := &amp;amp;Person{28}&#xA;&#xA;    // 1. &#xA;    defer fmt.Println(person.age)&#xA;&#xA;    // 2.&#xA;    defer func(p *Person) {&#xA;        fmt.Println(p.age)&#xA;    }(person)  &#xA;&#xA;    // 3.&#xA;    defer func() {&#xA;        fmt.Println(person.age)&#xA;    }()&#xA;&#xA;    person.age = 29&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;29&#xA;29&#xA;28&#xA;defer是先进后出的&#xA;因此会运行 // 3 的内容 输出29&#xA;后运行 //2 这里传入的是指针类型，因此会数据也是29&#xA;最后运行//1 因为入参的值在运行defer就已经定下来了 因此输出28&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_074</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_074/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:58 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_074/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;以下代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func app() func(string) string {&#xA;    t := &amp;#34;Hi&amp;#34;&#xA;    c := func(b string) string {&#xA;        t = t &amp;#43; &amp;#34; &amp;#34; &amp;#43; b&#xA;        return t&#xA;    }&#xA;    return c&#xA;}&#xA;&#xA;func main() {&#xA;    a := app()&#xA;    b := app()&#xA;    a(&amp;#34;go&amp;#34;)&#xA;    fmt.Println(b(&amp;#34;All&amp;#34;))&#xA;    fmt.Println(a(&amp;#34;All&amp;#34;))&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A：Hi All；B：Hi go All；C：Hi；D：go Al&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;闭包&#xA;fmt.Println(b(&amp;ldquo;All&amp;rdquo;)) 输出  A （Hi All）&#xA;fmt.Println(a(&amp;ldquo;All&amp;rdquo;)) 输出  B  （Hi go All）&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_073</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_073/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:57 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_073/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;f1()、f2()、f3() 函数分别返回什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func f1() (r int) {&#xA;    defer func() {&#xA;        r&amp;#43;&amp;#43;&#xA;    }()&#xA;    return 0&#xA;}&#xA;&#xA;&#xA;func f2() (r int) {&#xA;    t := 5&#xA;    defer func() {&#xA;        t = t &amp;#43; 5&#xA;    }()&#xA;    return t&#xA;}&#xA;&#xA;&#xA;func f3() (r int) {&#xA;    defer func(r int) {&#xA;        r = r &amp;#43; 5&#xA;    }(r)&#xA;    return 1&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;f1 1&#xA;f2 5&#xA;f3 1&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

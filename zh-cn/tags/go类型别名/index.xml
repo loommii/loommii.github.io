@@ -1,56 +1,48 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Go类型别名 - 标签 - loommii</title>
-        <link>https://loommii.github.io/zh-cn/tags/go%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D/</link>
-        <description>Go类型别名 - 标签 - loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 04 May 2025 15:50:53 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/go%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D/" rel="self" type="application/rss+xml" /><item>
-    <title>Go每日一题_223</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_223/</link>
-    <pubDate>Sun, 04 May 2025 15:50:53 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_223/</guid>
-    <description><![CDATA[<p>有下面 3 行代码：</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 32 位机器</span>
-</span></span><span class="line"><span class="cl"><span class="mi">1</span><span class="err">）</span><span class="kd">var</span> <span class="nx">x</span> <span class="kt">int32</span> <span class="p">=</span> <span class="mf">32.0</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span><span class="err">）</span><span class="kd">var</span> <span class="nx">y</span> <span class="kt">int</span> <span class="p">=</span> <span class="nx">x</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span><span class="err">）</span><span class="kd">var</span> <span class="nx">z</span> <span class="kt">rune</span> <span class="p">=</span> <span class="nx">x</span></span></span></code></pre></div></div>
-<p>它们是否能编译通过？为什么？</p>
-<p>如果面试时问这道题，你需要想想面试官想考察你什么。
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <h1 id="数字字面量">数字字面量</h1>
-<p>在 Go 语言中，字面量是无类型（untyped）的。无类型是什么意思？无类型意味着可以赋值给类似类型的变量或常量。用上面例子，32.0 是无类型的浮点数字面量，因此它可以赋值给任意数字相关类型变量（或常量）。以下都是合法的：</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_160</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_160/</link>
-    <pubDate>Mon, 13 Jan 2025 12:22:18 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_160/</guid>
-    <description><![CDATA[<p>它们是否能编译通过？为什么？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 32 位机器</span>
-</span></span><span class="line"><span class="cl"><span class="mi">1</span><span class="err">）</span><span class="kd">var</span> <span class="nx">x</span> <span class="kt">int32</span> <span class="p">=</span> <span class="mf">32.</span>
-</span></span><span class="line"><span class="cl"><span class="mi">2</span><span class="err">）</span><span class="kd">var</span> <span class="nx">y</span> <span class="kt">int</span> <span class="p">=</span> <span class="nx">x</span>
-</span></span><span class="line"><span class="cl"><span class="mi">3</span><span class="err">）</span><span class="kd">var</span> <span class="nx">z</span> <span class="kt">rune</span> <span class="p">=</span> <span class="nx">x</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>1 <a href="https://go.dev/play/p/9eGpGYkcqqp" target="_blank" rel="noopener noreffer ">可以</a>
-2 <a href="https://go.dev/play/p/L5LsYs4NvDO" target="_blank" rel="noopener noreffer ">不可以</a>
-3 <a href="https://go.dev/play/p/xgIjiu6PQ1l" target="_blank" rel="noopener noreffer ">可以</a></p>
-<h2 id="解析">解析</h2>
-<h1 id="go-语言类型系统与代码解析">Go 语言类型系统与代码解析</h1>
-<h2 id="1-无类型字面量">1. 无类型字面量</h2>
-<p>在 Go 语言中，字面量（如 <code>32.0</code>）是无类型的（untyped）。无类型字面量可以根据上下文自动推断为目标类型。</p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go类型别名 - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/go%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/go%E7%B1%BB%E5%9E%8B%E5%88%AB%E5%90%8D/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_223</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_223/</link>
+      <pubDate>Sun, 04 May 2025 15:50:53 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_223/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;有下面 3 行代码：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;// 32 位机器&#xA;1）var x int32 = 32.0&#xA;2）var y int = x&#xA;3）var z rune = x&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;它们是否能编译通过？为什么？&lt;/p&gt;&#xA;&lt;p&gt;如果面试时问这道题，你需要想想面试官想考察你什么。&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;h1 class=&#34;heading-element&#34; id=&#34;数字字面量&#34;&gt;&lt;span&gt;数字字面量&lt;/span&gt;&#xA;  &lt;a href=&#34;#%e6%95%b0%e5%ad%97%e5%ad%97%e9%9d%a2%e9%87%8f&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h1&gt;&lt;p&gt;在 Go 语言中，字面量是无类型（untyped）的。无类型是什么意思？无类型意味着可以赋值给类似类型的变量或常量。用上面例子，32.0 是无类型的浮点数字面量，因此它可以赋值给任意数字相关类型变量（或常量）。以下都是合法的：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_160</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_160/</link>
+      <pubDate>Mon, 13 Jan 2025 12:22:18 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_160/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;它们是否能编译通过？为什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;// 32 位机器&#xA;1）var x int32 = 32.&#xA;2）var y int = x&#xA;3）var z rune = x&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;1 &lt;a href=&#34;https://go.dev/play/p/9eGpGYkcqqp&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;可以&lt;/a&gt;&#xA;2 &lt;a href=&#34;https://go.dev/play/p/L5LsYs4NvDO&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;不可以&lt;/a&gt;&#xA;3 &lt;a href=&#34;https://go.dev/play/p/xgIjiu6PQ1l&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;可以&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_069</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_069/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:52 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_069/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;有下面 3 行代码：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;// 32 位机器&#xA;1）var x int32 = 32.0&#xA;2）var y int = x&#xA;3）var z rune = x&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;它们是否能编译通过？为什么？&lt;/p&gt;&#xA;&lt;p&gt;如果面试时问这道题，你需要想想面试官想考察你什么。&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;h1 class=&#34;heading-element&#34; id=&#34;数字字面量&#34;&gt;&lt;span&gt;数字字面量&lt;/span&gt;&#xA;  &lt;a href=&#34;#%e6%95%b0%e5%ad%97%e5%ad%97%e9%9d%a2%e9%87%8f&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h1&gt;&lt;p&gt;在 Go 语言中，字面量是无类型（untyped）的。无类型是什么意思？无类型意味着可以赋值给类似类型的变量或常量。用上面例子，32.0 是无类型的浮点数字面量，因此它可以赋值给任意数字相关类型变量（或常量）。以下都是合法的：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_024</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_024/</link>
+      <pubDate>Fri, 06 Dec 2024 19:49:56 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_024/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码能否通过编译？如果通过，输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;type MyInt1 int&#xA;type MyInt2 = int&#xA;&#xA;func main() {&#xA;    var i int =0&#xA;    var i1 MyInt1 = i &#xA;    var i2 MyInt2 = i&#xA;    fmt.Println(i1,i2)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;答: 不能&#xA;参考解析：这道题考的是类型别名与类型定义的区别。&#xA;类型别名&lt;code&gt;type MyInt2 = int&lt;/code&gt;&#xA;类型定义&lt;code&gt;type MyInt1 int&lt;/code&gt;&#xA;Go 赋值 = 左右的类型需要一致。&#xA;MyInt1 是基于int定义的新类型,因此不能直接赋值。如果需要赋值，需要类型转换&lt;code&gt;var i1 MyInt1 = MyInt1(i)&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

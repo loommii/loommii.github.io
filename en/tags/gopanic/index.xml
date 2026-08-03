@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GoPanic - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/gopanic/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 04 Aug 2026 00:55:54 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/gopanic/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 20250604</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250604/</link>
+      <pubDate>Wed, 04 Jun 2025 11:36:53 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250604/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What does the following code output?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func f(n int) (r int) {&#xA;    defer func() {&#xA;        r &amp;#43;= n&#xA;        recover()&#xA;    }()&#xA;&#xA;    var f func()&#xA;&#xA;    defer f()&#xA;    &#xA;    f = func() {&#xA;        r &amp;#43;= 2&#xA;    }&#xA;    return n &amp;#43; 1&#xA;}&#xA;&#xA;func main() {&#xA;    fmt.Println(f(3))&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Solution Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;7&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;// First execute this code, then r is assigned the value 4&#xA;return n&amp;#43;1&#xA;&#xA;// Then it executes, but triggers a panic&#xA;defer f()&#xA;&#xA;// Finally it executes, r increases by 3, r=7, then recover(), and the function returns 7&#xA;defer func() {&#xA;        r &amp;#43;= n&#xA;        recover()&#xA;    }()&lt;/code&gt;&lt;/pre&gt;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 129</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_129/</link>
+      <pubDate>Thu, 12 Dec 2024 00:59:04 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_129/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What happens when the following code is executed?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;time&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    ch := make(chan int, 1000)&#xA;    go func() {&#xA;        for i := 0; i &amp;lt; 10; i&amp;#43;&amp;#43; {&#xA;            ch &amp;lt;- i&#xA;        }&#xA;    }()&#xA;    go func() {&#xA;        for {&#xA;            a, ok := &amp;lt;-ch&#xA;            if !ok {&#xA;                fmt.Println(&amp;#34;close&amp;#34;)&#xA;                return&#xA;            }&#xA;            fmt.Println(&amp;#34;a: &amp;#34;, a)&#xA;        }&#xA;    }()&#xA;    close(ch)&#xA;    fmt.Println(&amp;#34;ok&amp;#34;)&#xA;    time.Sleep(time.Second * 100)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;ok&#xA;close&#xA;panic: send on closed channel&#xA;&#xA;goroutine 6 [running]:&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Writing data to a closed channel will cause a panic.&#xA;Reading data from a closed channel, when there&amp;rsquo;s no buffered data, will read the zero value.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 100</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_100/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:29 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_100/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func f(n int) (r int) {&#xA;    defer func() {&#xA;        r &amp;#43;= n&#xA;        recover()&#xA;    }()&#xA;&#xA;    var f func()&#xA;&#xA;    defer f()&#xA;    &#xA;    f = func() {&#xA;        r &amp;#43;= 2&#xA;    }&#xA;    return n &amp;#43; 1&#xA;}&#xA;&#xA;func main() {&#xA;    fmt.Println(f(3))&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;7&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;// This code is executed first, then r is assigned 4&#xA;return n&amp;#43;1&#xA;&#xA;// Then execute, but it will trigger a panic&#xA;defer f()&#xA;&#xA;// Finally, execute, r is incremented by 3 again (r=7), then recover(), and finally the function returns 7&#xA;defer func() {&#xA;        r &amp;#43;= n&#xA;        recover()&#xA;    }()&lt;/code&gt;&lt;/pre&gt;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 095</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_095/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:23 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_095/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Output of the following code:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;sync&amp;#34;&#xA;&#xA;func main() {&#xA;    var wg sync.WaitGroup&#xA;    foo := make(chan int)&#xA;    bar := make(chan int)&#xA;    wg.Add(1)&#xA;    go func() {&#xA;        defer wg.Done()&#xA;        select {&#xA;        case foo &amp;lt;- &amp;lt;-bar:&#xA;        default:&#xA;            println(&amp;#34;default&amp;#34;)&#xA;        }&#xA;    }()&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A: default&#xA;B: panic&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Conventionally, one might expect the &lt;code&gt;default&lt;/code&gt; branch of the &lt;code&gt;select&lt;/code&gt; statement in &lt;code&gt;go func&lt;/code&gt; to execute, and the program to run normally. However, the result is not that, but a deadlock. You can test this via: &lt;a href=&#34;https://play.studygolang.com/p/kF4pOjYXbXf.&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://play.studygolang.com/p/kF4pOjYXbXf.&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 050</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_050/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:29 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_050/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {  &#xA;    s := make(map[string]int)&#xA;    delete(s, &amp;#34;h&amp;#34;)&#xA;    fmt.Println(s[&amp;#34;h&amp;#34;])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. runtime panic&#xA;B. 0&#xA;C. compilation error&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;B 0&#xA;Deleting a non-existent key will not cause a panic.&#xA;Outputting a non-existent key will return the zero value of its type.&lt;/p&gt;&#xA;&lt;p&gt;Extension:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    var s map[string]int&#xA;    delete(s, &amp;#34;h&amp;#34;)&#xA;    s[&amp;#34;h&amp;#34;] = 1&#xA;    fmt.Println(s[&amp;#34;h&amp;#34;])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Deleting from a nil map will also not panic.&#xA;However, writing to a nil map will panic.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 040</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_040/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:17 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_040/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type person struct {  &#xA;    name string&#xA;}&#xA;&#xA;func main() {  &#xA;    var m map[person]int&#xA;    p := person{&amp;#34;mike&amp;#34;}&#xA;    fmt.Println(m[p])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A.0&#xA;B.1&#xA;C.Compilation error&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: A 0&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;m&lt;/code&gt; is a map, and its value is &lt;code&gt;nil&lt;/code&gt;. Getting a value from a &lt;code&gt;nil&lt;/code&gt; map will not cause an error; instead, it returns the corresponding zero value. Here, the value is of type &lt;code&gt;int&lt;/code&gt;, so it returns 0.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 037</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_037/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:14 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_037/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What happens when the following code is executed?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;time&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    ch := make(chan int, 1000)&#xA;    go func() {&#xA;        for i := 0; i &amp;lt; 10; i&amp;#43;&amp;#43; {&#xA;            ch &amp;lt;- i&#xA;        }&#xA;    }()&#xA;    go func() {&#xA;        for {&#xA;            a, ok := &amp;lt;-ch&#xA;            if !ok {&#xA;                fmt.Println(&amp;#34;close&amp;#34;)&#xA;                return&#xA;            }&#xA;            fmt.Println(&amp;#34;a: &amp;#34;, a)&#xA;        }&#xA;    }()&#xA;    close(ch)&#xA;    fmt.Println(&amp;#34;ok&amp;#34;)&#xA;    time.Sleep(time.Second * 100)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer:&#xA;Prints &amp;ldquo;ok&amp;rdquo; then panics.&#xA;It takes time to start goroutines. Here, the &lt;code&gt;close(ch)&lt;/code&gt; statement closes the channel. Writing data to an already closed channel will cause a program panic.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 002</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_002/</link>
+      <pubDate>Fri, 06 Dec 2024 19:40:53 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_002/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    defer_call()&#xA;}&#xA;&#xA;func defer_call() {&#xA;    defer func() { fmt.Println(&amp;#34;before print&amp;#34;) }()&#xA;    defer func() { fmt.Println(&amp;#34;during print&amp;#34;) }()&#xA;    defer func() { fmt.Println(&amp;#34;after print&amp;#34;) }()&#xA;&#xA;    panic(&amp;#34;trigger panic&amp;#34;)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;after print&#xA;during print&#xA;before print&#xA;panic: trigger panic&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Analysis: The execution order of defer is Last-In, First-Out (LIFO). When a panic statement occurs, defer functions are executed in LIFO order, and finally the panic is executed.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

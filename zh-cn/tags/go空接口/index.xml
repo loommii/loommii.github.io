@@ -1,109 +1,48 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Go空接口 - 标签 - loommii</title>
-        <link>https://loommii.github.io/zh-cn/tags/go%E7%A9%BA%E6%8E%A5%E5%8F%A3/</link>
-        <description>Go空接口 - 标签 - loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 16 May 2025 01:52:30 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/go%E7%A9%BA%E6%8E%A5%E5%8F%A3/" rel="self" type="application/rss+xml" /><item>
-    <title>Go每日一题_20250516</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250516/</link>
-    <pubDate>Fri, 16 May 2025 01:52:30 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250516/</guid>
-    <description><![CDATA[<p>A、B、C、D 哪些选项有语法错误？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">S</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">f</span><span class="p">(</span><span class="nx">x</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">g</span><span class="p">(</span><span class="nx">x</span> <span class="o">*</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">       <span class="nx">s</span> <span class="o">:=</span> <span class="nx">S</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">       <span class="nx">p</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">s</span>
-</span></span><span class="line"><span class="cl">       <span class="nf">f</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">//A</span>
-</span></span><span class="line"><span class="cl">       <span class="nf">g</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">//B</span>
-</span></span><span class="line"><span class="cl">       <span class="nf">f</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="c1">//C</span>
-</span></span><span class="line"><span class="cl">       <span class="nf">g</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="c1">//D</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>BD <a href="https://go.dev/play/p/sXFam1hdBhS" target="_blank" rel="noopener noreffer ">在线运行</a></p>
-<p>函数参数为 interface{} 时可以接收任何类型的参数，包括用户自定义类型等，即使是接收指针类型也用 interface{}，而不是使用 *interface{}。</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_20250514</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250514/</link>
-    <pubDate>Wed, 14 May 2025 14:51:02 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250514/</guid>
-    <description><![CDATA[<p>A、B、C、D 哪些选项有语法错误？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">S</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">f</span><span class="p">(</span><span class="nx">x</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">g</span><span class="p">(</span><span class="nx">x</span> <span class="o">*</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">       <span class="nx">s</span> <span class="o">:=</span> <span class="nx">S</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">       <span class="nx">p</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">s</span>
-</span></span><span class="line"><span class="cl">       <span class="nf">f</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">//A</span>
-</span></span><span class="line"><span class="cl">       <span class="nf">g</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">//B</span>
-</span></span><span class="line"><span class="cl">       <span class="nf">f</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="c1">//C</span>
-</span></span><span class="line"><span class="cl">       <span class="nf">g</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="c1">//D</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>BD <a href="https://go.dev/play/p/sXFam1hdBhS" target="_blank" rel="noopener noreffer ">在线运行</a></p>
-<p>函数参数为 interface{} 时可以接收任何类型的参数，包括用户自定义类型等，即使是接收指针类型也用 interface{}，而不是使用 *interface{}。</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_170</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_170/</link>
-    <pubDate>Thu, 23 Jan 2025 15:36:46 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_170/</guid>
-    <description><![CDATA[<p>A、B、C、D 哪些选项有语法错误？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">S</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">f</span><span class="p">(</span><span class="nx">x</span> <span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">g</span><span class="p">(</span><span class="nx">x</span> <span class="o">*</span><span class="kd">interface</span><span class="p">{})</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">       <span class="nx">s</span> <span class="o">:=</span> <span class="nx">S</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">       <span class="nx">p</span> <span class="o">:=</span> <span class="o">&amp;</span><span class="nx">s</span>
-</span></span><span class="line"><span class="cl">       <span class="nf">f</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">//A</span>
-</span></span><span class="line"><span class="cl">       <span class="nf">g</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span> <span class="c1">//B</span>
-</span></span><span class="line"><span class="cl">       <span class="nf">f</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="c1">//C</span>
-</span></span><span class="line"><span class="cl">       <span class="nf">g</span><span class="p">(</span><span class="nx">p</span><span class="p">)</span> <span class="c1">//D</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>BD <a href="https://go.dev/play/p/sXFam1hdBhS" target="_blank" rel="noopener noreffer ">在线运行</a></p>
-<p>函数参数为 interface{} 时可以接收任何类型的参数，包括用户自定义类型等，即使是接收指针类型也用 interface{}，而不是使用 *interface{}。</p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go空接口 - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/go%E7%A9%BA%E6%8E%A5%E5%8F%A3/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/go%E7%A9%BA%E6%8E%A5%E5%8F%A3/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_20250516</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250516/</link>
+      <pubDate>Fri, 16 May 2025 01:52:30 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250516/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;A、B、C、D 哪些选项有语法错误？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type S struct {&#xA;}&#xA;&#xA;func f(x interface{}) {&#xA;}&#xA;&#xA;func g(x *interface{}) {&#xA;}&#xA;&#xA;func main() {&#xA;       s := S{}&#xA;       p := &amp;amp;s&#xA;       f(s) //A&#xA;       g(s) //B&#xA;       f(p) //C&#xA;       g(p) //D&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;BD &lt;a href=&#34;https://go.dev/play/p/sXFam1hdBhS&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_20250514</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250514/</link>
+      <pubDate>Wed, 14 May 2025 14:51:02 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250514/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;A、B、C、D 哪些选项有语法错误？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type S struct {&#xA;}&#xA;&#xA;func f(x interface{}) {&#xA;}&#xA;&#xA;func g(x *interface{}) {&#xA;}&#xA;&#xA;func main() {&#xA;       s := S{}&#xA;       p := &amp;amp;s&#xA;       f(s) //A&#xA;       g(s) //B&#xA;       f(p) //C&#xA;       g(p) //D&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;BD &lt;a href=&#34;https://go.dev/play/p/sXFam1hdBhS&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_170</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_170/</link>
+      <pubDate>Thu, 23 Jan 2025 15:36:46 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_170/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;A、B、C、D 哪些选项有语法错误？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type S struct {&#xA;}&#xA;&#xA;func f(x interface{}) {&#xA;}&#xA;&#xA;func g(x *interface{}) {&#xA;}&#xA;&#xA;func main() {&#xA;       s := S{}&#xA;       p := &amp;amp;s&#xA;       f(s) //A&#xA;       g(s) //B&#xA;       f(p) //C&#xA;       g(p) //D&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;BD &lt;a href=&#34;https://go.dev/play/p/sXFam1hdBhS&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_140</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_140/</link>
+      <pubDate>Tue, 24 Dec 2024 23:28:20 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_140/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;    var i interface{}&#xA;    if i == nil {&#xA;        fmt.Println(&amp;#34;nil&amp;#34;)&#xA;        return&#xA;    }&#xA;    fmt.Println(&amp;#34;not nil&amp;#34;)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. nil&lt;/li&gt;&#xA;&lt;li&gt;B. not nil&lt;/li&gt;&#xA;&lt;li&gt;C. compilation error&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;A &lt;a href=&#34;https://go.dev/play/p/rtD7YmJZxp1&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;简单来说,接口变量有2个值,一个是类型,另一个是值。&#xA;if 接口 时,值和类型都为零值时,接口live() == nil 判断才为T&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

@@ -1,329 +1,84 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Go并发 - 标签 - loommii</title>
-        <link>https://loommii.github.io/zh-cn/tags/go%E5%B9%B6%E5%8F%91/</link>
-        <description>Go并发 - 标签 - loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 10 Jun 2025 19:40:11 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/go%E5%B9%B6%E5%8F%91/" rel="self" type="application/rss+xml" /><item>
-    <title>Go每日一题_20250610</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250610/</link>
-    <pubDate>Tue, 10 Jun 2025 19:40:11 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250610/</guid>
-    <description><![CDATA[<p>关于协程，下面说法正确是（）</p>
-<ul>
-<li>A. 协程和线程都可以实现程序的并发执行；</li>
-<li>B. 线程比协程更轻量级；</li>
-<li>C. 协程不存在死锁问题；</li>
-<li>D. 通过 channel 来进行协程间的通信；</li>
-</ul>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  AD
-</div>
-<style>
-  .toggle-content {
-    display: none;
-    margin-top: 10px;
-  }
-  .toggle-content.show {
-    display: block;
-  }
-</style>]]></description>
-</item>
-<item>
-    <title>Go每日一题_20250527</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250527/</link>
-    <pubDate>Tue, 27 May 2025 12:23:26 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250527/</guid>
-    <description><![CDATA[<p>channel发送数据和接收数据的过程</p>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <ul>
-<li>发送数据
-<ul>
-<li>无初始化的channel会死锁</li>
-<li>已关闭的channel会panic</li>
-<li>写是存在阻塞的读G，则写入并唤醒</li>
-<li>如果无存在阻塞的读G，有缓冲就查看是否有空位有的写入空位</li>
-<li>缓冲都没空位就陷入阻塞</li>
-</ul>
-</li>
-<li>接收数据
-<ul>
-<li>无初始化的channel会死锁</li>
-<li>已关闭的channel会返回空值</li>
-<li>无缓冲
-<ul>
-<li>存在阻塞的写G，读并唤醒写G</li>
-</ul>
-</li>
-<li>有缓冲，会先看是否有空位，无内容就G阻塞并写入读队列，有内容就读缓冲</li>
-</ul>
-</li>
-</ul>
-
-</div>
-<style>
-  .toggle-content {
-    display: none;
-    margin-top: 10px;
-  }
-  .toggle-content.show {
-    display: block;
-  }
-</style>]]></description>
-</item>
-<item>
-    <title>Go每日一题_20250520</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250520/</link>
-    <pubDate>Tue, 20 May 2025 15:28:54 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250520/</guid>
-    <description><![CDATA[<p>以下代码有什么问题？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;sync&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">N</span> <span class="p">=</span> <span class="mi">10</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">wg</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="nb">println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="k">defer</span> <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}(</span><span class="nx">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>运行后的现象为什么都没有输出
-WaitGroup(等待组)的目的是用于等待一组协程的结束。
-内部会维护一个计数器
-Add方法向内部计数加上delta
-Done方法减少WaitGroup计数器的值
-Wait方法阻塞直到WaitGroup计数器减为0。</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_194</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_194/</link>
-    <pubDate>Sun, 23 Feb 2025 13:00:00 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_194/</guid>
-    <description><![CDATA[<p>Go 的 map 可以边遍历边删除吗？</p>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>这题要分情况分析。</p>
-<ul>
-<li>
-<p>若在不同协程内，map 不可以边遍历边删除。map 并不是一个线程安全的数据结构。同时读写一个 map 是未定义的行为，如果被检测到，会直接 panic。</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_166</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_166/</link>
-    <pubDate>Sun, 19 Jan 2025 19:27:29 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_166/</guid>
-    <description><![CDATA[<p>昨天只有3个G，如果把G的个数变为257个输出结果是怎么样</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;runtime&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;sync&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">runtime</span><span class="p">.</span><span class="nf">GOMAXPROCS</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">257</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">257</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}(</span><span class="nx">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p><a href="https://go.dev/play/p/pizDb_St91u" target="_blank" rel="noopener noreffer ">在线运行</a></p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_165</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_165/</link>
-    <pubDate>Sat, 18 Jan 2025 19:27:10 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_165/</guid>
-    <description><![CDATA[<p>下方代码输出什么并解释一下</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">       <span class="s">&#34;runtime&#34;</span>
-</span></span><span class="line"><span class="cl">       <span class="s">&#34;sync&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">       <span class="nx">runtime</span><span class="p">.</span><span class="nf">GOMAXPROCS</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">       <span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
-</span></span><span class="line"><span class="cl">       <span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">       <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">              <span class="nb">println</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">              <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">       <span class="p">}(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">       <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">              <span class="nb">println</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">              <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">       <span class="p">}(</span><span class="mi">2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">       <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">              <span class="nb">println</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">              <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">       <span class="p">}(</span><span class="mi">3</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">       <span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p><a href="https://go.dev/play/p/XqH_qtG5s5C" target="_blank" rel="noopener noreffer ">在线运行</a></p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_131</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_131/</link>
-    <pubDate>Sat, 14 Dec 2024 11:59:22 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_131/</guid>
-    <description><![CDATA[<p>关于 channel，下面语法正确的是：</p>
-<ul>
-<li>A. var ch chan int</li>
-<li>B. ch := make(chan int)</li>
-<li>C. &lt;- ch</li>
-<li>D. ch &lt;-</li>
-</ul>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>A B C</p>
-<p>A 声明变量ch 类型为 chan int，并未初始化
-B 声明变量ch 类型为 chan int，并初始化
-C 读channel，值抛弃
-D 错误，写channel必须要值</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_130</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_130/</link>
-    <pubDate>Fri, 13 Dec 2024 15:43:57 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_130/</guid>
-    <description><![CDATA[<p>以下代码有什么问题？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;sync&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">const</span> <span class="nx">N</span> <span class="p">=</span> <span class="mi">10</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">wg</span> <span class="p">=</span> <span class="o">&amp;</span><span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="nx">N</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="nb">println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="k">defer</span> <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}(</span><span class="nx">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>运行后的现象为什么都没有输出
-WaitGroup(等待组)的目的是用于等待一组协程的结束。
-内部会维护一个计数器
-Add方法向内部计数加上delta
-Done方法减少WaitGroup计数器的值
-Wait方法阻塞直到WaitGroup计数器减为0。</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_129</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_129/</link>
-    <pubDate>Thu, 12 Dec 2024 00:59:04 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_129/</guid>
-    <description><![CDATA[<p>执行下面的代码会发生什么？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;time&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">ch</span> <span class="o">:=</span> <span class="nb">make</span><span class="p">(</span><span class="kd">chan</span> <span class="kt">int</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">;</span> <span class="nx">i</span> <span class="p">&lt;</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">ch</span> <span class="o">&lt;-</span> <span class="nx">i</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}()</span>
-</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">a</span><span class="p">,</span> <span class="nx">ok</span> <span class="o">:=</span> <span class="o">&lt;-</span><span class="nx">ch</span>
-</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="p">!</span><span class="nx">ok</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">                <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;close&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">                <span class="k">return</span>
-</span></span><span class="line"><span class="cl">            <span class="p">}</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;a: &#34;</span><span class="p">,</span> <span class="nx">a</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}()</span>
-</span></span><span class="line"><span class="cl">    <span class="nb">close</span><span class="p">(</span><span class="nx">ch</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;ok&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">time</span><span class="p">.</span><span class="nf">Sleep</span><span class="p">(</span><span class="nx">time</span><span class="p">.</span><span class="nx">Second</span> <span class="o">*</span> <span class="mi">100</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><pre tabindex="0"><code>ok
-close
-panic: send on closed channel
-
-goroutine 6 [running]:</code></pre></div>
-<p>对已经关闭的管道写数据会发生panic
-对已经关闭的管道读数据,无已写缓存的情况下读的是零值</p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go并发 - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/go%E5%B9%B6%E5%8F%91/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/go%E5%B9%B6%E5%8F%91/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_20250610</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250610/</link>
+      <pubDate>Tue, 10 Jun 2025 19:40:11 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250610/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;关于协程，下面说法正确是（）&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;A. 协程和线程都可以实现程序的并发执行；&lt;/li&gt;&#xA;&lt;li&gt;B. 线程比协程更轻量级；&lt;/li&gt;&#xA;&lt;li&gt;C. 协程不存在死锁问题；&lt;/li&gt;&#xA;&lt;li&gt;D. 通过 channel 来进行协程间的通信；&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;AD&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_20250527</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250527/</link>
+      <pubDate>Tue, 27 May 2025 12:23:26 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250527/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;channel发送数据和接收数据的过程&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;ul&gt;&#xA;&lt;li&gt;发送数据&#xA;&lt;ul&gt;&#xA;&lt;li&gt;无初始化的channel会死锁&lt;/li&gt;&#xA;&lt;li&gt;已关闭的channel会panic&lt;/li&gt;&#xA;&lt;li&gt;写是存在阻塞的读G，则写入并唤醒&lt;/li&gt;&#xA;&lt;li&gt;如果无存在阻塞的读G，有缓冲就查看是否有空位有的写入空位&lt;/li&gt;&#xA;&lt;li&gt;缓冲都没空位就陷入阻塞&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;接收数据&#xA;&lt;ul&gt;&#xA;&lt;li&gt;无初始化的channel会死锁&lt;/li&gt;&#xA;&lt;li&gt;已关闭的channel会返回空值&lt;/li&gt;&#xA;&lt;li&gt;无缓冲&#xA;&lt;ul&gt;&#xA;&lt;li&gt;存在阻塞的写G，读并唤醒写G&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;有缓冲，会先看是否有空位，无内容就G阻塞并写入读队列，有内容就读缓冲&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_20250520</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250520/</link>
+      <pubDate>Tue, 20 May 2025 15:28:54 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250520/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;以下代码有什么问题？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;const N = 10&#xA;&#xA;var wg = &amp;amp;sync.WaitGroup{}&#xA;&#xA;func main() {&#xA;    for i := 0; i &amp;lt; N; i&amp;#43;&amp;#43; {&#xA;        go func(i int) {&#xA;            wg.Add(1)&#xA;            println(i)&#xA;            defer wg.Done()&#xA;        }(i)&#xA;    }&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;运行后的现象为什么都没有输出&#xA;WaitGroup(等待组)的目的是用于等待一组协程的结束。&#xA;内部会维护一个计数器&#xA;Add方法向内部计数加上delta&#xA;Done方法减少WaitGroup计数器的值&#xA;Wait方法阻塞直到WaitGroup计数器减为0。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_194</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_194/</link>
+      <pubDate>Sun, 23 Feb 2025 13:00:00 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_194/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;Go 的 map 可以边遍历边删除吗？&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;这题要分情况分析。&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;若在不同协程内，map 不可以边遍历边删除。map 并不是一个线程安全的数据结构。同时读写一个 map 是未定义的行为，如果被检测到，会直接 panic。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_166</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_166/</link>
+      <pubDate>Sun, 19 Jan 2025 19:27:29 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_166/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;昨天只有3个G，如果把G的个数变为257个输出结果是怎么样&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;runtime&amp;#34;&#xA;    &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    runtime.GOMAXPROCS(1)&#xA;&#xA;    var wg sync.WaitGroup&#xA;    wg.Add(257)&#xA;    for i := 1; i &amp;lt;= 257; i&amp;#43;&amp;#43; {&#xA;        go func(i int) {&#xA;            fmt.Println(i)&#xA;            wg.Done()&#xA;        }(i)&#xA;    }&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/pizDb_St91u&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_165</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_165/</link>
+      <pubDate>Sat, 18 Jan 2025 19:27:10 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_165/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下方代码输出什么并解释一下&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;       &amp;#34;runtime&amp;#34;&#xA;       &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;       runtime.GOMAXPROCS(1)&#xA;&#xA;       var wg sync.WaitGroup&#xA;       wg.Add(3)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(1)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(2)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(3)&#xA;       wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/XqH_qtG5s5C&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_130</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_130/</link>
+      <pubDate>Fri, 13 Dec 2024 15:43:57 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_130/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;以下代码有什么问题？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;const N = 10&#xA;&#xA;var wg = &amp;amp;sync.WaitGroup{}&#xA;&#xA;func main() {&#xA;    for i := 0; i &amp;lt; N; i&amp;#43;&amp;#43; {&#xA;        go func(i int) {&#xA;            wg.Add(1)&#xA;            println(i)&#xA;            defer wg.Done()&#xA;        }(i)&#xA;    }&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;运行后的现象为什么都没有输出&#xA;WaitGroup(等待组)的目的是用于等待一组协程的结束。&#xA;内部会维护一个计数器&#xA;Add方法向内部计数加上delta&#xA;Done方法减少WaitGroup计数器的值&#xA;Wait方法阻塞直到WaitGroup计数器减为0。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_129</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_129/</link>
+      <pubDate>Thu, 12 Dec 2024 00:59:04 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_129/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;执行下面的代码会发生什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;time&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    ch := make(chan int, 1000)&#xA;    go func() {&#xA;        for i := 0; i &amp;lt; 10; i&amp;#43;&amp;#43; {&#xA;            ch &amp;lt;- i&#xA;        }&#xA;    }()&#xA;    go func() {&#xA;        for {&#xA;            a, ok := &amp;lt;-ch&#xA;            if !ok {&#xA;                fmt.Println(&amp;#34;close&amp;#34;)&#xA;                return&#xA;            }&#xA;            fmt.Println(&amp;#34;a: &amp;#34;, a)&#xA;        }&#xA;    }()&#xA;    close(ch)&#xA;    fmt.Println(&amp;#34;ok&amp;#34;)&#xA;    time.Sleep(time.Second * 100)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;ok&#xA;close&#xA;panic: send on closed channel&#xA;&#xA;goroutine 6 [running]:&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;对已经关闭的管道写数据会发生panic&#xA;对已经关闭的管道读数据,无已写缓存的情况下读的是零值&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

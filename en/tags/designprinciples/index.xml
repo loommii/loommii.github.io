@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>DesignPrinciples - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/designprinciples/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 04 Aug 2026 00:55:54 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/designprinciples/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 003</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_003/</link>
+      <pubDate>Fri, 06 Dec 2024 19:40:53 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_003/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Why are map keys unordered?&lt;/p&gt;&#xA;&lt;p&gt;When iterating over a map, we find that the output keys are unordered. Why is that?&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;After Go &amp;lt;= 1.0, iterating over a map results in unordered keys.&#xA;This is due to the implementation principle of Golang maps. During resizing, a map points to new buckets, but it does not immediately migrate all entries; instead, it points to both new and old buckets. Iterating over a map essentially iterates over these two sets of buckets. However, if resizing occurs, the key positions change, leading to different iteration results.&#xA;Before Go &amp;gt; 1.0, iterating over a map was ordered when not resizing, and unordered after resizing. To unify this, Go &amp;gt;= 1.0 introduced random seeding for map iteration, making the iteration unordered.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

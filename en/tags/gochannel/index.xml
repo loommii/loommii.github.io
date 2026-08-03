@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GoChannel - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/gochannel/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/gochannel/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 20250530</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250530/</link>
+      <pubDate>Fri, 30 May 2025 15:26:33 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250530/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;sync&amp;#34;&#xA;&#xA;func main() {&#xA;&#x9;var wg sync.WaitGroup&#xA;&#x9;foo := make(chan int)&#xA;&#x9;bar := make(chan int)&#xA;&#x9;wg.Add(1)&#xA;&#x9;go func() {&#xA;&#x9;&#x9;defer wg.Done()&#xA;&#x9;&#x9;select {&#xA;&#x9;&#x9;case foo &amp;lt;- &amp;lt;-bar:&#xA;&#x9;&#x9;default:&#xA;&#x9;&#x9;&#x9;println(&amp;#34;default&amp;#34;)&#xA;&#x9;&#x9;}&#xA;&#x9;}()&#xA;&#x9;wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;h2 class=&#34;heading-element&#34; id=&#34;correct-answer-deadlock-no-output-program-hangs&#34;&gt;&lt;span&gt;Correct Answer: &lt;strong&gt;Deadlock (no output, program hangs)&lt;/strong&gt;&lt;/span&gt;&#xA;  &lt;a href=&#34;#correct-answer-deadlock-no-output-program-hangs&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;h3 class=&#34;heading-element&#34; id=&#34;analysis&#34;&gt;&lt;span&gt;Analysis:&lt;/span&gt;&#xA;  &lt;a href=&#34;#analysis&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h3&gt;&lt;p&gt;This code will &lt;strong&gt;deadlock&lt;/strong&gt;; it will not output &amp;ldquo;default&amp;rdquo; nor panic. Instead, the program will hang and cannot continue execution. The reasons are as follows:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 20250527</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250527/</link>
+      <pubDate>Tue, 27 May 2025 12:23:26 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250527/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Process of sending and receiving data on a channel&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;ul&gt;&#xA;&lt;li&gt;Sending data&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Uninitialized channels will deadlock.&lt;/li&gt;&#xA;&lt;li&gt;Closed channels will panic.&lt;/li&gt;&#xA;&lt;li&gt;If a blocked Goroutine is waiting to read, data is written and the reader is unblocked.&lt;/li&gt;&#xA;&lt;li&gt;If no blocked reader exists, and the channel is buffered, it checks for available space. If space exists, data is written to the buffer.&lt;/li&gt;&#xA;&lt;li&gt;If the buffer is full, the sender blocks.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Receiving data&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Uninitialized channels will deadlock.&lt;/li&gt;&#xA;&lt;li&gt;Closed channels will return the zero value.&lt;/li&gt;&#xA;&lt;li&gt;Unbuffered:&#xA;&lt;ul&gt;&#xA;&lt;li&gt;If a blocked Goroutine is waiting to write, data is read and the writer is unblocked.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;li&gt;Buffered: checks if there&amp;rsquo;s available space. If no content, the receiver Goroutine blocks and is added to the read queue. If content exists, data is read from the buffer.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 207</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_207/</link>
+      <pubDate>Sat, 08 Mar 2025 00:59:04 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_207/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What happens when the following code is executed?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;time&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    ch := make(chan int, 1000)&#xA;    go func() {&#xA;        for i := 0; i &amp;lt; 10; i&amp;#43;&amp;#43; {&#xA;            ch &amp;lt;- i&#xA;        }&#xA;    }()&#xA;    go func() {&#xA;        for {&#xA;            a, ok := &amp;lt;-ch&#xA;            if !ok {&#xA;                fmt.Println(&amp;#34;close&amp;#34;)&#xA;                return&#xA;            }&#xA;            fmt.Println(&amp;#34;a: &amp;#34;, a)&#xA;        }&#xA;    }()&#xA;    close(ch)&#xA;    fmt.Println(&amp;#34;ok&amp;#34;)&#xA;    time.Sleep(time.Second * 100)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;ok&#xA;close&#xA;panic: send on closed channel&#xA;&#xA;goroutine 6 [running]:&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Writing data to a closed channel will cause a panic.&#xA;Reading data from a closed channel, when there&amp;rsquo;s no buffered data, will read the zero value.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go: Channel Might Lead to Goroutine Leaks</title>
+      <link>https://loommii.github.io/en/posts/channel_may_cause_goroutine_leak/</link>
+      <pubDate>Fri, 07 Mar 2025 14:12:02 +0800</pubDate>
+      <guid>https://loommii.github.io/en/posts/channel_may_cause_goroutine_leak/</guid>
+      <category domain="https://loommii.github.io/en/categories/techarticle/">TechArticle</category>
+      <description>Detailed explanation of why Channels in Go might cause Goroutine leaks and their solutions.</description>
+    </item>
+    <item>
+      <title>Go Daily Question 150</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_150/</link>
+      <pubDate>Fri, 03 Jan 2025 13:55:19 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_150/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;       &amp;#34;fmt&amp;#34;&#xA;       &amp;#34;time&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;       ch1 := make(chan int)&#xA;       go fmt.Println(&amp;lt;-ch1)&#xA;       ch1 &amp;lt;- 5&#xA;       time.Sleep(1 * time.Second)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A: 5&lt;/li&gt;&#xA;&lt;li&gt;B: Cannot compile&lt;/li&gt;&#xA;&lt;li&gt;C: Runtime deadlock&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;C &lt;a href=&#34;https://go.dev/play/p/FsQsswPtOpp&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;fatal error: all goroutines are asleep - deadlock!&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;p&gt;Official description of &lt;a href=&#34;https://go.dev/ref/spec#Go_statements&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Go statements&lt;/a&gt;&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;A &lt;code&gt;go&lt;/code&gt; statement starts a new goroutine (concurrent thread of execution) and executes a function call in that goroutine.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 131</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_131/</link>
+      <pubDate>Sat, 14 Dec 2024 11:59:22 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_131/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Regarding channels, which of the following syntax is correct:&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;A. var ch chan int&lt;/li&gt;&#xA;&lt;li&gt;B. ch := make(chan int)&lt;/li&gt;&#xA;&lt;li&gt;C. &amp;lt;- ch&lt;/li&gt;&#xA;&lt;li&gt;D. ch &amp;lt;-&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;A, B, C&lt;/p&gt;&#xA;&lt;p&gt;A declares variable &lt;code&gt;ch&lt;/code&gt; of type &lt;code&gt;chan int&lt;/code&gt;, but does not initialize it.&#xA;B declares variable &lt;code&gt;ch&lt;/code&gt; of type &lt;code&gt;chan int&lt;/code&gt;, and initializes it.&#xA;C reads from the channel, discarding the value.&#xA;D is incorrect; writing to a channel requires a value.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 129</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_129/</link>
+      <pubDate>Thu, 12 Dec 2024 00:59:04 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_129/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What happens when the following code is executed?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;time&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    ch := make(chan int, 1000)&#xA;    go func() {&#xA;        for i := 0; i &amp;lt; 10; i&amp;#43;&amp;#43; {&#xA;            ch &amp;lt;- i&#xA;        }&#xA;    }()&#xA;    go func() {&#xA;        for {&#xA;            a, ok := &amp;lt;-ch&#xA;            if !ok {&#xA;                fmt.Println(&amp;#34;close&amp;#34;)&#xA;                return&#xA;            }&#xA;            fmt.Println(&amp;#34;a: &amp;#34;, a)&#xA;        }&#xA;    }()&#xA;    close(ch)&#xA;    fmt.Println(&amp;#34;ok&amp;#34;)&#xA;    time.Sleep(time.Second * 100)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;ok&#xA;close&#xA;panic: send on closed channel&#xA;&#xA;goroutine 6 [running]:&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Writing data to a closed channel will cause a panic.&#xA;Reading data from a closed channel, when there&amp;rsquo;s no buffered data, will read the zero value.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 095</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_095/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:23 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_095/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Output of the following code:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;sync&amp;#34;&#xA;&#xA;func main() {&#xA;    var wg sync.WaitGroup&#xA;    foo := make(chan int)&#xA;    bar := make(chan int)&#xA;    wg.Add(1)&#xA;    go func() {&#xA;        defer wg.Done()&#xA;        select {&#xA;        case foo &amp;lt;- &amp;lt;-bar:&#xA;        default:&#xA;            println(&amp;#34;default&amp;#34;)&#xA;        }&#xA;    }()&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A: default&#xA;B: panic&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Conventionally, one might expect the &lt;code&gt;default&lt;/code&gt; branch of the &lt;code&gt;select&lt;/code&gt; statement in &lt;code&gt;go func&lt;/code&gt; to execute, and the program to run normally. However, the result is not that, but a deadlock. You can test this via: &lt;a href=&#34;https://play.studygolang.com/p/kF4pOjYXbXf.&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://play.studygolang.com/p/kF4pOjYXbXf.&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 060</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_060/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:41 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_060/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;time&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    ch1 := make(chan int)&#xA;    go fmt.Println(&amp;lt;-ch1)&#xA;    ch1 &amp;lt;- 5&#xA;    time.Sleep(1 * time.Second)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A: 5, B: Cannot compile; C: Runtime deadlock&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;C&#xA;Analysis: Because &lt;code&gt;&amp;lt;-ch1&lt;/code&gt; is a parameter, it can be understood that it needs to be evaluated to get a result before creating the goroutine. Therefore, it leads to a runtime deadlock. It should be modified as follows:&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 048</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_048/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:27 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_048/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>Go Language Daily Question Series - Analysis of Go Daily Question 048</description>
+    </item>
+    <item>
+      <title>Go Daily Question 039</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_039/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:16 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_039/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Regarding channels, which of the following syntax is correct:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;A. var ch chan int&#xA;B. ch := make(chan int)&#xA;C. &amp;lt;- ch&#xA;D. ch &amp;lt;-&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: ABC&lt;/p&gt;&#xA;&lt;p&gt;A and B both declare a channel; C reads from a channel;&#xA;Writing to a channel must include a value, so D is incorrect.&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 037</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_037/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:14 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_037/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What happens when the following code is executed?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;time&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    ch := make(chan int, 1000)&#xA;    go func() {&#xA;        for i := 0; i &amp;lt; 10; i&amp;#43;&amp;#43; {&#xA;            ch &amp;lt;- i&#xA;        }&#xA;    }()&#xA;    go func() {&#xA;        for {&#xA;            a, ok := &amp;lt;-ch&#xA;            if !ok {&#xA;                fmt.Println(&amp;#34;close&amp;#34;)&#xA;                return&#xA;            }&#xA;            fmt.Println(&amp;#34;a: &amp;#34;, a)&#xA;        }&#xA;    }()&#xA;    close(ch)&#xA;    fmt.Println(&amp;#34;ok&amp;#34;)&#xA;    time.Sleep(time.Second * 100)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer:&#xA;Prints &amp;ldquo;ok&amp;rdquo; then panics.&#xA;It takes time to start goroutines. Here, the &lt;code&gt;close(ch)&lt;/code&gt; statement closes the channel. Writing data to an already closed channel will cause a program panic.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

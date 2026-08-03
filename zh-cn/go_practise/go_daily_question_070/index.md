@@ -1,0 +1,24 @@
+# Go每日一题_070
+
+
+下面代码中，x 已声明，y 没有声明，判断每条语句的对错。
+
+x, _:= f()
+x,_ = f()
+x, y := f()
+x, y = f()
+
+{{< details summary="🔑 答案解析：" >}}
+1 错
+2 对
+3 对
+4 错
+变量的声明。1.错，x 已经声明，不能使用 :=；2.对；3.对，当多值赋值时，:= 左边的变量至少要有一个未声明的；4.错，y 没有声明。
+{{< /details >}}
+
+
+---
+
+> 作者: loommii  
+> URL: https://loommii.github.io/zh-cn/go_practise/go_daily_question_070/  
+

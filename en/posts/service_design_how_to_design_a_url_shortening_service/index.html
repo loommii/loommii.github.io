@@ -1,157 +1,138 @@
 <!DOCTYPE html>
-<html lang="en">
-    <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <meta name="robots" content="noodp" />
-        <title>Service Design: How to Design a URL Shortening Service - loommii</title><meta name="Description" content="Detailed explanation of how to design a high-performance URL shortening service, including key technical solutions and implementation principles."><meta property="og:url" content="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/">
-  <meta property="og:site_name" content="loommii">
-  <meta property="og:title" content="Service Design: How to Design a URL Shortening Service">
-  <meta property="og:description" content="Detailed explanation of how to design a high-performance URL shortening service, including key technical solutions and implementation principles.">
-  <meta property="og:locale" content="en">
-  <meta property="og:type" content="article">
-    <meta property="article:section" content="posts">
-    <meta property="article:published_time" content="2024-12-09T13:57:51+08:00">
-    <meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
-    <meta property="article:tag" content="URL Shortening">
-    <meta property="article:tag" content="Service Design">
-    <meta property="article:tag" content="Distributed Systems">
-    <meta property="article:tag" content="System Design">
-    <meta property="article:tag" content="Architecture Design">
-    <meta property="og:image" content="https://loommii.github.io/images/logo.png">
+<html itemscope itemtype="http://schema.org/WebPage" lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>Service Design: How to Design a URL Shortening Service - loommii</title><meta name="author" content="loommii">
+<meta name="description" content="Detailed explanation of how to design a high-performance URL shortening service, including key technical solutions and implementation principles."><meta name="keywords" content='SystemDesign, DistributedSystems, PerformanceOptimization'>
+	<meta itemprop="name" content="Service Design: How to Design a URL Shortening Service">
+	<meta itemprop="description" content="Detailed explanation of how to design a high-performance URL shortening service, including key technical solutions and implementation principles.">
+	<meta itemprop="datePublished" content="2024-12-09T13:57:51+08:00">
+	<meta itemprop="dateModified" content="2026-01-16T01:28:43+08:00">
+	<meta itemprop="wordCount" content="1073">
+	<meta itemprop="image" content="https://loommii.github.io/images/logo.png">
+	<meta itemprop="keywords" content="SystemDesign,DistributedSystems,PerformanceOptimization"><meta property="og:url" content="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/">
+	<meta property="og:site_name" content="loommii">
+	<meta property="og:title" content="Service Design: How to Design a URL Shortening Service">
+	<meta property="og:description" content="Detailed explanation of how to design a high-performance URL shortening service, including key technical solutions and implementation principles.">
+	<meta property="og:locale" content="en">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2024-12-09T13:57:51+08:00">
+		<meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
+		<meta property="article:tag" content="SystemDesign">
+		<meta property="article:tag" content="DistributedSystems">
+		<meta property="article:tag" content="PerformanceOptimization">
+		<meta property="og:image" content="https://loommii.github.io/images/logo.png">
 
-  <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
-  <meta name="twitter:title" content="Service Design: How to Design a URL Shortening Service">
-  <meta name="twitter:description" content="Detailed explanation of how to design a high-performance URL shortening service, including key technical solutions and implementation principles.">
-<meta name="application-name" content="My cool site">
-<meta name="apple-mobile-web-app-title" content="My cool site">
-<meta name="referrer" content="no-referrer" /><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/" /><link rel="prev" href="https://loommii.github.io/en/posts/a_brief_discussion_on_go_gc_garbage_collection/" /><link rel="next" href="https://loommii.github.io/en/posts/difference_between_go_slice_and_array/" /><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"></noscript><link rel="preload" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-        <noscript><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@4.1.1/animate.min.css"></noscript><script type="application/ld+json">
-    {
-        "@context": "http://schema.org",
-        "@type": "BlogPosting",
-        "headline": "Service Design: How to Design a URL Shortening Service",
-        "inLanguage": "en",
-        "mainEntityOfPage": {
-            "@type": "WebPage",
-            "@id": "https:\/\/loommii.github.io\/en\/posts\/service_design_how_to_design_a_url_shortening_service\/"
-        },"genre": "posts","keywords": "URL Shortening, Service Design, Distributed Systems, System Design, Architecture Design","wordcount":  1073 ,
-        "url": "https:\/\/loommii.github.io\/en\/posts\/service_design_how_to_design_a_url_shortening_service\/","datePublished": "2024-12-09T13:57:51+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
-            "@type": "Organization",
-            "name": ""},"author": {
-                "@type": "Person",
-                "name": "loommii"
-            },"description": "Detailed explanation of how to design a high-performance URL shortening service, including key technical solutions and implementation principles."
-    }
-    </script></head>
-    <body data-header-desktop="fixed" data-header-mobile="auto"><script>
-          const query = window.matchMedia('(prefers-color-scheme: dark)');
-          function applyTheme() {
-            let theme = window.localStorage?.getItem('theme') || 'auto';
-            let isDark = theme === 'dark' || (theme === 'auto' && query.matches);
-            document.body.setAttribute('theme', isDark? 'dark' : 'light');
-            document.body.setAttribute('cfg-theme', theme);
-          }
-
-          applyTheme();
-          query.addEventListener('change', applyTheme);
-        </script>
-
-        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+	<meta name="twitter:title" content="Service Design: How to Design a URL Shortening Service">
+	<meta name="twitter:description" content="Detailed explanation of how to design a high-performance URL shortening service, including key technical solutions and implementation principles.">
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/" title="Service Design: How to Design a URL Shortening Service - loommii" /><link rel="prev" type="text/html" href="https://loommii.github.io/en/posts/a_brief_discussion_on_go_gc_garbage_collection/" title="An Overview of Go GC (Garbage Collection)" /><link rel="next" type="text/html" href="https://loommii.github.io/en/go_practise/go_daily_question_127/" title="Go Daily Question 127" /><link rel="alternate" type="text/markdown" href="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/index.md" title="Service Design: How to Design a URL Shortening Service - loommii"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "Service Design: How to Design a URL Shortening Service",
+    "inLanguage": "en",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/loommii.github.io\/en\/posts\/service_design_how_to_design_a_url_shortening_service\/"
+    },"genre": "posts","keywords": "SystemDesign, DistributedSystems, PerformanceOptimization","wordcount":  1073 ,
+    "url": "https:\/\/loommii.github.io\/en\/posts\/service_design_how_to_design_a_url_shortening_service\/","datePublished": "2024-12-09T13:57:51+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "loommii"
+      },"description": "Detailed explanation of how to design a high-performance URL shortening service, including key technical solutions and implementation principles."
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/en/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="32" width="32"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/en/posts/">Posts</a></li><li class="menu-item">
+              <a class="menu-link" href="/en/go_practise/">Go Practice</a></li><li class="menu-item">
+              <a class="menu-link" href="/en/leetcode/">LeetCode Solutions</a></li><li class="menu-item">
+              <a class="menu-link" href="/en/categories/">Categories</a></li><li class="menu-item">
+              <a class="menu-link" href="/en/tags/">Tags</a></li><li class="menu-item">
+              <a class="menu-link" href="/en/archives/">Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="Search titles or contents ..." id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li><li class="menu-item language-switch">
+            <span role="button" aria-label="Select Language" title="Select Language"><i class="fa-solid fa-language" aria-hidden="true"></i></span>
+            <ul class="sub-menu"><li class="menu-item"><a href="/zh-cn/posts/service_design_how_to_design_a_url_shortening_service/" class="menu-link" title="简体中文">简体中文</a></li><li class="menu-item"><span class="text-secondary" title="English">English</span></li></ul>
+          </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
     <div class="header-wrapper">
-        <div class="header-title">
-            <a href="/en/" title="loommii"><img
-        class="lazyload logo"
-        src="/svg/loading.min.svg"
-        data-src="/images/logo.png"
-        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
-        data-sizes="auto"
-        alt="/images/logo.png"
-        title="/images/logo.png" />loommii</a>
-        </div>
-        <div class="menu">
-            <div class="menu-inner"><a class="menu-item" href="/en/posts/"> Posts </a><a class="menu-item" href="/en/go_practise/"> Go Practice </a><a class="menu-item" href="/en/leetcode/"> LeetCode Solutions </a><a class="menu-item" href="/en/categories/"> Categories </a><a class="menu-item" href="/en/tags/"> Tags </a><a class="menu-item" href="/en/posts/"> Archives </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
-                        <input type="text" placeholder="Search titles or contents..." id="search-input-desktop">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-desktop">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                    <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-                </a><a href="javascript:void(0);" class="menu-item language" title="Select Language">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>                      
-                    <select class="language-select" id="language-select-desktop" onchange="location = this.value;"><option value="/zh-cn/posts/service_design_how_to_design_a_url_shortening_service/">简体中文</option><option value="/en/posts/service_design_how_to_design_a_url_shortening_service/" selected>English</option></select>
-                </a></div>
-        </div>
+      <div class="header-title">
+        <a href="/en/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="26" width="26"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
     </div>
-</header><header class="mobile" id="header-mobile">
-    <div class="header-container">
-        <div class="header-wrapper">
-            <div class="header-title">
-                <a href="/en/" title="loommii"><img
-        class="lazyload logo"
-        src="/svg/loading.min.svg"
-        data-src="/images/logo.png"
-        data-srcset="/images/logo.png, /images/logo.png 1.5x, /images/logo.png 2x"
-        data-sizes="auto"
-        alt="/images/logo.png"
-        title="/images/logo.png" />loommii</a>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="Search titles or contents ..." id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
             </div>
-            <div class="menu-toggle" id="menu-toggle-mobile">
-                <span></span><span></span><span></span>
-            </div>
-        </div>
-        <div class="menu" id="menu-mobile"><div class="search-wrapper">
-                    <div class="search mobile" id="search-mobile">
-                        <input type="text" placeholder="Search titles or contents..." id="search-input-mobile">
-                        <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
-                            <i class="fas fa-search fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
-                            <i class="fas fa-times-circle fa-fw" aria-hidden="true"></i>
-                        </a>
-                        <span class="search-button search-loading" id="search-loading-mobile">
-                            <i class="fas fa-spinner fa-fw fa-spin" aria-hidden="true"></i>
-                        </span>
-                    </div>
-                    <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-                        Cancel
-                    </a>
-                </div><a class="menu-item" href="/en/posts/" title="">Posts</a><a class="menu-item" href="/en/go_practise/" title="">Go Practice</a><a class="menu-item" href="/en/leetcode/" title="">LeetCode Solutions</a><a class="menu-item" href="/en/categories/" title="">Categories</a><a class="menu-item" href="/en/tags/" title="">Tags</a><a class="menu-item" href="/en/posts/" title="">Archives</a><a href="javascript:void(0);" class="menu-item theme-switch" title="Switch Theme">
-                <i class="fas fa-adjust fa-fw" aria-hidden="true"></i>
-            </a><a href="javascript:void(0);" class="menu-item" title="Select Language">
-                    <i class="fa fa-globe fa-fw" aria-hidden="true"></i>
-                    <select class="language-select" onchange="location = this.value;"><option value="/zh-cn/posts/service_design_how_to_design_a_url_shortening_service/">简体中文</option><option value="/en/posts/service_design_how_to_design_a_url_shortening_service/" selected>English</option></select>
-                </a></div>
-    </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              Cancel
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/en/posts/">Posts</a></li><li class="menu-item"><a class="menu-link" href="/en/go_practise/">Go Practice</a></li><li class="menu-item"><a class="menu-link" href="/en/leetcode/">LeetCode Solutions</a></li><li class="menu-item"><a class="menu-link" href="/en/categories/">Categories</a></li><li class="menu-item"><a class="menu-link" href="/en/tags/">Tags</a></li><li class="menu-item"><a class="menu-link" href="/en/archives/">Archives</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch">
+              <span role="button" aria-label="Select Language" title="Select Language">English<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+              <select id="language-select" class="language-select" onchange="location = this.value;"><option value="/zh-cn/posts/service_design_how_to_design_a_url_shortening_service/">简体中文</option><option value="/en/posts/service_design_how_to_design_a_url_shortening_service/" selected disabled>English</option></select>
+            </span></li>
+      </ul>
+    </nav>
+  </div>
 </header><div class="search-dropdown desktop">
-        <div id="search-dropdown-desktop"></div>
-    </div>
-    <div class="search-dropdown mobile">
-        <div id="search-dropdown-mobile"></div>
-    </div><main class="main">
-                <div class="container"><div class="toc" id="toc-auto">
-            <h2 class="toc-title">Contents</h2>
-            <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Service Design: How to Design a URL Shortening Service</h1><div class="post-meta">
-            <div class="post-meta-line"><span class="post-author"><a href="https://github.com/loommii" title="Author" target="_blank" rel="noopener noreffer author" class="author"><i class="fas fa-user-circle fa-fw" aria-hidden="true"></i>loommii</a></span>&nbsp;<span class="post-category">included in <a href="/en/categories/system-design/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>System Design</a>&nbsp;<a href="/en/categories/service-architecture/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Service Architecture</a>&nbsp;<a href="/en/categories/tech-article/"><i class="far fa-folder fa-fw" aria-hidden="true"></i>Tech Article</a></span></div>
-            <div class="post-meta-line"><i class="far fa-calendar-alt fa-fw" aria-hidden="true"></i>&nbsp;<time datetime="2024-12-09">2024-12-09</time>&nbsp;<i class="fas fa-pencil-alt fa-fw" aria-hidden="true"></i>&nbsp;1073 words&nbsp;
-                <i class="far fa-clock fa-fw" aria-hidden="true"></i>&nbsp;6 minutes&nbsp;</div>
-        </div><div class="details toc" id="toc-static"  data-kept="">
-                <div class="details-summary toc-title">
-                    <span>Contents</span>
-                    <span><i class="details-icon fas fa-angle-right" aria-hidden="true"></i></span>
-                </div>
-                <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Service Design: How to Design a URL Shortening Service</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      loommii</span></span><span class="post-included-in">&nbsp;included in <a href="/en/categories/techarticle/" class="post-category" title="Category - TechArticle"><i class="fa-regular fa-folder" aria-hidden="true"></i> TechArticle</a></span></div><div class="post-meta-line"><span title="published on 2024-12-09 13:57:51"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-12-09">2024-12-09</time></span>&nbsp;<span title="Updated on 2026-01-16 01:28:43"><i class="fa-regular fa-calendar-check me-1" aria-hidden="true"></i><time datetime="2026-01-16">2026-01-16</time></span>&nbsp;<span title="1073 words"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>About 1100 words</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>6 minutes</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>Contents</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
   <ul>
     <li>
       <ul>
@@ -160,35 +141,47 @@
         <li><a href="#the-most-basic-requirements">The Most Basic Requirements</a></li>
         <li><a href="#why-choose-base62-encoding-for-short-link-keys">Why Choose Base62 Encoding for Short Link Keys?</a></li>
         <li><a href="#choosing-the-length-of-the-short-link-key">Choosing the Length of the Short Link Key</a></li>
-        <li><a href="#generation-of-short-link-keys">Generation of Short Link Keys</a></li>
+        <li><a href="#generation-of-short-link-keys">Generation of Short Link Keys</a>
+          <ul>
+            <li><a href="#solution-1-randomly-generate-short-link-keys">Solution 1: Randomly Generate Short Link Keys</a></li>
+            <li><a href="#solution-2-hash-algorithm">Solution 2: Hash Algorithm</a></li>
+            <li><a href="#solution-3-counter-increment-method--dictionary">Solution 3: Counter Increment Method + Dictionary</a></li>
+            <li><a href="#solution-4-counter-increment-method--shuffled-dictionary--counter-inversion--hash-calculation">Solution 4: Counter Increment Method + Shuffled Dictionary + Counter Inversion + Hash Calculation</a></li>
+          </ul>
+        </li>
       </ul>
     </li>
   </ul>
 </nav></div>
-            </div><div class="content" id="content"><h3 id="what-is-a-url-shortening-service">What is a URL Shortening Service?</h3>
-<p>The essence of a URL shortening service is to redirect a short URL to the original long URL through the HTTP 302 redirection mechanism.</p>
-<h3 id="what-problems-does-a-short-link-service-solve">What Problems Does a Short Link Service Solve?</h3>
-<ol>
+      </div><div class="content" id="content"><h3 class="heading-element" id="what-is-a-url-shortening-service"><span>What is a URL Shortening Service?</span>
+  <a href="#what-is-a-url-shortening-service" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>The essence of a URL shortening service is to redirect a short URL to the original long URL through the HTTP 302 redirection mechanism.</p>
+<h3 class="heading-element" id="what-problems-does-a-short-link-service-solve"><span>What Problems Does a Short Link Service Solve?</span>
+  <a href="#what-problems-does-a-short-link-service-solve" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>Solving the character limit issue for message sending
 For example, Tencent Cloud SMS limits each message to 500 characters. In marketing SMS, URLs often carry numerous parameters (e.g., invitation platform, inviter, activity ID, etc.). These parameters make the URLs very long. Through a URL shortening service, the long URLs in marketing SMS can be replaced with short links, saving character space.
-<img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/zh-cn/posts/service_design_how_to_design_a_url_shortening_service/image.png"
-        data-srcset="/zh-cn/posts/service_design_how_to_design_a_url_shortening_service/image.png, /zh-cn/posts/service_design_how_to_design_a_url_shortening_service/image.png 1.5x, /zh-cn/posts/service_design_how_to_design_a_url_shortening_service/image.png 2x"
-        data-sizes="auto"
-        alt="/zh-cn/posts/service_design_how_to_design_a_url_shortening_service/image.png"
-        title="Tencent Cloud SMS" width="1124" height="298" /></li>
+<img loading="lazy" src='/zh-cn/posts/service_design_how_to_design_a_url_shortening_service/image.png' alt="Tencent Cloud SMS" height="298" width="1124"></li>
 <li>Hiding request parameters
 Taking a marketing campaign as an example, common parameters in URLs might include information like the activity ID. If we don&rsquo;t want these IDs to be modified随意, we can add a corresponding activity ID KEY to the parameters. This way, users can only enter the corresponding activity page when the ID and KEY match. However, after adding the KEY, the original URL becomes even longer. A short link service can help hide these request parameters, keeping the URL concise and secure.</li>
 </ol>
-<h3 id="the-most-basic-requirements">The Most Basic Requirements</h3>
-<ol>
+<h3 class="heading-element" id="the-most-basic-requirements"><span>The Most Basic Requirements</span>
+  <a href="#the-most-basic-requirements" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ol>
 <li>Long URL Registration</li>
 <li>Short URL Redirection</li>
 </ol>
-<h3 id="why-choose-base62-encoding-for-short-link-keys">Why Choose Base62 Encoding for Short Link Keys?</h3>
-<p>According to the RFC3986 standard, URLs consist of ASCII characters. The following characters can be safely used in URLs:</p>
+<h3 class="heading-element" id="why-choose-base62-encoding-for-short-link-keys"><span>Why Choose Base62 Encoding for Short Link Keys?</span>
+  <a href="#why-choose-base62-encoding-for-short-link-keys" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>According to the RFC3986 standard, URLs consist of ASCII characters. The following characters can be safely used in URLs:</p>
 <ul>
 <li>Letters (a-z and A-Z)</li>
 <li>Numbers (0-9)</li>
@@ -196,56 +189,68 @@ Taking a marketing campaign as an example, common parameters in URLs might inclu
 </ul>
 <p>Although the RFC3986 standard allows some special characters, certain special characters might cause problems with URL parsing, transmission, or storage. For example, characters like &amp;, ?, =, #, etc., have specific meanings in query parameters or paths, so they might cause conflicts or parsing errors.</p>
 <blockquote>
-<p>To avoid these potential troubles, especially when needing to encode complex query parameters or keys into a URL-friendly format, we usually choose Base62 encoding, which uses only the combination of letters (upper and lower case) and numbers.</p></blockquote>
-<h3 id="choosing-the-length-of-the-short-link-key">Choosing the Length of the Short Link Key</h3>
-<p>Our character set is already determined to be Base62, so a length of 1 can store 62 types. For each additional digit, the storage limit increases exponentially by powers of 62.</p>
-<table>
-  <thead>
-      <tr>
-          <th style="text-align: left">Length</th>
-          <th style="text-align: left">Storage Limit</th>
-          <th style="text-align: left">Interpretation</th>
-      </tr>
-  </thead>
-  <tbody>
-      <tr>
-          <td style="text-align: left">1</td>
-          <td style="text-align: left">62</td>
-          <td style="text-align: left">1 digit can represent 62 different combinations</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">2</td>
-          <td style="text-align: left">62 × 62 = 3,844</td>
-          <td style="text-align: left">2 digits can represent 62 squared, i.e., 3,844 different combinations</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">3</td>
-          <td style="text-align: left">62 × 62 × 62 = 238,328</td>
-          <td style="text-align: left">3 digits can represent 62 cubed, i.e., 238,328 different combinations</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">4</td>
-          <td style="text-align: left">62 × 62 × 62 × 62 = 14,776,336</td>
-          <td style="text-align: left">4 digits can represent 62 to the fourth power, i.e., 14,776,336 different combinations</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">5</td>
-          <td style="text-align: left">62 × 62 × 62 × 62 × 62 = 916,132,832</td>
-          <td style="text-align: left">5 digits can represent 62 to the fifth power, i.e., 916,132,832 different combinations</td>
-      </tr>
-      <tr>
-          <td style="text-align: left">6</td>
-          <td style="text-align: left">62 × 62 × 62 × 62 × 62 × 62 = 56,800,235,584</td>
-          <td style="text-align: left">6 digits can represent 62 to the sixth power, i.e., 56,800,235,584 different combinations</td>
-      </tr>
-  </tbody>
-</table>
-<blockquote>
-<p>The storage limit for 5 digits has already reached 916,132,832. This number is already very large and sufficient to support most application scenarios. However, if you hope to further reduce conflicts when generating characters or plan for the long term, choosing 6 digits as the short link KEY length would be a good choice.</p></blockquote>
-<h3 id="generation-of-short-link-keys">Generation of Short Link Keys</h3>
-<p>There is no best solution, only the most suitable one.</p>
-<h4 id="solution-1-randomly-generate-short-link-keys">Solution 1: Randomly Generate Short Link Keys</h4>
-<p>Implementation: The system generates the corresponding short link key through a random function.
+<p>To avoid these potential troubles, especially when needing to encode complex query parameters or keys into a URL-friendly format, we usually choose Base62 encoding, which uses only the combination of letters (upper and lower case) and numbers.</p>
+</blockquote>
+<h3 class="heading-element" id="choosing-the-length-of-the-short-link-key"><span>Choosing the Length of the Short Link Key</span>
+  <a href="#choosing-the-length-of-the-short-link-key" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>Our character set is already determined to be Base62, so a length of 1 can store 62 types. For each additional digit, the storage limit increases exponentially by powers of 62.</p>
+<div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th style="text-align: left">Length</th>
+            <th style="text-align: left">Storage Limit</th>
+            <th style="text-align: left">Interpretation</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: left">1</td>
+            <td style="text-align: left">62</td>
+            <td style="text-align: left">1 digit can represent 62 different combinations</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">2</td>
+            <td style="text-align: left">62 × 62 = 3,844</td>
+            <td style="text-align: left">2 digits can represent 62 squared, i.e., 3,844 different combinations</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">3</td>
+            <td style="text-align: left">62 × 62 × 62 = 238,328</td>
+            <td style="text-align: left">3 digits can represent 62 cubed, i.e., 238,328 different combinations</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">4</td>
+            <td style="text-align: left">62 × 62 × 62 × 62 = 14,776,336</td>
+            <td style="text-align: left">4 digits can represent 62 to the fourth power, i.e., 14,776,336 different combinations</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">5</td>
+            <td style="text-align: left">62 × 62 × 62 × 62 × 62 = 916,132,832</td>
+            <td style="text-align: left">5 digits can represent 62 to the fifth power, i.e., 916,132,832 different combinations</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">6</td>
+            <td style="text-align: left">62 × 62 × 62 × 62 × 62 × 62 = 56,800,235,584</td>
+            <td style="text-align: left">6 digits can represent 62 to the sixth power, i.e., 56,800,235,584 different combinations</td>
+        </tr>
+    </tbody>
+  </table>
+</div><blockquote>
+<p>The storage limit for 5 digits has already reached 916,132,832. This number is already very large and sufficient to support most application scenarios. However, if you hope to further reduce conflicts when generating characters or plan for the long term, choosing 6 digits as the short link KEY length would be a good choice.</p>
+</blockquote>
+<h3 class="heading-element" id="generation-of-short-link-keys"><span>Generation of Short Link Keys</span>
+  <a href="#generation-of-short-link-keys" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>There is no best solution, only the most suitable one.</p>
+<h4 class="heading-element" id="solution-1-randomly-generate-short-link-keys"><span>Solution 1: Randomly Generate Short Link Keys</span>
+  <a href="#solution-1-randomly-generate-short-link-keys" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>Implementation: The system generates the corresponding short link key through a random function.
 Advantages:</p>
 <ul>
 <li>Easy to implement: The implementation of randomly generating short link keys is relatively simple. It can quickly obtain short link identifiers by generating random numbers and mapping them to the Base62 character set. Most programming languages provide simple random number generation functions, making it convenient to operate.</li>
@@ -256,8 +261,11 @@ Advantages:</p>
 <li>The same long URL will generate different short link keys, which may lead to waste.</li>
 </ul>
 <p>Solution: Use hash calculation.</p>
-<h4 id="solution-2-hash-algorithm">Solution 2: Hash Algorithm</h4>
-<p>Implementation: Generate a fixed-length short link key from the long URL using a hash algorithm.</p>
+<h4 class="heading-element" id="solution-2-hash-algorithm"><span>Solution 2: Hash Algorithm</span>
+  <a href="#solution-2-hash-algorithm" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>Implementation: Generate a fixed-length short link key from the long URL using a hash algorithm.</p>
 <p>Advantages:</p>
 <ul>
 <li>Solves the problem of the same long URL generating different short links: The hash algorithm ensures that the same long URL always generates the same short link key, thus avoiding storage redundancy.</li>
@@ -265,20 +273,17 @@ Advantages:</p>
 <p>Disadvantages:</p>
 <ul>
 <li>Possibility of hash collisions: Although hash functions can generate fixed-length short links, different long URLs might produce the same hash value, leading to hash collisions.
-<img
-        class="lazyload"
-        src="/svg/loading.min.svg"
-        data-src="/zh-cn/posts/service_design_how_to_design_a_url_shortening_service/image-1.png"
-        data-srcset="/zh-cn/posts/service_design_how_to_design_a_url_shortening_service/image-1.png, /zh-cn/posts/service_design_how_to_design_a_url_shortening_service/image-1.png 1.5x, /zh-cn/posts/service_design_how_to_design_a_url_shortening_service/image-1.png 2x"
-        data-sizes="auto"
-        alt="/zh-cn/posts/service_design_how_to_design_a_url_shortening_service/image-1.png"
-        title="Hash Collision" width="1330" height="566" />
+<img loading="lazy" src='/zh-cn/posts/service_design_how_to_design_a_url_shortening_service/image-1.png' alt="Hash Collision" height="566" width="1330">
 Solution: When encountering hash collisions, meaningless strings can be inserted after the hash value, or other deduplication strategies can be adopted, such as performing a secondary hash calculation.</li>
 </ul>
-<h4 id="solution-3-counter-increment-method--dictionary">Solution 3: Counter Increment Method + Dictionary</h4>
-<p>Implementation: Maintain a counter. Each time a new long URL is added, the counter increments, and then the counter value is converted into a fixed short link key.</p>
+<h4 class="heading-element" id="solution-3-counter-increment-method--dictionary"><span>Solution 3: Counter Increment Method + Dictionary</span>
+  <a href="#solution-3-counter-increment-method--dictionary" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>Implementation: Maintain a counter. Each time a new long URL is added, the counter increments, and then the counter value is converted into a fixed short link key.</p>
 <blockquote>
-<p>Example: Value 66, short link key is dictionary[0]+dictionary[0]+dictionary[0]+dictionary[0]+dictionary[1]+dictionary[4]</p></blockquote>
+<p>Example: Value 66, short link key is dictionary[0]+dictionary[0]+dictionary[0]+dictionary[0]+dictionary[1]+dictionary[4]</p>
+</blockquote>
 <p>Advantages:</p>
 <ul>
 <li>No possibility of conflicts in a single-machine environment: Since the counter is incremented, each short link key is unique, so no conflicts will occur.</li>
@@ -290,14 +295,18 @@ Solution: When encountering hash collisions, meaningless strings can be inserted
 <li>The same long URL will generate different short link keys, possibly leading to waste: Each time a short link is generated, the same long URL will get a different short link key.</li>
 </ul>
 <p>Solution: The generation logic can be optimized through methods like counter inversion, shuffled dictionaries, or hash calculations to reduce patterns and conflicts.</p>
-<h4 id="solution-4-counter-increment-method--shuffled-dictionary--counter-inversion--hash-calculation">Solution 4: Counter Increment Method + Shuffled Dictionary + Counter Inversion + Hash Calculation</h4>
-<p>Implementation:</p>
+<h4 class="heading-element" id="solution-4-counter-increment-method--shuffled-dictionary--counter-inversion--hash-calculation"><span>Solution 4: Counter Increment Method + Shuffled Dictionary + Counter Inversion + Hash Calculation</span>
+  <a href="#solution-4-counter-increment-method--shuffled-dictionary--counter-inversion--hash-calculation" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h4><p>Implementation:</p>
 <ul>
 <li>Shuffled Dictionary: At service startup, shuffle the order of the dictionary to ensure that the same counter value generates different short link keys, thereby avoiding conflicts in a distributed environment.</li>
 <li>Counter Inversion: To break the regularity in short link generation, perform an inversion operation on the generated number based on the counter increment. This increases the magnitude of each number change, making the generated short link keys more diverse.</li>
 </ul>
 <blockquote>
-<p>For example, 123 -&gt; 00 0000 0123 -&gt; 32 1000 0000</p></blockquote>
+<p>For example, 123 -&gt; 00 0000 0123 -&gt; 32 1000 0000</p>
+</blockquote>
 <p>Advantages:</p>
 <ul>
 <li>Almost solves all problems: This solution, through multiple optimizations, almost solves all potential problems, such as conflicts, regularity, and waste.</li>
@@ -307,74 +316,84 @@ Solution: When encountering hash collisions, meaningless strings can be inserted
 <li>Service implementation is relatively complex: This solution requires additional logic to handle dictionary shuffling, counter inversion, etc., making the service implementation more complex.</li>
 <li>Higher performance requirements</li>
 </ul></div><div class="post-footer" id="post-footer">
-    <div class="post-info">
-        <div class="post-info-line">
-            <div class="post-info-mod">
-                <span>Updated on 2026-01-16</span>
-            </div></div>
-        <div class="post-info-line">
-            <div class="post-info-md"></div>
-            <div class="post-info-share">
-                <span><a href="javascript:void(0);" title="Share on X" data-sharer="x" data-url="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/" data-title="Service Design: How to Design a URL Shortening Service" data-hashtags="URL Shortening,Service Design,Distributed Systems,System Design,Architecture Design"><i class="fab fa-x-twitter fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Threads" data-sharer="threads" data-url="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/" data-title="Service Design: How to Design a URL Shortening Service"><i class="fab fa-threads fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/" data-hashtag="URL Shortening"><i class="fab fa-facebook-square fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Hacker News" data-sharer="hackernews" data-url="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/" data-title="Service Design: How to Design a URL Shortening Service"><i class="fab fa-hacker-news fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Line" data-sharer="line" data-url="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/" data-title="Service Design: How to Design a URL Shortening Service"><i data-svg-src="https://cdn.jsdelivr.net/npm/simple-icons@15.14.0/icons/line.svg" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/" data-title="Service Design: How to Design a URL Shortening Service"><i class="fab fa-weibo fa-fw" aria-hidden="true"></i></a><a href="javascript:void(0);" title="Share on Diaspora" data-sharer="diaspora" data-url="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/" data-title="Service Design: How to Design a URL Shortening Service" data-description="Detailed explanation of how to design a high-performance URL shortening service, including key technical solutions and implementation principles."><i class="fab fa-diaspora fa-fw" aria-hidden="true"></i></a><a href="https://t.me/share/url?url=https%3a%2f%2floommii.github.io%2fen%2fposts%2fservice_design_how_to_design_a_url_shortening_service%2f&amp;text=Service%20Design%3a%20How%20to%20Design%20a%20URL%20Shortening%20Service" target="_blank" title="Share on Telegram"><i class="fab fa-telegram fa-fw" aria-hidden="true"></i></a></span>
-            </div>
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="Updated on 2026-01-16 01:28:43">Updated on 2026-01-16&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"><span><a href="/en/posts/service_design_how_to_design_a_url_shortening_service/index.md" title="Read Markdown" class="link-to-markdown">Read Markdown</a></span></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/" data-title="Service Design: How to Design a URL Shortening Service" data-hashtags="SystemDesign,DistributedSystems,PerformanceOptimization"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/" data-hashtag="SystemDesign"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/en/posts/service_design_how_to_design_a_url_shortening_service/" data-title="Service Design: How to Design a URL Shortening Service"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
         </div>
-    </div>
+      </div></div>
 
-    <div class="post-info-more">
-        <section class="post-tags"><i class="fas fa-tags fa-fw" aria-hidden="true"></i>&nbsp;<a href="/en/tags/url-shortening/">URL Shortening</a>,&nbsp;<a href="/en/tags/service-design/">Service Design</a>,&nbsp;<a href="/en/tags/distributed-systems/">Distributed Systems</a>,&nbsp;<a href="/en/tags/system-design/">System Design</a>,&nbsp;<a href="/en/tags/architecture-design/">Architecture Design</a></section>
-        <section>
-            <span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/en/">Home</a></span>
-        </section>
-    </div>
-
-    <div class="post-nav"><a href="/en/posts/a_brief_discussion_on_go_gc_garbage_collection/" class="prev" rel="prev" title="An Overview of Go GC (Garbage Collection)"><i class="fas fa-angle-left fa-fw" aria-hidden="true"></i>An Overview of Go GC (Garbage Collection)</a>
-            <a href="/en/posts/difference_between_go_slice_and_array/" class="next" rel="next" title="Go: Slices vs. Arrays">Go: Slices vs. Arrays<i class="fas fa-angle-right fa-fw" aria-hidden="true"></i></a></div>
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/en/tags/systemdesign/" class="post-tag" title="Tags - SystemDesign">SystemDesign</a><a href="/en/tags/distributedsystems/" class="post-tag" title="Tags - DistributedSystems">DistributedSystems</a><a href="/en/tags/performanceoptimization/" class="post-tag" title="Tags - PerformanceOptimization">PerformanceOptimization</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/en/">Home</a></span>
+    </section>
+  </div><div class="post-nav"></div>
 </div>
-<div id="comments"><div id="giscus" class="comment"></div><noscript>
-                Please enable JavaScript to view the comments powered by <a href="https://giscus.app">Giscus</a>.
-            </noscript></div></article></div>
-            </main><footer class="footer">
-        <div class="footer-container"><div class="footer-line">Powered by <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.145.0">Hugo</a> | Theme - <a href="https://github.com/dillonzq/LoveIt" target="_blank" rel="noopener noreffer" title="LoveIt 0.3.1-DEV"><i class="far fa-kiss-wink-heart fa-fw" aria-hidden="true"></i> LoveIt</a>
-                </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw" aria-hidden="true"></i><span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/en/" target="_blank">loommii</a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+<div id="comments"><div id="giscus" class="comment">
+            <script
+                src="https://giscus.app/client.js"
+                data-repo="loommii/loommii.github.io"
+                data-repo-id="R_kgDOQ1YU8A"
+                data-category="Announcements"
+                data-category-id="DIC_kwDOQ1YU8M4C1aXA"
+                data-mapping="specific"
+                data-strict="0"
+                data-term="service-design-how-to-design-a-url-shortening-service"
+                data-theme="preferred_color_scheme"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="bottom"
+                data-lang="en"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async
+            ></script>
         </div>
-    </footer></div>
+        <noscript>
+            Please enable JavaScript to view the comments powered by <a href="https://giscus.app">giscus</a>.
+        </noscript></div></article>
 
-        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="Back to Top">
-                <i class="fas fa-arrow-up fa-fw" aria-hidden="true"></i>
-            </a>
-        </div>
-
-        <div id="fixed-buttons-hidden"><a href="#" id="view-comments" class="fixed-button" title="View Comments">
-                <i class="fas fa-comment fa-fw" aria-hidden="true"></i>
-            </a>
-        </div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/css/lightgallery-bundle.min.css"><script src="https://cdn.jsdelivr.net/npm/autocomplete.js@0.38.1/dist/autocomplete.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lunr@2.3.9/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lazysizes@5.3.2/lazysizes.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/lightgallery.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/thumbnail/lg-thumbnail.min.js"></script><script src="https://cdn.jsdelivr.net/npm/lightgallery@2.5.0/plugins/zoom/lg-zoom.min.js"></script><script src="https://cdn.jsdelivr.net/npm/clipboard@2.0.11/dist/clipboard.min.js"></script><script src="https://cdn.jsdelivr.net/npm/sharer.js@0.5.2/sharer.min.js"></script><script>window.config={"comment":{"giscus":{"category":"Announcements","categoryId":"DIC_kwDOQ1YU8M4C1aXA","darkTheme":"dark","emitMetadata":"0","inputPosition":"bottom","lang":"en","lazyLoading":false,"lightTheme":"light","mapping":"specific","reactionsEnabled":"1","repo":"loommii/loommii.github.io","repoId":"R_kgDOQ1YU8A","term":"service-design-how-to-design-a-url-shortening-service"}},"lightgallery":true,"search":{"highlightTag":"em","lunrLanguageCode":"en","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"No results found","snippetLength":30}};</script><script src="/js/theme.min.js"></script><script>
-        let r = new XMLHttpRequest();
-        let views = document.getElementById("page-views");
-
-        var get_path = function() {
-            var loc = location,
-                c = document.querySelector('link[rel="canonical"][href]')
-            if (c) {  
-                var a = document.createElement('a')
-                a.href = c.href
-                if (a.hostname.replace(/^www\./, '') === location.hostname.replace(/^www\./, ''))
-                    loc = a
-            }
-            let path = loc.pathname;
-            if(path.endsWith('/')) path = path.slice(0, -1);
-            return path || '/';
-        }
-
-        if(views) {
-            r.addEventListener('load', function() {
-                const count = JSON.parse(this.responseText);
-                views.innerHTML = `${count.count_unique} views on this page (powered by <a href="https://www.goatcounter.com/">Goat Counter</a>)`
-            })
-
-            r.open('GET', 'https://linjjj.goatcounter.com/counter/' + encodeURIComponent(get_path()) + '.json')
-            r.send()
-        }
-    </script>
-    <script data-goatcounter="https://linjjj.goatcounter.com/count"
-            async src="//gc.zgo.at/count.js"></script></body>
+  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">Contents</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#what-is-a-url-shortening-service">What is a URL Shortening Service?</a></li>
+        <li><a href="#what-problems-does-a-short-link-service-solve">What Problems Does a Short Link Service Solve?</a></li>
+        <li><a href="#the-most-basic-requirements">The Most Basic Requirements</a></li>
+        <li><a href="#why-choose-base62-encoding-for-short-link-keys">Why Choose Base62 Encoding for Short Link Keys?</a></li>
+        <li><a href="#choosing-the-length-of-the-short-link-key">Choosing the Length of the Short Link Key</a></li>
+        <li><a href="#generation-of-short-link-keys">Generation of Short Link Keys</a>
+          <ul>
+            <li><a href="#solution-1-randomly-generate-short-link-keys">Solution 1: Randomly Generate Short Link Keys</a></li>
+            <li><a href="#solution-2-hash-algorithm">Solution 2: Hash Algorithm</a></li>
+            <li><a href="#solution-3-counter-increment-method--dictionary">Solution 3: Counter Increment Method + Dictionary</a></li>
+            <li><a href="#solution-4-counter-increment-method--shuffled-dictionary--counter-inversion--hash-calculation">Solution 4: Counter Increment Method + Shuffled Dictionary + Counter Inversion + Hash Calculation</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.164.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/en/">loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/en/js/config/016a30e676f966aebf631b828d71722b.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

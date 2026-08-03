@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Gonilmap - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/gonilmap/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/gonilmap/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_220</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_220/</link>
+      <pubDate>Thu, 01 May 2025 01:10:27 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_220/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码中 A B 两处应该怎么修改才能顺利编译？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;&#x9;var m map[string]int        //A&#xA;&#x9;m[&amp;#34;a&amp;#34;] = 1 &#xA;&#x9;if v := m[&amp;#34;b&amp;#34;]; v != nil {  //B&#xA;&#x9;&#x9;fmt.Println(v)&#xA;&#x9;}&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;pre&gt;&lt;code&gt;func main() {&#xA;&#x9;m := make(map[string]int)&#xA;&#x9;m[&amp;#34;a&amp;#34;] = 1&#xA;&#x9;if v,ok := m[&amp;#34;b&amp;#34;]; ok {&#xA;&#x9;&#x9;fmt.Println(v)&#xA;&#x9;}&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;在 A 处只声明了map m ,并没有分配内存空间，不能直接赋值，需要使用 make()，都提倡使用 make() 或者字面量的方式直接初始化 map。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_157</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_157/</link>
+      <pubDate>Fri, 10 Jan 2025 12:46:04 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_157/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码中 A B 两处应该怎么修改才能顺利编译？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    var m map[string]int        //A&#xA;    m[&amp;#34;a&amp;#34;] = 1&#xA;    if v := m[&amp;#34;b&amp;#34;]; v != nil {  //B&#xA;        fmt.Println(v)&#xA;    }&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;// A&lt;br&gt;&#xA;A 处只声明了map m ,并没有分配内存空间未初始化的map，写入会panic，&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_142</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_142/</link>
+      <pubDate>Wed, 25 Dec 2024 00:24:33 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_142/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;       var s map[string]int&#xA;       delete(s, &amp;#34;h&amp;#34;)&#xA;       fmt.Println(s[&amp;#34;h&amp;#34;])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. runtime panic&lt;/li&gt;&#xA;&lt;li&gt;B. 0&lt;/li&gt;&#xA;&lt;li&gt;C. compilation error&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;B&#xA;&lt;a href=&#34;https://go.dev/play/p/rfK0pIKBRRx&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;对未初始化make的map使用delete是不会报错的&lt;/li&gt;&#xA;&lt;li&gt;访问未初始化,返回值类型对应的零值&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;h4 class=&#34;heading-element&#34; id=&#34;扩展&#34;&gt;&lt;span&gt;扩展&lt;/span&gt;&#xA;  &lt;a href=&#34;#%e6%89%a9%e5%b1%95&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h4&gt;&lt;p&gt;对未初始化的map赋值会panic&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

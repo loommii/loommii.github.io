@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GoWaitGroup - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/gowaitgroup/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/gowaitgroup/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_20250520</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250520/</link>
+      <pubDate>Tue, 20 May 2025 15:28:54 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250520/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;以下代码有什么问题？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;const N = 10&#xA;&#xA;var wg = &amp;amp;sync.WaitGroup{}&#xA;&#xA;func main() {&#xA;    for i := 0; i &amp;lt; N; i&amp;#43;&amp;#43; {&#xA;        go func(i int) {&#xA;            wg.Add(1)&#xA;            println(i)&#xA;            defer wg.Done()&#xA;        }(i)&#xA;    }&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;运行后的现象为什么都没有输出&#xA;WaitGroup(等待组)的目的是用于等待一组协程的结束。&#xA;内部会维护一个计数器&#xA;Add方法向内部计数加上delta&#xA;Done方法减少WaitGroup计数器的值&#xA;Wait方法阻塞直到WaitGroup计数器减为0。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_166</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_166/</link>
+      <pubDate>Sun, 19 Jan 2025 19:27:29 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_166/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;昨天只有3个G，如果把G的个数变为257个输出结果是怎么样&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;runtime&amp;#34;&#xA;    &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    runtime.GOMAXPROCS(1)&#xA;&#xA;    var wg sync.WaitGroup&#xA;    wg.Add(257)&#xA;    for i := 1; i &amp;lt;= 257; i&amp;#43;&amp;#43; {&#xA;        go func(i int) {&#xA;            fmt.Println(i)&#xA;            wg.Done()&#xA;        }(i)&#xA;    }&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/pizDb_St91u&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_165</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_165/</link>
+      <pubDate>Sat, 18 Jan 2025 19:27:10 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_165/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下方代码输出什么并解释一下&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;       &amp;#34;runtime&amp;#34;&#xA;       &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;       runtime.GOMAXPROCS(1)&#xA;&#xA;       var wg sync.WaitGroup&#xA;       wg.Add(3)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(1)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(2)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(3)&#xA;       wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/XqH_qtG5s5C&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_130</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_130/</link>
+      <pubDate>Fri, 13 Dec 2024 15:43:57 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_130/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;以下代码有什么问题？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;const N = 10&#xA;&#xA;var wg = &amp;amp;sync.WaitGroup{}&#xA;&#xA;func main() {&#xA;    for i := 0; i &amp;lt; N; i&amp;#43;&amp;#43; {&#xA;        go func(i int) {&#xA;            wg.Add(1)&#xA;            println(i)&#xA;            defer wg.Done()&#xA;        }(i)&#xA;    }&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;运行后的现象为什么都没有输出&#xA;WaitGroup(等待组)的目的是用于等待一组协程的结束。&#xA;内部会维护一个计数器&#xA;Add方法向内部计数加上delta&#xA;Done方法减少WaitGroup计数器的值&#xA;Wait方法阻塞直到WaitGroup计数器减为0。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_038</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_038/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:15 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_038/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;以下代码有什么问题？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;const N = 10&#xA;&#xA;var wg = &amp;amp;sync.WaitGroup{}&#xA;&#xA;func main() {&#xA;    for i := 0; i &amp;lt; N; i&amp;#43;&amp;#43; {&#xA;        go func(i int) {&#xA;            wg.Add(1)&#xA;            println(i)&#xA;            defer wg.Done()&#xA;        }(i)&#xA;    }&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;答：输出结果不唯一，代码存在风险, 所有 go 语句未必都能执行到。&#xA;解析：&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

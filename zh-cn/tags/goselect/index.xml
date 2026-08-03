@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Goselect - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/goselect/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/goselect/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_20250530</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250530/</link>
+      <pubDate>Fri, 30 May 2025 15:26:33 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250530/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;以下代码的输出结果：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;sync&amp;#34;&#xA;&#xA;func main() {&#xA;&#x9;var wg sync.WaitGroup&#xA;&#x9;foo := make(chan int)&#xA;&#x9;bar := make(chan int)&#xA;&#x9;wg.Add(1)&#xA;&#x9;go func() {&#xA;&#x9;&#x9;defer wg.Done()&#xA;&#x9;&#x9;select {&#xA;&#x9;&#x9;case foo &amp;lt;- &amp;lt;-bar:&#xA;&#x9;&#x9;default:&#xA;&#x9;&#x9;&#x9;println(&amp;#34;default&amp;#34;)&#xA;&#x9;&#x9;}&#xA;&#x9;}()&#xA;&#x9;wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;h2 class=&#34;heading-element&#34; id=&#34;正确答案-死锁无输出程序卡住&#34;&gt;&lt;span&gt;正确答案：** 死锁（无输出，程序卡住）**&lt;/span&gt;&#xA;  &lt;a href=&#34;#%e6%ad%a3%e7%a1%ae%e7%ad%94%e6%a1%88-%e6%ad%bb%e9%94%81%e6%97%a0%e8%be%93%e5%87%ba%e7%a8%8b%e5%ba%8f%e5%8d%a1%e4%bd%8f&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h2&gt;&lt;h3 class=&#34;heading-element&#34; id=&#34;解析&#34;&gt;&lt;span&gt;解析：&lt;/span&gt;&#xA;  &lt;a href=&#34;#%e8%a7%a3%e6%9e%90&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h3&gt;&lt;p&gt;这段代码会&lt;strong&gt;死锁&lt;/strong&gt;，不会输出 &amp;ldquo;default&amp;rdquo;，也不会 panic，而是程序会卡住无法继续执行。原因如下：&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_095</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_095/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:23 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_095/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;以下代码的输出结果：&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;sync&amp;#34;&#xA;&#xA;func main() {&#xA;    var wg sync.WaitGroup&#xA;    foo := make(chan int)&#xA;    bar := make(chan int)&#xA;    wg.Add(1)&#xA;    go func() {&#xA;        defer wg.Done()&#xA;        select {&#xA;        case foo &amp;lt;- &amp;lt;-bar:&#xA;        default:&#xA;            println(&amp;#34;default&amp;#34;)&#xA;        }&#xA;    }()&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A：default&#xA;B：panic&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;按常规理解，go func 中的 select 应该执行 default 分支，程序正常运行。但结果却不是，而是死锁。可以通过该链接测试：&lt;a href=&#34;https://play.studygolang.com/p/kF4pOjYXbXf%e3%80%82&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://play.studygolang.com/p/kF4pOjYXbXf。&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

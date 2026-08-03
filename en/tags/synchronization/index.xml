@@ -1,38 +1,29 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Synchronization - Tag - loommii</title>
-        <link>https://loommii.github.io/en/tags/synchronization/</link>
-        <description>Synchronization - Tag - loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 06 Dec 2024 20:44:22 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/en/tags/synchronization/" rel="self" type="application/rss+xml" /><item>
-    <title>Go Daily Question 044</title>
-    <link>https://loommii.github.io/en/go_practise/go_daily_question_044/</link>
-    <pubDate>Fri, 06 Dec 2024 20:44:22 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/en/go_practise/go_daily_question_044/</guid>
-    <description><![CDATA[<p>What&rsquo;s wrong with the following code, and how to fix it?</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="nx">total</span><span class="p">,</span> <span class="nx">sum</span> <span class="o">:=</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span>
-</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">10</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">sum</span> <span class="o">+=</span> <span class="nx">i</span>
-</span></span><span class="line"><span class="cl">    <span class="k">go</span> <span class="kd">func</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="nx">total</span> <span class="o">+=</span> <span class="nx">i</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;total:%d sum %d&#34;</span><span class="p">,</span> <span class="nx">total</span><span class="p">,</span> <span class="nx">sum</span><span class="p">)</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
-<div class="toggle-content">
-  <p>The value of <code>sum</code> is 55.
-The value of <code>total</code> is between 55 and 100 (inclusive).</p>
-<p>Point 1:
-Know what the output effect is and how to solve it.
-Point 2:
-Data race. Because multiple goroutines are writing to the <code>total</code> variable simultaneously, there is a data race.
-Point 3:
-The <code>main</code> function exits first, and the launched goroutines do not get a chance to execute.</p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Synchronization - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/synchronization/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/synchronization/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Locks</title>
+      <link>https://loommii.github.io/en/posts/locks/</link>
+      <pubDate>Sun, 08 Dec 2024 00:28:39 +0800</pubDate>
+      <guid>https://loommii.github.io/en/posts/locks/</guid>
+      <category domain="https://loommii.github.io/en/categories/techarticle/">TechArticle</category>
+      <description>&lt;p&gt;In concurrent computing, computers are highly likely to encounter data corruption issues. Therefore, &amp;ldquo;locks&amp;rdquo; are introduced to solve this type of problem.&#xA;Common locks: Mutex, Spinlock, Read-Write Lock, Pessimistic Lock, Optimistic Lock.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 044</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_044/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:22 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_044/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What&amp;rsquo;s wrong with the following code, and how to fix it?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;total, sum := 0, 0&#xA;for i := 1; i &amp;lt;= 10; i&amp;#43;&amp;#43; {&#xA;    sum &amp;#43;= i&#xA;    go func() {&#xA;        total &amp;#43;= i&#xA;    }()&#xA;}&#xA;fmt.Printf(&amp;#34;total:%d sum %d&amp;#34;, total, sum)&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;The value of &lt;code&gt;sum&lt;/code&gt; is 55.&#xA;The value of &lt;code&gt;total&lt;/code&gt; is between 55 and 100 (inclusive).&lt;/p&gt;&#xA;&lt;p&gt;Point 1:&#xA;Know what the output effect is and how to solve it.&#xA;Point 2:&#xA;Data race. Because multiple goroutines are writing to the &lt;code&gt;total&lt;/code&gt; variable simultaneously, there is a data race.&#xA;Point 3:&#xA;The &lt;code&gt;main&lt;/code&gt; function exits first, and the launched goroutines do not get a chance to execute.&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

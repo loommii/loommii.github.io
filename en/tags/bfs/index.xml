@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>BFS - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/bfs/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/bfs/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>200. Number of Islands</title>
+      <link>https://loommii.github.io/en/leetcode/200_number_of_islands/</link>
+      <pubDate>Wed, 21 May 2025 15:41:11 +0800</pubDate>
+      <guid>https://loommii.github.io/en/leetcode/200_number_of_islands/</guid>
+      <category domain="https://loommii.github.io/en/categories/algorithmsolutions/">AlgorithmSolutions</category>
+      <category domain="https://loommii.github.io/en/categories/leetcode/">LeetCode</category>
+      <description>&lt;pre&gt;&lt;code&gt;func numIslands(grid [][]byte) int {&#xA;&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;👈 Click to expand&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;func numIslands(grid [][]byte) (ans int) {&#xA;    var (&#xA;        m   = len(grid)&#xA;        n   = len(grid[0])&#xA;        dir = [][]int{{0, 1}, {0, -1}, {1, 0}, {-1, 0}}&#xA;        dfs func(i, j int)&#xA;    )&#xA;    dfs = func(i, j int) {&#xA;        if i &amp;lt; 0 || i &amp;gt;= m || j &amp;lt; 0 || j &amp;gt;= n || grid[i][j] == &amp;#39;0&amp;#39; {&#xA;            return&#xA;        }&#xA;        grid[i][j] = &amp;#39;0&amp;#39;&#xA;        for _, v := range dir {&#xA;            dfs(i&amp;#43;v[0], j&amp;#43;v[1])&#xA;        }&#xA;    }&#xA;    for i := 0; i &amp;lt; m; i&amp;#43;&amp;#43; {&#xA;        for j := 0; j &amp;lt; n; j&amp;#43;&amp;#43; {&#xA;            if grid[i][j] == &amp;#39;1&amp;#39; {&#xA;                ans&amp;#43;&amp;#43;&#xA;                dfs(i, j)&#xA;            }&#xA;        }&#xA;    }&#xA;    return&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;/details&gt;</description>
+    </item>
+  </channel>
+</rss>

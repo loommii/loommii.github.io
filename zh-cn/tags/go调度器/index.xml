@@ -1,86 +1,47 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Go调度器 - 标签 - loommii</title>
-        <link>https://loommii.github.io/zh-cn/tags/go%E8%B0%83%E5%BA%A6%E5%99%A8/</link>
-        <description>Go调度器 - 标签 - loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 19 Jan 2025 19:27:29 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/go%E8%B0%83%E5%BA%A6%E5%99%A8/" rel="self" type="application/rss+xml" /><item>
-    <title>Go每日一题_166</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_166/</link>
-    <pubDate>Sun, 19 Jan 2025 19:27:29 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_166/</guid>
-    <description><![CDATA[<p>昨天只有3个G，如果把G的个数变为257个输出结果是怎么样</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;runtime&#34;</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;sync&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">runtime</span><span class="p">.</span><span class="nf">GOMAXPROCS</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">257</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="nx">i</span> <span class="o">:=</span> <span class="mi">1</span><span class="p">;</span> <span class="nx">i</span> <span class="o">&lt;=</span> <span class="mi">257</span><span class="p">;</span> <span class="nx">i</span><span class="o">++</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">        <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">i</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">            <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">        <span class="p">}(</span><span class="nx">i</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p><a href="https://go.dev/play/p/pizDb_St91u" target="_blank" rel="noopener noreffer ">在线运行</a></p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_165</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_165/</link>
-    <pubDate>Sat, 18 Jan 2025 19:27:10 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_165/</guid>
-    <description><![CDATA[<p>下方代码输出什么并解释一下</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">       <span class="s">&#34;runtime&#34;</span>
-</span></span><span class="line"><span class="cl">       <span class="s">&#34;sync&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">       <span class="nx">runtime</span><span class="p">.</span><span class="nf">GOMAXPROCS</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">       <span class="kd">var</span> <span class="nx">wg</span> <span class="nx">sync</span><span class="p">.</span><span class="nx">WaitGroup</span>
-</span></span><span class="line"><span class="cl">       <span class="nx">wg</span><span class="p">.</span><span class="nf">Add</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">       <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">              <span class="nb">println</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">              <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">       <span class="p">}(</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">       <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">              <span class="nb">println</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">              <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">       <span class="p">}(</span><span class="mi">2</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">       <span class="k">go</span> <span class="kd">func</span><span class="p">(</span><span class="nx">n</span> <span class="kt">int</span><span class="p">)</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">              <span class="nb">println</span><span class="p">(</span><span class="nx">n</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">              <span class="nx">wg</span><span class="p">.</span><span class="nf">Done</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl">       <span class="p">}(</span><span class="mi">3</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">       <span class="nx">wg</span><span class="p">.</span><span class="nf">Wait</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p><a href="https://go.dev/play/p/XqH_qtG5s5C" target="_blank" rel="noopener noreffer ">在线运行</a></p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go调度器 - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/go%E8%B0%83%E5%BA%A6%E5%99%A8/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/go%E8%B0%83%E5%BA%A6%E5%99%A8/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_20250610</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250610/</link>
+      <pubDate>Tue, 10 Jun 2025 19:40:11 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250610/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;关于协程，下面说法正确是（）&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;A. 协程和线程都可以实现程序的并发执行；&lt;/li&gt;&#xA;&lt;li&gt;B. 线程比协程更轻量级；&lt;/li&gt;&#xA;&lt;li&gt;C. 协程不存在死锁问题；&lt;/li&gt;&#xA;&lt;li&gt;D. 通过 channel 来进行协程间的通信；&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;AD&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_166</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_166/</link>
+      <pubDate>Sun, 19 Jan 2025 19:27:29 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_166/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;昨天只有3个G，如果把G的个数变为257个输出结果是怎么样&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;runtime&amp;#34;&#xA;    &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    runtime.GOMAXPROCS(1)&#xA;&#xA;    var wg sync.WaitGroup&#xA;    wg.Add(257)&#xA;    for i := 1; i &amp;lt;= 257; i&amp;#43;&amp;#43; {&#xA;        go func(i int) {&#xA;            fmt.Println(i)&#xA;            wg.Done()&#xA;        }(i)&#xA;    }&#xA;    wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/pizDb_St91u&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_165</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_165/</link>
+      <pubDate>Sat, 18 Jan 2025 19:27:10 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_165/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下方代码输出什么并解释一下&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;       &amp;#34;runtime&amp;#34;&#xA;       &amp;#34;sync&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;       runtime.GOMAXPROCS(1)&#xA;&#xA;       var wg sync.WaitGroup&#xA;       wg.Add(3)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(1)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(2)&#xA;       go func(n int) {&#xA;              println(n)&#xA;              wg.Done()&#xA;       }(3)&#xA;       wg.Wait()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/XqH_qtG5s5C&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;在线运行&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go: GPM的数量限制</title>
+      <link>https://loommii.github.io/zh-cn/posts/go_gpm_quantity_limit/</link>
+      <pubDate>Wed, 18 Dec 2024 14:16:42 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/posts/go_gpm_quantity_limit/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/">技术文章</category>
+      <description>详解Go语言中GPM模型的数量限制</description>
+    </item>
+  </channel>
 </rss>

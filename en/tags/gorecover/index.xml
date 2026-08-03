@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GoRecover - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/gorecover/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/gorecover/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 20250604</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250604/</link>
+      <pubDate>Wed, 04 Jun 2025 11:36:53 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250604/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What does the following code output?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func f(n int) (r int) {&#xA;    defer func() {&#xA;        r &amp;#43;= n&#xA;        recover()&#xA;    }()&#xA;&#xA;    var f func()&#xA;&#xA;    defer f()&#xA;    &#xA;    f = func() {&#xA;        r &amp;#43;= 2&#xA;    }&#xA;    return n &amp;#43; 1&#xA;}&#xA;&#xA;func main() {&#xA;    fmt.Println(f(3))&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Solution Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;7&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;// First execute this code, then r is assigned the value 4&#xA;return n&amp;#43;1&#xA;&#xA;// Then it executes, but triggers a panic&#xA;defer f()&#xA;&#xA;// Finally it executes, r increases by 3, r=7, then recover(), and the function returns 7&#xA;defer func() {&#xA;        r &amp;#43;= n&#xA;        recover()&#xA;    }()&lt;/code&gt;&lt;/pre&gt;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 100</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_100/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:29 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_100/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func f(n int) (r int) {&#xA;    defer func() {&#xA;        r &amp;#43;= n&#xA;        recover()&#xA;    }()&#xA;&#xA;    var f func()&#xA;&#xA;    defer f()&#xA;    &#xA;    f = func() {&#xA;        r &amp;#43;= 2&#xA;    }&#xA;    return n &amp;#43; 1&#xA;}&#xA;&#xA;func main() {&#xA;    fmt.Println(f(3))&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;7&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;// This code is executed first, then r is assigned 4&#xA;return n&amp;#43;1&#xA;&#xA;// Then execute, but it will trigger a panic&#xA;defer f()&#xA;&#xA;// Finally, execute, r is incremented by 3 again (r=7), then recover(), and finally the function returns 7&#xA;defer func() {&#xA;        r &amp;#43;= n&#xA;        recover()&#xA;    }()&lt;/code&gt;&lt;/pre&gt;&lt;/details&gt;</description>
+    </item>
+  </channel>
+</rss>

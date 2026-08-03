@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go具名返回值 - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/go%E5%85%B7%E5%90%8D%E8%BF%94%E5%9B%9E%E5%80%BC/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/go%E5%85%B7%E5%90%8D%E8%BF%94%E5%9B%9E%E5%80%BC/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_20250604</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250604/</link>
+      <pubDate>Wed, 04 Jun 2025 11:36:53 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_20250604/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func f(n int) (r int) {&#xA;    defer func() {&#xA;        r &amp;#43;= n&#xA;        recover()&#xA;    }()&#xA;&#xA;    var f func()&#xA;&#xA;    defer f()&#xA;    &#xA;    f = func() {&#xA;        r &amp;#43;= 2&#xA;    }&#xA;    return n &amp;#43; 1&#xA;}&#xA;&#xA;func main() {&#xA;    fmt.Println(f(3))&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;7&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;// 先执行这一段代码, 然后 r 被赋值为 4&#xA;return n&amp;#43;1&#xA;&#xA;// 然后执行，但是会触发panic&#xA;defer f()&#xA;&#xA;// 最后执行，r 再加3 r=7,然后recover(),最后函数返回 7&#xA;defer func() {&#xA;        r &amp;#43;= n&#xA;        recover()&#xA;    }()&lt;/code&gt;&lt;/pre&gt;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_121</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_121/</link>
+      <pubDate>Fri, 06 Dec 2024 23:43:04 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_121/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码会输出什么&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func increaseA() int {&#xA;    var i int&#xA;    defer func() {&#xA;        i&amp;#43;&amp;#43;&#xA;    }()&#xA;    return i&#xA;}&#xA;&#xA;func increaseB() (r int) {&#xA;    defer func() {&#xA;        r&amp;#43;&amp;#43;&#xA;    }()&#xA;    return r&#xA;}&#xA;&#xA;func main() {&#xA;    fmt.Println(increaseA())&#xA;    fmt.Println(increaseB())&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;0&#xA;1&#xA;上方2个函数的区别在于increaseA() 的返回参数是匿名，increaseB() 是具名。&#xA;A 执行到return i 是将i的值赋值给返回参数，后面i&lt;ins&gt;不影响&#xA;B 执行到return r 是将r赋值给r,后面的r&lt;/ins&gt; 因为是同一个r 后面的r++会影响&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_113</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_113/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:54 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_113/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;f1()、f2()、f3() 函数分别返回什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func f1() (r int) {&#xA;    defer func() {&#xA;        r&amp;#43;&amp;#43;&#xA;    }()&#xA;    return 0&#xA;}&#xA;&#xA;func f2() (r int) {&#xA;    t := 5&#xA;    defer func() {&#xA;        t = t &amp;#43; 5&#xA;    }()&#xA;    return t&#xA;}&#xA;&#xA;func f3() (r int) {&#xA;    defer func(r int) {&#xA;        r = r &amp;#43; 5&#xA;    }(r)&#xA;    return 1&#xA;}&#xA;&#xA;func main() {&#xA;&#xA;    fmt.Println(f1())&#xA;    fmt.Println(f2())&#xA;    fmt.Println(f3())&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;参考答案及解析：1 5 1。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_111</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_111/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:51 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_111/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func increaseA() int {&#xA;    var i int&#xA;    defer func() {&#xA;        i&amp;#43;&amp;#43;&#xA;    }()&#xA;    return i&#xA;}&#xA;&#xA;func increaseB() (r int) {&#xA;    defer func() {&#xA;        r&amp;#43;&amp;#43;&#xA;    }()&#xA;    return r&#xA;}&#xA;&#xA;func main() {&#xA;    fmt.Println(increaseA())&#xA;    fmt.Println(increaseB())&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. 1 1&#xA;B. 0 1&#xA;C. 1 0&#xA;D. 0 0&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;参考答案及解析：B。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_071</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_071/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:54 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_071/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func increaseA() int {&#xA;    var i int&#xA;    defer func() {&#xA;        i&amp;#43;&amp;#43;&#xA;    }()&#xA;    return i&#xA;}&#xA;&#xA;func increaseB() (r int) {&#xA;    defer func() {&#xA;        r&amp;#43;&amp;#43;&#xA;    }()&#xA;    return r&#xA;}&#xA;&#xA;func main() {&#xA;    fmt.Println(increaseA())&#xA;    fmt.Println(increaseB())&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. 1 1&#xA;B. 0 1&#xA;C. 1 0&#xA;D. 0 0&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;参考答案及解析：B。&lt;/p&gt;&#xA;&lt;p&gt;知识点：defer、返回值。注意一下，increaseA() 的返回参数是匿名，increaseB() 是具名。&#xA;increaseA  return r 已经将r的值 返回了 r再改变并不影响&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

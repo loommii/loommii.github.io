@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GoClosure - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/goclosure/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/goclosure/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 20250603</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250603/</link>
+      <pubDate>Tue, 03 Jun 2025 14:02:47 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250603/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code? Why?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;&#xA;    var m = [...]int{1, 2, 3}&#xA;&#xA;    for i, v := range m {&#xA;        go func() {&#xA;            fmt.Println(i, v)&#xA;        }()&#xA;    }&#xA;&#xA;    time.Sleep(time.Second * 3)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Before Go 1.22:&#xA;2 3&#xA;2 3&#xA;2 3&#xA;The &lt;code&gt;for range&lt;/code&gt; loop uses short variable declaration (&lt;code&gt;:=&lt;/code&gt;) to iterate variables. It&amp;rsquo;s important to note that variables &lt;code&gt;i&lt;/code&gt; and &lt;code&gt;v&lt;/code&gt; are reused in each loop iteration, not re-declared.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 20250512</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250512/</link>
+      <pubDate>Mon, 12 May 2025 00:27:08 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250512/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Person struct {&#xA;&#x9;age int&#xA;}&#xA;&#xA;func main() {&#xA;&#x9;person := &amp;amp;Person{28}&#xA;&#xA;&#x9;// 1.&#xA;&#x9;defer fmt.Println(person.age)&#xA;&#xA;&#x9;// 2.&#xA;&#x9;defer func(p *Person) {&#xA;&#x9;&#x9;fmt.Println(p.age)&#xA;&#x9;}(person)&#xA;&#xA;&#x9;// 3.&#xA;&#x9;defer func() {&#xA;&#x9;&#x9;fmt.Println(person.age)&#xA;&#x9;}()&#xA;&#xA;&#x9;person = &amp;amp;Person{29}&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;&lt;strong&gt;Answer Analysis:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;p&gt;Reference Answer and Analysis: &lt;code&gt;29&lt;/code&gt; &lt;code&gt;28&lt;/code&gt; &lt;code&gt;28&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;p&gt;This problem makes a small modification based on a previous problem. In the previous problem, the last line of code &lt;code&gt;person.age = 29&lt;/code&gt; modified the &lt;code&gt;age&lt;/code&gt; member of the referenced object. In this problem, the last line of code &lt;code&gt;person = &amp;amp;Person{29}&lt;/code&gt; modifies the referenced object itself. Let&amp;rsquo;s see what the difference is.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 20250509</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250509/</link>
+      <pubDate>Fri, 09 May 2025 13:53:06 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250509/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Usually, closure questions are a must-have in JS interviews. With more and more languages supporting the functional paradigm, closure problems frequently appear. The same is true in Go.&lt;/p&gt;&#xA;&lt;p&gt;This is a problem from Go Language Enthusiasts Weekly #90. What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func app() func(string) string {&#xA;&#x9;t := &amp;#34;Hi&amp;#34;&#xA;&#x9;c := func(b string) string {&#xA;&#x9;&#x9;t = t &amp;#43; &amp;#34; &amp;#34; &amp;#43; b&#xA;&#x9;&#x9;return t&#xA;&#x9;}&#xA;&#x9;return c&#xA;}&#xA;&#xA;func main() {&#xA;&#x9;a := app()&#xA;&#x9;b := app()&#xA;&#x9;a(&amp;#34;go&amp;#34;)&#xA;&#x9;fmt.Println(b(&amp;#34;All&amp;#34;))&#xA;&#x9;fmt.Println(a(&amp;#34;All&amp;#34;))&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Closure&#xA;&lt;code&gt;fmt.Println(b(&amp;quot;All&amp;quot;))&lt;/code&gt; outputs A (Hi All)&#xA;&lt;code&gt;fmt.Println(a(&amp;quot;All&amp;quot;))&lt;/code&gt; outputs B (Hi go All)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 168</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_168/</link>
+      <pubDate>Tue, 21 Jan 2025 22:53:38 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_168/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Person struct {&#xA;    age int&#xA;}&#xA;&#xA;func main() {&#xA;    person := &amp;amp;Person{28}&#xA;&#xA;    // 1.&#xA;    defer fmt.Println(person.age)&#xA;&#xA;    // 2.&#xA;    defer func(p *Person) {&#xA;        fmt.Println(p.age)&#xA;    }(person)&#xA;&#xA;    // 3.&#xA;    defer func() {&#xA;        fmt.Println(person.age)&#xA;    }()&#xA;&#xA;    person = &amp;amp;Person{29}&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;29&#xA;28&#xA;28&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/9GBgmy_wQsn&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 113</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_113/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:54 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_113/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What do the f1(), f2(), and f3() functions return respectively?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func f1() (r int) {&#xA;    defer func() {&#xA;        r&amp;#43;&amp;#43;&#xA;    }()&#xA;    return 0&#xA;}&#xA;&#xA;func f2() (r int) {&#xA;    t := 5&#xA;    defer func() {&#xA;        t = t &amp;#43; 5&#xA;    }()&#xA;    return t&#xA;}&#xA;&#xA;func f3() (r int) {&#xA;    defer func(r int) {&#xA;        r = r &amp;#43; 5&#xA;    }(r)&#xA;    return 1&#xA;}&#xA;&#xA;func main() {&#xA;&#xA;    fmt.Println(f1())&#xA;    fmt.Println(f2())&#xA;    fmt.Println(f3())&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Reference Answer and Analysis: 1 5 1.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 099</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_099/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:28 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_099/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code? Why?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;&#xA;    var m = [...]int{1, 2, 3}&#xA;&#xA;    for i, v := range m {&#xA;        go func() {&#xA;            fmt.Println(i, v)&#xA;        }()&#xA;    }&#xA;&#xA;    time.Sleep(time.Second * 3)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Before Go 1.22, the output would be:&#xA;2 3&#xA;2 3&#xA;2 3&#xA;The &lt;code&gt;for range&lt;/code&gt; loop uses short variable declaration (&lt;code&gt;:=&lt;/code&gt;) to iterate variables. It&amp;rsquo;s important to note that variables &lt;code&gt;i&lt;/code&gt; and &lt;code&gt;v&lt;/code&gt; are reused in each loop iteration, not re-declared.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 077</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_077/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:01 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_077/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 075</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_075/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:59 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_075/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What does the following code snippet output?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Person struct {&#xA;    age int&#xA;}&#xA;&#xA;func main() {&#xA;    person := &amp;amp;Person{28}&#xA;&#xA;    // 1. &#xA;    defer fmt.Println(person.age)&#xA;&#xA;    // 2.&#xA;    defer func(p *Person) {&#xA;        fmt.Println(p.age)&#xA;    }(person)  &#xA;&#xA;    // 3.&#xA;    defer func() {&#xA;        fmt.Println(person.age)&#xA;    }()&#xA;&#xA;    person.age = 29&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;29&#xA;29&#xA;28&#xA;&lt;code&gt;defer&lt;/code&gt; is Last-In, First-Out (LIFO).&#xA;Therefore, // 3 will run first, outputting 29.&#xA;Then // 2 runs. Here, a pointer type is passed, so the data is also 29.&#xA;Finally, // 1 runs. Because the value of the parameter is determined when the defer statement is executed, it outputs 28.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 074</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_074/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:58 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_074/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func app() func(string) string {&#xA;    t := &amp;#34;Hi&amp;#34;&#xA;    c := func(b string) string {&#xA;        t = t &amp;#43; &amp;#34; &amp;#34; &amp;#43; b&#xA;        return t&#xA;    }&#xA;    return c&#xA;}&#xA;&#xA;func main() {&#xA;    a := app()&#xA;    b := app()&#xA;    a(&amp;#34;go&amp;#34;)&#xA;    fmt.Println(b(&amp;#34;All&amp;#34;))&#xA;    fmt.Println(a(&amp;#34;All&amp;#34;))&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A: Hi All; B: Hi go All; C: Hi; D: go Al&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Closure&#xA;&lt;code&gt;fmt.Println(b(&amp;quot;All&amp;quot;))&lt;/code&gt; outputs A (Hi All)&#xA;&lt;code&gt;fmt.Println(a(&amp;quot;All&amp;quot;))&lt;/code&gt; outputs B (Hi go All)&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 073</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_073/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:57 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_073/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What do the f1(), f2(), and f3() functions return respectively?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func f1() (r int) {&#xA;    defer func() {&#xA;        r&amp;#43;&amp;#43;&#xA;    }()&#xA;    return 0&#xA;}&#xA;&#xA;&#xA;func f2() (r int) {&#xA;    t := 5&#xA;    defer func() {&#xA;        t = t &amp;#43; 5&#xA;    }()&#xA;    return t&#xA;}&#xA;&#xA;&#xA;func f3() (r int) {&#xA;    defer func(r int) {&#xA;        r = r &amp;#43; 5&#xA;    }(r)&#xA;    return 1&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;f1: 1&#xA;f2: 5&#xA;f3: 1&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+  </channel>
+</rss>

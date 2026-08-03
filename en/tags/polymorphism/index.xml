@@ -1,183 +1,48 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Polymorphism - Tag - loommii</title>
-        <link>https://loommii.github.io/en/tags/polymorphism/</link>
-        <description>Polymorphism - Tag - loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>en</language><lastBuildDate>Fri, 06 Dec 2024 20:44:46 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/en/tags/polymorphism/" rel="self" type="application/rss+xml" /><item>
-    <title>Go Daily Question 064</title>
-    <link>https://loommii.github.io/en/go_practise/go_daily_question_064/</link>
-    <pubDate>Fri, 06 Dec 2024 20:44:46 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/en/go_practise/go_daily_question_064/</guid>
-    <description><![CDATA[<p>What is the output of the following code?</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">A</span> <span class="kd">interface</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">ShowA</span><span class="p">()</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">B</span> <span class="kd">interface</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">ShowB</span><span class="p">()</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Work</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">i</span> <span class="kt">int</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">w</span> <span class="nx">Work</span><span class="p">)</span> <span class="nf">ShowA</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">w</span><span class="p">.</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">10</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">w</span> <span class="nx">Work</span><span class="p">)</span> <span class="nf">ShowB</span><span class="p">()</span> <span class="kt">int</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">w</span><span class="p">.</span><span class="nx">i</span> <span class="o">+</span> <span class="mi">20</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">Work</span><span class="p">{</span><span class="mi">3</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">a</span> <span class="nx">A</span> <span class="p">=</span> <span class="nx">c</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">b</span> <span class="nx">B</span> <span class="p">=</span> <span class="nx">c</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">a</span><span class="p">.</span><span class="nf">ShowA</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">b</span><span class="p">.</span><span class="nf">ShowB</span><span class="p">())</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
-<div class="toggle-content">
-  <p>Reference Answer and Analysis: 13 23.</p>
-<p>Key takeaway: Interfaces. A type implementing multiple interfaces. The <code>Work</code> struct implements interfaces A and B separately, so interface variables <code>a</code> and <code>b</code> call their respective methods <code>ShowA()</code> and <code>ShowB()</code>, outputting 13 and 23.</p>]]></description>
-</item>
-<item>
-    <title>Go Daily Question 056</title>
-    <link>https://loommii.github.io/en/go_practise/go_daily_question_056/</link>
-    <pubDate>Fri, 06 Dec 2024 20:44:36 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/en/go_practise/go_daily_question_056/</guid>
-    <description><![CDATA[<p>What is the output of the following code?</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">People</span> <span class="kd">struct</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">People</span><span class="p">)</span> <span class="nf">ShowA</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;showA&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">p</span><span class="p">.</span><span class="nf">ShowB</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">People</span><span class="p">)</span> <span class="nf">ShowB</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;showB&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Teacher</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">People</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Teacher</span><span class="p">)</span> <span class="nf">ShowB</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;teacher showB&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">t</span> <span class="o">:=</span> <span class="nx">Teacher</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">t</span><span class="p">.</span><span class="nf">ShowA</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
-<div class="toggle-content">
-  <p>Answer:
-&ldquo;showA&rdquo;
-&ldquo;showB&rdquo;</p>
-<p><code>t.ShowA()</code> will prioritize calling its own <code>ShowA()</code>. However, since it&rsquo;s not defined in the problem, it calls the parent struct&rsquo;s <code>ShowA()</code>. When it reaches <code>p.ShowB()</code>, note that <code>p</code> is <code>*People</code>, the parent struct, and it will call <code>p</code>&rsquo;s own <code>ShowB()</code>.
-Therefore, the output is:
-&ldquo;showA&rdquo;
-&ldquo;showB&rdquo;</p>]]></description>
-</item>
-<item>
-    <title>Go Daily Question 052</title>
-    <link>https://loommii.github.io/en/go_practise/go_daily_question_052/</link>
-    <pubDate>Fri, 06 Dec 2024 20:44:31 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/en/go_practise/go_daily_question_052/</guid>
-    <description><![CDATA[<p>What is the output of the following code?</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">People</span> <span class="kd">struct</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">People</span><span class="p">)</span> <span class="nf">ShowA</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;showA&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">p</span><span class="p">.</span><span class="nf">ShowB</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">p</span> <span class="o">*</span><span class="nx">People</span><span class="p">)</span> <span class="nf">ShowB</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;showB&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">Teacher</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">People</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="p">(</span><span class="nx">t</span> <span class="o">*</span><span class="nx">Teacher</span><span class="p">)</span> <span class="nf">ShowB</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;teacher showB&#34;</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">t</span> <span class="o">:=</span> <span class="nx">Teacher</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">t</span><span class="p">.</span><span class="nf">ShowB</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
-<div class="toggle-content">
-  Answer: <code>teacher showB</code>
-<code>t.ShowB()</code> will use its own existing <code>ShowB()</code>. If you want to use the parent struct&rsquo;s (<code>People</code>) <code>ShowB()</code>, you need to change it to <code>t.People.ShowB()</code>.
-</div>
-<style>
-  .toggle-content {
-    display: none;
-    margin-top: 10px;
-  }
-  .toggle-content.show {
-    display: block;
-  }
-</style>]]></description>
-</item>
-<item>
-    <title>Go Daily Question 045</title>
-    <link>https://loommii.github.io/en/go_practise/go_daily_question_045/</link>
-    <pubDate>Fri, 06 Dec 2024 20:44:23 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/en/go_practise/go_daily_question_045/</guid>
-    <description><![CDATA[<p>Will the following code compile?</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="Copy to clipboard"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">worker</span> <span class="kd">interface</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nf">work</span><span class="p">()</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">type</span> <span class="nx">person</span> <span class="kd">struct</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">name</span> <span class="kt">string</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">worker</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">w</span> <span class="nx">worker</span> <span class="p">=</span> <span class="nx">person</span><span class="p">{}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">w</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<p>A: Yes; B: No; C: Don&rsquo;t know</p>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 Answer Analysis:</button>
-<div class="toggle-content">
-  <p>A</p>
-<p>Interfaces can be embedded in Go structs.</p>
-<p>Embedded interfaces have practical uses.
-Example: In the standard library <code>sort</code> package, there is an interface: <code>Interface</code></p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Polymorphism - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/polymorphism/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/polymorphism/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 064</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_064/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:46 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_064/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type A interface {&#xA;    ShowA() int&#xA;}&#xA;&#xA;type B interface {&#xA;    ShowB() int&#xA;}&#xA;&#xA;type Work struct {&#xA;    i int&#xA;}&#xA;&#xA;func (w Work) ShowA() int {&#xA;    return w.i &amp;#43; 10&#xA;}&#xA;&#xA;func (w Work) ShowB() int {&#xA;    return w.i &amp;#43; 20&#xA;}&#xA;&#xA;func main() {&#xA;    c := Work{3}&#xA;    var a A = c&#xA;    var b B = c&#xA;    fmt.Println(a.ShowA())&#xA;    fmt.Println(b.ShowB())&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Reference Answer and Analysis: 13 23.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 056</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_056/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:36 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_056/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type People struct{}&#xA;&#xA;func (p *People) ShowA() {&#xA;    fmt.Println(&amp;#34;showA&amp;#34;)&#xA;    p.ShowB()&#xA;}&#xA;func (p *People) ShowB() {&#xA;    fmt.Println(&amp;#34;showB&amp;#34;)&#xA;}&#xA;&#xA;type Teacher struct {&#xA;    People&#xA;}&#xA;&#xA;func (t *Teacher) ShowB() {&#xA;    fmt.Println(&amp;#34;teacher showB&amp;#34;)&#xA;}&#xA;&#xA;func main() {&#xA;    t := Teacher{}&#xA;    t.ShowA()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer:&#xA;&amp;ldquo;showA&amp;rdquo;&#xA;&amp;ldquo;showB&amp;rdquo;&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;t.ShowA()&lt;/code&gt; will prioritize calling its own &lt;code&gt;ShowA()&lt;/code&gt;. However, since it&amp;rsquo;s not defined in the problem, it calls the parent struct&amp;rsquo;s &lt;code&gt;ShowA()&lt;/code&gt;. When it reaches &lt;code&gt;p.ShowB()&lt;/code&gt;, note that &lt;code&gt;p&lt;/code&gt; is &lt;code&gt;*People&lt;/code&gt;, the parent struct, and it will call &lt;code&gt;p&lt;/code&gt;&amp;rsquo;s own &lt;code&gt;ShowB()&lt;/code&gt;.&#xA;Therefore, the output is:&#xA;&amp;ldquo;showA&amp;rdquo;&#xA;&amp;ldquo;showB&amp;rdquo;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 052</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_052/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:31 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_052/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type People struct{}&#xA;&#xA;func (p *People) ShowA() {&#xA;    fmt.Println(&amp;#34;showA&amp;#34;)&#xA;    p.ShowB()&#xA;}&#xA;func (p *People) ShowB() {&#xA;    fmt.Println(&amp;#34;showB&amp;#34;)&#xA;}&#xA;&#xA;type Teacher struct {&#xA;    People&#xA;}&#xA;&#xA;func (t *Teacher) ShowB() {&#xA;    fmt.Println(&amp;#34;teacher showB&amp;#34;)&#xA;}&#xA;&#xA;func main() {&#xA;    t := Teacher{}&#xA;    t.ShowB()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: &lt;code&gt;teacher showB&lt;/code&gt;&#xA;&lt;code&gt;t.ShowB()&lt;/code&gt; will use its own existing &lt;code&gt;ShowB()&lt;/code&gt;. If you want to use the parent struct&amp;rsquo;s (&lt;code&gt;People&lt;/code&gt;) &lt;code&gt;ShowB()&lt;/code&gt;, you need to change it to &lt;code&gt;t.People.ShowB()&lt;/code&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 045</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_045/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:23 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_045/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;type worker interface {&#xA;    work()&#xA;}&#xA;&#xA;type person struct {&#xA;    name string&#xA;    worker&#xA;}&#xA;&#xA;func main() {&#xA;    var w worker = person{}&#xA;    fmt.Println(w)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A: Yes; B: No; C: Don&amp;rsquo;t know&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;A&lt;/p&gt;&#xA;&lt;p&gt;Interfaces can be embedded in Go structs.&lt;/p&gt;&#xA;&lt;p&gt;Embedded interfaces have practical uses.&#xA;Example: In the standard library &lt;code&gt;sort&lt;/code&gt; package, there is an interface: &lt;code&gt;Interface&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Interface interface {&#xA;    // Len is the number of elements in the collection.&#xA;    Len() int&#xA;    // Less reports whether the element with&#xA;    // index i should sort before the element with index j.&#xA;    Less(i, j int) bool&#xA;    // Swap swaps the elements with indexes i and j.&#xA;    Swap(i, j int)&#xA;}&#xA;type reverse struct {&#xA;    // This embedded Interface permits Reverse to use the methods of&#xA;    // another Interface implementation.&#xA;    Interface&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It embeds an &lt;code&gt;Interface&lt;/code&gt; to reverse sorting.&lt;/p&gt;</description>
+    </item>
+  </channel>
 </rss>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go变量遮蔽 - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/go%E5%8F%98%E9%87%8F%E9%81%AE%E8%94%BD/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/go%E5%8F%98%E9%87%8F%E9%81%AE%E8%94%BD/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_097</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_097/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:25 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_097/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;var p *int&#xA;&#xA;func foo() (*int, error) {&#xA;    var i int = 5&#xA;    return &amp;amp;i, nil&#xA;}&#xA;&#xA;func bar() {&#xA;    //use p&#xA;    fmt.Println(*p)&#xA;}&#xA;&#xA;func main() {&#xA;    p, err := foo()&#xA;    if err != nil {&#xA;        fmt.Println(err)&#xA;        return&#xA;    }&#xA;    bar()&#xA;    fmt.Println(*p)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. 5 5&#xA;B. runtime error&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;B&#xA;全局的 *p 是nil&#xA;p, err := foo() 这里是一个新的p 局部变量 与全局的p无关&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

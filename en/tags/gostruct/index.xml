@@ -1,0 +1,210 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GoStruct - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/gostruct/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Tue, 04 Aug 2026 00:55:54 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/gostruct/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 20250515</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_20250515/</link>
+      <pubDate>Thu, 15 May 2025 16:42:50 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_20250515/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What code should be filled in at A and B below to ensure the result is printed successfully?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type S struct {&#xA;    m string&#xA;}&#xA;&#xA;func f() *S {&#xA;    return __  //A&#xA;}&#xA;&#xA;func main() {&#xA;    p := __    //B&#xA;    fmt.Println(p.m) //print &amp;#34;foo&amp;#34;&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;A. &amp;amp;S{&amp;ldquo;foo&amp;rdquo;}&#xA;B. *f() or f()&lt;/p&gt;&#xA;&lt;p&gt;The &lt;code&gt;f()&lt;/code&gt; function returns a pointer type, so &lt;code&gt;&amp;amp;&lt;/code&gt; can be used to get the pointer to the struct. For B, if &lt;code&gt;*f()&lt;/code&gt; is filled in, &lt;code&gt;p&lt;/code&gt; is of type &lt;code&gt;S&lt;/code&gt;; if &lt;code&gt;f()&lt;/code&gt; is filled in, &lt;code&gt;p&lt;/code&gt; is of type &lt;code&gt;*S&lt;/code&gt;. However, in both cases, &lt;code&gt;p.m&lt;/code&gt; can be used to access the struct member.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 212</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_212/</link>
+      <pubDate>Thu, 13 Mar 2025 00:33:25 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_212/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile? Why or why not?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;&#xA;    sn1 := struct {&#xA;        age  int&#xA;        name string&#xA;    }{age: 11, name: &amp;#34;qq&amp;#34;}&#xA;&#xA;    sn2 := struct {&#xA;        age  int&#xA;        name string&#xA;    }{age: 11, name: &amp;#34;qq&amp;#34;}&#xA;&#xA;    if sn1 == sn2 {&#xA;        fmt.Println(&amp;#34;sn1 == sn2&amp;#34;)&#xA;    }&#xA;&#xA;    sm1 := struct {&#xA;        age int&#xA;        m   map[string]string&#xA;    }{age: 11, m: map[string]string{&amp;#34;a&amp;#34;: &amp;#34;1&amp;#34;}}&#xA;&#xA;    sm2 := struct {&#xA;        age int&#xA;        m   map[string]string&#xA;    }{age: 11, m: map[string]string{&amp;#34;a&amp;#34;: &amp;#34;1&amp;#34;}}&#xA;&#xA;    if sm1 == sm2 {&#xA;        fmt.Println(&amp;#34;sm1 == sm2&amp;#34;)&#xA;    }&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: Cannot compile.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 199</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_199/</link>
+      <pubDate>Fri, 28 Feb 2025 16:08:33 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_199/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;How much space does an empty struct{} occupy? What are its uses?&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: 0, used as a placeholder.&lt;/p&gt;&#xA;&lt;p&gt;For example:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;map[string]struct{}, can be used to save memory if you only care about the existence of the key.&lt;/li&gt;&#xA;&lt;li&gt;ch := make(chan struct{}, 1), when using channels for concurrency control, we only need a signal but not to pass a value; in this case, struct{} can be used instead.&lt;/li&gt;&#xA;&lt;li&gt;type Lamp struct{} , declares a struct that only contains methods.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Lamp struct{}&#xA;&#xA;func (l Lamp) On() {&#xA;        println(&amp;#34;On&amp;#34;)&#xA;&#xA;}&#xA;func (l Lamp) Off() {&#xA;        println(&amp;#34;Off&amp;#34;)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Analysis:&#xA;Go has globally unique type metadata for each type, which records the size of that type. Since an empty struct has no types within it, its size is 0. However, because type metadata is created, it can be used as a placeholder like a normal type.&#xA;It is recommended to refer to &lt;code&gt;【幼麟实验室】- Go类型系统讲解&lt;/code&gt; for more details.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 155</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_155/</link>
+      <pubDate>Wed, 08 Jan 2025 13:03:00 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_155/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;type A interface {&#xA;    ShowA() int&#xA;}&#xA;&#xA;type B interface {&#xA;    ShowB() int&#xA;}&#xA;&#xA;type Work struct {&#xA;    i int&#xA;}&#xA;&#xA;func (w Work) ShowA() int {&#xA;    return w.i &amp;#43; 10&#xA;}&#xA;&#xA;func (w Work) ShowB() int {&#xA;    return w.i &amp;#43; 20&#xA;}&#xA;&#xA;func main() {&#xA;    c := Work{3}&#xA;    var a A = c&#xA;    var b B = c&#xA;    fmt.Println(a.ShowA())&#xA;    fmt.Println(b.ShowB())&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;13&#xA;23&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/tzzCLmrk2Ns&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 144</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_144/</link>
+      <pubDate>Fri, 27 Dec 2024 23:14:28 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_144/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type People struct{}&#xA;&#xA;func (p *People) ShowA() {&#xA;    fmt.Println(&amp;#34;showA&amp;#34;)&#xA;    p.ShowB()&#xA;}&#xA;func (p *People) ShowB() {&#xA;    fmt.Println(&amp;#34;showB&amp;#34;)&#xA;}&#xA;&#xA;type Teacher struct {&#xA;    People&#xA;}&#xA;&#xA;func (t *Teacher) ShowB() {&#xA;    fmt.Println(&amp;#34;teacher showB&amp;#34;)&#xA;}&#xA;&#xA;func main() {&#xA;    t := Teacher{}&#xA;    t.ShowB()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;teacher showB&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/dnitHoT5yHi&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h3 class=&#34;heading-element&#34; id=&#34;key-takeaway-struct-embedding&#34;&gt;&lt;span&gt;Key Takeaway: Struct Embedding&lt;/span&gt;&#xA;  &lt;a href=&#34;#key-takeaway-struct-embedding&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h3&gt;&lt;p&gt;The &lt;code&gt;Teacher&lt;/code&gt; struct embeds the &lt;code&gt;People&lt;/code&gt; struct.&#xA;In an embedded struct, &lt;code&gt;People&lt;/code&gt; is called the inner type, and &lt;code&gt;Teacher&lt;/code&gt; is called the outer type; through embedding, the inner type&amp;rsquo;s attributes and methods become available to the outer type, as if they were its own. Additionally, the outer type can define its own attributes and methods, and even define methods with the same name as those in the inner type, in which case the inner type&amp;rsquo;s methods will be &amp;ldquo;shadowed&amp;rdquo;. &lt;code&gt;ShowB()&lt;/code&gt; in this example is such a method with the same name.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 132</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_132/</link>
+      <pubDate>Sun, 15 Dec 2024 13:02:42 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_132/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type person struct {  &#xA;    name string&#xA;}&#xA;&#xA;func main() {  &#xA;    var m map[person]int&#xA;    p := person{&amp;#34;mike&amp;#34;}&#xA;    fmt.Println(m[p])&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: 0&lt;/p&gt;&#xA;&lt;p&gt;Uninitialized map: reads zero value, writes panic.&lt;/p&gt;&#xA;&lt;p&gt;Run online:&lt;/p&gt;&#xA;&lt;blockquote&gt;&#xA;&lt;p&gt;Reading from an uninitialized map: &lt;a href=&#34;https://go.dev/play/p/yVjXasOREaH&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://go.dev/play/p/yVjXasOREaH&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Writing to an uninitialized map: &lt;a href=&#34;https://go.dev/play/p/2zmJGtrH-8v&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://go.dev/play/p/2zmJGtrH-8v&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;Writing to an initialized map: &lt;a href=&#34;https://go.dev/play/p/eUh6csag8rh&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;https://go.dev/play/p/eUh6csag8rh&lt;/a&gt;&lt;/p&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 124</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_124/</link>
+      <pubDate>Sat, 07 Dec 2024 00:36:19 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_124/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;encoding/json&amp;#34;&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;time&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    t := struct {&#xA;        time.Time&#xA;        N int&#xA;    }{&#xA;        time.Date(2020, 12, 20, 0, 0, 0, 0, time.UTC),&#xA;        5,&#xA;    }&#xA;&#xA;    m, _ := json.Marshal(t)&#xA;    fmt.Printf(&amp;#34;%s&amp;#34;, m)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A: {&amp;ldquo;Time&amp;rdquo;: &amp;ldquo;2020-12-20T00:00:00Z&amp;rdquo;, &amp;ldquo;N&amp;rdquo;: 5 }; B: &amp;ldquo;2020-12-20T00:00:00Z&amp;rdquo;; C: {&amp;ldquo;N&amp;rdquo;: 5}; D: &lt;code&gt;&amp;lt;nil&amp;gt;&lt;/code&gt;&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: B&#xA;In the problem, &lt;code&gt;time.Time&lt;/code&gt; is embedded in the anonymous struct, which means it inherits &lt;code&gt;time.Time&lt;/code&gt;.&#xA;&lt;code&gt;time.Time&lt;/code&gt; overrides the &lt;code&gt;MarshalJSON&lt;/code&gt; method, so it will output according to the format specified by &lt;code&gt;time.Time&lt;/code&gt;&amp;rsquo;s &lt;code&gt;MarshalJSON&lt;/code&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 116</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_116/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:57 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_116/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type A interface {&#xA;    ShowA() int&#xA;}&#xA;&#xA;type B interface {&#xA;    ShowB() int&#xA;}&#xA;&#xA;type Work struct {&#xA;    i int&#xA;}&#xA;&#xA;func (w Work) ShowA() int {&#xA;    return w.i &amp;#43; 10&#xA;}&#xA;&#xA;func (w Work) ShowB() int {&#xA;    return w.i &amp;#43; 20&#xA;}&#xA;&#xA;func main() {&#xA;    c := Work{3}&#xA;    var a A = c&#xA;    var b B = c&#xA;    fmt.Println(a.ShowA())&#xA;    fmt.Println(b.ShowB())&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: It compiles successfully and outputs 13 and 23.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 112</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_112/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:52 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_112/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;type A interface {&#xA;    ShowA() int&#xA;}&#xA;&#xA;type B interface {&#xA;    ShowB() int&#xA;}&#xA;&#xA;type Work struct {&#xA;    i int&#xA;}&#xA;&#xA;func (w Work) ShowA() int {&#xA;    return w.i &amp;#43; 10&#xA;}&#xA;&#xA;func (w Work) ShowB() int {&#xA;    return w.i &amp;#43; 20&#xA;}&#xA;&#xA;func main() {&#xA;    var a A = Work{3}&#xA;    // Type Assertion&#xA;    // http://c.biancheng.net/view/4281.html&#xA;    s := a.(Work)&#xA;    fmt.Println(s.ShowA())&#xA;    fmt.Println(s.ShowB())&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A. 13 23&lt;/li&gt;&#xA;&lt;li&gt;B. compilation error&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;pre&gt;&lt;code&gt;13&#xA;23&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Reference Answer and Analysis: A.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 104</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_104/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:43 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_104/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Is the output of the following code correct?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Foo struct {&#xA;    bar string&#xA;}&#xA;func main() {&#xA;    s1 := []Foo{&#xA;        {&amp;#34;A&amp;#34;},&#xA;        {&amp;#34;B&amp;#34;},&#xA;        {&amp;#34;C&amp;#34;},&#xA;    }&#xA;    s2 := make([]*Foo, len(s1))&#xA;    for i, value := range s1 {&#xA;        s2[i] = &amp;amp;value&#xA;    }&#xA;    fmt.Println(s1[0], s1[1], s1[2])&#xA;    fmt.Println(s2[0], s2[1], s2[2])&#xA;}&#xA;Output:&#xA;{A} {B} {C}&#xA;&amp;amp;{A} &amp;amp;{B} &amp;amp;{C}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;After Go 1.22, the output is normal.&#xA;Before Go 1.22:&#xA;The &lt;code&gt;for range&lt;/code&gt; loop reuses the &lt;code&gt;value&lt;/code&gt; variable.&#xA;The address of &lt;code&gt;value&lt;/code&gt; is the same throughout, so the output for &lt;code&gt;s2&lt;/code&gt; would become CCC.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 094</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_094/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:22 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_094/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Math struct {&#xA;    x, y int&#xA;}&#xA;&#xA;var m = map[string]Math{&#xA;    &amp;#34;foo&amp;#34;: Math{2, 3},&#xA;}&#xA;&#xA;func main() {&#xA;    m[&amp;#34;foo&amp;#34;].x = 4&#xA;    fmt.Println(m[&amp;#34;foo&amp;#34;].x)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. 4&#xA;B. compilation error&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Reference answer and explanation: B, compilation error &amp;ldquo;cannot assign to struct field m[&amp;ldquo;foo&amp;rdquo;].x in map&amp;rdquo;. The reason for the error is that for an assignment operation like &lt;code&gt;X = Y&lt;/code&gt;, the address of &lt;code&gt;X&lt;/code&gt; must be known to assign the value of &lt;code&gt;Y&lt;/code&gt; to &lt;code&gt;X&lt;/code&gt;. However, in Go, the value of a map itself is not addressable.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 080</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_080/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:05 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_080/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What code should be filled in at A and B below to ensure the result is printed successfully?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type S struct {&#xA;    m string&#xA;}&#xA;&#xA;func f() *S {&#xA;    return __  //A&#xA;}&#xA;&#xA;func main() {&#xA;    p := __    //B&#xA;    fmt.Println(p.m) //print &amp;#34;foo&amp;#34;&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;A. &amp;amp;S{&amp;ldquo;foo&amp;rdquo;}&#xA;B. *f() or f()&lt;/p&gt;&#xA;&lt;p&gt;The &lt;code&gt;f()&lt;/code&gt; function returns a pointer type, so &lt;code&gt;&amp;amp;&lt;/code&gt; can be used to get the pointer to the struct. For B, if &lt;code&gt;*f()&lt;/code&gt; is filled in, &lt;code&gt;p&lt;/code&gt; is of type &lt;code&gt;S&lt;/code&gt;; if &lt;code&gt;f()&lt;/code&gt; is filled in, &lt;code&gt;p&lt;/code&gt; is of type &lt;code&gt;*S&lt;/code&gt;. However, in both cases, &lt;code&gt;p.m&lt;/code&gt; can be used to access the struct member.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 072</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_072/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:55 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_072/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type A interface {&#xA;    ShowA() int&#xA;}&#xA;&#xA;type B interface {&#xA;    ShowB() int&#xA;}&#xA;&#xA;type Work struct {&#xA;    i int&#xA;}&#xA;&#xA;func (w Work) ShowA() int {&#xA;    return w.i &amp;#43; 10&#xA;}&#xA;&#xA;func (w Work) ShowB() int {&#xA;    return w.i &amp;#43; 20&#xA;}&#xA;&#xA;func main() {&#xA;    var a A = Work{3}&#xA;    s := a.(Work)&#xA;    fmt.Println(s.ShowA())&#xA;    fmt.Println(s.ShowB())&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. 13 23&#xA;B. compilation error&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;A: Type assertion.&#xA;No pitfalls.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 064</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_064/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:46 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_064/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type A interface {&#xA;    ShowA() int&#xA;}&#xA;&#xA;type B interface {&#xA;    ShowB() int&#xA;}&#xA;&#xA;type Work struct {&#xA;    i int&#xA;}&#xA;&#xA;func (w Work) ShowA() int {&#xA;    return w.i &amp;#43; 10&#xA;}&#xA;&#xA;func (w Work) ShowB() int {&#xA;    return w.i &amp;#43; 20&#xA;}&#xA;&#xA;func main() {&#xA;    c := Work{3}&#xA;    var a A = c&#xA;    var b B = c&#xA;    fmt.Println(a.ShowA())&#xA;    fmt.Println(b.ShowB())&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Reference Answer and Analysis: 13 23.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 056</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_056/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:36 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_056/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type People struct{}&#xA;&#xA;func (p *People) ShowA() {&#xA;    fmt.Println(&amp;#34;showA&amp;#34;)&#xA;    p.ShowB()&#xA;}&#xA;func (p *People) ShowB() {&#xA;    fmt.Println(&amp;#34;showB&amp;#34;)&#xA;}&#xA;&#xA;type Teacher struct {&#xA;    People&#xA;}&#xA;&#xA;func (t *Teacher) ShowB() {&#xA;    fmt.Println(&amp;#34;teacher showB&amp;#34;)&#xA;}&#xA;&#xA;func main() {&#xA;    t := Teacher{}&#xA;    t.ShowA()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer:&#xA;&amp;ldquo;showA&amp;rdquo;&#xA;&amp;ldquo;showB&amp;rdquo;&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;t.ShowA()&lt;/code&gt; will prioritize calling its own &lt;code&gt;ShowA()&lt;/code&gt;. However, since it&amp;rsquo;s not defined in the problem, it calls the parent struct&amp;rsquo;s &lt;code&gt;ShowA()&lt;/code&gt;. When it reaches &lt;code&gt;p.ShowB()&lt;/code&gt;, note that &lt;code&gt;p&lt;/code&gt; is &lt;code&gt;*People&lt;/code&gt;, the parent struct, and it will call &lt;code&gt;p&lt;/code&gt;&amp;rsquo;s own &lt;code&gt;ShowB()&lt;/code&gt;.&#xA;Therefore, the output is:&#xA;&amp;ldquo;showA&amp;rdquo;&#xA;&amp;ldquo;showB&amp;rdquo;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 054</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_054/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:34 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_054/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;encoding/json&amp;#34;&#xA;    &amp;#34;fmt&amp;#34;&#xA;    &amp;#34;time&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    t := struct {&#xA;        time.Time&#xA;        N int&#xA;    }{&#xA;        time.Date(2020, 12, 20, 0, 0, 0, 0, time.UTC),&#xA;        5,&#xA;    }&#xA;&#xA;    m, _ := json.Marshal(t)&#xA;    fmt.Printf(&amp;#34;%s&amp;#34;, m)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A: {&amp;ldquo;Time&amp;rdquo;: &amp;ldquo;2020-12-20T00:00:00Z&amp;rdquo;, &amp;ldquo;N&amp;rdquo;: 5 }; B: &amp;ldquo;2020-12-20T00:00:00Z&amp;rdquo;; C: {&amp;ldquo;N&amp;rdquo;: 5}; D: &lt;code&gt;&amp;lt;nil&amp;gt;&lt;/code&gt;&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: B&#xA;In the problem, &lt;code&gt;time.Time&lt;/code&gt; is embedded in the anonymous struct, which means it inherits &lt;code&gt;time.Time&lt;/code&gt;.&#xA;&lt;code&gt;time.Time&lt;/code&gt; overrides the &lt;code&gt;MarshalJSON&lt;/code&gt; method, so it will output according to the format specified by &lt;code&gt;time.Time&lt;/code&gt;&amp;rsquo;s &lt;code&gt;MarshalJSON&lt;/code&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 052</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_052/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:31 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_052/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type People struct{}&#xA;&#xA;func (p *People) ShowA() {&#xA;    fmt.Println(&amp;#34;showA&amp;#34;)&#xA;    p.ShowB()&#xA;}&#xA;func (p *People) ShowB() {&#xA;    fmt.Println(&amp;#34;showB&amp;#34;)&#xA;}&#xA;&#xA;type Teacher struct {&#xA;    People&#xA;}&#xA;&#xA;func (t *Teacher) ShowB() {&#xA;    fmt.Println(&amp;#34;teacher showB&amp;#34;)&#xA;}&#xA;&#xA;func main() {&#xA;    t := Teacher{}&#xA;    t.ShowB()&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: &lt;code&gt;teacher showB&lt;/code&gt;&#xA;&lt;code&gt;t.ShowB()&lt;/code&gt; will use its own existing &lt;code&gt;ShowB()&lt;/code&gt;. If you want to use the parent struct&amp;rsquo;s (&lt;code&gt;People&lt;/code&gt;) &lt;code&gt;ShowB()&lt;/code&gt;, you need to change it to &lt;code&gt;t.People.ShowB()&lt;/code&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 045</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_045/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:23 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_045/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;type worker interface {&#xA;    work()&#xA;}&#xA;&#xA;type person struct {&#xA;    name string&#xA;    worker&#xA;}&#xA;&#xA;func main() {&#xA;    var w worker = person{}&#xA;    fmt.Println(w)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A: Yes; B: No; C: Don&amp;rsquo;t know&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;A&lt;/p&gt;&#xA;&lt;p&gt;Interfaces can be embedded in Go structs.&lt;/p&gt;&#xA;&lt;p&gt;Embedded interfaces have practical uses.&#xA;Example: In the standard library &lt;code&gt;sort&lt;/code&gt; package, there is an interface: &lt;code&gt;Interface&lt;/code&gt;&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Interface interface {&#xA;    // Len is the number of elements in the collection.&#xA;    Len() int&#xA;    // Less reports whether the element with&#xA;    // index i should sort before the element with index j.&#xA;    Less(i, j int) bool&#xA;    // Swap swaps the elements with indexes i and j.&#xA;    Swap(i, j int)&#xA;}&#xA;type reverse struct {&#xA;    // This embedded Interface permits Reverse to use the methods of&#xA;    // another Interface implementation.&#xA;    Interface&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;It embeds an &lt;code&gt;Interface&lt;/code&gt; to reverse sorting.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 023</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_023/</link>
+      <pubDate>Fri, 06 Dec 2024 19:49:56 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_023/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;How many ways are there to access the member variable &lt;code&gt;name&lt;/code&gt; through pointer variable &lt;code&gt;p&lt;/code&gt;? (Multiple choice)&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;A.p.name&#xA;B.(&amp;amp;p).name&#xA;C.(*p).name&#xA;D.p-&amp;gt;name&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer:&#xA;AC&#xA;&lt;code&gt;&amp;amp;&lt;/code&gt; is the address-of operator, &lt;code&gt;*&lt;/code&gt; is pointer dereferencing.&#xA;&lt;code&gt;p&lt;/code&gt; is a pointer variable, so &lt;code&gt;*&lt;/code&gt; can be used for pointer dereferencing.&#xA;Go has syntactic sugar, so you can directly use &lt;code&gt;pointer_variable.member_variable&lt;/code&gt; to access it.&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 026</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_026/</link>
+      <pubDate>Fri, 06 Dec 2024 19:49:56 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_026/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;type Student struct {&#xA;    Name string&#xA;}&#xA;&#xA;var list map[string]Student&#xA;&#xA;func main() {&#xA;&#xA;    list = make(map[string]Student)&#xA;&#xA;    student := Student{&amp;#34;Aceld&amp;#34;}&#xA;&#xA;    list[&amp;#34;student&amp;#34;] = student&#xA;    list[&amp;#34;student&amp;#34;].Name = &amp;#34;LDB&amp;#34;&#xA;&#xA;    fmt.Println(list[&amp;#34;student&amp;#34;])&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: Compilation fails.&#xA;The value of &lt;code&gt;map[string]Student&lt;/code&gt; is a &lt;code&gt;Student&lt;/code&gt; struct value, so when &lt;code&gt;list[&amp;quot;student&amp;quot;] = student&lt;/code&gt;, it&amp;rsquo;s a value copy process. However, &lt;code&gt;list[&amp;quot;student&amp;quot;]&lt;/code&gt; then becomes a value reference. The characteristic of a value reference is that it is &lt;code&gt;read-only&lt;/code&gt;. Therefore, modifying &lt;code&gt;list[&amp;quot;student&amp;quot;].Name = &amp;quot;LDB&amp;quot;&lt;/code&gt; is not allowed.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 009</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_009/</link>
+      <pubDate>Fri, 06 Dec 2024 19:40:52 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_009/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;How much space does an empty struct{} occupy? What are its uses?&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: 0, used as a placeholder.&lt;/p&gt;&#xA;&lt;p&gt;For example:&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;map[string]struct{}, can be used to save memory if you only care about the existence of the key.&lt;/li&gt;&#xA;&lt;li&gt;ch := make(chan struct{}, 1), when using channels for concurrency control, we only need a signal but not to pass a value; in this case, struct{} can be used instead.&lt;/li&gt;&#xA;&lt;li&gt;type Lamp struct{} , declares a struct that only contains methods.&lt;/li&gt;&#xA;&lt;/ol&gt;&#xA;&lt;pre&gt;&lt;code&gt;type Lamp struct{}&#xA;&#xA;func (l Lamp) On() {&#xA;        println(&amp;#34;On&amp;#34;)&#xA;&#xA;}&#xA;func (l Lamp) Off() {&#xA;        println(&amp;#34;Off&amp;#34;)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;Analysis:&#xA;Go has globally unique type metadata for each type, which records the size of that type. Since an empty struct has no types within it, its size is 0. However, because type metadata is created, it can be used as a placeholder like a normal type.&#xA;It is recommended to refer to &lt;code&gt;【幼麟实验室】- Go类型系统讲解&lt;/code&gt; for more details.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 017</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_017/</link>
+      <pubDate>Fri, 06 Dec 2024 18:34:52 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_017/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Will the following code compile? Why or why not?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import &amp;#34;fmt&amp;#34;&#xA;&#xA;func main() {&#xA;&#xA;    sn1 := struct {&#xA;        age  int&#xA;        name string&#xA;    }{age: 11, name: &amp;#34;qq&amp;#34;}&#xA;&#xA;    sn2 := struct {&#xA;        age  int&#xA;        name string&#xA;    }{age: 11, name: &amp;#34;qq&amp;#34;}&#xA;&#xA;    if sn1 == sn2 {&#xA;        fmt.Println(&amp;#34;sn1 == sn2&amp;#34;)&#xA;    }&#xA;&#xA;    sm1 := struct {&#xA;        age int&#xA;        m   map[string]string&#xA;    }{age: 11, m: map[string]string{&amp;#34;a&amp;#34;: &amp;#34;1&amp;#34;}}&#xA;&#xA;    sm2 := struct {&#xA;        age int&#xA;        m   map[string]string&#xA;    }{age: 11, m: map[string]string{&amp;#34;a&amp;#34;: &amp;#34;1&amp;#34;}}&#xA;&#xA;    if sm1 == sm2 {&#xA;        fmt.Println(&amp;#34;sm1 == sm2&amp;#34;)&#xA;    }&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: Cannot compile.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

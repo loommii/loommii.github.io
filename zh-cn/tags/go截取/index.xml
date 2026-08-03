@@ -1,67 +1,48 @@
-<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
-    <channel>
-        <title>Go截取 - 标签 - loommii</title>
-        <link>https://loommii.github.io/zh-cn/tags/go%E6%88%AA%E5%8F%96/</link>
-        <description>Go截取 - 标签 - loommii</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 30 Apr 2025 00:03:19 &#43;0800</lastBuildDate><atom:link href="https://loommii.github.io/zh-cn/tags/go%E6%88%AA%E5%8F%96/" rel="self" type="application/rss+xml" /><item>
-    <title>Go每日一题_218</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_218/</link>
-    <pubDate>Wed, 30 Apr 2025 00:03:19 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_218/</guid>
-    <description><![CDATA[<p>切片 a、b、c 的长度和容量分别是多少？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">s</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">a</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">[:</span><span class="mi">0</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">b</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="nb">cap</span><span class="p">(</span><span class="nx">s</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>a len 0 cap 3
-b len 2 cap 3
-c len 1 cap 2</p>
-<p>c 下表1 开始</p>
-<p>参考答案及解析：a、b、c 的长度和容量分别是 0 3、2 3、1 2。</p>]]></description>
-</item>
-<item>
-    <title>Go每日一题_156</title>
-    <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_156/</link>
-    <pubDate>Thu, 09 Jan 2025 20:27:59 &#43;0800</pubDate>
-    <author>loommii</author>
-    <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_156/</guid>
-    <description><![CDATA[<p>切片 a、b、c 的长度和容量分别是多少？</p>
-<div class="code-block code-line-numbers open" style="counter-reset: code-block 0">
-    <div class="code-header language-go">
-        <span class="code-title"><i class="arrow fas fa-angle-right fa-fw" aria-hidden="true"></i></span>
-        <span class="ellipses"><i class="fas fa-ellipsis-h fa-fw" aria-hidden="true"></i></span>
-        <span class="copy" title="复制到剪贴板"><i class="far fa-copy fa-fw" aria-hidden="true"></i></span>
-    </div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span> <span class="nx">main</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kn">import</span> <span class="p">(</span>
-</span></span><span class="line"><span class="cl">    <span class="s">&#34;fmt&#34;</span>
-</span></span><span class="line"><span class="cl"><span class="p">)</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl"><span class="kd">func</span> <span class="nf">main</span><span class="p">()</span> <span class="p">{</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">s</span> <span class="o">:=</span> <span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">}</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">a</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">[:</span><span class="mi">0</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">b</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">[:</span><span class="mi">2</span><span class="p">]</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">c</span> <span class="o">:=</span> <span class="nx">s</span><span class="p">[</span><span class="mi">1</span><span class="p">:</span><span class="mi">2</span><span class="p">:</span><span class="nb">cap</span><span class="p">(</span><span class="nx">s</span><span class="p">)]</span>
-</span></span><span class="line"><span class="cl">
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">a</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">a</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">b</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">b</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl">    <span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="nx">c</span><span class="p">),</span> <span class="nb">cap</span><span class="p">(</span><span class="nx">c</span><span class="p">))</span>
-</span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></div></div>
-<button class="toggle-button" onclick="this.nextElementSibling.classList.toggle('show')">🔑 答案解析：</button>
-<div class="toggle-content">
-  <p>a 长度和容量 0 3
-b 长度和容量 2 3
-c 长度和容量 1 2</p>]]></description>
-</item>
-</channel>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Go截取 - 标签 - loommii</title>
+    <link>https://loommii.github.io/zh-cn/tags/go%E6%88%AA%E5%8F%96/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>zh-CN</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/zh-cn/tags/go%E6%88%AA%E5%8F%96/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go每日一题_218</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_218/</link>
+      <pubDate>Wed, 30 Apr 2025 00:03:19 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_218/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;切片 a、b、c 的长度和容量分别是多少？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    s := [3]int{1, 2, 3}&#xA;    a := s[:0]&#xA;    b := s[:2]&#xA;    c := s[1:2:cap(s)]&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;a len 0 cap 3&#xA;b len 2 cap 3&#xA;c len 1 cap 2&lt;/p&gt;&#xA;&lt;p&gt;c 下表1 开始&lt;/p&gt;&#xA;&lt;p&gt;参考答案及解析：a、b、c 的长度和容量分别是 0 3、2 3、1 2。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_156</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_156/</link>
+      <pubDate>Thu, 09 Jan 2025 20:27:59 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_156/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;切片 a、b、c 的长度和容量分别是多少？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    s := [3]int{1, 2, 3}&#xA;    a := s[:0]&#xA;    b := s[:2]&#xA;    c := s[1:2:cap(s)]&#xA;&#xA;    fmt.Println(len(a), cap(a))&#xA;    fmt.Println(len(b), cap(b))&#xA;    fmt.Println(len(c), cap(c))&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;a 长度和容量 0 3&#xA;b 长度和容量 2 3&#xA;c 长度和容量 1 2&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_115</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_115/</link>
+      <pubDate>Fri, 06 Dec 2024 23:42:56 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_115/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;对 add() 函数调用正确的是？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func add(args ...int) int {&#xA;    sum := 0&#xA;    for _, arg := range args {&#xA;        sum &amp;#43;= arg&#xA;    }&#xA;    return sum&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. add(1, 2)&#xA;B. add(1, 3, 7)&#xA;C. add([]int{1, 2})&#xA;D. add([]int{1, 3, 7}&amp;hellip;)&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;参考答案及解析：ABD。&lt;/p&gt;&#xA;&lt;p&gt;知识点：可变函数。&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go每日一题_084</title>
+      <link>https://loommii.github.io/zh-cn/go_practise/go_daily_question_084/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:10 +0800</pubDate>
+      <guid>https://loommii.github.io/zh-cn/go_practise/go_daily_question_084/</guid>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/">Go每日一题</category>
+      <category domain="https://loommii.github.io/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/">Go语言基础</category>
+      <description>&lt;p&gt;下面这段代码输出什么？为什么？&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    s1 := []int{1, 2, 3}&#xA;    s2 := s1[1:]&#xA;    s2[1] = 4&#xA;    fmt.Println(s1)&#xA;    s2 = append(s2, 5, 6, 7)&#xA;    fmt.Println(s1)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 答案解析：&lt;/summary&gt;&#xA;  &lt;p&gt;s1 [1,2,4]&#xA;s2 [2,4,5,6,7]&lt;/p&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+  </channel>
 </rss>

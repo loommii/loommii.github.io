@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GoSliceCapacity - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/goslicecapacity/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/goslicecapacity/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 218</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_218/</link>
+      <pubDate>Wed, 30 Apr 2025 00:03:19 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_218/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What are the length and capacity of slices a, b, and c respectively?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    s := [3]int{1, 2, 3}&#xA;    a := s[:0]&#xA;    b := s[:2]&#xA;    c := s[1:2:cap(s)]&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;a: len 0, cap 3&#xA;b: len 2, cap 3&#xA;c: len 1, cap 2&lt;/p&gt;&#xA;&lt;p&gt;c starts at index 1.&lt;/p&gt;&#xA;&lt;p&gt;Reference Answer and Analysis: The length and capacity of a, b, and c are 0 3, 2 3, and 1 2, respectively.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 213</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_213/</link>
+      <pubDate>Fri, 11 Apr 2025 19:46:59 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_213/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (  &#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func main() {  &#xA;    a := [5]int{1, 2, 3, 4, 5}&#xA;    t := a[3:4:4]&#xA;    fmt.Println(t[0])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A.3&lt;/li&gt;&#xA;&lt;li&gt;B.4&lt;/li&gt;&#xA;&lt;li&gt;C.compilation error&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;B&#xA;&lt;a href=&#34;https://go.dev/play/p/z3KqBXFXMm3&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Answer:&lt;/strong&gt; B&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Key takeaway:&lt;/strong&gt; Go Language Slice Operator &lt;code&gt;[i:j:k]&lt;/code&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;strong&gt;Analysis:&lt;/strong&gt;&lt;/p&gt;&#xA;&lt;ol&gt;&#xA;&lt;li&gt;&#xA;&lt;p&gt;&lt;strong&gt;Array Initialization:&lt;/strong&gt;&#xA;&lt;code&gt;a := [5]int{1, 2, 3, 4, 5}&lt;/code&gt; creates an array &lt;code&gt;a&lt;/code&gt; containing 5 integers. Its content is &lt;code&gt;[1, 2, 3, 4, 5]&lt;/code&gt;, with indices from 0 to 4.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 156</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_156/</link>
+      <pubDate>Thu, 09 Jan 2025 20:27:59 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_156/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What are the length and capacity of slices a, b, and c respectively?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func main() {&#xA;    s := [3]int{1, 2, 3}&#xA;    a := s[:0]&#xA;    b := s[:2]&#xA;    c := s[1:2:cap(s)]&#xA;&#xA;    fmt.Println(len(a), cap(a))&#xA;    fmt.Println(len(b), cap(b))&#xA;    fmt.Println(len(c), cap(c))&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;a: Length and capacity 0 3&#xA;b: Length and capacity 2 3&#xA;c: Length and capacity 1 2&lt;/p&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://go.dev/play/p/QHiuY9qh4pw&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;&#xA;&lt;h3 class=&#34;heading-element&#34; id=&#34;key-takeaway-array-or-slice-slicing-operations&#34;&gt;&lt;span&gt;Key Takeaway: Array or Slice Slicing Operations&lt;/span&gt;&#xA;  &lt;a href=&#34;#key-takeaway-array-or-slice-slicing-operations&#34; class=&#34;heading-mark&#34;&gt;&#xA;    &lt;svg class=&#34;octicon octicon-link&#34; viewBox=&#34;0 0 16 16&#34; version=&#34;1.1&#34; width=&#34;16&#34; height=&#34;16&#34; aria-hidden=&#34;true&#34;&gt;&lt;path d=&#34;m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z&#34;&gt;&lt;/path&gt;&lt;/svg&gt;&#xA;  &lt;/a&gt;&#xA;&lt;/h3&gt;&lt;p&gt;Slicing operations can have 2 or 3 parameters, such as &lt;code&gt;[i:j]&lt;/code&gt; and &lt;code&gt;[i:j:k]&lt;/code&gt;.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 139</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_139/</link>
+      <pubDate>Mon, 23 Dec 2024 17:01:49 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_139/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Which of the following types can use the &lt;code&gt;cap()&lt;/code&gt; function?&lt;/p&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;A. array&lt;/li&gt;&#xA;&lt;li&gt;B. slice&lt;/li&gt;&#xA;&lt;li&gt;C. map&lt;/li&gt;&#xA;&lt;li&gt;D. channel&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;ABD&#xA;&lt;a href=&#34;https://pkg.go.dev/builtin#cap&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Official documentation&lt;/a&gt;&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func cap(v Type) int&#xA;// The built-in function `cap` returns the capacity of `v` based on its type:&lt;/code&gt;&lt;/pre&gt;&lt;blockquote&gt;&#xA;&lt;ul&gt;&#xA;&lt;li&gt;Array: the number of elements in &lt;code&gt;v&lt;/code&gt; (same as &lt;code&gt;len(v)&lt;/code&gt;).&lt;/li&gt;&#xA;&lt;li&gt;Pointer to array &lt;code&gt;*array&lt;/code&gt;: the number of elements in &lt;code&gt;*v&lt;/code&gt; (same as &lt;code&gt;len(v)&lt;/code&gt;).&lt;/li&gt;&#xA;&lt;li&gt;Slice: the maximum length the slice can reach when re-sliced;&lt;/li&gt;&#xA;&lt;li&gt;Channel: the buffer capacity of the channel, in terms of elements;&lt;/li&gt;&#xA;&lt;li&gt;If &lt;code&gt;v&lt;/code&gt; is &lt;code&gt;nil&lt;/code&gt;, then &lt;code&gt;cap(v)&lt;/code&gt; is zero.&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&lt;/blockquote&gt;&#xA;&lt;/details&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 137</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_137/</link>
+      <pubDate>Sat, 21 Dec 2024 01:24:56 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_137/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (  &#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func main() {  &#xA;    a := [5]int{1, 2, 3, 4, 5}&#xA;    t := a[3:4:4]&#xA;    fmt.Println(t[0])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;ul&gt;&#xA;&lt;li&gt;A.3&lt;/li&gt;&#xA;&lt;li&gt;B.4&lt;/li&gt;&#xA;&lt;li&gt;C.compilation error&lt;/li&gt;&#xA;&lt;/ul&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;B &lt;a href=&#34;https://go.dev/play/p/z3KqBXFXMm3&#34; target=&#34;_blank&#34; rel=&#34;external nofollow noopener noreferrer&#34;&gt;Run online&lt;/a&gt;&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;a&lt;/code&gt; is an array of length 5 with elements 1, 2, 3, 4, 5.&lt;/p&gt;&#xA;&lt;p&gt;&lt;code&gt;t := baseStr[low:high:max]&lt;/code&gt;&#xA;&lt;code&gt;low&lt;/code&gt; specifies the starting element index, &lt;code&gt;high&lt;/code&gt; specifies the ending element index (exclusive), and &lt;code&gt;max&lt;/code&gt; specifies the maximum index the slice can grow to.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 065</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_065/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:47 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_065/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What are the length and capacity of slices a, b, and c respectively?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;func main() {&#xA;    s := [3]int{1, 2, 3}&#xA;    a := s[:0]&#xA;    b := s[:2]&#xA;    c := s[1:2:cap(s)]&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;a: len 0, cap 3&#xA;b: len 2, cap 3&#xA;c: len 1, cap 2&lt;/p&gt;&#xA;&lt;p&gt;c starts at index 1.&lt;/p&gt;&#xA;&lt;p&gt;Reference Answer and Analysis: The length and capacity of a, b, and c are 0 3, 2 3, and 1 2, respectively.&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 046</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_046/</link>
+      <pubDate>Fri, 06 Dec 2024 20:44:24 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_046/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (  &#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func main() {  &#xA;    a := [5]int{1, 2, 3, 4, 5}&#xA;    t := a[3:4:4]&#xA;    fmt.Println(t[0])&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A.3&#xA;B.4&#xA;C.compilation error&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer: B&#xA;Analysis: &lt;code&gt;t := a[3:4:4]&lt;/code&gt;&#xA;A new slice &lt;code&gt;t&lt;/code&gt; is generated based on slice &lt;code&gt;a&lt;/code&gt;. The start of &lt;code&gt;t&lt;/code&gt; points to the position of &lt;code&gt;a[3]&lt;/code&gt;, and stops at &lt;code&gt;a[4]&lt;/code&gt;.&lt;/p&gt;&#xA;&lt;/details&gt;&lt;/p&gt;</description>
+    </item>
+    <item>
+      <title>Go Daily Question 021</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_021/</link>
+      <pubDate>Fri, 06 Dec 2024 19:47:08 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_021/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;Write the result of the program execution:&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;package main&#xA;&#xA;import (&#xA;    &amp;#34;fmt&amp;#34;&#xA;)&#xA;&#xA;func main(){&#xA;    s := make([]int, 10)&#xA;&#xA;    s = append(s, 1, 2, 3)&#xA;&#xA;    fmt.Println(s)&#xA;}&lt;/code&gt;&lt;/pre&gt;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;Answer:&#xA;[0 0 0 0 0 0 0 0 0 0 1 2 3]&#xA;&lt;code&gt;make(type, cap, len)&lt;/code&gt;&#xA;If only &lt;code&gt;cap&lt;/code&gt; is filled, then &lt;code&gt;len = cap&lt;/code&gt;.&#xA;Therefore, &lt;code&gt;s := make([]int, 10)&lt;/code&gt;&#xA;The value of slice &lt;code&gt;s&lt;/code&gt; is &lt;code&gt;[0 0 0 0 0 0 0 0 0 0]&lt;/code&gt;&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>GoVariableShadowing - Tag - loommii</title>
+    <link>https://loommii.github.io/en/tags/govariableshadowing/</link>
+    <description>我的个人技术博客</description>
+    <generator>Hugo 0.164.0 &amp; FixIt v0.4.5</generator>
+    <language>en</language>
+    <lastBuildDate>Fri, 16 Jan 2026 01:28:43 +0800</lastBuildDate>
+    <atom:link href="https://loommii.github.io/en/tags/govariableshadowing/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Go Daily Question 097</title>
+      <link>https://loommii.github.io/en/go_practise/go_daily_question_097/</link>
+      <pubDate>Fri, 06 Dec 2024 20:45:25 +0800</pubDate>
+      <guid>https://loommii.github.io/en/go_practise/go_daily_question_097/</guid>
+      <category domain="https://loommii.github.io/en/categories/godailyquestion/">GoDailyQuestion</category>
+      <category domain="https://loommii.github.io/en/categories/golanguagebasics/">GoLanguageBasics</category>
+      <description>&lt;p&gt;What is the output of the following code?&lt;/p&gt;&#xA;&lt;pre&gt;&lt;code&gt;var p *int&#xA;&#xA;func foo() (*int, error) {&#xA;    var i int = 5&#xA;    return &amp;amp;i, nil&#xA;}&#xA;&#xA;func bar() {&#xA;    //use p&#xA;    fmt.Println(*p)&#xA;}&#xA;&#xA;func main() {&#xA;    p, err := foo()&#xA;    if err != nil {&#xA;        fmt.Println(err)&#xA;        return&#xA;    }&#xA;    bar()&#xA;    fmt.Println(*p)&#xA;}&lt;/code&gt;&lt;/pre&gt;&lt;p&gt;A. 5 5&#xA;B. runtime error&lt;/p&gt;&#xA;&#xA;&lt;details&gt;&#xA;  &lt;summary&gt;🔑 Answer Analysis:&lt;/summary&gt;&#xA;  &lt;p&gt;B&#xA;The global &lt;code&gt;*p&lt;/code&gt; is &lt;code&gt;nil&lt;/code&gt;.&#xA;In &lt;code&gt;p, err := foo()&lt;/code&gt;, &lt;code&gt;p&lt;/code&gt; here is a new local variable and is unrelated to the global &lt;code&gt;p&lt;/code&gt;.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
