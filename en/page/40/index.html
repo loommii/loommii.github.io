@@ -126,31 +126,43 @@
 <li><strong><a href="/en/posts/">Technical Articles</a></strong> - Other technical articles and tutorials</li>
 </ul>
 </div>
-        </div><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/en/go_practise/go_daily_question_025/">Go Daily Question 025</a>
+        </div><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/en/go_practise/go_daily_question_084/">Go Daily Question 084</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 19:49:56'>published on <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;included in <a href="/en/categories/godailyquestion/" class="post-category" title="Category - GoDailyQuestion"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoDailyQuestion</a>&ensp;<a href="/en/categories/golanguagebasics/" class="post-category" title="Category - GoLanguageBasics"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoLanguageBasics</a></span></div><div class="content"><p>Regarding string concatenation, which of the following syntax is correct?</p>
+      loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 20:45:10'>published on <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;included in <a href="/en/categories/godailyquestion/" class="post-category" title="Category - GoDailyQuestion"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoDailyQuestion</a>&ensp;<a href="/en/categories/golanguagebasics/" class="post-category" title="Category - GoLanguageBasics"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoLanguageBasics</a></span></div><div class="content"><p>What is the output of the following code? Why?</p>
 <div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt">1
 </span><span class="lnt">2
 </span><span class="lnt">3
 </span><span class="lnt">4
+</span><span class="lnt">5
+</span><span class="lnt">6
+</span><span class="lnt">7
+</span><span class="lnt">8
 </span></code></pre></td>
 <td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">A. str := &#39;abc&#39; + &#39;123&#39;
-</span></span><span class="line"><span class="cl">B. str := &#34;abc&#34; + &#34;123&#34;
-</span></span><span class="line"><span class="cl">C. str := &#39;123&#39; + &#34;abc&#34;
-</span></span><span class="line"><span class="cl">D. fmt.Sprintf(&#34;abc%d&#34;, 123)</span></span></code></pre></td></tr></table></div>
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">s1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">s2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">s1</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">s2</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">4</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s1</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">s2</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">s2</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">,</span><span class="w"> </span><span class="mi">6</span><span class="p">,</span><span class="w"> </span><span class="mi">7</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s1</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
 </div>
 </div>
 <details>
   <summary>🔑 Answer Analysis:</summary>
-  <p>Answer: BD
-<code>' '</code> can only be used for single characters, so A and C will not compile.</p></div><div class="post-footer">
-    <a href="/en/go_practise/go_daily_question_025/">Read More</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/en/tags/go/' class="post-tag">Go</a><a href='/en/tags/gostring/' class="post-tag">GoString</a><a href='/en/tags/goliterals/' class="post-tag">GoLiterals</a><a href='/en/tags/gofmt/' class="post-tag">Gofmt</a><a href='/en/tags/compilationerror/' class="post-tag">CompilationError</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/en/go_practise/go_daily_question_026/">Go Daily Question 026</a>
+  <p>s1 [1,2,4]
+s2 [2,4,5,6,7]</p></div><div class="post-footer">
+    <a href="/en/go_practise/go_daily_question_084/">Read More</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/en/tags/go/' class="post-tag">Go</a><a href='/en/tags/goslice/' class="post-tag">GoSlice</a><a href='/en/tags/gounderlyingarray/' class="post-tag">GoUnderlyingArray</a><a href='/en/tags/goslicing/' class="post-tag">GoSlicing</a><a href='/en/tags/goreallocation/' class="post-tag">GoReallocation</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/en/go_practise/go_daily_question_083/">Go Daily Question 083</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 19:49:56'>published on <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;included in <a href="/en/categories/godailyquestion/" class="post-category" title="Category - GoDailyQuestion"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoDailyQuestion</a>&ensp;<a href="/en/categories/golanguagebasics/" class="post-category" title="Category - GoLanguageBasics"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoLanguageBasics</a></span></div><div class="content"><p>Will the following code compile?</p>
+      loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 20:45:09'>published on <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;included in <a href="/en/categories/godailyquestion/" class="post-category" title="Category - GoDailyQuestion"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoDailyQuestion</a>&ensp;<a href="/en/categories/golanguagebasics/" class="post-category" title="Category - GoLanguageBasics"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoLanguageBasics</a></span></div><div class="content">Go Language Daily Question Series - Analysis of Go Daily Question 083</div><div class="post-footer">
+    <a href="/en/go_practise/go_daily_question_083/">Read More</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/en/tags/go/' class="post-tag">Go</a><a href='/en/tags/dailyquestion/' class="post-tag">DailyQuestion</a><a href='/en/tags/programmingpractice/' class="post-tag">ProgrammingPractice</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/en/go_practise/go_daily_question_082/">Go Daily Question 082</a>
+  </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 20:45:07'>published on <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;included in <a href="/en/categories/godailyquestion/" class="post-category" title="Category - GoDailyQuestion"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoDailyQuestion</a>&ensp;<a href="/en/categories/golanguagebasics/" class="post-category" title="Category - GoLanguageBasics"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoLanguageBasics</a></span></div><div class="content"><p>How many syntax issues are there in the following code, and what are they?</p>
 <div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
 <div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -164,49 +176,34 @@
 </span><span class="lnt"> 9
 </span><span class="lnt">10
 </span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="s">&#34;fmt&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">Student</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Name</span><span class="w"> </span><span class="kt">string</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">var</span><span class="w"> </span><span class="nx">list</span><span class="w"> </span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">Student</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">list</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="nx">Student</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">student</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Student</span><span class="p">{</span><span class="s">&#34;Aceld&#34;</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">list</span><span class="p">[</span><span class="s">&#34;student&#34;</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">student</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">list</span><span class="p">[</span><span class="s">&#34;student&#34;</span><span class="p">].</span><span class="nx">Name</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#34;LDB&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">list</span><span class="p">[</span><span class="s">&#34;student&#34;</span><span class="p">])</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">nil</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#34;default&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div>
 <details>
   <summary>🔑 Answer Analysis:</summary>
-  <p>Answer: Compilation fails.
-The value of <code>map[string]Student</code> is a <code>Student</code> struct value, so when <code>list[&quot;student&quot;] = student</code>, it&rsquo;s a value copy process. However, <code>list[&quot;student&quot;]</code> then becomes a value reference. The characteristic of a value reference is that it is <code>read-only</code>. Therefore, modifying <code>list[&quot;student&quot;].Name = &quot;LDB&quot;</code> is not allowed.</p></div><div class="post-footer">
-    <a href="/en/go_practise/go_daily_question_026/">Read More</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/en/tags/go/' class="post-tag">Go</a><a href='/en/tags/gomap/' class="post-tag">Gomap</a><a href='/en/tags/gostruct/' class="post-tag">GoStruct</a><a href='/en/tags/goaddressability/' class="post-tag">GoAddressability</a><a href='/en/tags/gopointer/' class="post-tag">GoPointer</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/en/go_practise/go_daily_question_027/">Go Daily Question 027</a>
+  <ol>
+<li><code>var x string = nil</code>
+A string cannot be <code>nil</code>.</li>
+<li><code>if x == nil {</code>
+A string cannot be compared with <code>nil</code>.</li>
+</ol>
+</details></div><div class="post-footer">
+    <a href="/en/go_practise/go_daily_question_082/">Read More</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/en/tags/go/' class="post-tag">Go</a><a href='/en/tags/gostring/' class="post-tag">GoString</a><a href='/en/tags/gonil/' class="post-tag">Gonil</a><a href='/en/tags/gotypesystem/' class="post-tag">GoTypeSystem</a><a href='/en/tags/compilationerror/' class="post-tag">CompilationError</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/en/go_practise/go_daily_question_081/">Go Daily Question 081</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 19:49:55'>published on <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;included in <a href="/en/categories/godailyquestion/" class="post-category" title="Category - GoDailyQuestion"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoDailyQuestion</a>&ensp;<a href="/en/categories/golanguagebasics/" class="post-category" title="Category - GoLanguageBasics"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoLanguageBasics</a></span></div><div class="content"><p>What is wrong with the following code and why?</p>
+      loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 20:45:06'>published on <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;included in <a href="/en/categories/godailyquestion/" class="post-category" title="Category - GoDailyQuestion"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoDailyQuestion</a>&ensp;<a href="/en/categories/golanguagebasics/" class="post-category" title="Category - GoLanguageBasics"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoLanguageBasics</a></span></div><div class="content"><p>What is the output of the following code?</p>
 <div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
 <div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
 <pre tabindex="0" class="chroma"><code><span class="lnt"> 1
@@ -219,28 +216,6 @@ The value of <code>map[string]Student</code> is a <code>Student</code> struct va
 </span><span class="lnt"> 8
 </span><span class="lnt"> 9
 </span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
 </span></code></pre></td>
 <td class="lntd">
 <pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
@@ -249,139 +224,55 @@ The value of <code>map[string]Student</code> is a <code>Student</code> struct va
 </span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">student</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Name</span><span class="w"> </span><span class="kt">string</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Age</span><span class="w">  </span><span class="kt">int</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">ans</span><span class="w"> </span><span class="kt">float64</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">15</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">25</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mf">5.2</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">ans</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>A: Cannot compile; B: 45; C: 45.2; D: 45.0</p></div><div class="post-footer">
+    <a href="/en/go_practise/go_daily_question_081/">Read More</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/en/tags/go/' class="post-tag">Go</a><a href='/en/tags/goconstant/' class="post-tag">GoConstant</a><a href='/en/tags/gotypeinference/' class="post-tag">GoTypeInference</a><a href='/en/tags/gonumerictypes/' class="post-tag">GoNumericTypes</a><a href='/en/tags/gooperator/' class="post-tag">GoOperator</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/en/go_practise/go_daily_question_080/">Go Daily Question 080</a>
+  </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 20:45:05'>published on <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;included in <a href="/en/categories/godailyquestion/" class="post-category" title="Category - GoDailyQuestion"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoDailyQuestion</a>&ensp;<a href="/en/categories/golanguagebasics/" class="post-category" title="Category - GoLanguageBasics"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoLanguageBasics</a></span></div><div class="content"><p>What code should be filled in at A and B below to ensure the result is printed successfully?</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">S</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">m</span><span class="w"> </span><span class="kt">string</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">f</span><span class="p">()</span><span class="w"> </span><span class="o">*</span><span class="nx">S</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">__</span><span class="w">  </span><span class="cp">//A</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Define map</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">m</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">string</span><span class="p">]</span><span class="o">*</span><span class="nx">student</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Define student array</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">stus</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="nx">student</span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&#34;zhou&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">Age</span><span class="p">:</span><span class="w"> </span><span class="mi">24</span><span class="p">},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&#34;li&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">Age</span><span class="p">:</span><span class="w"> </span><span class="mi">23</span><span class="p">},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">{</span><span class="nx">Name</span><span class="p">:</span><span class="w"> </span><span class="s">&#34;wang&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">Age</span><span class="p">:</span><span class="w"> </span><span class="mi">22</span><span class="p">},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Add array elements to map one by one</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">stu</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">stus</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">m</span><span class="p">[</span><span class="nx">stu</span><span class="p">.</span><span class="nx">Name</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">&amp;</span><span class="nx">stu</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Print map</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">k</span><span class="p">,</span><span class="nx">v</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">m</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">k</span><span class="w"> </span><span class="p">,</span><span class="s">&#34;=&gt;&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">v</span><span class="p">.</span><span class="nx">Name</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">__</span><span class="w">    </span><span class="cp">//B</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">p</span><span class="p">.</span><span class="nx">m</span><span class="p">)</span><span class="w"> </span><span class="cp">//print &#34;foo&#34;</span><span class="w">
 </span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
 </div>
 </div>
 <details>
   <summary>🔑 Answer Analysis:</summary>
-  <h4 class="heading-element" id="note-that-this-type-of-problem-will-change-in-go-versions-after-122"><span>Note that this type of problem will change in Go versions after 1.22.</span>
-  <a href="#note-that-this-type-of-problem-will-change-in-go-versions-after-122" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p>🔗:<a href="https://go.dev/blog/loopvar-preview" target="_blank" rel="external nofollow noopener noreferrer">Fixing For Loops in Go 1.22</a></p></div><div class="post-footer">
-    <a href="/en/go_practise/go_daily_question_027/">Read More</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/en/tags/go/' class="post-tag">Go</a><a href='/en/tags/gofor-range/' class="post-tag">Gofor-Range</a><a href='/en/tags/gopointer/' class="post-tag">GoPointer</a><a href='/en/tags/go1.22/' class="post-tag">Go1.22</a><a href='/en/tags/gopitfall/' class="post-tag">GoPitfall</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/en/go_practise/go_daily_question_028/">Go Daily Question 028</a>
+  <p>A. &amp;S{&ldquo;foo&rdquo;}
+B. *f() or f()</p></div><div class="post-footer">
+    <a href="/en/go_practise/go_daily_question_080/">Read More</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/en/tags/go/' class="post-tag">Go</a><a href='/en/tags/gostruct/' class="post-tag">GoStruct</a><a href='/en/tags/gopointer/' class="post-tag">GoPointer</a><a href='/en/tags/goinitialization/' class="post-tag">GoInitialization</a><a href='/en/tags/gomemberaccess/' class="post-tag">GoMemberAccess</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/en/go_practise/go_daily_question_079/">Go Daily Question 079</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 19:49:55'>published on <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;included in <a href="/en/categories/godailyquestion/" class="post-category" title="Category - GoDailyQuestion"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoDailyQuestion</a>&ensp;<a href="/en/categories/golanguagebasics/" class="post-category" title="Category - GoLanguageBasics"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoLanguageBasics</a></span></div><div class="content"><p>Will the following code compile? If so, what will be the output?</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">const</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">x</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">_</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">y</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">z</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#34;zz&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">k</span><span class="w"> 
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">p</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kc">iota</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w">  </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">x</span><span class="p">,</span><span class="nx">y</span><span class="p">,</span><span class="nx">z</span><span class="p">,</span><span class="nx">k</span><span class="p">,</span><span class="nx">p</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div>
-<details>
-  <summary>🔑 Answer Analysis:</summary>
-  <p>Reference Answer: Compiles and outputs: 0 2 zz zz 5</p></div><div class="post-footer">
-    <a href="/en/go_practise/go_daily_question_028/">Read More</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/en/tags/go/' class="post-tag">Go</a><a href='/en/tags/goiota/' class="post-tag">Goiota</a><a href='/en/tags/goconstant/' class="post-tag">GoConstant</a><a href='/en/tags/goenumeration/' class="post-tag">GoEnumeration</a><a href='/en/tags/gosyntax/' class="post-tag">GoSyntax</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/en/go_practise/go_daily_question_029/">Go Daily Question 029</a>
-  </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 19:49:55'>published on <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;included in <a href="/en/categories/godailyquestion/" class="post-category" title="Category - GoDailyQuestion"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoDailyQuestion</a>&ensp;<a href="/en/categories/golanguagebasics/" class="post-category" title="Category - GoLanguageBasics"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoLanguageBasics</a></span></div><div class="content"><p>Which of the following assignments is correct?</p>
-<p>A. var x = nil
-B. var x interface{} = nil
-C. var x string = nil
-D. var x error = nil</p>
-
-<details>
-  <summary>🔑 Answer Analysis:</summary>
-  <p>BD. This question tests the knowledge of <code>nil</code>. <code>nil</code> can only be assigned to pointers.</p>
-<p>A: Type not specified.
-B: Empty interface can be assigned <code>nil</code>.
-C: A string is essentially a read-only slice and cannot be assigned <code>nil</code>.
-D: <code>error</code> is essentially an interface type and can be assigned <code>nil</code>.</p></div><div class="post-footer">
-    <a href="/en/go_practise/go_daily_question_029/">Read More</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/en/tags/go/' class="post-tag">Go</a><a href='/en/tags/gonil/' class="post-tag">Gonil</a><a href='/en/tags/gointerface/' class="post-tag">GoInterface</a><a href='/en/tags/gopointer/' class="post-tag">GoPointer</a><a href='/en/tags/gotypesystem/' class="post-tag">GoTypeSystem</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/en/go_practise/go_daily_question_021/">Go Daily Question 021</a>
-  </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 19:47:08'>published on <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;included in <a href="/en/categories/godailyquestion/" class="post-category" title="Category - GoDailyQuestion"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoDailyQuestion</a>&ensp;<a href="/en/categories/golanguagebasics/" class="post-category" title="Category - GoLanguageBasics"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoLanguageBasics</a></span></div><div class="content"><p>Write the result of the program execution:</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">s</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">s</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">s</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div>
-<details>
-  <summary>🔑 Answer Analysis:</summary>
-  <p>Answer:
-[0 0 0 0 0 0 0 0 0 0 1 2 3]
-<code>make(type, cap, len)</code>
-If only <code>cap</code> is filled, then <code>len = cap</code>.
-Therefore, <code>s := make([]int, 10)</code>
-The value of slice <code>s</code> is <code>[0 0 0 0 0 0 0 0 0 0]</code></p></div><div class="post-footer">
-    <a href="/en/go_practise/go_daily_question_021/">Read More</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/en/tags/go/' class="post-tag">Go</a><a href='/en/tags/goslice/' class="post-tag">GoSlice</a><a href='/en/tags/gomake/' class="post-tag">GoMake</a><a href='/en/tags/golen/' class="post-tag">GoLen</a><a href='/en/tags/goslicecapacity/' class="post-tag">GoSliceCapacity</a></div></div>
+      loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 20:45:04'>published on <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;included in <a href="/en/categories/godailyquestion/" class="post-category" title="Category - GoDailyQuestion"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoDailyQuestion</a>&ensp;<a href="/en/categories/golanguagebasics/" class="post-category" title="Category - GoLanguageBasics"><i class="fa-regular fa-folder" aria-hidden="true"></i> GoLanguageBasics</a></span></div><div class="content">Go Language Daily Question Series - Analysis of Go Daily Question 079</div><div class="post-footer">
+    <a href="/en/go_practise/go_daily_question_079/">Read More</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/en/tags/go/' class="post-tag">Go</a><a href='/en/tags/gointerface/' class="post-tag">GoInterface</a><a href='/en/tags/gopointer/' class="post-tag">GoPointer</a><a href='/en/tags/gofunctionparameters/' class="post-tag">GoFunctionParameters</a><a href='/en/tags/compilationerror/' class="post-tag">CompilationError</a></div></div>
 </article><ul class="pagination"><li class="page-item">
           <span class="page-link">
             <a href="/en/">1</a>
@@ -412,7 +303,7 @@ The value of slice <code>s</code> is <code>[0 0 0 0 0 0 0 0 0 0]</code></p></div
           <span class="page-link" aria-hidden="true">&hellip;</span>
         </li><li class="page-item">
           <span class="page-link">
-            <a href="/en/page/44/">44</a>
+            <a href="/en/page/53/">53</a>
           </span>
         </li></ul></div></main><footer class="footer">
     <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.164.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
@@ -422,5 +313,5 @@ The value of slice <code>s</code> is <code>[0 0 0 0 0 0 0 0 0 0]</code></p></div
   </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
     <div class="noscript-warning">This website works best with JavaScript enabled.</div>
   </noscript>
-</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/typeit/index.umd.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script>window.config={"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"print":{"expandAdmonition":true,"expandCode":true,"expandDetails":true,"expandFileTree":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/en/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"No results found","snippetLength":30,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"tooltip":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"duration":-1,"loop":false,"speed":100},"version":"v0.4.5"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/json-viewer-element/json-viewer-element.umd.js" defer></script><script src="/lib/typeit/index.umd.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script>window.config={"cookieconsent":{"content":{"dismiss":"Got it!","link":"Learn more","message":"This website uses Cookies to improve your experience."},"enable":true,"palette":{"button":{"background":"#f0f0f0"},"popup":{"background":"#1aa3ff"}},"theme":"edgeless"},"print":{"expandAdmonition":true,"expandCode":true,"expandDetails":true,"expandFileTree":false},"search":{"distance":100,"findAllMatches":false,"fuseIndexURL":"/en/search.json","highlightTag":"em","ignoreFieldNorm":false,"ignoreLocation":false,"isCaseSensitive":false,"location":0,"maxResultLength":10,"minMatchCharLength":2,"noResultsFound":"No results found","snippetLength":30,"threshold":0.3,"type":"fuse","useExtendedSearch":false},"tooltip":true,"typeit":{"cursorChar":"|","cursorSpeed":1000,"duration":-1,"loop":false,"speed":100},"version":"v0.4.5"};</script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
 </html>

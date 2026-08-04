@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+    <meta name="robots" content="noodp" />
+    <title>零服务器部署 Sub-Store：Cloudflare Workers 免费方案实战 - loommii</title><meta name="author" content="loommii">
+<meta name="description" content="利用 Cloudflare Workers 免费额度，在边缘网络零服务器部署完整的 Sub-Store 订阅管理服务。"><meta name="keywords" content='Cloudflare, Sub-Store, Workers, 零服务器, 订阅管理'>
+	<meta itemprop="name" content="零服务器部署 Sub-Store：Cloudflare Workers 免费方案实战">
+	<meta itemprop="description" content="利用 Cloudflare Workers 免费额度，在边缘网络零服务器部署完整的 Sub-Store 订阅管理服务。">
+	<meta itemprop="datePublished" content="2026-08-04T01:49:40+08:00">
+	<meta itemprop="dateModified" content="2026-08-04T15:42:40+08:00">
+	<meta itemprop="wordCount" content="1705">
+	<meta itemprop="image" content="https://loommii.github.io/images/logo.png">
+	<meta itemprop="keywords" content="Cloudflare,Sub-Store,Workers,零服务器,订阅管理"><meta property="og:url" content="https://loommii.github.io/zh-cn/posts/substore_cloudflare_workers_deployment_guide/">
+	<meta property="og:site_name" content="loommii">
+	<meta property="og:title" content="零服务器部署 Sub-Store：Cloudflare Workers 免费方案实战">
+	<meta property="og:description" content="利用 Cloudflare Workers 免费额度，在边缘网络零服务器部署完整的 Sub-Store 订阅管理服务。">
+	<meta property="og:locale" content="zh_CN">
+	<meta property="og:type" content="article">
+		<meta property="article:section" content="posts">
+		<meta property="article:published_time" content="2026-08-04T01:49:40+08:00">
+		<meta property="article:modified_time" content="2026-08-04T15:42:40+08:00">
+		<meta property="article:tag" content="Cloudflare">
+		<meta property="article:tag" content="Sub-Store">
+		<meta property="article:tag" content="Workers">
+		<meta property="article:tag" content="零服务器">
+		<meta property="article:tag" content="订阅管理">
+		<meta property="og:image" content="https://loommii.github.io/images/logo.png">
+
+	<meta name="twitter:card" content="summary_large_image">
+	<meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
+	<meta name="twitter:title" content="零服务器部署 Sub-Store：Cloudflare Workers 免费方案实战">
+	<meta name="twitter:description" content="利用 Cloudflare Workers 免费额度，在边缘网络零服务器部署完整的 Sub-Store 订阅管理服务。">
+<meta name="application-name" content="FixIt">
+<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://loommii.github.io/zh-cn/posts/substore_cloudflare_workers_deployment_guide/" title="零服务器部署 Sub-Store：Cloudflare Workers 免费方案实战 - loommii" /><link rel="prev" type="text/html" href="https://loommii.github.io/zh-cn/leetcode/2515_shortest_distance_to_a_target_string/" title="2515_到目标字符串的最短距离" /><link rel="alternate" type="text/markdown" href="https://loommii.github.io/zh-cn/posts/substore_cloudflare_workers_deployment_guide/index.md" title="零服务器部署 Sub-Store：Cloudflare Workers 免费方案实战 - loommii"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
+  {
+    "@context": "http://schema.org",
+    "@type": "BlogPosting",
+    "headline": "零服务器部署 Sub-Store：Cloudflare Workers 免费方案实战",
+    "inLanguage": "zh-CN",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https:\/\/loommii.github.io\/zh-cn\/posts\/substore_cloudflare_workers_deployment_guide\/"
+    },"genre": "posts","keywords": "Cloudflare, Sub-Store, Workers, 零服务器, 订阅管理","wordcount":  1705 ,
+    "url": "https:\/\/loommii.github.io\/zh-cn\/posts\/substore_cloudflare_workers_deployment_guide\/","datePublished": "2026-08-04T01:49:40+08:00","dateModified": "2026-08-04T15:42:40+08:00","publisher": {
+      "@type": "Organization",
+      "name": ""},"author": {
+        "@type": "Person",
+        "name": "loommii"
+      },"description": "利用 Cloudflare Workers 免费额度，在边缘网络零服务器部署完整的 Sub-Store 订阅管理服务。"
+  }
+  </script><script src="/js/head/color-scheme.min.js"></script></head>
+  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
+  <div class="header-wrapper">
+    <div class="header-title">
+      <a href="/zh-cn/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="32" width="32"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
+    <nav>
+      <ul class="menu"><li class="menu-item">
+              <a class="menu-link" href="/zh-cn/posts/">文章</a></li><li class="menu-item">
+              <a class="menu-link" href="/zh-cn/go_practise/">Go练习题</a></li><li class="menu-item">
+              <a class="menu-link" href="/zh-cn/leetcode/">LeetCode题解</a></li><li class="menu-item">
+              <a class="menu-link" href="/zh-cn/categories/">分类</a></li><li class="menu-item">
+              <a class="menu-link" href="/zh-cn/tags/">标签</a></li><li class="menu-item">
+              <a class="menu-link" href="/zh-cn/archives/">归档</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
+            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
+            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+              <i class="fa-solid fa-search" aria-hidden="true"></i>
+            </a>
+            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
+              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+            </a>
+            <span class="search-button search-loading" id="search-loading-desktop">
+              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+            </span>
+          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li><li class="menu-item language-switch">
+            <span role="button" aria-label="选择语言" title="选择语言"><i class="fa-solid fa-language" aria-hidden="true"></i></span>
+            <ul class="sub-menu"><li class="menu-item"><span class="text-secondary" title="简体中文">简体中文</span></li><li class="menu-item"><a href="/en/posts/substore_cloudflare_workers_deployment_guide/" class="menu-link" title="English">English</a></li></ul>
+          </li></ul>
+    </nav>
+  </div>
+</header><header class="mobile animate__faster" id="header-mobile">
+  <div class="header-container">
+    <div class="header-wrapper">
+      <div class="header-title">
+        <a href="/zh-cn/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="26" width="26"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
+      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
+      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
+        <span></span><span></span><span></span>
+      </div>
+    </div>
+    <nav>
+      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
+            <div class="search mobile" id="search-mobile">
+              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
+              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                <i class="fa-solid fa-search" aria-hidden="true"></i>
+              </a>
+              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
+              </a>
+              <span class="search-button search-loading" id="search-loading-mobile">
+                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
+              </span>
+            </div>
+            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
+              取消
+            </a>
+          </li><li class="menu-item"><a class="menu-link" href="/zh-cn/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/go_practise/">Go练习题</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/leetcode/">LeetCode题解</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/archives/">归档</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch">
+              <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i></span>
+              <select id="language-select" class="language-select" onchange="location = this.value;"><option value="/zh-cn/posts/substore_cloudflare_workers_deployment_guide/" selected disabled>简体中文</option><option value="/en/posts/substore_cloudflare_workers_deployment_guide/">English</option></select>
+            </span></li>
+      </ul>
+    </nav>
+  </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+  </div>
+  <div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
+
+  <article class="page single">
+    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>零服务器部署 Sub-Store：Cloudflare Workers 免费方案实战</span>
+      </h1></div><div class="post-meta">
+      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      loommii</span></span><span class="post-included-in">&nbsp;收录于 <a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" class="post-category" title="分类 - 技术文章"><i class="fa-regular fa-folder" aria-hidden="true"></i> 技术文章</a></span></div><div class="post-meta-line"><span title="发布于 2026-08-04 01:49:40"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2026-08-04">2026-08-04</time></span>&nbsp;<span title="更新于 2026-08-04 15:42:40"><i class="fa-regular fa-calendar-check me-1" aria-hidden="true"></i><time datetime="2026-08-04">2026-08-04</time></span>&nbsp;<span title="1705 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 1800 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 4 分钟</span>&nbsp;</div>
+    </div><div class="details toc" id="toc-static" data-kept="false">
+        <div class="details-summary toc-title">
+          <span>目录</span>
+          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
+        </div>
+        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#项目简介">项目简介</a></li>
+    <li><a href="#部署实战从零到上线">部署实战：从零到上线</a>
+      <ul>
+        <li><a href="#前置准备">前置准备</a></li>
+        <li><a href="#1-克隆仓库必须两个并排">1. 克隆仓库（必须两个并排）</a></li>
+        <li><a href="#2-登录-cloudflare">2. 登录 Cloudflare</a></li>
+        <li><a href="#3-创建-kv-命名空间">3. 创建 KV 命名空间</a></li>
+        <li><a href="#4-构建--部署-worker">4. 构建 &amp; 部署 Worker</a></li>
+        <li><a href="#5-设置访问密码必做">5. 设置访问密码（必做！）</a></li>
+        <li><a href="#6-部署-pages国内可直连">6. 部署 Pages（国内可直连）</a></li>
+        <li><a href="#7-给-pages-绑定-kv-和密码">7. 给 Pages 绑定 KV 和密码</a></li>
+        <li><a href="#8-绑定自定义域名可选但推荐">8. 绑定自定义域名（可选但推荐）</a></li>
+        <li><a href="#9-连接前端">9. 连接前端</a></li>
+      </ul>
+    </li>
+    <li><a href="#成果验收">成果验收</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+      </div><div class="content" id="content"><h2 class="heading-element" id="前言"><span>前言</span>
+  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>Sub-Store 是代理圈最流行的订阅管理工具，支持 Clash / Surge / QX / Loon / sing-box 等几乎所有格式的转换、节点管理、固定订阅链接等功能。</p>
+<p>但它传统上跑在本地 / NAS / 软路由上。如果你没有一直开机的服务器、不想为一个小工具买 VPS，那么 <strong>Cloudflare Workers 免费版</strong> 是最理想的归宿：免费额度充足（10 万请求/天）、边缘网络速度快、国内走 CDN 可直连。</p>
+<p>本文介绍如何用 <code>Yu9191/sub-store-workers</code> 这个项目，在 Cloudflare 上免费部署一个完整可用的 Sub-Store。</p>
+<h2 class="heading-element" id="项目简介"><span>项目简介</span>
+  <a href="#%e9%a1%b9%e7%9b%ae%e7%ae%80%e4%bb%8b" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p><code>Yu9191/sub-store-workers</code> 是 <strong>Sub-Store 后端的 Cloudflare Workers/Pages 移植版</strong>。它只写了约 9 个平台适配文件，直接打包复用原始 Sub-Store（50k+ ⭐）的全部业务逻辑：</p>
+<ul>
+<li><strong>KV 持久化</strong>：数据存在 Cloudflare KV，纯读请求零 KV 写入，不会超免费额度</li>
+<li><strong>脚本沙箱</strong>：用 QuickJS WASM 在 Workers 上安全执行用户自定义脚本（Workers 禁止 <code>eval</code>）</li>
+<li><strong>内置鉴权</strong>：路径前缀密码，防公开管理</li>
+<li><strong>Cron 定时</strong>：每天自动同步订阅到 Gist</li>
+</ul>
+<blockquote>
+<p>因为构建时要读取 <code>../Sub-Store/backend/src</code> 的核心源码，所以部署需要<strong>两个仓库并排克隆</strong>，这也是它不能像其他项目那样一键部署的原因。</p>
+</blockquote>
+<h2 class="heading-element" id="部署实战从零到上线"><span>部署实战：从零到上线</span>
+  <a href="#%e9%83%a8%e7%bd%b2%e5%ae%9e%e6%88%98%e4%bb%8e%e9%9b%b6%e5%88%b0%e4%b8%8a%e7%ba%bf" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><h3 class="heading-element" id="前置准备"><span>前置准备</span>
+  <a href="#%e5%89%8d%e7%bd%ae%e5%87%86%e5%a4%87" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><ul>
+<li>一个 <strong>Cloudflare 账号</strong>（免费）</li>
+<li>本机 Node.js 18+（我用的是 22）</li>
+<li>可选：一个托管在 Cloudflare 的域名（国内访问更稳）</li>
+</ul>
+<h3 class="heading-element" id="1-克隆仓库必须两个并排"><span>1. 克隆仓库（必须两个并排）</span>
+  <a href="#1-%e5%85%8b%e9%9a%86%e4%bb%93%e5%ba%93%e5%bf%85%e9%a1%bb%e4%b8%a4%e4%b8%aa%e5%b9%b6%e6%8e%92" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl"><span class="c1"># 目录结构必须如下：</span>
+</span></span><span class="line"><span class="cl"><span class="c1"># parent/</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   ├── Sub-Store/          ← 原始后端源码</span>
+</span></span><span class="line"><span class="cl"><span class="c1">#   └── sub-store-workers/  ← 本项目</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">git clone https://github.com/sub-store-org/Sub-Store.git
+</span></span><span class="line"><span class="cl">git clone https://github.com/Yu9191/sub-store-workers.git
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nb">cd</span> sub-store-workers
+</span></span><span class="line"><span class="cl">npm install</span></span></code></pre></td></tr></table></div>
+</div>
+</div><h3 class="heading-element" id="2-登录-cloudflare"><span>2. 登录 Cloudflare</span>
+  <a href="#2-%e7%99%bb%e5%bd%95-cloudflare" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npx wrangler login</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>浏览器会弹出 OAuth 授权，允许即可。</p>
+<h3 class="heading-element" id="3-创建-kv-命名空间"><span>3. 创建 KV 命名空间</span>
+  <a href="#3-%e5%88%9b%e5%bb%ba-kv-%e5%91%bd%e5%90%8d%e7%a9%ba%e9%97%b4" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npx wrangler kv namespace create SUB_STORE_DATA</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>把返回的 <code>id</code> 填入 <code>wrangler.toml</code>：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-toml"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-toml" data-lang="toml"><span class="line"><span class="cl"><span class="p">[[</span><span class="nx">kv_namespaces</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="nx">binding</span> <span class="p">=</span> <span class="s2">&#34;SUB_STORE_DATA&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">id</span> <span class="p">=</span> <span class="s2">&#34;你的KV命名空间ID&#34;</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><h3 class="heading-element" id="4-构建--部署-worker"><span>4. 构建 &amp; 部署 Worker</span>
+  <a href="#4-%e6%9e%84%e5%bb%ba--%e9%83%a8%e7%bd%b2-worker" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm run build          <span class="c1"># esbuild 打包 → dist/worker.js</span>
+</span></span><span class="line"><span class="cl">npm run deploy         <span class="c1"># 部署 Worker + 注册 Cron</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>部署成功后看到：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-gdscript3" data-lang="gdscript3"><span class="line"><span class="cl"><span class="n">Uploaded</span> <span class="n">sub</span><span class="o">-</span><span class="n">store</span><span class="o">-</span><span class="n">workers</span>
+</span></span><span class="line"><span class="cl"><span class="n">Deployed</span> <span class="n">sub</span><span class="o">-</span><span class="n">store</span><span class="o">-</span><span class="n">workers</span> <span class="n">triggers</span>
+</span></span><span class="line"><span class="cl">  <span class="n">https</span><span class="p">:</span><span class="o">//</span><span class="n">sub</span><span class="o">-</span><span class="n">store</span><span class="o">-</span><span class="n">workers</span><span class="o">.</span><span class="n">xxxxxxxx</span><span class="o">.</span><span class="n">workers</span><span class="o">.</span><span class="n">dev</span>
+</span></span><span class="line"><span class="cl">  <span class="n">schedule</span><span class="p">:</span> <span class="mi">55</span> <span class="mi">15</span> <span class="o">*</span> <span class="o">*</span> <span class="o">*</span></span></span></code></pre></td></tr></table></div>
+</div>
+</div><h3 class="heading-element" id="5-设置访问密码必做"><span>5. 设置访问密码（必做！）</span>
+  <a href="#5-%e8%ae%be%e7%bd%ae%e8%ae%bf%e9%97%ae%e5%af%86%e7%a0%81%e5%bf%85%e5%81%9a" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>不设密码 = 任何人都能管理你的订阅数据。</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npm run rotate-secret:sh</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>脚本会生成 32 位随机密码，自动写入 Worker Secret，并复制到剪贴板。</p>
+<blockquote>
+<p>如果本机配置了 HTTP 代理环境变量导致脚本报错，先 <code>unset http_proxy https_proxy HTTP_PROXY HTTPS_PROXY all_proxy ALL_PROXY</code> 再运行。
+记录下这个密码，后面连接前端要用。</p>
+</blockquote>
+<h3 class="heading-element" id="6-部署-pages国内可直连"><span>6. 部署 Pages（国内可直连）</span>
+  <a href="#6-%e9%83%a8%e7%bd%b2-pages%e5%9b%bd%e5%86%85%e5%8f%af%e7%9b%b4%e8%bf%9e" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p><code>*.workers.dev</code> 在国内被 GFW 封锁，但 <code>*.pages.dev</code> 走 Cloudflare CDN 通常可直连：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">npx wrangler pages project create sub-store --production-branch main
+</span></span><span class="line"><span class="cl">npm run deploy:pages</span></span></code></pre></td></tr></table></div>
+</div>
+</div><h3 class="heading-element" id="7-给-pages-绑定-kv-和密码"><span>7. 给 Pages 绑定 KV 和密码</span>
+  <a href="#7-%e7%bb%99-pages-%e7%bb%91%e5%ae%9a-kv-%e5%92%8c%e5%af%86%e7%a0%81" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><blockquote>
+<p>⚠️ <code>wrangler.toml</code> 里的 <code>[[kv_namespaces]]</code> 只对 Worker 生效，<strong>Pages 必须在 Dashboard 手动绑定</strong>，否则 API 会报 500。</p>
+</blockquote>
+<p>在 Cloudflare Dashboard：</p>
+<ol>
+<li><strong>Workers 和 Pages → sub-store → 设置 → 绑定</strong> → 添加 KV 命名空间
+<ul>
+<li>变量名：<code>SUB_STORE_DATA</code></li>
+<li>选择之前创建的 KV</li>
+</ul>
+</li>
+<li><strong>设置 → 变量和密钥</strong> → 添加密钥
+<ul>
+<li>变量名：<code>SUB_STORE_FRONTEND_BACKEND_PATH</code></li>
+<li>值：<code>/你的密码</code>（必须带 <code>/</code> 开头，类型选 Secret）</li>
+</ul>
+</li>
+<li><strong>保存后必须重新部署</strong>：<code>npm run deploy:pages</code></li>
+</ol>
+<h3 class="heading-element" id="8-绑定自定义域名可选但推荐"><span>8. 绑定自定义域名（可选但推荐）</span>
+  <a href="#8-%e7%bb%91%e5%ae%9a%e8%87%aa%e5%ae%9a%e4%b9%89%e5%9f%9f%e5%90%8d%e5%8f%af%e9%80%89%e4%bd%86%e6%8e%a8%e8%8d%90" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>有域名且托管在 Cloudflare 的话，给 Pages 绑一个子域名，彻底摆脱被墙风险：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">Workers 和 Pages → sub-store → 自定义域 → 设置自定义域
+</span></span><span class="line"><span class="cl">输入：substore.example.com</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>注意事项：</p>
+<ul>
+<li>同一个域名不能同时绑 Worker 和 Pages。Worker 负责 Cron，Pages 负责对外 API，绑 Pages 即可</li>
+<li>免费 SSL 证书只覆盖一级子域名：<code>substore.example.com</code> ✅；<code>a.b.example.com</code> ❌ 会 <code>ERR_CONNECTION_CLOSED</code></li>
+<li>域名 SSL/TLS 加密模式记得设为 <strong>Full</strong></li>
+</ul>
+<h3 class="heading-element" id="9-连接前端"><span>9. 连接前端</span>
+  <a href="#9-%e8%bf%9e%e6%8e%a5%e5%89%8d%e7%ab%af" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h3><p>打开官方前端 <a href="https://sub-store.vercel.app" target="_blank" rel="external nofollow noopener noreferrer">sub-store.vercel.app</a>，后端地址填：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">https://substore.example.com/你的密码</span></span></code></pre></td></tr></table></div>
+</div>
+</div><blockquote>
+<p>末尾的 <code>/密码</code> 不能省略，否则所有 API 返回 401。</p>
+</blockquote>
+<p>连接成功后，就能像完整版 Sub-Store 一样：添加订阅、勾选节点、生成<strong>固定订阅链接</strong>（链接不变，随时改节点）、多格式转换、定时同步。</p>
+<h2 class="heading-element" id="成果验收"><span>成果验收</span>
+  <a href="#%e6%88%90%e6%9e%9c%e9%aa%8c%e6%94%b6" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><p>部署完成后，用 <code>worker-status</code> 接口验证：</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-bash"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-bash" data-lang="bash"><span class="line"><span class="cl">curl https://substore.example.com/你的密码/api/utils/worker-status</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>应返回：</p>
+<json-viewer value="&#34;{\n  \&#34;status\&#34;: \&#34;success\&#34;,\n  \&#34;data\&#34;: {\n    \&#34;runtime\&#34;: \&#34;Cloudflare Workers\&#34;,\n    \&#34;kv\&#34;: { \&#34;bound\&#34;: true },\n    \&#34;auth\&#34;: { \&#34;backendPathConfigured\&#34;: true, \&#34;managementApiPublic\&#34;: false },\n    \&#34;capabilities\&#34;: {\n      \&#34;scriptOperator\&#34;: { \&#34;supported\&#34;: true, \&#34;engine\&#34;: \&#34;quickjs\&#34; },\n      \&#34;cron\&#34;: true\n    }\n  }\n}&#34;" expand-depth="1" boxed copyable="{&#34;copiedText&#34;:&#34;已复制&#34;,&#34;copyText&#34;:&#34;复制&#34;}"></json-viewer><ul>
+<li><code>kv.bound: true</code> → KV 正常</li>
+<li><code>managementApiPublic: false</code> → 鉴权生效</li>
+<li>无密码访问 <code>/api/*</code> → 返回 <strong>401</strong></li>
+</ul>
+<h2 class="heading-element" id="总结"><span>总结</span>
+  <a href="#%e6%80%bb%e7%bb%93" class="heading-mark">
+    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
+  </a>
+</h2><div class="table-wrapper">
+  <table>
+    <thead>
+        <tr>
+            <th style="text-align: left">维度</th>
+            <th style="text-align: left">结论</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            <td style="text-align: left">成本</td>
+            <td style="text-align: left"><strong>0 元</strong>（Cloudflare 免费额度足够个人使用）</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">功能</td>
+            <td style="text-align: left">等于完整版 Sub-Store（复用 50k+ ⭐ 项目）</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">部署时间</td>
+            <td style="text-align: left">熟练后 15 分钟</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">稳定性</td>
+            <td style="text-align: left">KV 读写优化 + 边缘缓存，不会超免费配额</td>
+        </tr>
+        <tr>
+            <td style="text-align: left">国内访问</td>
+            <td style="text-align: left">自定义域名 / pages.dev 均可直连</td>
+        </tr>
+    </tbody>
+  </table>
+</div><p><strong>最大的收益</strong>：把订阅管理从&quot;本地工具&quot;变成&quot;云服务&quot;，手机、电脑、任何地方随时管理，链接稳定不变。</p>
+<p>如果不想用官方前端，也可以直接用 <code>substore.example.com/你的密码/api/sub/...</code> 的 REST API 配合脚本自动化。</p></div><div class="post-footer" id="post-footer">
+  <div class="post-info">
+    <div class="post-info-line">
+      <div class="post-info-mod"><span title="更新于 2026-08-04 15:42:40">更新于 2026-08-04&nbsp;</span>
+      </div><div class="post-info-license">
+            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
+          </div></div><div class="post-info-line">
+        <div class="post-info-md"><span><a href="/zh-cn/posts/substore_cloudflare_workers_deployment_guide/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
+        <div class="post-info-share">
+          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://loommii.github.io/zh-cn/posts/substore_cloudflare_workers_deployment_guide/" data-title="零服务器部署 Sub-Store：Cloudflare Workers 免费方案实战" data-hashtags="Cloudflare,Sub-Store,Workers,零服务器,订阅管理"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://loommii.github.io/zh-cn/posts/substore_cloudflare_workers_deployment_guide/" data-hashtag="Cloudflare"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
+  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://loommii.github.io/zh-cn/posts/substore_cloudflare_workers_deployment_guide/" data-title="零服务器部署 Sub-Store：Cloudflare Workers 免费方案实战"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
+  </span>
+        </div>
+      </div></div>
+
+  <div class="post-info-more">
+    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/zh-cn/tags/cloudflare/" class="post-tag" title="标签 - Cloudflare">Cloudflare</a><a href="/zh-cn/tags/sub-store/" class="post-tag" title="标签 - Sub-Store">Sub-Store</a><a href="/zh-cn/tags/workers/" class="post-tag" title="标签 - Workers">Workers</a><a href="/zh-cn/tags/%E9%9B%B6%E6%9C%8D%E5%8A%A1%E5%99%A8/" class="post-tag" title="标签 - 零服务器">零服务器</a><a href="/zh-cn/tags/%E8%AE%A2%E9%98%85%E7%AE%A1%E7%90%86/" class="post-tag" title="标签 - 订阅管理">订阅管理</a></section>
+    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
+    </section>
+  </div><div class="post-nav"><a href="/zh-cn/leetcode/2515_shortest_distance_to_a_target_string/" class="post-nav-item" rel="prev" title="2515_到目标字符串的最短距离"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>2515_到目标字符串的最短距离</a></div>
+</div>
+<div id="comments"><div id="giscus" class="comment">
+            <script
+                src="https://giscus.app/client.js"
+                data-repo="loommii/loommii.github.io"
+                data-repo-id="R_kgDOQ1YU8A"
+                data-category="Announcements"
+                data-category-id="DIC_kwDOQ1YU8M4C1aXA"
+                data-mapping="specific"
+                data-strict="0"
+                data-term="substore-cloudflare-workers-deployment-guide"
+                data-theme="preferred_color_scheme"
+                data-reactions-enabled="1"
+                data-emit-metadata="0"
+                data-input-position="bottom"
+                data-lang="zh-CN"
+                data-loading="lazy"
+                crossorigin="anonymous"
+                async
+            ></script>
+        </div>
+        <noscript>
+            Please enable JavaScript to view the comments powered by <a href="https://giscus.app">giscus</a>.
+        </noscript></div></article>
+
+  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
+      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
+      <div class="toc">
+        <h2 class="toc-title">目录</h2>
+        <div class="toc-content" id="toc-content-drawer"><nav >
+  <ul>
+    <li><a href="#前言">前言</a></li>
+    <li><a href="#项目简介">项目简介</a></li>
+    <li><a href="#部署实战从零到上线">部署实战：从零到上线</a>
+      <ul>
+        <li><a href="#前置准备">前置准备</a></li>
+        <li><a href="#1-克隆仓库必须两个并排">1. 克隆仓库（必须两个并排）</a></li>
+        <li><a href="#2-登录-cloudflare">2. 登录 Cloudflare</a></li>
+        <li><a href="#3-创建-kv-命名空间">3. 创建 KV 命名空间</a></li>
+        <li><a href="#4-构建--部署-worker">4. 构建 &amp; 部署 Worker</a></li>
+        <li><a href="#5-设置访问密码必做">5. 设置访问密码（必做！）</a></li>
+        <li><a href="#6-部署-pages国内可直连">6. 部署 Pages（国内可直连）</a></li>
+        <li><a href="#7-给-pages-绑定-kv-和密码">7. 给 Pages 绑定 KV 和密码</a></li>
+        <li><a href="#8-绑定自定义域名可选但推荐">8. 绑定自定义域名（可选但推荐）</a></li>
+        <li><a href="#9-连接前端">9. 连接前端</a></li>
+      </ul>
+    </li>
+    <li><a href="#成果验收">成果验收</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+      </div>
+    </dialog></main><footer class="footer">
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.164.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
+            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
+              <a href="/zh-cn/">loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
+  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="查看评论"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
+    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
+  </noscript>
+</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/json-viewer-element/json-viewer-element.umd.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/zh-cn/js/config/0846cf6f241a0d99510c35712f4ffcbb.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
+</html>
