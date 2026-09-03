@@ -1,0 +1,78 @@
+name: Deploy Hugo Site
+
+# 手动按钮触发：从私有仓库拉取源码，Hugo 构建后部署到本仓库
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      # ── 1. 检出当前部署仓库（loommii.github.io）──
+      - name: Checkout deploy repo
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # ── 2. 检出私有源码仓库（blog-fixit）──
+      - name: Checkout private source repo
+        uses: actions/checkout@v4
+        with:
+          repository: loommii/blog-fixit
+          token: ${{ secrets.PRIVATE_REPO_TOKEN }}
+          path: blog-fixit-source
+
+      # ── 3. 安装 Hugo ──
+      - name: Setup Hugo
+        uses: peaceiris/actions-hugo@v3
+        with:
+          hugo-version: '0.165.0'
+          extended: true
+
+      # ── 4. Hugo 构建 ──
+      - name: Build with Hugo
+        working-directory: blog-fixit-source
+        run: hugo --minify
+
+      # ── 5. 部署：同步构建产物到部署仓库 ──
+      - name: Deploy to GitHub Pages
+        run: |
+          echo "🧹 清理旧构建产物..."
+          # 删除旧文件，但保留 .git、.github、.nojekyll、CNAME
+          find . -maxdepth 1 \
+            -not -name '.git' \
+            -not -name '.github' \
+            -not -name '.nojekyll' \
+            -not -name 'CNAME' \
+            -not -name '.' \
+            -exec rm -rf {} +
+
+          echo "📦 复制新构建产物..."
+          cp -r blog-fixit-source/public/* .
+
+          # 确保 .nojekyll 存在（GitHub Pages 渲染主题需要）
+          touch .nojekyll
+
+          echo "🗑️ 删除私有源码..."
+          rm -rf blog-fixit-source
+
+          echo "✅ 部署文件准备完成"
+          ls -la
+
+      # ── 6. 提交并推送 ──
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+
+          if git diff --cached --quiet; then
+            echo "没有变更，跳过提交"
+          else
+            git commit -m "deploy: rebuild site $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
+            git push
+            echo "✅ 已推送到 GitHub Pages"
+          fi
