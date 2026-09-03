@@ -1,221 +1,55 @@
-<!DOCTYPE html>
-<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-    <meta name="robots" content="noodp" />
-    <title>Go每日一题_002 - loommii</title><meta name="author" content="loommii">
-<meta name="description" content="下面这段代码输出的内容
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 package main import ( &#34;fmt&#34; ) func main() { defer_call() } func defer_call() { defer func() { fmt.Println(&#34;打印前&#34;) }() defer func() { fmt.Println(&#34;打印中&#34;) }() defer func() { fmt.Println(&#34;打印后&#34;) }() panic(&#34;触发异常&#34;) } 🔑 答案解析： 1 2 3 4 打印后 打印中 打印前 panic: 触发异常 解析：defer 的执行顺序是后进先出。当出现 panic 语句的时候，会先按照 defer 的后进先出的顺序执行，最后才会执行panic。
-"><meta name="keywords" content='Go, Godefer, Gopanic, LIFO, Go执行顺序'>
-	<meta itemprop="name" content="Go每日一题_002">
-	<meta itemprop="description" content="下面这段代码输出的内容
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 package main import ( &#34;fmt&#34; ) func main() { defer_call() } func defer_call() { defer func() { fmt.Println(&#34;打印前&#34;) }() defer func() { fmt.Println(&#34;打印中&#34;) }() defer func() { fmt.Println(&#34;打印后&#34;) }() panic(&#34;触发异常&#34;) } 🔑 答案解析： 1 2 3 4 打印后 打印中 打印前 panic: 触发异常 解析：defer 的执行顺序是后进先出。当出现 panic 语句的时候，会先按照 defer 的后进先出的顺序执行，最后才会执行panic。">
-	<meta itemprop="datePublished" content="2024-12-06T19:40:53+08:00">
-	<meta itemprop="dateModified" content="2026-08-04T00:55:54+08:00">
-	<meta itemprop="wordCount" content="248">
-	<meta itemprop="image" content="https://loommii.github.io/images/logo.png">
-	<meta itemprop="keywords" content="Go,Godefer,Gopanic,LIFO,Go执行顺序"><meta property="og:url" content="https://loommii.github.io/zh-cn/go_practise/go_daily_question_002/">
-	<meta property="og:site_name" content="loommii">
-	<meta property="og:title" content="Go每日一题_002">
-	<meta property="og:description" content="下面这段代码输出的内容
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 package main import ( &#34;fmt&#34; ) func main() { defer_call() } func defer_call() { defer func() { fmt.Println(&#34;打印前&#34;) }() defer func() { fmt.Println(&#34;打印中&#34;) }() defer func() { fmt.Println(&#34;打印后&#34;) }() panic(&#34;触发异常&#34;) } 🔑 答案解析： 1 2 3 4 打印后 打印中 打印前 panic: 触发异常 解析：defer 的执行顺序是后进先出。当出现 panic 语句的时候，会先按照 defer 的后进先出的顺序执行，最后才会执行panic。">
-	<meta property="og:locale" content="zh_CN">
-	<meta property="og:type" content="article">
-		<meta property="article:section" content="go_practise">
-		<meta property="article:published_time" content="2024-12-06T19:40:53+08:00">
-		<meta property="article:modified_time" content="2026-08-04T00:55:54+08:00">
-		<meta property="article:tag" content="Go">
-		<meta property="article:tag" content="Godefer">
-		<meta property="article:tag" content="Gopanic">
-		<meta property="article:tag" content="LIFO">
-		<meta property="article:tag" content="Go执行顺序">
-		<meta property="og:image" content="https://loommii.github.io/images/logo.png">
-
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
-	<meta name="twitter:title" content="Go每日一题_002">
-	<meta name="twitter:description" content="下面这段代码输出的内容
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 package main import ( &#34;fmt&#34; ) func main() { defer_call() } func defer_call() { defer func() { fmt.Println(&#34;打印前&#34;) }() defer func() { fmt.Println(&#34;打印中&#34;) }() defer func() { fmt.Println(&#34;打印后&#34;) }() panic(&#34;触发异常&#34;) } 🔑 答案解析： 1 2 3 4 打印后 打印中 打印前 panic: 触发异常 解析：defer 的执行顺序是后进先出。当出现 panic 语句的时候，会先按照 defer 的后进先出的顺序执行，最后才会执行panic。">
-<meta name="application-name" content="FixIt">
-<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://loommii.github.io/zh-cn/go_practise/go_daily_question_002/" title="Go每日一题_002 - loommii" /><link rel="prev" type="text/html" href="https://loommii.github.io/zh-cn/go_practise/go_daily_question_003/" title="Go每日一题_003" /><link rel="next" type="text/html" href="https://loommii.github.io/zh-cn/go_practise/go_daily_question_001/" title="Go每日一题_001 - range循环中的地址陷阱" /><link rel="alternate" type="text/markdown" href="https://loommii.github.io/zh-cn/go_practise/go_daily_question_002/index.md" title="Go每日一题_002 - loommii"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "headline": "Go每日一题_002",
-    "inLanguage": "zh-CN",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https:\/\/loommii.github.io\/zh-cn\/go_practise\/go_daily_question_002\/"
-    },"genre": "go_practise","keywords": "Go, Godefer, Gopanic, LIFO, Go执行顺序","wordcount":  248 ,
-    "url": "https:\/\/loommii.github.io\/zh-cn\/go_practise\/go_daily_question_002\/","datePublished": "2024-12-06T19:40:53+08:00","dateModified": "2026-08-04T00:55:54+08:00","publisher": {
-      "@type": "Organization",
-      "name": ""},"author": {
-        "@type": "Person",
-        "name": "loommii"
-      },"description": ""
-  }
-  </script><script src="/js/head/color-scheme.min.js"></script></head>
-  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
-  <div class="header-wrapper">
-    <div class="header-title">
-      <a href="/zh-cn/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="32" width="32"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
-    <nav>
-      <ul class="menu"><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/posts/">文章</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/go_practise/">Go练习题</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/leetcode/">LeetCode题解</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/categories/">分类</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/tags/">标签</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/archives/">归档</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
-            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
-            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-              <i class="fa-solid fa-search" aria-hidden="true"></i>
-            </a>
-            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-            </a>
-            <span class="search-button search-loading" id="search-loading-desktop">
-              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-            </span>
-          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li><li class="menu-item language-switch">
-            <span role="button" aria-label="选择语言" title="选择语言"><i class="fa-solid fa-language" aria-hidden="true"></i></span>
-            <ul class="sub-menu"><li class="menu-item"><span class="text-secondary" title="简体中文">简体中文</span></li><li class="menu-item"><a href="/en/go_practise/go_daily_question_002/" class="menu-link" title="English">English</a></li></ul>
-          </li></ul>
-    </nav>
-  </div>
-</header><header class="mobile animate__faster" id="header-mobile">
-  <div class="header-container">
-    <div class="header-wrapper">
-      <div class="header-title">
-        <a href="/zh-cn/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="26" width="26"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
-      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
-      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-    <nav>
-      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
-            <div class="search mobile" id="search-mobile">
-              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
-              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                <i class="fa-solid fa-search" aria-hidden="true"></i>
-              </a>
-              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-              </a>
-              <span class="search-button search-loading" id="search-loading-mobile">
-                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-              </span>
-            </div>
-            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-              取消
-            </a>
-          </li><li class="menu-item"><a class="menu-link" href="/zh-cn/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/go_practise/">Go练习题</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/leetcode/">LeetCode题解</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/archives/">归档</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch">
-              <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i></span>
-              <select id="language-select" class="language-select" onchange="location = this.value;"><option value="/zh-cn/go_practise/go_daily_question_002/" selected disabled>简体中文</option><option value="/en/go_practise/go_daily_question_002/">English</option></select>
-            </span></li>
-      </ul>
-    </nav>
-  </div>
-</header><div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-  </div>
-  <div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-  </div><main class="fi-container"><article class="page single special">
-    <div class="header"><h1 class="single-title animate__animated animate__pulse animate__faster">Go每日一题_002</h1></div><div class="content" id="content"><p>下面这段代码输出的内容</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nf">defer_call</span><span class="p">()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">defer_call</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;打印前&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">}()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;打印中&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">}()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;打印后&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">}()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">panic</span><span class="p">(</span><span class="s">&#34;触发异常&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div>
-<details>
-  <summary>🔑 答案解析：</summary>
-  <div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">打印后
-</span></span><span class="line"><span class="cl">打印中
-</span></span><span class="line"><span class="cl">打印前
-</span></span><span class="line"><span class="cl">panic: 触发异常</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p>解析：defer 的执行顺序是后进先出。当出现 panic 语句的时候，会先按照 defer 的后进先出的顺序执行，最后才会执行panic。</p>
-<p>知识点:<code>defer后进先出</code></p>
-</details>
-</div><div id="comments"><div id="giscus" class="comment">
-            <script
-                src="https://giscus.app/client.js"
-                data-repo="loommii/loommii.github.io"
-                data-repo-id="R_kgDOQ1YU8A"
-                data-category="Announcements"
-                data-category-id="DIC_kwDOQ1YU8M4C1aXA"
-                data-mapping="specific"
-                data-strict="0"
-                data-term="go-daily-question-002"
-                data-theme="preferred_color_scheme"
-                data-reactions-enabled="1"
-                data-emit-metadata="0"
-                data-input-position="bottom"
-                data-lang="zh-CN"
-                data-loading="lazy"
-                crossorigin="anonymous"
-                async
-            ></script>
-        </div>
-        <noscript>
-            Please enable JavaScript to view the comments powered by <a href="https://giscus.app">giscus</a>.
-        </noscript></div></article></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
-        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
-            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
-              <a href="/zh-cn/">loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
-  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="查看评论"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
-    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
-  </noscript>
-</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/zh-cn/js/config/023e4295285e4c12e6adf098272315c3.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
-</html>
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><meta name=robots content="noodp"><title>Go每日一题_002 - loommii</title><meta name=author content="loommii"><meta name=description content='下面这段代码输出的内容
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 package main import ( "fmt" ) func main() { defer_call() } func defer_call() { defer func() { fmt.Println("打印前") }() defer func() { fmt.Println("打印中") }() defer func() { fmt.Println("打印后") }() panic("触发异常") } 🔑 答案解析： 1 2 3 4 打印后 打印中 打印前 panic: 触发异常 解析：defer 的执行顺序是后进先出。当出现 panic 语句的时候，会先按照 defer 的后进先出的顺序执行，最后才会执行panic。
+'><meta name=keywords content='Go,Godefer,Gopanic,LIFO,Go执行顺序'><meta itemprop=name content="Go每日一题_002"><meta itemprop=description content='下面这段代码输出的内容
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 package main import ( "fmt" ) func main() { defer_call() } func defer_call() { defer func() { fmt.Println("打印前") }() defer func() { fmt.Println("打印中") }() defer func() { fmt.Println("打印后") }() panic("触发异常") } 🔑 答案解析： 1 2 3 4 打印后 打印中 打印前 panic: 触发异常 解析：defer 的执行顺序是后进先出。当出现 panic 语句的时候，会先按照 defer 的后进先出的顺序执行，最后才会执行panic。'><meta itemprop=datePublished content="2024-12-06T19:40:53+08:00"><meta itemprop=dateModified content="2026-09-03T20:06:49+08:00"><meta itemprop=wordCount content="248"><meta itemprop=image content="https://loommii.github.io/images/logo.png"><meta itemprop=keywords content="Go,Godefer,Gopanic,LIFO,Go执行顺序"><meta property="og:url" content="https://loommii.github.io/zh-cn/go_practise/go_daily_question_002/"><meta property="og:site_name" content="loommii"><meta property="og:title" content="Go每日一题_002"><meta property="og:description" content='下面这段代码输出的内容
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 package main import ( "fmt" ) func main() { defer_call() } func defer_call() { defer func() { fmt.Println("打印前") }() defer func() { fmt.Println("打印中") }() defer func() { fmt.Println("打印后") }() panic("触发异常") } 🔑 答案解析： 1 2 3 4 打印后 打印中 打印前 panic: 触发异常 解析：defer 的执行顺序是后进先出。当出现 panic 语句的时候，会先按照 defer 的后进先出的顺序执行，最后才会执行panic。'><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="article:section" content="go_practise"><meta property="article:published_time" content="2024-12-06T19:40:53+08:00"><meta property="article:modified_time" content="2026-09-03T20:06:49+08:00"><meta property="article:tag" content="Go"><meta property="article:tag" content="Godefer"><meta property="article:tag" content="Gopanic"><meta property="article:tag" content="LIFO"><meta property="article:tag" content="Go执行顺序"><meta property="og:image" content="https://loommii.github.io/images/logo.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://loommii.github.io/images/logo.png"><meta name=twitter:title content="Go每日一题_002"><meta name=twitter:description content='下面这段代码输出的内容
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 package main import ( "fmt" ) func main() { defer_call() } func defer_call() { defer func() { fmt.Println("打印前") }() defer func() { fmt.Println("打印中") }() defer func() { fmt.Println("打印后") }() panic("触发异常") } 🔑 答案解析： 1 2 3 4 打印后 打印中 打印前 panic: 触发异常 解析：defer 的执行顺序是后进先出。当出现 panic 语句的时候，会先按照 defer 的后进先出的顺序执行，最后才会执行panic。'><meta name=application-name content="FixIt"><meta name=apple-mobile-web-app-title content="FixIt"><meta name=theme-color data-light=#f8f8f8 data-dark=#252627 content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical type=text/html href=https://loommii.github.io/zh-cn/go_practise/go_daily_question_002/ title="Go每日一题_002 - loommii"><link rel=prev type=text/html href=https://loommii.github.io/zh-cn/go_practise/go_daily_question_003/ title=Go每日一题_003><link rel=next type=text/html href=https://loommii.github.io/zh-cn/go_practise/go_daily_question_001/ title="Go每日一题_001 - range循环中的地址陷阱"><link rel=alternate type=text/markdown href=https://loommii.github.io/zh-cn/go_practise/go_daily_question_002/index.md title="Go每日一题_002 - loommii"><link rel=stylesheet href=/css/config.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Go每日一题_002","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/loommii.github.io\/zh-cn\/go_practise\/go_daily_question_002\/"},"genre":"go_practise","keywords":"Go, Godefer, Gopanic, LIFO, Go执行顺序","wordcount":248,"url":"https:\/\/loommii.github.io\/zh-cn\/go_practise\/go_daily_question_002\/","datePublished":"2024-12-06T19:40:53+08:00","dateModified":"2026-09-03T20:06:49+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"loommii"},"description":""}</script><script src=/js/head/color-scheme.min.js></script></head><body data-instant-intensity=viewport data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/zh-cn/ title=loommii><img class=logo src=/images/logo.png alt=loommii height=32 width=32><span class=header-title-text>loommii</span></a><span class=header-subtitle></span></div><nav><ul class=menu><li class=menu-item><a class=menu-link href=/zh-cn/posts/>文章</a></li><li class=menu-item><a class=menu-link href=/zh-cn/go_practise/>Go练习题</a></li><li class=menu-item><a class=menu-link href=/zh-cn/leetcode/>LeetCode题解</a></li><li class=menu-item><a class=menu-link href=/zh-cn/categories/>分类</a></li><li class=menu-item><a class=menu-link href=/zh-cn/tags/>标签</a></li><li class=menu-item><a class=menu-link href=/zh-cn/archives/>归档</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容…… id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-desktop><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></li><li class="menu-item theme-switch" role=button aria-label=切换主题 title=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></li><li class="menu-item language-switch"><span role=button aria-label=选择语言 title=选择语言><i class="fa-solid fa-language" aria-hidden=true></i></span><ul class=sub-menu><li class=menu-item><span class=text-secondary title=简体中文>简体中文</span></li><li class=menu-item><a href=/en/go_practise/go_daily_question_002/ class=menu-link title=English>English</a></li></ul></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/zh-cn/ title=loommii><img class=logo src=/images/logo.png alt=loommii height=26 width=26><span class=header-title-text>loommii</span></a><span class=header-subtitle></span></div><div class=theme-switch role=button aria-label=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></div><div class=menu-toggle id=menu-toggle-mobile role=button aria-labelledby=menu-mobile><span></span><span></span><span></span></div></div><nav><ul class=menu id=menu-mobile><li class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容…… id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-mobile><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></li><li class=menu-item><a class=menu-link href=/zh-cn/posts/>文章</a></li><li class=menu-item><a class=menu-link href=/zh-cn/go_practise/>Go练习题</a></li><li class=menu-item><a class=menu-link href=/zh-cn/leetcode/>LeetCode题解</a></li><li class=menu-item><a class=menu-link href=/zh-cn/categories/>分类</a></li><li class=menu-item><a class=menu-link href=/zh-cn/tags/>标签</a></li><li class=menu-item><a class=menu-link href=/zh-cn/archives/>归档</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch"><span role=button aria-label=选择语言 title=选择语言>简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden=true></i></span>
+<select id=language-select class=language-select onchange="location=this.value"><option value=/zh-cn/go_practise/go_daily_question_002/ selected disabled>简体中文</option><option value=/en/go_practise/go_daily_question_002/>English</option></select></span></li></ul></nav></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=fi-container><article class="page single special"><div class=header><h1 class="single-title animate__animated animate__pulse animate__faster">Go每日一题_002</h1></div><div class=content id=content><p>下面这段代码输出的内容</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>defer_call</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>defer_call</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>defer</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;打印前&#34;</span><span class=p>)</span><span class=w> </span><span class=p>}()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>defer</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;打印中&#34;</span><span class=p>)</span><span class=w> </span><span class=p>}()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>defer</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;打印后&#34;</span><span class=p>)</span><span class=w> </span><span class=p>}()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nb>panic</span><span class=p>(</span><span class=s>&#34;触发异常&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label=展开或折叠代码块 role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div><details><summary>🔑 答案解析：</summary><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>打印后
+</span></span><span class=line><span class=cl>打印中
+</span></span><span class=line><span class=cl>打印前
+</span></span><span class=line><span class=cl>panic: 触发异常</span></span></code></pre></td></tr></table></div></div></div><p>解析：defer 的执行顺序是后进先出。当出现 panic 语句的时候，会先按照 defer 的后进先出的顺序执行，最后才会执行panic。</p><p>知识点:<code>defer后进先出</code></p></details></div><div id=comments><div id=giscus class=comment><script src=https://giscus.app/client.js data-repo=loommii/loommii.github.io data-repo-id=R_kgDOQ1YU8A data-category=Announcements data-category-id=DIC_kwDOQ1YU8M4C1aXA data-mapping=specific data-strict=0 data-term=go-daily-question-002 data-theme=preferred_color_scheme data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-lang=zh-CN data-loading=lazy crossorigin=anonymous async></script></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://giscus.app>giscus</a>.</noscript></div></article></main><footer class=footer><div class=footer-container><div class="footer-line powered">由 <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class=hugo-icon src=/images/hugo.min.svg alt="Hugo logo"> Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/hugo-fixit/FixIt target=_blank rel=external title="FixIt v0.4.5"><img class=fixit-icon src=/images/fixit.min.svg alt="FixIt logo"> FixIt</a></div><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright" aria-hidden=true></i>
+<span itemprop=copyrightYear>2019 - 2026</span><span class=author itemprop=copyrightHolder>
+<a href=/zh-cn/>loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div class=widgets><div class=fixed-buttons><div class="fixed-button back-to-top animate__faster d-none" role=button aria-label=回到顶部><i class="fa-solid fa-arrow-up" aria-hidden=true></i></div><div class="fixed-button view-comments d-none" role=button aria-label=查看评论><i class="fa-solid fa-comment" aria-hidden=true></i></div></div><div id=mask></div><noscript><div class=noscript-warning>该网站在启用 JavaScript 的情况下效果最佳。</div></noscript></div><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script src=/lib/autocomplete/autocomplete.min.js defer></script><script src=/lib/fuse/fuse.min.js defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=/lib/cell-tooltip/cell-tooltip.umd.js defer></script><script src=/zh-cn/js/config/023e4295285e4c12e6adf098272315c3.js defer></script><script src=/js/theme.min.js defer></script><script src=/js/custom.min.js defer></script></body></html>

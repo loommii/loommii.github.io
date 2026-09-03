@@ -1,743 +1,367 @@
-<!DOCTYPE html>
-<html itemscope itemtype="http://schema.org/WebPage" lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-    <meta name="robots" content="noodp" />
-    <title>Go: Can Function Types Be Compared, and Why? - loommii</title><meta name="author" content="loommii">
-<meta name="description" content="Detailed explanation of whether function types in Go can be compared and the reasons behind it."><meta name="keywords" content='Go, GoTypeSystem, GoFunction, GoReflection, LanguageFeatures'>
-	<meta itemprop="name" content="Go: Can Function Types Be Compared, and Why?">
-	<meta itemprop="description" content="Detailed explanation of whether function types in Go can be compared and the reasons behind it.">
-	<meta itemprop="datePublished" content="2025-03-05T16:41:19+08:00">
-	<meta itemprop="dateModified" content="2026-01-16T01:28:43+08:00">
-	<meta itemprop="wordCount" content="1092">
-	<meta itemprop="image" content="https://loommii.github.io/images/logo.png">
-	<meta itemprop="keywords" content="Go,GoTypeSystem,GoFunction,GoReflection,LanguageFeatures"><meta property="og:url" content="https://loommii.github.io/en/posts/can_go_function_types_be_compared/">
-	<meta property="og:site_name" content="loommii">
-	<meta property="og:title" content="Go: Can Function Types Be Compared, and Why?">
-	<meta property="og:description" content="Detailed explanation of whether function types in Go can be compared and the reasons behind it.">
-	<meta property="og:locale" content="en">
-	<meta property="og:type" content="article">
-		<meta property="article:section" content="posts">
-		<meta property="article:published_time" content="2025-03-05T16:41:19+08:00">
-		<meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
-		<meta property="article:tag" content="Go">
-		<meta property="article:tag" content="GoTypeSystem">
-		<meta property="article:tag" content="GoFunction">
-		<meta property="article:tag" content="GoReflection">
-		<meta property="article:tag" content="LanguageFeatures">
-		<meta property="og:image" content="https://loommii.github.io/images/logo.png">
-
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
-	<meta name="twitter:title" content="Go: Can Function Types Be Compared, and Why?">
-	<meta name="twitter:description" content="Detailed explanation of whether function types in Go can be compared and the reasons behind it.">
-<meta name="application-name" content="FixIt">
-<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://loommii.github.io/en/posts/can_go_function_types_be_compared/" title="Go: Can Function Types Be Compared, and Why? - loommii" /><link rel="prev" type="text/html" href="https://loommii.github.io/en/go_practise/go_daily_question_204/" title="Go Daily Question 204" /><link rel="next" type="text/html" href="https://loommii.github.io/en/go_practise/go_daily_question_205/" title="Go Daily Question 205" /><link rel="alternate" type="text/markdown" href="https://loommii.github.io/en/posts/can_go_function_types_be_compared/index.md" title="Go: Can Function Types Be Compared, and Why? - loommii"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "headline": "Go: Can Function Types Be Compared, and Why?",
-    "inLanguage": "en",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https:\/\/loommii.github.io\/en\/posts\/can_go_function_types_be_compared\/"
-    },"genre": "posts","keywords": "Go, GoTypeSystem, GoFunction, GoReflection, LanguageFeatures","wordcount":  1092 ,
-    "url": "https:\/\/loommii.github.io\/en\/posts\/can_go_function_types_be_compared\/","datePublished": "2025-03-05T16:41:19+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
-      "@type": "Organization",
-      "name": ""},"author": {
-        "@type": "Person",
-        "name": "loommii"
-      },"description": "Detailed explanation of whether function types in Go can be compared and the reasons behind it."
-  }
-  </script><script src="/js/head/color-scheme.min.js"></script></head>
-  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
-  <div class="header-wrapper">
-    <div class="header-title">
-      <a href="/en/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="32" width="32"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
-    <nav>
-      <ul class="menu"><li class="menu-item">
-              <a class="menu-link" href="/en/posts/">Posts</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/go_practise/">Go Practice</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/leetcode/">LeetCode Solutions</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/categories/">Categories</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/tags/">Tags</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/archives/">Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
-            <input type="text" placeholder="Search titles or contents ..." id="search-input-desktop">
-            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
-              <i class="fa-solid fa-search" aria-hidden="true"></i>
-            </a>
-            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
-              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-            </a>
-            <span class="search-button search-loading" id="search-loading-desktop">
-              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-            </span>
-          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li><li class="menu-item language-switch">
-            <span role="button" aria-label="Select Language" title="Select Language"><i class="fa-solid fa-language" aria-hidden="true"></i></span>
-            <ul class="sub-menu"><li class="menu-item"><a href="/zh-cn/posts/can_go_function_types_be_compared/" class="menu-link" title="简体中文">简体中文</a></li><li class="menu-item"><span class="text-secondary" title="English">English</span></li></ul>
-          </li></ul>
-    </nav>
-  </div>
-</header><header class="mobile animate__faster" id="header-mobile">
-  <div class="header-container">
-    <div class="header-wrapper">
-      <div class="header-title">
-        <a href="/en/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="26" width="26"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
-      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
-      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-    <nav>
-      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
-            <div class="search mobile" id="search-mobile">
-              <input type="text" placeholder="Search titles or contents ..." id="search-input-mobile">
-              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
-                <i class="fa-solid fa-search" aria-hidden="true"></i>
-              </a>
-              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
-                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-              </a>
-              <span class="search-button search-loading" id="search-loading-mobile">
-                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-              </span>
-            </div>
-            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-              Cancel
-            </a>
-          </li><li class="menu-item"><a class="menu-link" href="/en/posts/">Posts</a></li><li class="menu-item"><a class="menu-link" href="/en/go_practise/">Go Practice</a></li><li class="menu-item"><a class="menu-link" href="/en/leetcode/">LeetCode Solutions</a></li><li class="menu-item"><a class="menu-link" href="/en/categories/">Categories</a></li><li class="menu-item"><a class="menu-link" href="/en/tags/">Tags</a></li><li class="menu-item"><a class="menu-link" href="/en/archives/">Archives</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch">
-              <span role="button" aria-label="Select Language" title="Select Language">English<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i></span>
-              <select id="language-select" class="language-select" onchange="location = this.value;"><option value="/zh-cn/posts/can_go_function_types_be_compared/">简体中文</option><option value="/en/posts/can_go_function_types_be_compared/" selected disabled>English</option></select>
-            </span></li>
-      </ul>
-    </nav>
-  </div>
-</header><div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-  </div>
-  <div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="Collections"></aside>
-
-  <article class="page single">
-    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Go: Can Function Types Be Compared, and Why?</span>
-      </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      loommii</span></span><span class="post-included-in">&nbsp;included in <a href="/en/categories/techarticle/" class="post-category" title="Category - TechArticle"><i class="fa-regular fa-folder" aria-hidden="true"></i> TechArticle</a></span></div><div class="post-meta-line"><span title="published on 2025-03-05 16:41:19"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2025-03-05">2025-03-05</time></span>&nbsp;<span title="Updated on 2026-01-16 01:28:43"><i class="fa-regular fa-calendar-check me-1" aria-hidden="true"></i><time datetime="2026-01-16">2026-01-16</time></span>&nbsp;<span title="1092 words"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>About 1100 words</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>6 minutes</span>&nbsp;</div>
-    </div><div class="details toc" id="toc-static" data-kept="false">
-        <div class="details-summary toc-title">
-          <span>Contents</span>
-          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
-        </div>
-        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#can-go-function-types-be-compared">Can Go Function Types Be Compared?</a>
-      <ul>
-        <li><a href="#comparison-operators">Comparison Operators</a></li>
-        <li><a href="#reflectdeepequal">reflect.DeepEqual</a></li>
-        <li><a href="#summary">Summary</a></li>
-      </ul>
-    </li>
-    <li><a href="#why">Why?</a>
-      <ul>
-        <li><a href="#hypothesis-1-compiler-inline-optimization">Hypothesis 1 (Compiler Inline Optimization)</a>
-          <ul>
-            <li><a href="#compiler-inline-optimization">Compiler Inline Optimization</a></li>
-            <li><a href="#disabling-compiler-inline-optimization">Disabling Compiler Inline Optimization</a></li>
-          </ul>
-        </li>
-        <li><a href="#hypothesis-1-summary">Hypothesis 1 Summary</a></li>
-      </ul>
-    </li>
-    <li><a href="#how-to-solve-scenarios-requiring-function-comparison">How to solve scenarios requiring function comparison?</a>
-      <ul>
-        <li><a href="#observer-pattern">Observer Pattern</a>
-          <ul>
-            <li><a href="#solution-1-use-a-struct-to-add-a-comparable-tag-to-the-function">Solution 1: Use a struct to add a comparable tag to the function</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
-      </div><div class="content" id="content"><h2 class="heading-element" id="can-go-function-types-be-compared"><span>Can Go Function Types Be Compared?</span>
-  <a href="#can-go-function-types-be-compared" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><h3 class="heading-element" id="comparison-operators"><span>Comparison Operators</span>
-  <a href="#comparison-operators" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>In the <a href="https://go.dev/ref/spec#Comparison_operators" target="_blank" rel="external nofollow noopener noreferrer">Go official documentation</a> regarding comparison operators, there is this passage:</p>
-<blockquote>
-<p>Slice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.
-切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 <code>nil</code> 进行比较。指针、通道（channel）和接口值与 <code>nil</code> 的比较也是允许的，并且遵循上述一般规则。</p>
-</blockquote>
-<p>Therefore, we can see that Go function types cannot be compared using comparison operators, but they can be compared with <code>nil</code>.
-Example 1:</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="s">&#34;fmt&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">f1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">foo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">f2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">f1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">f1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">f2</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Compile error: invalid operation: f1 == f2 (func can only be compared to nil)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Functions are equal&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div><p><a href="https://go.dev/play/p/-MKUWeDBml7" target="_blank" rel="external nofollow noopener noreferrer">Run Online</a></p>
-<p>Example 2:</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="s">&#34;fmt&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">f1</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">f1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Function types can be compared with `nil`</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;f1 is nil&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><a href="https://go.dev/play/p/QkKEt_KQwUd" target="_blank" rel="external nofollow noopener noreferrer">Run Online</a></p>
-<h3 class="heading-element" id="reflectdeepequal"><span>reflect.DeepEqual</span>
-  <a href="#reflectdeepequal" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>Above, comparison operators were used for comparing the two. We know that in Go, we can also use <a href="https://pkg.go.dev/reflect#DeepEqual" target="_blank" rel="external nofollow noopener noreferrer"><code>DeepEqual</code></a> from the <code>reflect</code> package for comparison.</p>
-<blockquote>
-<p>func DeepEqual(x, y any) bool
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><meta name=robots content="noodp"><title>Go: Can Function Types Be Compared, and Why? - loommii</title><meta name=author content="loommii"><meta name=description content="Detailed explanation of whether function types in Go can be compared and the reasons behind it."><meta name=keywords content='Go,GoTypeSystem,GoFunction,GoReflection,LanguageFeatures'><meta itemprop=name content="Go: Can Function Types Be Compared, and Why?"><meta itemprop=description content="Detailed explanation of whether function types in Go can be compared and the reasons behind it."><meta itemprop=datePublished content="2025-03-05T16:41:19+08:00"><meta itemprop=dateModified content="2026-01-16T01:28:43+08:00"><meta itemprop=wordCount content="1092"><meta itemprop=image content="https://loommii.github.io/images/logo.png"><meta itemprop=keywords content="Go,GoTypeSystem,GoFunction,GoReflection,LanguageFeatures"><meta property="og:url" content="https://loommii.github.io/en/posts/can_go_function_types_be_compared/"><meta property="og:site_name" content="loommii"><meta property="og:title" content="Go: Can Function Types Be Compared, and Why?"><meta property="og:description" content="Detailed explanation of whether function types in Go can be compared and the reasons behind it."><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2025-03-05T16:41:19+08:00"><meta property="article:modified_time" content="2026-01-16T01:28:43+08:00"><meta property="article:tag" content="Go"><meta property="article:tag" content="GoTypeSystem"><meta property="article:tag" content="GoFunction"><meta property="article:tag" content="GoReflection"><meta property="article:tag" content="LanguageFeatures"><meta property="og:image" content="https://loommii.github.io/images/logo.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://loommii.github.io/images/logo.png"><meta name=twitter:title content="Go: Can Function Types Be Compared, and Why?"><meta name=twitter:description content="Detailed explanation of whether function types in Go can be compared and the reasons behind it."><meta name=application-name content="FixIt"><meta name=apple-mobile-web-app-title content="FixIt"><meta name=theme-color data-light=#f8f8f8 data-dark=#252627 content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical type=text/html href=https://loommii.github.io/en/posts/can_go_function_types_be_compared/ title="Go: Can Function Types Be Compared, and Why? - loommii"><link rel=prev type=text/html href=https://loommii.github.io/en/go_practise/go_daily_question_204/ title="Go Daily Question 204"><link rel=next type=text/html href=https://loommii.github.io/en/go_practise/go_daily_question_205/ title="Go Daily Question 205"><link rel=alternate type=text/markdown href=https://loommii.github.io/en/posts/can_go_function_types_be_compared/index.md title="Go: Can Function Types Be Compared, and Why? - loommii"><link rel=stylesheet href=/css/config.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Go: Can Function Types Be Compared, and Why?","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/loommii.github.io\/en\/posts\/can_go_function_types_be_compared\/"},"genre":"posts","keywords":"Go, GoTypeSystem, GoFunction, GoReflection, LanguageFeatures","wordcount":1092,"url":"https:\/\/loommii.github.io\/en\/posts\/can_go_function_types_be_compared\/","datePublished":"2025-03-05T16:41:19+08:00","dateModified":"2026-01-16T01:28:43+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"loommii"},"description":"Detailed explanation of whether function types in Go can be compared and the reasons behind it."}</script><script src=/js/head/color-scheme.min.js></script></head><body data-instant-intensity=viewport data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/en/ title=loommii><img class=logo src=/images/logo.png alt=loommii height=32 width=32><span class=header-title-text>loommii</span></a><span class=header-subtitle></span></div><nav><ul class=menu><li class=menu-item><a class=menu-link href=/en/posts/>Posts</a></li><li class=menu-item><a class=menu-link href=/en/go_practise/>Go Practice</a></li><li class=menu-item><a class=menu-link href=/en/leetcode/>LeetCode Solutions</a></li><li class=menu-item><a class=menu-link href=/en/categories/>Categories</a></li><li class=menu-item><a class=menu-link href=/en/tags/>Tags</a></li><li class=menu-item><a class=menu-link href=/en/archives/>Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id=search-desktop><input type=text placeholder="Search titles or contents ..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-desktop><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></li><li class="menu-item theme-switch" role=button aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden=true></i></li><li class="menu-item language-switch"><span role=button aria-label="Select Language" title="Select Language"><i class="fa-solid fa-language" aria-hidden=true></i></span><ul class=sub-menu><li class=menu-item><a href=/zh-cn/posts/can_go_function_types_be_compared/ class=menu-link title=简体中文>简体中文</a></li><li class=menu-item><span class=text-secondary title=English>English</span></li></ul></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/en/ title=loommii><img class=logo src=/images/logo.png alt=loommii height=26 width=26><span class=header-title-text>loommii</span></a><span class=header-subtitle></span></div><div class=theme-switch role=button aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden=true></i></div><div class=menu-toggle id=menu-toggle-mobile role=button aria-labelledby=menu-mobile><span></span><span></span><span></span></div></div><nav><ul class=menu id=menu-mobile><li class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search titles or contents ..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-mobile><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></li><li class=menu-item><a class=menu-link href=/en/posts/>Posts</a></li><li class=menu-item><a class=menu-link href=/en/go_practise/>Go Practice</a></li><li class=menu-item><a class=menu-link href=/en/leetcode/>LeetCode Solutions</a></li><li class=menu-item><a class=menu-link href=/en/categories/>Categories</a></li><li class=menu-item><a class=menu-link href=/en/tags/>Tags</a></li><li class=menu-item><a class=menu-link href=/en/archives/>Archives</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch"><span role=button aria-label="Select Language" title="Select Language">English<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden=true></i></span>
+<select id=language-select class=language-select onchange="location=this.value"><option value=/zh-cn/posts/can_go_function_types_be_compared/>简体中文</option><option value=/en/posts/can_go_function_types_be_compared/ selected disabled>English</option></select></span></li></ul></nav></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=fi-container><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label=Collections></aside><article class="page single"><div class=header><h1 class="single-title animate__animated animate__flipInX"><span>Go: Can Function Types Be Compared, and Why?</span></h1></div><div class=post-meta><div class=post-meta-line><span class=post-author><span class=author><i class="fa-solid fa-user-circle" aria-hidden=true></i>
+loommii</span></span><span class=post-included-in>&nbsp;included in <a href=/en/categories/techarticle/ class=post-category title="Category - TechArticle"><i class="fa-regular fa-folder" aria-hidden=true></i> TechArticle</a></span></div><div class=post-meta-line><span title="published on 2025-03-05 16:41:19"><i class="fa-solid fa-calendar-days me-1" aria-hidden=true></i><time datetime=2025-03-05>2025-03-05</time></span>&nbsp;<span title="Updated on 2026-01-16 01:28:43"><i class="fa-regular fa-calendar-check me-1" aria-hidden=true></i><time datetime=2026-01-16>2026-01-16</time></span>&nbsp;<span title="1092 words"><i class="fa-solid fa-pencil-alt me-1" aria-hidden=true></i>About 1100 words</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden=true></i>6 minutes</span>&nbsp;</div></div><div class="details toc" id=toc-static data-kept=false><div class="details-summary toc-title"><span>Contents</span>
+<span><i class="details-icon fa-solid fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#can-go-function-types-be-compared>Can Go Function Types Be Compared?</a><ul><li><a href=#comparison-operators>Comparison Operators</a></li><li><a href=#reflectdeepequal>reflect.DeepEqual</a></li><li><a href=#summary>Summary</a></li></ul></li><li><a href=#why>Why?</a><ul><li><a href=#hypothesis-1-compiler-inline-optimization>Hypothesis 1 (Compiler Inline Optimization)</a><ul><li><a href=#compiler-inline-optimization>Compiler Inline Optimization</a></li><li><a href=#disabling-compiler-inline-optimization>Disabling Compiler Inline Optimization</a></li></ul></li><li><a href=#hypothesis-1-summary>Hypothesis 1 Summary</a></li></ul></li><li><a href=#how-to-solve-scenarios-requiring-function-comparison>How to solve scenarios requiring function comparison?</a><ul><li><a href=#observer-pattern>Observer Pattern</a><ul><li><a href=#solution-1-use-a-struct-to-add-a-comparable-tag-to-the-function>Solution 1: Use a struct to add a comparable tag to the function</a></li></ul></li></ul></li></ul></nav></div></div><div class=content id=content><h2 class=heading-element id=can-go-function-types-be-compared><span>Can Go Function Types Be Compared?</span>
+<a href=#can-go-function-types-be-compared class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=comparison-operators><span>Comparison Operators</span>
+<a href=#comparison-operators class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>In the <a href=https://go.dev/ref/spec#Comparison_operators target=_blank rel="external nofollow noopener noreferrer">Go official documentation</a> regarding comparison operators, there is this passage:</p><blockquote><p>Slice, map, and function types are not comparable. However, as a special case, a slice, map, or function value may be compared to the predeclared identifier nil. Comparison of pointer, channel, and interface values to nil is also allowed and follows from the general rules above.
+切片（Slice）、映射（map）和函数类型是不可比较的。然而，作为一种特殊情况，切片、映射或函数值可以与预先声明的标识符 <code>nil</code> 进行比较。指针、通道（channel）和接口值与 <code>nil</code> 的比较也是允许的，并且遵循上述一般规则。</p></blockquote><p>Therefore, we can see that Go function types cannot be compared using comparison operators, but they can be compared with <code>nil</code>.
+Example 1:</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>foo</span><span class=p>()</span><span class=w> </span><span class=p>{}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>f1</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>foo</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>f2</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>f1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>f1</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=nx>f2</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=c1>// Compile error: invalid operation: f1 == f2 (func can only be compared to nil)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Functions are equal&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label="Expand or collapse code block" role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div><p><a href=https://go.dev/play/p/-MKUWeDBml7 target=_blank rel="external nofollow noopener noreferrer">Run Online</a></p><p>Example 2:</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>var</span><span class=w> </span><span class=nx>f1</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>f1</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=c1>// Function types can be compared with `nil`</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;f1 is nil&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div></div></div><p><a href=https://go.dev/play/p/QkKEt_KQwUd target=_blank rel="external nofollow noopener noreferrer">Run Online</a></p><h3 class=heading-element id=reflectdeepequal><span>reflect.DeepEqual</span>
+<a href=#reflectdeepequal class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>Above, comparison operators were used for comparing the two. We know that in Go, we can also use <a href=https://pkg.go.dev/reflect#DeepEqual target=_blank rel="external nofollow noopener noreferrer"><code>DeepEqual</code></a> from the <code>reflect</code> package for comparison.</p><blockquote><p>func DeepEqual(x, y any) bool
 Purpose: Determine if two values are &ldquo;deeply equal&rdquo;
 Func values are deeply equal if both are nil; otherwise they are not deeply equal.
-函数值只有在二者都为 nil 时才深度相等；否则，它们不深度相等。</p>
-</blockquote>
-<p>Example 3:</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;reflect&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">foo</span><span class="p">()</span><span class="w"> </span><span class="p">{}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">f1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">foo</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">f2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">f1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">reflect</span><span class="p">.</span><span class="nf">DeepEqual</span><span class="p">(</span><span class="nx">f1</span><span class="p">,</span><span class="w"> </span><span class="nx">f2</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="c1">// Returns false</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Functions are equal&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Functions are not equal&#34;</span><span class="p">)</span><span class="w"> </span><span class="c1">// Outputs: Functions are not equal</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div><p><a href="https://go.dev/play/p/ta02lmtw1Vf" target="_blank" rel="external nofollow noopener noreferrer">Run Online</a></p>
-<p>We can also see from the <a href="https://github.com/golang/go/blob/2c1604142324be55a9274bc13a5a143bb3cde809/src/reflect/deepequal.go#L155" target="_blank" rel="external nofollow noopener noreferrer">source code</a> of <code>reflect.DeepEqual</code>:</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nx">Func</span><span class="p">:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">if</span><span class="w"> </span><span class="nx">v1</span><span class="p">.</span><span class="nf">IsNil</span><span class="p">()</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nx">v2</span><span class="p">.</span><span class="nf">IsNil</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="kc">true</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="c1">// Can&#39;t do better than this:</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="kc">false</span></span></span></code></pre></td></tr></table></div>
-</div>
-</div><h3 class="heading-element" id="summary"><span>Summary</span>
-  <a href="#summary" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>Go function types cannot be compared using comparison operators, but they can be compared with <code>nil</code>.</p>
-<h2 class="heading-element" id="why"><span>Why?</span>
-  <a href="#why" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>From the above, we understand that the Go team restricted comparisons between function types when designing the Go language. But what is the purpose of this design?</p>
-<h3 class="heading-element" id="hypothesis-1-compiler-inline-optimization"><span>Hypothesis 1 (Compiler Inline Optimization)</span>
-  <a href="#hypothesis-1-compiler-inline-optimization" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">var</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">var</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">}()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">sum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">print</span><span class="p">(</span><span class="nx">sum</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">b</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div><p>Compile and view the assembly using the <code>objdump</code> tool:</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">go build .\main.go
-</span></span><span class="line"><span class="cl">go tool objdump -s main.main .\main.exe</span></span></code></pre></td></tr></table></div>
-</div>
-</div><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-asm"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl"><span class="nf">TEXT</span> <span class="no">main.main</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span> <span class="no">C</span><span class="p">:</span><span class="err">/</span><span class="no">Code</span><span class="err">/</span><span class="no">Github</span><span class="err">/</span><span class="no">Go_T</span><span class="err">/</span><span class="no">main.go</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x469960</span>                <span class="mi">493</span><span class="no">b6610</span>                <span class="no">CMPQ</span> <span class="no">SP</span><span class="p">,</span> <span class="mi">0x10</span><span class="p">(</span><span class="no">R14</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x469964</span>                <span class="mi">7635</span>                    <span class="no">JBE</span> <span class="mi">0x46999b</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x469966</span>                <span class="mi">55</span>                      <span class="no">PUSHQ</span> <span class="no">BP</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x469967</span>                <span class="mi">4889</span><span class="no">e5</span>                  <span class="no">MOVQ</span> <span class="no">SP</span><span class="p">,</span> <span class="no">BP</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x46996a</span>                <span class="mi">4883</span><span class="no">ec10</span>                <span class="no">SUBQ</span> <span class="no">$0x10</span><span class="p">,</span> <span class="no">SP</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">7</span>             <span class="err">0</span><span class="nf">x46996e</span>                <span class="mi">488</span><span class="no">b05f3490800</span>          <span class="no">MOVQ</span> <span class="no">main.a</span><span class="p">(</span><span class="no">SB</span><span class="p">),</span> <span class="no">AX</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">11</span>            <span class="err">0</span><span class="nf">x469975</span>                <span class="mi">480305</span><span class="no">f4490800</span>          <span class="no">ADDQ</span> <span class="no">main.b</span><span class="p">(</span><span class="no">SB</span><span class="p">),</span> <span class="no">AX</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">11</span>            <span class="err">0</span><span class="nf">x46997c</span>                <span class="mi">4889442408</span>              <span class="no">MOVQ</span> <span class="no">AX</span><span class="p">,</span> <span class="mi">0x8</span><span class="p">(</span><span class="no">SP</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x469981</span>                <span class="no">e81a8afcff</span>              <span class="no">CALL</span> <span class="no">runtime.printlock</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x469986</span>                <span class="mi">488</span><span class="no">b442408</span>              <span class="no">MOVQ</span> <span class="mi">0x8</span><span class="p">(</span><span class="no">SP</span><span class="p">),</span> <span class="no">AX</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x46998b</span>                <span class="no">e8b090fcff</span>              <span class="no">CALL</span> <span class="no">runtime.printint</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x469990</span>                <span class="no">e86b8afcff</span>              <span class="no">CALL</span> <span class="no">runtime.printunlock</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x469995</span>                <span class="mi">4883</span><span class="no">c410</span>                <span class="no">ADDQ</span> <span class="no">$0x10</span><span class="p">,</span> <span class="no">SP</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x469999</span>                <span class="mi">5</span><span class="no">d</span>                      <span class="no">POPQ</span> <span class="no">BP</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x46999a</span>                <span class="no">c3</span>                      <span class="no">RET</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x46999b</span>                <span class="mi">0</span><span class="no">f1f440000</span>              <span class="no">NOPL</span> <span class="mi">0</span><span class="p">(</span><span class="no">AX</span><span class="p">)(</span><span class="no">AX</span><span class="p">*</span><span class="mi">1</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x4699a0</span>                <span class="no">e8bb88ffff</span>              <span class="no">CALL</span> <span class="no">runtime.morestack_noctxt.abi0</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x4699a5</span>                <span class="no">ebb9</span>                    <span class="no">JMP</span> <span class="no">main.main</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div><p>For comparison, we can also disable inline optimization during compilation:</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">go build -gcflags=&#34;all=-l&#34; .\main.go
-</span></span><span class="line"><span class="cl">PS C:\Code\Github\Go_T&gt; go tool objdump -s main.main .\main.exe</span></span></code></pre></td></tr></table></div>
-</div>
-</div><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-asm"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-asm" data-lang="asm"><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x470000</span>                <span class="mi">493</span><span class="no">b6610</span>                <span class="no">CMPQ</span> <span class="no">SP</span><span class="p">,</span> <span class="mi">0x10</span><span class="p">(</span><span class="no">R14</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x470004</span>                <span class="mi">763</span><span class="no">e</span>                    <span class="no">JBE</span> <span class="mi">0x470044</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x470006</span>                <span class="mi">55</span>                      <span class="no">PUSHQ</span> <span class="no">BP</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x470007</span>                <span class="mi">4889</span><span class="no">e5</span>                  <span class="no">MOVQ</span> <span class="no">SP</span><span class="p">,</span> <span class="no">BP</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x47000a</span>                <span class="mi">4883</span><span class="no">ec18</span>                <span class="no">SUBQ</span> <span class="no">$0x18</span><span class="p">,</span> <span class="no">SP</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">7</span>             <span class="err">0</span><span class="nf">x47000e</span>                <span class="mi">488</span><span class="no">b1d9bfc0b00</span>          <span class="no">MOVQ</span> <span class="no">main.b</span><span class="p">(</span><span class="no">SB</span><span class="p">),</span> <span class="no">BX</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">7</span>             <span class="err">0</span><span class="nf">x470015</span>                <span class="mi">488</span><span class="no">b058cfc0b00</span>          <span class="no">MOVQ</span> <span class="no">main.a</span><span class="p">(</span><span class="no">SB</span><span class="p">),</span> <span class="no">AX</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">7</span>             <span class="err">0</span><span class="nf">x47001c</span>                <span class="mi">0</span><span class="no">f1f4000</span>                <span class="no">NOPL</span> <span class="mi">0</span><span class="p">(</span><span class="no">AX</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">7</span>             <span class="err">0</span><span class="nf">x470020</span>                <span class="no">e83b000000</span>              <span class="no">CALL</span> <span class="no">main.add</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">7</span>             <span class="err">0</span><span class="nf">x470025</span>                <span class="mi">4889442410</span>              <span class="no">MOVQ</span> <span class="no">AX</span><span class="p">,</span> <span class="mi">0x10</span><span class="p">(</span><span class="no">SP</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x47002a</span>                <span class="no">e8517cfcff</span>              <span class="no">CALL</span> <span class="no">runtime.printlock</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x47002f</span>                <span class="mi">488</span><span class="no">b442410</span>              <span class="no">MOVQ</span> <span class="mi">0x10</span><span class="p">(</span><span class="no">SP</span><span class="p">),</span> <span class="no">AX</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x470034</span>                <span class="no">e8e782fcff</span>              <span class="no">CALL</span> <span class="no">runtime.printint</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">8</span>             <span class="err">0</span><span class="nf">x470039</span>                <span class="no">e8a27cfcff</span>              <span class="no">CALL</span> <span class="no">runtime.printunlock</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x47003e</span>                <span class="mi">4883</span><span class="no">c418</span>                <span class="no">ADDQ</span> <span class="no">$0x18</span><span class="p">,</span> <span class="no">SP</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x470042</span>                <span class="mi">5</span><span class="no">d</span>                      <span class="no">POPQ</span> <span class="no">BP</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">9</span>             <span class="err">0</span><span class="nf">x470043</span>                <span class="no">c3</span>                      <span class="no">RET</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x470044</span>                <span class="no">e83786ffff</span>              <span class="no">CALL</span> <span class="no">runtime.morestack_noctxt.abi0</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span>
-</span></span><span class="line"><span class="cl">  <span class="nl">main.go:</span><span class="err">6</span>             <span class="err">0</span><span class="nf">x470049</span>                <span class="no">ebb5</span>                    <span class="no">JMP</span> <span class="no">main.main</span><span class="p">(</span><span class="no">SB</span><span class="p">)</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div><h4 class="heading-element" id="compiler-inline-optimization"><span>Compiler Inline Optimization</span>
-  <a href="#compiler-inline-optimization" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p><img loading="lazy" src='/zh-cn/posts/can_go_function_types_be_compared/image.png' alt="alt text" height="48" width="356"></p>
-<h4 class="heading-element" id="disabling-compiler-inline-optimization"><span>Disabling Compiler Inline Optimization</span>
-  <a href="#disabling-compiler-inline-optimization" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><p><img loading="lazy" src='/zh-cn/posts/can_go_function_types_be_compared/image-1.png' alt="alt text" height="65" width="361"></p>
-<h3 class="heading-element" id="hypothesis-1-summary"><span>Hypothesis 1 Summary</span>
-  <a href="#hypothesis-1-summary" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>We can see that compiler inline optimization optimizes some code. The <code>add</code> function is inlined into the <code>main</code> function.
-By default, compiler inline optimization causes some function calls to be replaced with the actual code of the function body. If the functions disappear, it&rsquo;s even more impossible to compare functions.</p>
-<h2 class="heading-element" id="how-to-solve-scenarios-requiring-function-comparison"><span>How to solve scenarios requiring function comparison?</span>
-  <a href="#how-to-solve-scenarios-requiring-function-comparison" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><h3 class="heading-element" id="observer-pattern"><span>Observer Pattern</span>
-  <a href="#observer-pattern" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="s">&#34;fmt&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">Listener</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">var</span><span class="w"> </span><span class="nx">Listeners</span><span class="w"> </span><span class="p">[]</span><span class="nx">Listener</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">AddListener</span><span class="p">(</span><span class="nx">l</span><span class="w"> </span><span class="nx">Listener</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Listeners</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">Listeners</span><span class="p">,</span><span class="w"> </span><span class="nx">l</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">CallListeners</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">l</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">Listeners</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nf">l</span><span class="p">()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">RmListener</span><span class="p">(</span><span class="nx">l</span><span class="w"> </span><span class="nx">Listener</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// TODO Remove listener</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nf">AddListener</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">})</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nf">AddListener</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;world&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">})</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nf">CallListeners</span><span class="p">()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div><p>From the above code, we need to add a remove listener function for <code>Listener</code>.
-Since functions in Go cannot be compared, the following code is incorrect:</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">RmListener</span><span class="p">(</span><span class="nx">l</span><span class="w"> </span><span class="nx">Listener</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Listeners</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">slices</span><span class="p">.</span><span class="nf">DeleteFunc</span><span class="p">(</span><span class="nx">Listeners</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">x</span><span class="w"> </span><span class="nx">Listener</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">l</span><span class="w"> </span><span class="p">})</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// invalid operation: x == l (func can only be compared to nil)compilerUndefinedOp</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
-</div>
-</div><h4 class="heading-element" id="solution-1-use-a-struct-to-add-a-comparable-tag-to-the-function"><span>Solution 1: Use a struct to add a comparable tag to the function</span>
-  <a href="#solution-1-use-a-struct-to-add-a-comparable-tag-to-the-function" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;slices&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">Tag</span><span class="w"> </span><span class="kd">struct</span><span class="p">{</span><span class="w"> </span><span class="o">*</span><span class="kt">int</span><span class="w"> </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">Listener</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">taggedListener</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">tag</span><span class="w">      </span><span class="nx">Tag</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">listener</span><span class="w"> </span><span class="nx">Listener</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">var</span><span class="w"> </span><span class="nx">Listeners</span><span class="w"> </span><span class="p">[]</span><span class="nx">taggedListener</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">AddListener</span><span class="p">(</span><span class="nx">l</span><span class="w"> </span><span class="nx">Listener</span><span class="p">)</span><span class="w"> </span><span class="nx">Tag</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">tag</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">Tag</span><span class="p">{</span><span class="nb">new</span><span class="p">(</span><span class="kt">int</span><span class="p">)}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Listeners</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">Listeners</span><span class="p">,</span><span class="w"> </span><span class="nx">taggedListener</span><span class="p">{</span><span class="nx">tag</span><span class="p">,</span><span class="w"> </span><span class="nx">l</span><span class="p">})</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">tag</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">CallListeners</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="nx">_</span><span class="p">,</span><span class="w"> </span><span class="nx">l</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">Listeners</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">l</span><span class="p">.</span><span class="nf">listener</span><span class="p">()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">RmListener</span><span class="p">(</span><span class="nx">tag</span><span class="w"> </span><span class="nx">Tag</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Listeners</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">slices</span><span class="p">.</span><span class="nf">DeleteFunc</span><span class="p">(</span><span class="nx">Listeners</span><span class="p">,</span><span class="w"> </span><span class="kd">func</span><span class="p">(</span><span class="nx">x</span><span class="w"> </span><span class="nx">taggedListener</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">x</span><span class="p">.</span><span class="nx">tag</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">tag</span><span class="w"> </span><span class="p">})</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">HelloTag</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">AddListener</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;Hello&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">})</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nf">AddListener</span><span class="p">(</span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;world&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">})</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nf">CallListeners</span><span class="p">()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Remove Hello</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nf">RmListener</span><span class="p">(</span><span class="nx">HelloTag</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nf">CallListeners</span><span class="p">()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div></div><div class="post-footer" id="post-footer">
-  <div class="post-info">
-    <div class="post-info-line">
-      <div class="post-info-mod"><span title="Updated on 2026-01-16 01:28:43">Updated on 2026-01-16&nbsp;</span>
-      </div><div class="post-info-license">
-            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
-          </div></div><div class="post-info-line">
-        <div class="post-info-md"><span><a href="/en/posts/can_go_function_types_be_compared/index.md" title="Read Markdown" class="link-to-markdown">Read Markdown</a></span></div>
-        <div class="post-info-share">
-          <span><a href="javascript:void(0);" title="Share on X" data-sharer="twitter" data-url="https://loommii.github.io/en/posts/can_go_function_types_be_compared/" data-title="Go: Can Function Types Be Compared, and Why?" data-hashtags="Go,GoTypeSystem,GoFunction,GoReflection,LanguageFeatures"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="Share on Facebook" data-sharer="facebook" data-url="https://loommii.github.io/en/posts/can_go_function_types_be_compared/" data-hashtag="Go"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="Share on 微博" data-sharer="weibo" data-url="https://loommii.github.io/en/posts/can_go_function_types_be_compared/" data-title="Go: Can Function Types Be Compared, and Why?"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
-  </span>
-        </div>
-      </div></div>
-
-  <div class="post-info-more">
-    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/en/tags/go/" class="post-tag" title="Tags - Go">Go</a><a href="/en/tags/gotypesystem/" class="post-tag" title="Tags - GoTypeSystem">GoTypeSystem</a><a href="/en/tags/gofunction/" class="post-tag" title="Tags - GoFunction">GoFunction</a><a href="/en/tags/goreflection/" class="post-tag" title="Tags - GoReflection">GoReflection</a><a href="/en/tags/languagefeatures/" class="post-tag" title="Tags - LanguageFeatures">LanguageFeatures</a></section>
-    <section><span><a href="javascript:void(0);" onclick="window.history.back();">Back</a></span>&nbsp;|&nbsp;<span><a href="/en/">Home</a></span>
-    </section>
-  </div><div class="post-nav"><a href="/en/go_practise/go_daily_question_204/" class="post-nav-item" rel="prev" title="Go Daily Question 204"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Go Daily Question 204</a><a href="/en/go_practise/go_daily_question_205/" class="post-nav-item" rel="next" title="Go Daily Question 205">Go Daily Question 205<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
-</div>
-<div id="comments"><div id="giscus" class="comment">
-            <script
-                src="https://giscus.app/client.js"
-                data-repo="loommii/loommii.github.io"
-                data-repo-id="R_kgDOQ1YU8A"
-                data-category="Announcements"
-                data-category-id="DIC_kwDOQ1YU8M4C1aXA"
-                data-mapping="specific"
-                data-strict="0"
-                data-term="can-go-function-types-be-compared"
-                data-theme="preferred_color_scheme"
-                data-reactions-enabled="1"
-                data-emit-metadata="0"
-                data-input-position="bottom"
-                data-lang="en"
-                data-loading="lazy"
-                crossorigin="anonymous"
-                async
-            ></script>
-        </div>
-        <noscript>
-            Please enable JavaScript to view the comments powered by <a href="https://giscus.app">giscus</a>.
-        </noscript></div></article>
-
-  <aside class="toc" id="toc-auto" aria-label="Contents"><h2 class="toc-title">Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
-      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
-      <div class="toc">
-        <h2 class="toc-title">Contents</h2>
-        <div class="toc-content" id="toc-content-drawer"><nav >
-  <ul>
-    <li><a href="#can-go-function-types-be-compared">Can Go Function Types Be Compared?</a>
-      <ul>
-        <li><a href="#comparison-operators">Comparison Operators</a></li>
-        <li><a href="#reflectdeepequal">reflect.DeepEqual</a></li>
-        <li><a href="#summary">Summary</a></li>
-      </ul>
-    </li>
-    <li><a href="#why">Why?</a>
-      <ul>
-        <li><a href="#hypothesis-1-compiler-inline-optimization">Hypothesis 1 (Compiler Inline Optimization)</a>
-          <ul>
-            <li><a href="#compiler-inline-optimization">Compiler Inline Optimization</a></li>
-            <li><a href="#disabling-compiler-inline-optimization">Disabling Compiler Inline Optimization</a></li>
-          </ul>
-        </li>
-        <li><a href="#hypothesis-1-summary">Hypothesis 1 Summary</a></li>
-      </ul>
-    </li>
-    <li><a href="#how-to-solve-scenarios-requiring-function-comparison">How to solve scenarios requiring function comparison?</a>
-      <ul>
-        <li><a href="#observer-pattern">Observer Pattern</a>
-          <ul>
-            <li><a href="#solution-1-use-a-struct-to-add-a-comparable-tag-to-the-function">Solution 1: Use a struct to add a comparable tag to the function</a></li>
-          </ul>
-        </li>
-      </ul>
-    </li>
-  </ul>
-</nav></div>
-      </div>
-    </dialog></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
-        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
-            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
-              <a href="/en/">loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
-  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="Contents"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
-    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
-  </noscript>
-</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/en/js/config/7d93e5f796a2d28e77c494a22238d89e.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
-</html>
+函数值只有在二者都为 nil 时才深度相等；否则，它们不深度相等。</p></blockquote><p>Example 3:</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;reflect&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>foo</span><span class=p>()</span><span class=w> </span><span class=p>{}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>f1</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>foo</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>f2</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>f1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>reflect</span><span class=p>.</span><span class=nf>DeepEqual</span><span class=p>(</span><span class=nx>f1</span><span class=p>,</span><span class=w> </span><span class=nx>f2</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=c1>// Returns false</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Functions are equal&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w> </span><span class=k>else</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Functions are not equal&#34;</span><span class=p>)</span><span class=w> </span><span class=c1>// Outputs: Functions are not equal</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label="Expand or collapse code block" role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div><p><a href=https://go.dev/play/p/ta02lmtw1Vf target=_blank rel="external nofollow noopener noreferrer">Run Online</a></p><p>We can also see from the <a href=https://github.com/golang/go/blob/2c1604142324be55a9274bc13a5a143bb3cde809/src/reflect/deepequal.go#L155 target=_blank rel="external nofollow noopener noreferrer">source code</a> of <code>reflect.DeepEqual</code>:</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=w>    </span><span class=k>case</span><span class=w> </span><span class=nx>Func</span><span class=p>:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>if</span><span class=w> </span><span class=nx>v1</span><span class=p>.</span><span class=nf>IsNil</span><span class=p>()</span><span class=w> </span><span class=o>&amp;&amp;</span><span class=w> </span><span class=nx>v2</span><span class=p>.</span><span class=nf>IsNil</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>            </span><span class=k>return</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=c1>// Can&#39;t do better than this:</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w> </span><span class=kc>false</span></span></span></code></pre></td></tr></table></div></div></div><h3 class=heading-element id=summary><span>Summary</span>
+<a href=#summary class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>Go function types cannot be compared using comparison operators, but they can be compared with <code>nil</code>.</p><h2 class=heading-element id=why><span>Why?</span>
+<a href=#why class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>From the above, we understand that the Go team restricted comparisons between function types when designing the Go language. But what is the purpose of this design?</p><h3 class=heading-element id=hypothesis-1-compiler-inline-optimization><span>Hypothesis 1 (Compiler Inline Optimization)</span>
+<a href=#hypothesis-1-compiler-inline-optimization class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>a</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=k>return</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=p>}()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>b</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=k>return</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=p>}()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>sum</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>add</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span><span class=w> </span><span class=nx>b</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nb>print</span><span class=p>(</span><span class=nx>sum</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>add</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span><span class=w> </span><span class=nx>b</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=nx>a</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=nx>b</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label="Expand or collapse code block" role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div><p>Compile and view the assembly using the <code>objdump</code> tool:</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>go build .\main.go
+</span></span><span class=line><span class=cl>go tool objdump -s main.main .\main.exe</span></span></code></pre></td></tr></table></div></div></div><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-asm"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-asm data-lang=asm><span class=line><span class=cl><span class=nf>TEXT</span> <span class=no>main.main</span><span class=p>(</span><span class=no>SB</span><span class=p>)</span> <span class=no>C</span><span class=p>:</span><span class=err>/</span><span class=no>Code</span><span class=err>/</span><span class=no>Github</span><span class=err>/</span><span class=no>Go_T</span><span class=err>/</span><span class=no>main.go</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x469960</span>                <span class=mi>493</span><span class=no>b6610</span>                <span class=no>CMPQ</span> <span class=no>SP</span><span class=p>,</span> <span class=mi>0x10</span><span class=p>(</span><span class=no>R14</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x469964</span>                <span class=mi>7635</span>                    <span class=no>JBE</span> <span class=mi>0x46999b</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x469966</span>                <span class=mi>55</span>                      <span class=no>PUSHQ</span> <span class=no>BP</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x469967</span>                <span class=mi>4889</span><span class=no>e5</span>                  <span class=no>MOVQ</span> <span class=no>SP</span><span class=p>,</span> <span class=no>BP</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x46996a</span>                <span class=mi>4883</span><span class=no>ec10</span>                <span class=no>SUBQ</span> <span class=no>$0x10</span><span class=p>,</span> <span class=no>SP</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>7</span>             <span class=err>0</span><span class=nf>x46996e</span>                <span class=mi>488</span><span class=no>b05f3490800</span>          <span class=no>MOVQ</span> <span class=no>main.a</span><span class=p>(</span><span class=no>SB</span><span class=p>),</span> <span class=no>AX</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>11</span>            <span class=err>0</span><span class=nf>x469975</span>                <span class=mi>480305</span><span class=no>f4490800</span>          <span class=no>ADDQ</span> <span class=no>main.b</span><span class=p>(</span><span class=no>SB</span><span class=p>),</span> <span class=no>AX</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>11</span>            <span class=err>0</span><span class=nf>x46997c</span>                <span class=mi>4889442408</span>              <span class=no>MOVQ</span> <span class=no>AX</span><span class=p>,</span> <span class=mi>0x8</span><span class=p>(</span><span class=no>SP</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>8</span>             <span class=err>0</span><span class=nf>x469981</span>                <span class=no>e81a8afcff</span>              <span class=no>CALL</span> <span class=no>runtime.printlock</span><span class=p>(</span><span class=no>SB</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>8</span>             <span class=err>0</span><span class=nf>x469986</span>                <span class=mi>488</span><span class=no>b442408</span>              <span class=no>MOVQ</span> <span class=mi>0x8</span><span class=p>(</span><span class=no>SP</span><span class=p>),</span> <span class=no>AX</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>8</span>             <span class=err>0</span><span class=nf>x46998b</span>                <span class=no>e8b090fcff</span>              <span class=no>CALL</span> <span class=no>runtime.printint</span><span class=p>(</span><span class=no>SB</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>8</span>             <span class=err>0</span><span class=nf>x469990</span>                <span class=no>e86b8afcff</span>              <span class=no>CALL</span> <span class=no>runtime.printunlock</span><span class=p>(</span><span class=no>SB</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>9</span>             <span class=err>0</span><span class=nf>x469995</span>                <span class=mi>4883</span><span class=no>c410</span>                <span class=no>ADDQ</span> <span class=no>$0x10</span><span class=p>,</span> <span class=no>SP</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>9</span>             <span class=err>0</span><span class=nf>x469999</span>                <span class=mi>5</span><span class=no>d</span>                      <span class=no>POPQ</span> <span class=no>BP</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>9</span>             <span class=err>0</span><span class=nf>x46999a</span>                <span class=no>c3</span>                      <span class=no>RET</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x46999b</span>                <span class=mi>0</span><span class=no>f1f440000</span>              <span class=no>NOPL</span> <span class=mi>0</span><span class=p>(</span><span class=no>AX</span><span class=p>)(</span><span class=no>AX</span><span class=p>*</span><span class=mi>1</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x4699a0</span>                <span class=no>e8bb88ffff</span>              <span class=no>CALL</span> <span class=no>runtime.morestack_noctxt.abi0</span><span class=p>(</span><span class=no>SB</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x4699a5</span>                <span class=no>ebb9</span>                    <span class=no>JMP</span> <span class=no>main.main</span><span class=p>(</span><span class=no>SB</span><span class=p>)</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label="Expand or collapse code block" role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div><p>For comparison, we can also disable inline optimization during compilation:</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>go build -gcflags=&#34;all=-l&#34; .\main.go
+</span></span><span class=line><span class=cl>PS C:\Code\Github\Go_T&gt; go tool objdump -s main.main .\main.exe</span></span></code></pre></td></tr></table></div></div></div><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-asm"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-asm data-lang=asm><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x470000</span>                <span class=mi>493</span><span class=no>b6610</span>                <span class=no>CMPQ</span> <span class=no>SP</span><span class=p>,</span> <span class=mi>0x10</span><span class=p>(</span><span class=no>R14</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x470004</span>                <span class=mi>763</span><span class=no>e</span>                    <span class=no>JBE</span> <span class=mi>0x470044</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x470006</span>                <span class=mi>55</span>                      <span class=no>PUSHQ</span> <span class=no>BP</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x470007</span>                <span class=mi>4889</span><span class=no>e5</span>                  <span class=no>MOVQ</span> <span class=no>SP</span><span class=p>,</span> <span class=no>BP</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x47000a</span>                <span class=mi>4883</span><span class=no>ec18</span>                <span class=no>SUBQ</span> <span class=no>$0x18</span><span class=p>,</span> <span class=no>SP</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>7</span>             <span class=err>0</span><span class=nf>x47000e</span>                <span class=mi>488</span><span class=no>b1d9bfc0b00</span>          <span class=no>MOVQ</span> <span class=no>main.b</span><span class=p>(</span><span class=no>SB</span><span class=p>),</span> <span class=no>BX</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>7</span>             <span class=err>0</span><span class=nf>x470015</span>                <span class=mi>488</span><span class=no>b058cfc0b00</span>          <span class=no>MOVQ</span> <span class=no>main.a</span><span class=p>(</span><span class=no>SB</span><span class=p>),</span> <span class=no>AX</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>7</span>             <span class=err>0</span><span class=nf>x47001c</span>                <span class=mi>0</span><span class=no>f1f4000</span>                <span class=no>NOPL</span> <span class=mi>0</span><span class=p>(</span><span class=no>AX</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>7</span>             <span class=err>0</span><span class=nf>x470020</span>                <span class=no>e83b000000</span>              <span class=no>CALL</span> <span class=no>main.add</span><span class=p>(</span><span class=no>SB</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>7</span>             <span class=err>0</span><span class=nf>x470025</span>                <span class=mi>4889442410</span>              <span class=no>MOVQ</span> <span class=no>AX</span><span class=p>,</span> <span class=mi>0x10</span><span class=p>(</span><span class=no>SP</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>8</span>             <span class=err>0</span><span class=nf>x47002a</span>                <span class=no>e8517cfcff</span>              <span class=no>CALL</span> <span class=no>runtime.printlock</span><span class=p>(</span><span class=no>SB</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>8</span>             <span class=err>0</span><span class=nf>x47002f</span>                <span class=mi>488</span><span class=no>b442410</span>              <span class=no>MOVQ</span> <span class=mi>0x10</span><span class=p>(</span><span class=no>SP</span><span class=p>),</span> <span class=no>AX</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>8</span>             <span class=err>0</span><span class=nf>x470034</span>                <span class=no>e8e782fcff</span>              <span class=no>CALL</span> <span class=no>runtime.printint</span><span class=p>(</span><span class=no>SB</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>8</span>             <span class=err>0</span><span class=nf>x470039</span>                <span class=no>e8a27cfcff</span>              <span class=no>CALL</span> <span class=no>runtime.printunlock</span><span class=p>(</span><span class=no>SB</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>9</span>             <span class=err>0</span><span class=nf>x47003e</span>                <span class=mi>4883</span><span class=no>c418</span>                <span class=no>ADDQ</span> <span class=no>$0x18</span><span class=p>,</span> <span class=no>SP</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>9</span>             <span class=err>0</span><span class=nf>x470042</span>                <span class=mi>5</span><span class=no>d</span>                      <span class=no>POPQ</span> <span class=no>BP</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>9</span>             <span class=err>0</span><span class=nf>x470043</span>                <span class=no>c3</span>                      <span class=no>RET</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x470044</span>                <span class=no>e83786ffff</span>              <span class=no>CALL</span> <span class=no>runtime.morestack_noctxt.abi0</span><span class=p>(</span><span class=no>SB</span><span class=p>)</span>
+</span></span><span class=line><span class=cl>  <span class=nl>main.go:</span><span class=err>6</span>             <span class=err>0</span><span class=nf>x470049</span>                <span class=no>ebb5</span>                    <span class=no>JMP</span> <span class=no>main.main</span><span class=p>(</span><span class=no>SB</span><span class=p>)</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label="Expand or collapse code block" role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div><h4 class=heading-element id=compiler-inline-optimization><span>Compiler Inline Optimization</span>
+<a href=#compiler-inline-optimization class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h4><p><img loading=lazy src=/zh-cn/posts/can_go_function_types_be_compared/image.png alt="alt text" height=48 width=356></p><h4 class=heading-element id=disabling-compiler-inline-optimization><span>Disabling Compiler Inline Optimization</span>
+<a href=#disabling-compiler-inline-optimization class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h4><p><img loading=lazy src=/zh-cn/posts/can_go_function_types_be_compared/image-1.png alt="alt text" height=65 width=361></p><h3 class=heading-element id=hypothesis-1-summary><span>Hypothesis 1 Summary</span>
+<a href=#hypothesis-1-summary class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>We can see that compiler inline optimization optimizes some code. The <code>add</code> function is inlined into the <code>main</code> function.
+By default, compiler inline optimization causes some function calls to be replaced with the actual code of the function body. If the functions disappear, it&rsquo;s even more impossible to compare functions.</p><h2 class=heading-element id=how-to-solve-scenarios-requiring-function-comparison><span>How to solve scenarios requiring function comparison?</span>
+<a href=#how-to-solve-scenarios-requiring-function-comparison class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=observer-pattern><span>Observer Pattern</span>
+<a href=#observer-pattern class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>Listener</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>Listeners</span><span class=w> </span><span class=p>[]</span><span class=nx>Listener</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>AddListener</span><span class=p>(</span><span class=nx>l</span><span class=w> </span><span class=nx>Listener</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>Listeners</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nb>append</span><span class=p>(</span><span class=nx>Listeners</span><span class=p>,</span><span class=w> </span><span class=nx>l</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>CallListeners</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=nx>_</span><span class=p>,</span><span class=w> </span><span class=nx>l</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=k>range</span><span class=w> </span><span class=nx>Listeners</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nf>l</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>RmListener</span><span class=p>(</span><span class=nx>l</span><span class=w> </span><span class=nx>Listener</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// TODO Remove listener</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>AddListener</span><span class=p>(</span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Hello&#34;</span><span class=p>)</span><span class=w> </span><span class=p>})</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>AddListener</span><span class=p>(</span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;world&#34;</span><span class=p>)</span><span class=w> </span><span class=p>})</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>CallListeners</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label="Expand or collapse code block" role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div><p>From the above code, we need to add a remove listener function for <code>Listener</code>.
+Since functions in Go cannot be compared, the following code is incorrect:</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>RmListener</span><span class=p>(</span><span class=nx>l</span><span class=w> </span><span class=nx>Listener</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>Listeners</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>slices</span><span class=p>.</span><span class=nf>DeleteFunc</span><span class=p>(</span><span class=nx>Listeners</span><span class=p>,</span><span class=w> </span><span class=kd>func</span><span class=p>(</span><span class=nx>x</span><span class=w> </span><span class=nx>Listener</span><span class=p>)</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=k>return</span><span class=w> </span><span class=nx>x</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=nx>l</span><span class=w> </span><span class=p>})</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// invalid operation: x == l (func can only be compared to nil)compilerUndefinedOp</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div></div></div><h4 class=heading-element id=solution-1-use-a-struct-to-add-a-comparable-tag-to-the-function><span>Solution 1: Use a struct to add a comparable tag to the function</span>
+<a href=#solution-1-use-a-struct-to-add-a-comparable-tag-to-the-function class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h4><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=s>&#34;slices&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>Tag</span><span class=w> </span><span class=kd>struct</span><span class=p>{</span><span class=w> </span><span class=o>*</span><span class=kt>int</span><span class=w> </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>Listener</span><span class=w> </span><span class=kd>func</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>taggedListener</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>tag</span><span class=w>      </span><span class=nx>Tag</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>listener</span><span class=w> </span><span class=nx>Listener</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>Listeners</span><span class=w> </span><span class=p>[]</span><span class=nx>taggedListener</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>AddListener</span><span class=p>(</span><span class=nx>l</span><span class=w> </span><span class=nx>Listener</span><span class=p>)</span><span class=w> </span><span class=nx>Tag</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>tag</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>Tag</span><span class=p>{</span><span class=nb>new</span><span class=p>(</span><span class=kt>int</span><span class=p>)}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>Listeners</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nb>append</span><span class=p>(</span><span class=nx>Listeners</span><span class=p>,</span><span class=w> </span><span class=nx>taggedListener</span><span class=p>{</span><span class=nx>tag</span><span class=p>,</span><span class=w> </span><span class=nx>l</span><span class=p>})</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>return</span><span class=w> </span><span class=nx>tag</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>CallListeners</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>for</span><span class=w> </span><span class=nx>_</span><span class=p>,</span><span class=w> </span><span class=nx>l</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=k>range</span><span class=w> </span><span class=nx>Listeners</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>l</span><span class=p>.</span><span class=nf>listener</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>RmListener</span><span class=p>(</span><span class=nx>tag</span><span class=w> </span><span class=nx>Tag</span><span class=p>)</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>Listeners</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>slices</span><span class=p>.</span><span class=nf>DeleteFunc</span><span class=p>(</span><span class=nx>Listeners</span><span class=p>,</span><span class=w> </span><span class=kd>func</span><span class=p>(</span><span class=nx>x</span><span class=w> </span><span class=nx>taggedListener</span><span class=p>)</span><span class=w> </span><span class=kt>bool</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=k>return</span><span class=w> </span><span class=nx>x</span><span class=p>.</span><span class=nx>tag</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=nx>tag</span><span class=w> </span><span class=p>})</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>HelloTag</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>AddListener</span><span class=p>(</span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;Hello&#34;</span><span class=p>)</span><span class=w> </span><span class=p>})</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>AddListener</span><span class=p>(</span><span class=kd>func</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w> </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;world&#34;</span><span class=p>)</span><span class=w> </span><span class=p>})</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>CallListeners</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// Remove Hello</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>RmListener</span><span class=p>(</span><span class=nx>HelloTag</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>CallListeners</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label="Expand or collapse code block" role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span title="Updated on 2026-01-16 01:28:43">Updated on 2026-01-16&nbsp;</span></div><div class=post-info-license><span><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a href=/en/posts/can_go_function_types_be_compared/index.md title="Read Markdown" class=link-to-markdown>Read Markdown</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="Share on X" data-sharer=twitter data-url=https://loommii.github.io/en/posts/can_go_function_types_be_compared/ data-title="Go: Can Function Types Be Compared, and Why?" data-hashtags=Go,GoTypeSystem,GoFunction,GoReflection,LanguageFeatures><i class="fa-brands fa-x-twitter" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="Share on Facebook" data-sharer=facebook data-url=https://loommii.github.io/en/posts/can_go_function_types_be_compared/ data-hashtag=Go><i class="fa-brands fa-facebook-square" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="Share on 微博" data-sharer=weibo data-url=https://loommii.github.io/en/posts/can_go_function_types_be_compared/ data-title="Go: Can Function Types Be Compared, and Why?"><i class="fa-brands fa-weibo" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fa-solid fa-tags me-1" aria-hidden=true></i><a href=/en/tags/go/ class=post-tag title="Tags - Go">Go</a><a href=/en/tags/gotypesystem/ class=post-tag title="Tags - GoTypeSystem">GoTypeSystem</a><a href=/en/tags/gofunction/ class=post-tag title="Tags - GoFunction">GoFunction</a><a href=/en/tags/goreflection/ class=post-tag title="Tags - GoReflection">GoReflection</a><a href=/en/tags/languagefeatures/ class=post-tag title="Tags - LanguageFeatures">LanguageFeatures</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/en/>Home</a></span></section></div><div class=post-nav><a href=/en/go_practise/go_daily_question_204/ class=post-nav-item rel=prev title="Go Daily Question 204"><i class="fa-solid fa-angle-left" aria-hidden=true></i>Go Daily Question 204</a><a href=/en/go_practise/go_daily_question_205/ class=post-nav-item rel=next title="Go Daily Question 205">Go Daily Question 205<i class="fa-solid fa-angle-right" aria-hidden=true></i></a></div></div><div id=comments><div id=giscus class=comment><script src=https://giscus.app/client.js data-repo=loommii/loommii.github.io data-repo-id=R_kgDOQ1YU8A data-category=Announcements data-category-id=DIC_kwDOQ1YU8M4C1aXA data-mapping=specific data-strict=0 data-term=can-go-function-types-be-compared data-theme=preferred_color_scheme data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-lang=en data-loading=lazy crossorigin=anonymous async></script></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://giscus.app>giscus</a>.</noscript></div></article><aside class=toc id=toc-auto aria-label=Contents><h2 class=toc-title>Contents&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden=true></i></h2><div class=toc-content id=toc-content-auto></div></aside><dialog id=toc-dialog aria-labelledby=toc-dialog-title role=dialog><div class=toc><h2 class=toc-title>Contents</h2><div class=toc-content id=toc-content-drawer><nav><ul><li><a href=#can-go-function-types-be-compared>Can Go Function Types Be Compared?</a><ul><li><a href=#comparison-operators>Comparison Operators</a></li><li><a href=#reflectdeepequal>reflect.DeepEqual</a></li><li><a href=#summary>Summary</a></li></ul></li><li><a href=#why>Why?</a><ul><li><a href=#hypothesis-1-compiler-inline-optimization>Hypothesis 1 (Compiler Inline Optimization)</a><ul><li><a href=#compiler-inline-optimization>Compiler Inline Optimization</a></li><li><a href=#disabling-compiler-inline-optimization>Disabling Compiler Inline Optimization</a></li></ul></li><li><a href=#hypothesis-1-summary>Hypothesis 1 Summary</a></li></ul></li><li><a href=#how-to-solve-scenarios-requiring-function-comparison>How to solve scenarios requiring function comparison?</a><ul><li><a href=#observer-pattern>Observer Pattern</a><ul><li><a href=#solution-1-use-a-struct-to-add-a-comparable-tag-to-the-function>Solution 1: Use a struct to add a comparable tag to the function</a></li></ul></li></ul></li></ul></nav></div></div></dialog></main><footer class=footer><div class=footer-container><div class="footer-line powered">Powered by <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class=hugo-icon src=/images/hugo.min.svg alt="Hugo logo"> Hugo</a> | Theme - <a href=https://github.com/hugo-fixit/FixIt target=_blank rel=external title="FixIt v0.4.5"><img class=fixit-icon src=/images/fixit.min.svg alt="FixIt logo"> FixIt</a></div><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright" aria-hidden=true></i>
+<span itemprop=copyrightYear>2019 - 2026</span><span class=author itemprop=copyrightHolder>
+<a href=/en/>loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div class=widgets><div class=fixed-buttons><div class="fixed-button back-to-top animate__faster d-none" role=button aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden=true></i></div><div id=toc-drawer-button class="fixed-button toc-drawer-button d-none" role=button aria-label=Contents><i class="fa-solid fa-bars" aria-hidden=true></i></div><div class="fixed-button view-comments d-none" role=button aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden=true></i></div></div><div id=mask></div><noscript><div class=noscript-warning>This website works best with JavaScript enabled.</div></noscript></div><link rel=stylesheet href=/lib/lightgallery/css/lightgallery-bundle.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script src=/lib/autocomplete/autocomplete.min.js defer></script><script src=/lib/fuse/fuse.min.js defer></script><script src=/lib/lightgallery/lightgallery.min.js defer></script><script src=/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js defer></script><script src=/lib/lightgallery/plugins/zoom/lg-zoom.min.js defer></script><script src=/lib/sharer/sharer.min.js async defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=/lib/cell-tooltip/cell-tooltip.umd.js defer></script><script src=/en/js/config/7d93e5f796a2d28e77c494a22238d89e.js defer></script><script src=/js/theme.min.js defer></script><script src=/js/custom.min.js defer></script></body></html>

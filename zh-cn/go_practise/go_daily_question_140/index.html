@@ -1,317 +1,113 @@
-<!DOCTYPE html>
-<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-    <meta name="robots" content="noodp" />
-    <title>Go每日一题_140 - loommii</title><meta name="author" content="loommii">
-<meta name="description" content="Go语言每日一题系列 - Go每日一题_140 解析"><meta name="keywords" content='Go接口, Go空接口, Gonil接口, Go陷阱'>
-	<meta itemprop="name" content="Go每日一题_140">
-	<meta itemprop="description" content="Go语言每日一题系列 - Go每日一题_140 解析">
-	<meta itemprop="datePublished" content="2024-12-24T23:28:20+08:00">
-	<meta itemprop="dateModified" content="2026-01-16T01:28:43+08:00">
-	<meta itemprop="wordCount" content="933">
-	<meta itemprop="image" content="https://loommii.github.io/images/logo.png">
-	<meta itemprop="keywords" content="Go接口,Go空接口,Gonil接口,Go陷阱"><meta property="og:url" content="https://loommii.github.io/zh-cn/go_practise/go_daily_question_140/">
-	<meta property="og:site_name" content="loommii">
-	<meta property="og:title" content="Go每日一题_140">
-	<meta property="og:description" content="Go语言每日一题系列 - Go每日一题_140 解析">
-	<meta property="og:locale" content="zh_CN">
-	<meta property="og:type" content="article">
-		<meta property="article:section" content="go_practise">
-		<meta property="article:published_time" content="2024-12-24T23:28:20+08:00">
-		<meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
-		<meta property="article:tag" content="Go接口">
-		<meta property="article:tag" content="Go空接口">
-		<meta property="article:tag" content="Gonil接口">
-		<meta property="article:tag" content="Go陷阱">
-		<meta property="og:image" content="https://loommii.github.io/images/logo.png">
-
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
-	<meta name="twitter:title" content="Go每日一题_140">
-	<meta name="twitter:description" content="Go语言每日一题系列 - Go每日一题_140 解析">
-<meta name="application-name" content="FixIt">
-<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://loommii.github.io/zh-cn/go_practise/go_daily_question_140/" title="Go每日一题_140 - loommii" /><link rel="prev" type="text/html" href="https://loommii.github.io/zh-cn/go_practise/go_daily_question_139/" title="Go每日一题_139" /><link rel="next" type="text/html" href="https://loommii.github.io/zh-cn/go_practise/go_daily_question_141/" title="Go每日一题_141" /><link rel="alternate" type="text/markdown" href="https://loommii.github.io/zh-cn/go_practise/go_daily_question_140/index.md" title="Go每日一题_140 - loommii"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "headline": "Go每日一题_140",
-    "inLanguage": "zh-CN",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https:\/\/loommii.github.io\/zh-cn\/go_practise\/go_daily_question_140\/"
-    },"genre": "go_practise","keywords": "Go接口, Go空接口, Gonil接口, Go陷阱","wordcount":  933 ,
-    "url": "https:\/\/loommii.github.io\/zh-cn\/go_practise\/go_daily_question_140\/","datePublished": "2024-12-24T23:28:20+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
-      "@type": "Organization",
-      "name": ""},"author": {
-        "@type": "Person",
-        "name": "loommii"
-      },"description": "Go语言每日一题系列 - Go每日一题_140 解析"
-  }
-  </script><script src="/js/head/color-scheme.min.js"></script></head>
-  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
-  <div class="header-wrapper">
-    <div class="header-title">
-      <a href="/zh-cn/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="32" width="32"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
-    <nav>
-      <ul class="menu"><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/posts/">文章</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/go_practise/">Go练习题</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/leetcode/">LeetCode题解</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/categories/">分类</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/tags/">标签</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/archives/">归档</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
-            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
-            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-              <i class="fa-solid fa-search" aria-hidden="true"></i>
-            </a>
-            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-            </a>
-            <span class="search-button search-loading" id="search-loading-desktop">
-              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-            </span>
-          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li><li class="menu-item language-switch">
-            <span role="button" aria-label="选择语言" title="选择语言"><i class="fa-solid fa-language" aria-hidden="true"></i></span>
-            <ul class="sub-menu"><li class="menu-item"><span class="text-secondary" title="简体中文">简体中文</span></li><li class="menu-item"><a href="/en/go_practise/go_daily_question_140/" class="menu-link" title="English">English</a></li></ul>
-          </li></ul>
-    </nav>
-  </div>
-</header><header class="mobile animate__faster" id="header-mobile">
-  <div class="header-container">
-    <div class="header-wrapper">
-      <div class="header-title">
-        <a href="/zh-cn/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="26" width="26"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
-      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
-      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-    <nav>
-      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
-            <div class="search mobile" id="search-mobile">
-              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
-              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                <i class="fa-solid fa-search" aria-hidden="true"></i>
-              </a>
-              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-              </a>
-              <span class="search-button search-loading" id="search-loading-mobile">
-                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-              </span>
-            </div>
-            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-              取消
-            </a>
-          </li><li class="menu-item"><a class="menu-link" href="/zh-cn/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/go_practise/">Go练习题</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/leetcode/">LeetCode题解</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/archives/">归档</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch">
-              <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i></span>
-              <select id="language-select" class="language-select" onchange="location = this.value;"><option value="/zh-cn/go_practise/go_daily_question_140/" selected disabled>简体中文</option><option value="/en/go_practise/go_daily_question_140/">English</option></select>
-            </span></li>
-      </ul>
-    </nav>
-  </div>
-</header><div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-  </div>
-  <div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-  </div><main class="fi-container"><article class="page single special">
-    <div class="header"><h1 class="single-title animate__animated animate__pulse animate__faster">Go每日一题_140</h1></div><div class="content" id="content"><p>下面这段代码输出什么？</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="s">&#34;fmt&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">i</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;nil&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="k">return</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;not nil&#34;</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div><ul>
-<li>A. nil</li>
-<li>B. not nil</li>
-<li>C. compilation error
-
-<details>
-  <summary>🔑 答案解析：</summary>
-  <p>A <a href="https://go.dev/play/p/rtD7YmJZxp1" target="_blank" rel="external nofollow noopener noreferrer">在线运行</a></p>
-<p>简单来说,接口变量有2个值,一个是类型,另一个是值。
-if 接口 时,值和类型都为零值时,接口live() == nil 判断才为T</p>
-<h2 class="heading-element" id="接口interface内部结构"><span>接口interface内部结构</span>
-  <a href="#%e6%8e%a5%e5%8f%a3interface%e5%86%85%e9%83%a8%e7%bb%93%e6%9e%84" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>interface共有2种表现形式</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// 1 空接口</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">var</span><span class="w"> </span><span class="nx">MyInterface</span><span class="w"> </span><span class="kd">interface</span><span class="p">{}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">// 2 非空接口</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">MyInterface</span><span class="w"> </span><span class="kd">interface</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nf">function</span><span class="p">()</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
-</div>
-</div><p>对应的2种底层结构</p>
-<ul>
-<li>空接口</li>
-</ul>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">eface</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">      </span><span class="c1">// 空接口</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">_type</span><span class="w"> </span><span class="o">*</span><span class="nx">_type</span><span class="w">         </span><span class="c1">// 类型信息</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">data</span><span class="w">  </span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="w"> </span><span class="c1">// 指向数据的指针(go 语言中特殊的指针类型 unsafe.Pointer 类似于 c 语言中的void*)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">_type</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">size</span><span class="w">       </span><span class="kt">uintptr</span><span class="w"> </span><span class="c1">// 类型大小</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ptrdata</span><span class="w">    </span><span class="kt">uintptr</span><span class="w"> </span><span class="c1">// 前缀持有所有指针的内存大小</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">hash</span><span class="w">       </span><span class="kt">uint32</span><span class="w">  </span><span class="c1">// 数据 hash 值</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">tflag</span><span class="w">      </span><span class="nx">tflag</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">align</span><span class="w">      </span><span class="kt">uint8</span><span class="w">   </span><span class="c1">// 对齐</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">fieldalign</span><span class="w"> </span><span class="kt">uint8</span><span class="w">   </span><span class="c1">// 嵌入结构体时的对齐</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">kind</span><span class="w">       </span><span class="kt">uint8</span><span class="w">   </span><span class="c1">// kind 有些枚举值 kind 等于 0 是无效的</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// function for comparing objects of this type</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// (ptr to object A, ptr to object B) -&gt; ==?</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">equal</span><span class="w">     </span><span class="kd">func</span><span class="p">(</span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">,</span><span class="w"> </span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)</span><span class="w"> </span><span class="kt">bool</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">gcdata</span><span class="w">    </span><span class="o">*</span><span class="kt">byte</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">str</span><span class="w">       </span><span class="nx">nameOff</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">ptrToThis</span><span class="w"> </span><span class="nx">typeOff</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div><p>_type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成 <code>_type</code>，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作
-data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.Pointer类型，相当于一个 C 的万能指针void*。</p>
-<ul>
-<li>非空接口</li>
-</ul>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="cp">/// 非空接口</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">iface</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">tab</span><span class="w">  </span><span class="o">*</span><span class="nx">itab</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">data</span><span class="w"> </span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">itab</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">inter</span><span class="w">  </span><span class="o">*</span><span class="nx">interfacetype</span><span class="w">   </span><span class="c1">// 接口自身的元信息</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">_type</span><span class="w">  </span><span class="o">*</span><span class="nx">_type</span><span class="w">           </span><span class="c1">// 具体类型的元信息</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">hash</span><span class="w">   </span><span class="kt">int32</span><span class="w">            </span><span class="c1">// _type 里也有一个同样的 hash，此处多放一个是为了方便运行接口断言</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">_</span><span class="w">      </span><span class="p">[</span><span class="mi">4</span><span class="p">]</span><span class="kt">byte</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">  </span><span class="nx">fun</span><span class="w">    </span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="kt">uintptr</span><span class="w">       </span><span class="c1">// 函数指针，指向具体类型所实现的方法</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">// itab 里面包含了 interface 的一些关键信息，比如 method 的具体实现。</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div><ol>
-<li>interface type包含了一些关于 interface 本身的信息，比如package path，包含的method。这里的interfacetype 是定义 interface 的一种抽象表示。</li>
-<li>_type表示具体化的类型，与 eface 的_type 类型相同。</li>
-<li>ash字段其实是对_type.hash的拷贝，它会在 interface 的实例化时，用于快速判断目标类型和接口中的类型是否一致。另，Go 的 interface 的 Duck-typing 机制也是依赖这个字段来实现。</li>
-<li>fun字段其实是一个动态大小的数组，虽然声明时是固定大小为 1，但在使用时会直接通过 fun 指针获取其中的数据，并且不会检查数组的边界，所以该数组中保存的元素数量是不确定的。</li>
-</ol>
-<h2 class="heading-element" id="回到本题"><span>回到本题</span>
-  <a href="#%e5%9b%9e%e5%88%b0%e6%9c%ac%e9%a2%98" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>i 属于空接口，类型信息和指向数据的指针都为零值(nil)
-此时 i == nil 为true</p>
-</details></li>
-</ul>
-</div><div id="comments"><div id="giscus" class="comment">
-            <script
-                src="https://giscus.app/client.js"
-                data-repo="loommii/loommii.github.io"
-                data-repo-id="R_kgDOQ1YU8A"
-                data-category="Announcements"
-                data-category-id="DIC_kwDOQ1YU8M4C1aXA"
-                data-mapping="specific"
-                data-strict="0"
-                data-term="go-daily-question-140"
-                data-theme="preferred_color_scheme"
-                data-reactions-enabled="1"
-                data-emit-metadata="0"
-                data-input-position="bottom"
-                data-lang="zh-CN"
-                data-loading="lazy"
-                crossorigin="anonymous"
-                async
-            ></script>
-        </div>
-        <noscript>
-            Please enable JavaScript to view the comments powered by <a href="https://giscus.app">giscus</a>.
-        </noscript></div></article></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
-        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
-            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
-              <a href="/zh-cn/">loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
-  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="查看评论"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
-    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
-  </noscript>
-</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/zh-cn/js/config/9a09de241751c82dc0a81bebc6e738b2.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
-</html>
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><meta name=robots content="noodp"><title>Go每日一题_140 - loommii</title><meta name=author content="loommii"><meta name=description content="Go语言每日一题系列 - Go每日一题_140 解析"><meta name=keywords content='Go接口,Go空接口,Gonil接口,Go陷阱'><meta itemprop=name content="Go每日一题_140"><meta itemprop=description content="Go语言每日一题系列 - Go每日一题_140 解析"><meta itemprop=datePublished content="2024-12-24T23:28:20+08:00"><meta itemprop=dateModified content="2026-01-16T01:28:43+08:00"><meta itemprop=wordCount content="933"><meta itemprop=image content="https://loommii.github.io/images/logo.png"><meta itemprop=keywords content="Go接口,Go空接口,Gonil接口,Go陷阱"><meta property="og:url" content="https://loommii.github.io/zh-cn/go_practise/go_daily_question_140/"><meta property="og:site_name" content="loommii"><meta property="og:title" content="Go每日一题_140"><meta property="og:description" content="Go语言每日一题系列 - Go每日一题_140 解析"><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="article:section" content="go_practise"><meta property="article:published_time" content="2024-12-24T23:28:20+08:00"><meta property="article:modified_time" content="2026-01-16T01:28:43+08:00"><meta property="article:tag" content="Go接口"><meta property="article:tag" content="Go空接口"><meta property="article:tag" content="Gonil接口"><meta property="article:tag" content="Go陷阱"><meta property="og:image" content="https://loommii.github.io/images/logo.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://loommii.github.io/images/logo.png"><meta name=twitter:title content="Go每日一题_140"><meta name=twitter:description content="Go语言每日一题系列 - Go每日一题_140 解析"><meta name=application-name content="FixIt"><meta name=apple-mobile-web-app-title content="FixIt"><meta name=theme-color data-light=#f8f8f8 data-dark=#252627 content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical type=text/html href=https://loommii.github.io/zh-cn/go_practise/go_daily_question_140/ title="Go每日一题_140 - loommii"><link rel=prev type=text/html href=https://loommii.github.io/zh-cn/go_practise/go_daily_question_139/ title=Go每日一题_139><link rel=next type=text/html href=https://loommii.github.io/zh-cn/go_practise/go_daily_question_141/ title=Go每日一题_141><link rel=alternate type=text/markdown href=https://loommii.github.io/zh-cn/go_practise/go_daily_question_140/index.md title="Go每日一题_140 - loommii"><link rel=stylesheet href=/css/config.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Go每日一题_140","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/loommii.github.io\/zh-cn\/go_practise\/go_daily_question_140\/"},"genre":"go_practise","keywords":"Go接口, Go空接口, Gonil接口, Go陷阱","wordcount":933,"url":"https:\/\/loommii.github.io\/zh-cn\/go_practise\/go_daily_question_140\/","datePublished":"2024-12-24T23:28:20+08:00","dateModified":"2026-01-16T01:28:43+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"loommii"},"description":"Go语言每日一题系列 - Go每日一题_140 解析"}</script><script src=/js/head/color-scheme.min.js></script></head><body data-instant-intensity=viewport data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/zh-cn/ title=loommii><img class=logo src=/images/logo.png alt=loommii height=32 width=32><span class=header-title-text>loommii</span></a><span class=header-subtitle></span></div><nav><ul class=menu><li class=menu-item><a class=menu-link href=/zh-cn/posts/>文章</a></li><li class=menu-item><a class=menu-link href=/zh-cn/go_practise/>Go练习题</a></li><li class=menu-item><a class=menu-link href=/zh-cn/leetcode/>LeetCode题解</a></li><li class=menu-item><a class=menu-link href=/zh-cn/categories/>分类</a></li><li class=menu-item><a class=menu-link href=/zh-cn/tags/>标签</a></li><li class=menu-item><a class=menu-link href=/zh-cn/archives/>归档</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容…… id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-desktop><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></li><li class="menu-item theme-switch" role=button aria-label=切换主题 title=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></li><li class="menu-item language-switch"><span role=button aria-label=选择语言 title=选择语言><i class="fa-solid fa-language" aria-hidden=true></i></span><ul class=sub-menu><li class=menu-item><span class=text-secondary title=简体中文>简体中文</span></li><li class=menu-item><a href=/en/go_practise/go_daily_question_140/ class=menu-link title=English>English</a></li></ul></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/zh-cn/ title=loommii><img class=logo src=/images/logo.png alt=loommii height=26 width=26><span class=header-title-text>loommii</span></a><span class=header-subtitle></span></div><div class=theme-switch role=button aria-label=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></div><div class=menu-toggle id=menu-toggle-mobile role=button aria-labelledby=menu-mobile><span></span><span></span><span></span></div></div><nav><ul class=menu id=menu-mobile><li class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容…… id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-mobile><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></li><li class=menu-item><a class=menu-link href=/zh-cn/posts/>文章</a></li><li class=menu-item><a class=menu-link href=/zh-cn/go_practise/>Go练习题</a></li><li class=menu-item><a class=menu-link href=/zh-cn/leetcode/>LeetCode题解</a></li><li class=menu-item><a class=menu-link href=/zh-cn/categories/>分类</a></li><li class=menu-item><a class=menu-link href=/zh-cn/tags/>标签</a></li><li class=menu-item><a class=menu-link href=/zh-cn/archives/>归档</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch"><span role=button aria-label=选择语言 title=选择语言>简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden=true></i></span>
+<select id=language-select class=language-select onchange="location=this.value"><option value=/zh-cn/go_practise/go_daily_question_140/ selected disabled>简体中文</option><option value=/en/go_practise/go_daily_question_140/>English</option></select></span></li></ul></nav></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=fi-container><article class="page single special"><div class=header><h1 class="single-title animate__animated animate__pulse animate__faster">Go每日一题_140</h1></div><div class=content id=content><p>下面这段代码输出什么？</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=kd>var</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=kd>interface</span><span class=p>{}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>i</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;nil&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=k>return</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Println</span><span class=p>(</span><span class=s>&#34;not nil&#34;</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label=展开或折叠代码块 role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div><ul><li>A. nil</li><li>B. not nil</li><li>C. compilation error<details><summary>🔑 答案解析：</summary><p>A <a href=https://go.dev/play/p/rtD7YmJZxp1 target=_blank rel="external nofollow noopener noreferrer">在线运行</a></p><p>简单来说,接口变量有2个值,一个是类型,另一个是值。
+if 接口 时,值和类型都为零值时,接口live() == nil 判断才为T</p><h2 class=heading-element id=接口interface内部结构><span>接口interface内部结构</span>
+<a href=#%e6%8e%a5%e5%8f%a3interface%e5%86%85%e9%83%a8%e7%bb%93%e6%9e%84 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>interface共有2种表现形式</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// 1 空接口</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>MyInterface</span><span class=w> </span><span class=kd>interface</span><span class=p>{}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// 2 非空接口</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>MyInterface</span><span class=w> </span><span class=kd>interface</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nf>function</span><span class=p>()</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div></div></div><p>对应的2种底层结构</p><ul><li>空接口</li></ul><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>eface</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>      </span><span class=c1>// 空接口</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>_type</span><span class=w> </span><span class=o>*</span><span class=nx>_type</span><span class=w>         </span><span class=c1>// 类型信息</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>data</span><span class=w>  </span><span class=nx>unsafe</span><span class=p>.</span><span class=nx>Pointer</span><span class=w> </span><span class=c1>// 指向数据的指针(go 语言中特殊的指针类型 unsafe.Pointer 类似于 c 语言中的void*)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>_type</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>size</span><span class=w>       </span><span class=kt>uintptr</span><span class=w> </span><span class=c1>// 类型大小</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>ptrdata</span><span class=w>    </span><span class=kt>uintptr</span><span class=w> </span><span class=c1>// 前缀持有所有指针的内存大小</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>hash</span><span class=w>       </span><span class=kt>uint32</span><span class=w>  </span><span class=c1>// 数据 hash 值</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>tflag</span><span class=w>      </span><span class=nx>tflag</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>align</span><span class=w>      </span><span class=kt>uint8</span><span class=w>   </span><span class=c1>// 对齐</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>fieldalign</span><span class=w> </span><span class=kt>uint8</span><span class=w>   </span><span class=c1>// 嵌入结构体时的对齐</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>kind</span><span class=w>       </span><span class=kt>uint8</span><span class=w>   </span><span class=c1>// kind 有些枚举值 kind 等于 0 是无效的</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// function for comparing objects of this type</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// (ptr to object A, ptr to object B) -&gt; ==?</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>equal</span><span class=w>     </span><span class=kd>func</span><span class=p>(</span><span class=nx>unsafe</span><span class=p>.</span><span class=nx>Pointer</span><span class=p>,</span><span class=w> </span><span class=nx>unsafe</span><span class=p>.</span><span class=nx>Pointer</span><span class=p>)</span><span class=w> </span><span class=kt>bool</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>gcdata</span><span class=w>    </span><span class=o>*</span><span class=kt>byte</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>str</span><span class=w>       </span><span class=nx>nameOff</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>ptrToThis</span><span class=w> </span><span class=nx>typeOff</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label=展开或折叠代码块 role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div><p>_type 属性：是 Go 语言中所有类型的公共描述，Go 语言几乎所有的数据结构都可以抽象成 <code>_type</code>，是所有类型的公共描述，_type 负责决定 data 应该如何解释和操作
+data 属性： 表示指向具体的实例数据的指针，它是一个unsafe.Pointer类型，相当于一个 C 的万能指针void*。</p><ul><li>非空接口</li></ul><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=cp>/// 非空接口</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>iface</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>tab</span><span class=w>  </span><span class=o>*</span><span class=nx>itab</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>data</span><span class=w> </span><span class=nx>unsafe</span><span class=p>.</span><span class=nx>Pointer</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>itab</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>inter</span><span class=w>  </span><span class=o>*</span><span class=nx>interfacetype</span><span class=w>   </span><span class=c1>// 接口自身的元信息</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>_type</span><span class=w>  </span><span class=o>*</span><span class=nx>_type</span><span class=w>           </span><span class=c1>// 具体类型的元信息</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>hash</span><span class=w>   </span><span class=kt>int32</span><span class=w>            </span><span class=c1>// _type 里也有一个同样的 hash，此处多放一个是为了方便运行接口断言</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>_</span><span class=w>      </span><span class=p>[</span><span class=mi>4</span><span class=p>]</span><span class=kt>byte</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>  </span><span class=nx>fun</span><span class=w>    </span><span class=p>[</span><span class=mi>1</span><span class=p>]</span><span class=kt>uintptr</span><span class=w>       </span><span class=c1>// 函数指针，指向具体类型所实现的方法</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// itab 里面包含了 interface 的一些关键信息，比如 method 的具体实现。</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label=展开或折叠代码块 role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div><ol><li>interface type包含了一些关于 interface 本身的信息，比如package path，包含的method。这里的interfacetype 是定义 interface 的一种抽象表示。</li><li>_type表示具体化的类型，与 eface 的_type 类型相同。</li><li>ash字段其实是对_type.hash的拷贝，它会在 interface 的实例化时，用于快速判断目标类型和接口中的类型是否一致。另，Go 的 interface 的 Duck-typing 机制也是依赖这个字段来实现。</li><li>fun字段其实是一个动态大小的数组，虽然声明时是固定大小为 1，但在使用时会直接通过 fun 指针获取其中的数据，并且不会检查数组的边界，所以该数组中保存的元素数量是不确定的。</li></ol><h2 class=heading-element id=回到本题><span>回到本题</span>
+<a href=#%e5%9b%9e%e5%88%b0%e6%9c%ac%e9%a2%98 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>i 属于空接口，类型信息和指向数据的指针都为零值(nil)
+此时 i == nil 为true</p></details></li></ul></div><div id=comments><div id=giscus class=comment><script src=https://giscus.app/client.js data-repo=loommii/loommii.github.io data-repo-id=R_kgDOQ1YU8A data-category=Announcements data-category-id=DIC_kwDOQ1YU8M4C1aXA data-mapping=specific data-strict=0 data-term=go-daily-question-140 data-theme=preferred_color_scheme data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-lang=zh-CN data-loading=lazy crossorigin=anonymous async></script></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://giscus.app>giscus</a>.</noscript></div></article></main><footer class=footer><div class=footer-container><div class="footer-line powered">由 <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class=hugo-icon src=/images/hugo.min.svg alt="Hugo logo"> Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/hugo-fixit/FixIt target=_blank rel=external title="FixIt v0.4.5"><img class=fixit-icon src=/images/fixit.min.svg alt="FixIt logo"> FixIt</a></div><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright" aria-hidden=true></i>
+<span itemprop=copyrightYear>2019 - 2026</span><span class=author itemprop=copyrightHolder>
+<a href=/zh-cn/>loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div class=widgets><div class=fixed-buttons><div class="fixed-button back-to-top animate__faster d-none" role=button aria-label=回到顶部><i class="fa-solid fa-arrow-up" aria-hidden=true></i></div><div class="fixed-button view-comments d-none" role=button aria-label=查看评论><i class="fa-solid fa-comment" aria-hidden=true></i></div></div><div id=mask></div><noscript><div class=noscript-warning>该网站在启用 JavaScript 的情况下效果最佳。</div></noscript></div><link rel=stylesheet href=/lib/lightgallery/css/lightgallery-bundle.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script src=/lib/autocomplete/autocomplete.min.js defer></script><script src=/lib/fuse/fuse.min.js defer></script><script src=/lib/lightgallery/lightgallery.min.js defer></script><script src=/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js defer></script><script src=/lib/lightgallery/plugins/zoom/lg-zoom.min.js defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=/lib/cell-tooltip/cell-tooltip.umd.js defer></script><script src=/zh-cn/js/config/9a09de241751c82dc0a81bebc6e738b2.js defer></script><script src=/js/theme.min.js defer></script><script src=/js/custom.min.js defer></script></body></html>

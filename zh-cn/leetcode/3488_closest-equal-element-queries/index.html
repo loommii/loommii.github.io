@@ -1,624 +1,289 @@
-<!DOCTYPE html>
-<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-    <meta name="robots" content="noodp" />
-    <title>3488_距离最小相等元素查询 - loommii</title><meta name="author" content="loommii">
-<meta name="description" content="LeetCode题解 - 3488_距离最小相等元素查询 解析与实现"><meta name="keywords" content='LeetCode, Go, 题解, 哈希表, 二分查找'>
-	<meta itemprop="name" content="3488_距离最小相等元素查询">
-	<meta itemprop="description" content="LeetCode题解 - 3488_距离最小相等元素查询 解析与实现">
-	<meta itemprop="datePublished" content="2026-04-16T12:02:31+08:00">
-	<meta itemprop="dateModified" content="2026-04-16T12:02:31+08:00">
-	<meta itemprop="wordCount" content="1870">
-	<meta itemprop="image" content="https://loommii.github.io/images/logo.png">
-	<meta itemprop="keywords" content="LeetCode,Go,题解,哈希表,二分查找"><meta property="og:url" content="https://loommii.github.io/zh-cn/leetcode/3488_closest-equal-element-queries/">
-	<meta property="og:site_name" content="loommii">
-	<meta property="og:title" content="3488_距离最小相等元素查询">
-	<meta property="og:description" content="LeetCode题解 - 3488_距离最小相等元素查询 解析与实现">
-	<meta property="og:locale" content="zh_CN">
-	<meta property="og:type" content="article">
-		<meta property="article:section" content="leetcode">
-		<meta property="article:published_time" content="2026-04-16T12:02:31+08:00">
-		<meta property="article:modified_time" content="2026-04-16T12:02:31+08:00">
-		<meta property="article:tag" content="LeetCode">
-		<meta property="article:tag" content="Go">
-		<meta property="article:tag" content="题解">
-		<meta property="article:tag" content="哈希表">
-		<meta property="article:tag" content="二分查找">
-		<meta property="og:image" content="https://loommii.github.io/images/logo.png">
-
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
-	<meta name="twitter:title" content="3488_距离最小相等元素查询">
-	<meta name="twitter:description" content="LeetCode题解 - 3488_距离最小相等元素查询 解析与实现">
-<meta name="application-name" content="FixIt">
-<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://loommii.github.io/zh-cn/leetcode/3488_closest-equal-element-queries/" title="3488_距离最小相等元素查询 - loommii" /><link rel="prev" type="text/html" href="https://loommii.github.io/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/" title="Arduino IDE 安装 ESP32 开发板：使用国内镜像加速" /><link rel="next" type="text/html" href="https://loommii.github.io/zh-cn/leetcode/2515_shortest_distance_to_a_target_string/" title="2515_到目标字符串的最短距离" /><link rel="alternate" type="text/markdown" href="https://loommii.github.io/zh-cn/leetcode/3488_closest-equal-element-queries/index.md" title="3488_距离最小相等元素查询 - loommii"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "headline": "3488_距离最小相等元素查询",
-    "inLanguage": "zh-CN",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https:\/\/loommii.github.io\/zh-cn\/leetcode\/3488_closest-equal-element-queries\/"
-    },"genre": "leetcode","keywords": "LeetCode, Go, 题解, 哈希表, 二分查找","wordcount":  1870 ,
-    "url": "https:\/\/loommii.github.io\/zh-cn\/leetcode\/3488_closest-equal-element-queries\/","datePublished": "2026-04-16T12:02:31+08:00","dateModified": "2026-04-16T12:02:31+08:00","publisher": {
-      "@type": "Organization",
-      "name": ""},"author": {
-        "@type": "Person",
-        "name": "loommii"
-      },"description": "LeetCode题解 - 3488_距离最小相等元素查询 解析与实现"
-  }
-  </script><script src="/js/head/color-scheme.min.js"></script></head>
-  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
-  <div class="header-wrapper">
-    <div class="header-title">
-      <a href="/zh-cn/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="32" width="32"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
-    <nav>
-      <ul class="menu"><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/posts/">文章</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/go_practise/">Go练习题</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/leetcode/">LeetCode题解</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/categories/">分类</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/tags/">标签</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/archives/">归档</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
-            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
-            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-              <i class="fa-solid fa-search" aria-hidden="true"></i>
-            </a>
-            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-            </a>
-            <span class="search-button search-loading" id="search-loading-desktop">
-              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-            </span>
-          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li><li class="menu-item language-switch">
-            <span role="button" aria-label="选择语言" title="选择语言"><i class="fa-solid fa-language" aria-hidden="true"></i></span>
-            <ul class="sub-menu"><li class="menu-item"><span class="text-secondary" title="简体中文">简体中文</span></li><li class="menu-item"><a href="/en/leetcode/3488_closest-equal-element-queries/" class="menu-link" title="English">English</a></li></ul>
-          </li></ul>
-    </nav>
-  </div>
-</header><header class="mobile animate__faster" id="header-mobile">
-  <div class="header-container">
-    <div class="header-wrapper">
-      <div class="header-title">
-        <a href="/zh-cn/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="26" width="26"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
-      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
-      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-    <nav>
-      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
-            <div class="search mobile" id="search-mobile">
-              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
-              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                <i class="fa-solid fa-search" aria-hidden="true"></i>
-              </a>
-              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-              </a>
-              <span class="search-button search-loading" id="search-loading-mobile">
-                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-              </span>
-            </div>
-            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-              取消
-            </a>
-          </li><li class="menu-item"><a class="menu-link" href="/zh-cn/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/go_practise/">Go练习题</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/leetcode/">LeetCode题解</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/archives/">归档</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch">
-              <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i></span>
-              <select id="language-select" class="language-select" onchange="location = this.value;"><option value="/zh-cn/leetcode/3488_closest-equal-element-queries/" selected disabled>简体中文</option><option value="/en/leetcode/3488_closest-equal-element-queries/">English</option></select>
-            </span></li>
-      </ul>
-    </nav>
-  </div>
-</header><div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-  </div>
-  <div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-  </div><main class="fi-container"><article class="page single special">
-    <div class="header"><h1 class="single-title animate__animated animate__pulse animate__faster">3488_距离最小相等元素查询</h1></div><div class="content" id="content"><h1 class="heading-element" id="leetcode-3488-距离最小相等元素查询"><span>LeetCode 3488. 距离最小相等元素查询</span>
-  <a href="#leetcode-3488-%e8%b7%9d%e7%a6%bb%e6%9c%80%e5%b0%8f%e7%9b%b8%e7%ad%89%e5%85%83%e7%b4%a0%e6%9f%a5%e8%af%a2" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h1><h2 class="heading-element" id="-题目描述"><span>📝 题目描述</span>
-  <a href="#-%e9%a2%98%e7%9b%ae%e6%8f%8f%e8%bf%b0" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>给你一个 <strong>环形</strong> 数组 <code>nums</code> 和一个数组 <code>queries</code> 。</p>
-<p>对于每个查询 <code>i</code> ，你需要找到以下内容：</p>
-<ul>
-<li>数组 <code>nums</code> 中下标 <code>queries[i]</code> 处的元素与 <strong>任意</strong> 其他下标 <code>j</code>（满足 <code>nums[j] == nums[queries[i]]</code>）之间的 <strong>最小</strong> 距离。如果不存在这样的下标 <code>j</code>，则该查询的结果为 <code>-1</code> 。</li>
-</ul>
-<p>返回一个数组 <code>answer</code>，其大小与 <code>queries</code> 相同，其中 <code>answer[i]</code> 表示查询 <code>i</code> 的结果。</p>
-<hr>
-<h2 class="heading-element" id="-示例"><span>📥 示例</span>
-  <a href="#-%e7%a4%ba%e4%be%8b" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><h3 class="heading-element" id="示例-1"><span>示例 1</span>
-  <a href="#%e7%a4%ba%e4%be%8b-1" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p><strong>输入：</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">nums = [1,3,1,4,1,3,2], queries = [0,3,5]</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>输出：</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[2,-1,3]</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>解释：</strong></p>
-<ul>
-<li>查询 0：下标 <code>queries[0] = 0</code> 处的元素为 <code>nums[0] = 1</code> 。最近的相同值下标为 2，距离为 2。</li>
-<li>查询 1：下标 <code>queries[1] = 3</code> 处的元素为 <code>nums[3] = 4</code> 。不存在其他包含值 4 的下标，因此结果为 -1。</li>
-<li>查询 2：下标 <code>queries[2] = 5</code> 处的元素为 <code>nums[5] = 3</code> 。最近的相同值下标为 1，距离为 3（沿着循环路径：<code>5 -&gt; 6 -&gt; 0 -&gt; 1</code>）。</li>
-</ul>
-<h3 class="heading-element" id="示例-2"><span>示例 2</span>
-  <a href="#%e7%a4%ba%e4%be%8b-2" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p><strong>输入：</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">nums = [1,2,3,4], queries = [0,1,2,3]</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>输出：</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">[-1,-1,-1,-1]</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>解释：</strong>
-数组 <code>nums</code> 中的每个值都是唯一的，因此没有下标与查询的元素值相同。所有查询的结果均为 -1。</p>
-<hr>
-<h2 class="heading-element" id="-提示"><span>📏 提示</span>
-  <a href="#-%e6%8f%90%e7%a4%ba" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><ul>
-<li><code>1 &lt;= queries.length &lt;= nums.length &lt;= 10^5</code></li>
-<li><code>1 &lt;= nums[i] &lt;= 10^6</code></li>
-<li><code>0 &lt;= queries[i] &lt; nums.length</code></li>
-</ul>
-<hr>
-<h2 class="heading-element" id="-go-模板"><span>💻 Go 模板</span>
-  <a href="#-go-%e6%a8%a1%e6%9d%bf" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="s">&#34;sort&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">solveQueries</span><span class="p">(</span><span class="nx">nums</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">queries</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">pos</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">][]</span><span class="kt">int</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">nums</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">pos</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">pos</span><span class="p">[</span><span class="nx">x</span><span class="p">],</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">ans</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">queries</span><span class="p">))</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">queries</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">nums</span><span class="p">[</span><span class="nx">q</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">indices</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pos</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="nx">ans</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="k">continue</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// 在所有相同值的下标中，找到当前查询下标 q 的位置</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sort</span><span class="p">.</span><span class="nf">SearchInts</span><span class="p">(</span><span class="nx">indices</span><span class="p">,</span><span class="w"> </span><span class="nx">q</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// 找到 q 在环形下标列表中的前一个邻居</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">prevNeighbor</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">indices</span><span class="p">[(</span><span class="nx">p</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">))</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">)]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">distPrev</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">abs</span><span class="p">(</span><span class="nx">q</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">prevNeighbor</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// 找到 q 在环形下标列表中的后一个邻居</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">nextNeighbor</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">indices</span><span class="p">[(</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">)]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">distNext</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">abs</span><span class="p">(</span><span class="nx">q</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">nextNeighbor</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// 计算两个方向的环形距离，并取最小值</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">minDist</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nx">distPrev</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">distPrev</span><span class="p">),</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="nx">distNext</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">distNext</span><span class="p">))</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">ans</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">minDist</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">ans</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">abs</span><span class="p">(</span><span class="nx">x</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="nx">x</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">x</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">a</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">b</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div><hr>
-<h2 class="heading-element" id="-测试用例"><span>🧪 测试用例</span>
-  <a href="#-%e6%b5%8b%e8%af%95%e7%94%a8%e4%be%8b" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>nums</th>
-            <th>queries</th>
-            <th>期望输出</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td><code>[1,3,1,4,1,3,2]</code></td>
-            <td><code>[0,3,5]</code></td>
-            <td><code>[2,-1,3]</code></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td><code>[1,2,3,4]</code></td>
-            <td><code>[0,1,2,3]</code></td>
-            <td><code>[-1,-1,-1,-1]</code></td>
-        </tr>
-    </tbody>
-  </table>
-</div><hr>
-
-<details>
-  <summary>🔑 答案解析： 👈点击</summary>
-  <h3 class="heading-element" id="算法说明"><span>算法说明</span>
-  <a href="#%e7%ae%97%e6%b3%95%e8%af%b4%e6%98%8e" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>这个问题的核心是在环形数组中为多个查询高效地找到具有相同值的最近元素的距离。一个高效的解法是结合<strong>哈希表预处理</strong>和<strong>二分查找</strong>。</p>
-<ol>
-<li>
-<p><strong>预处理</strong>：我们首先遍历一次 <code>nums</code> 数组，使用一个哈希表 <code>pos</code> 来存储每个数字出现的所有下标。<code>pos</code> 的键是 <code>nums</code> 中的数字，值是该数字出现的所有下标组成的列表。由于我们是按顺序遍历 <code>nums</code> 的，所以每个下标列表自然就是<strong>有序的</strong>。</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-fallback"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span><span class="lnt">7
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-fallback" data-lang="fallback"><span class="line"><span class="cl">// 例如: nums = [1,3,1,4,1,3,2]
-</span></span><span class="line"><span class="cl">// pos = {
-</span></span><span class="line"><span class="cl">//   1: [0, 2, 4],
-</span></span><span class="line"><span class="cl">//   3: [1, 5],
-</span></span><span class="line"><span class="cl">//   4: [3],
-</span></span><span class="line"><span class="cl">//   2: [6]
-</span></span><span class="line"><span class="cl">// }</span></span></code></pre></td></tr></table></div>
-</div>
-</div></li>
-<li>
-<p><strong>处理查询</strong>：遍历 <code>queries</code> 中的每一个查询下标 <code>q</code>。</p>
-<ul>
-<li>获取该下标对应的值 <code>val = nums[q]</code>。</li>
-<li>从哈希表 <code>pos</code> 中取出 <code>val</code> 对应的所有下标列表 <code>indices</code>。</li>
-<li>如果 <code>indices</code> 的长度小于等于 1，意味着 <code>val</code> 在 <code>nums</code> 中只出现了一次或零次，不存在“其他”相同元素，因此当前查询结果为 <code>-1</code>。</li>
-</ul>
-</li>
-<li>
-<p><strong>定位与查找</strong>：</p>
-<ul>
-<li>在有序的 <code>indices</code> 列表中，使用<strong>二分查找</strong>（<code>sort.SearchInts</code>）来定位 <code>q</code> 自身的位置。假设 <code>q</code> 在 <code>indices</code> 中的下标为 <code>p</code>。</li>
-<li><code>q</code> 的最近邻居只可能是在 <code>indices</code> 列表中与它相邻的两个元素：<code>indices[p-1]</code> (前驱) 和 <code>indices[p+1]</code> (后继)。</li>
-<li>因为 <code>indices</code> 列表本身也代表了一个环（第一个元素是最后一个元素的后继），所以我们可以通过取模运算 <code>(p-1+len)%len</code> 和 <code>(p+1)%len</code> 来轻松找到环形邻居。</li>
-</ul>
-</li>
-<li>
-<p><strong>计算最短距离</strong>：</p>
-<ul>
-<li>对于 <code>q</code> 和它的两个邻居（<code>prevNeighbor</code>, <code>nextNeighbor</code>），我们需要计算它们之间的<strong>环形距离</strong>。</li>
-<li>在一个长度为 <code>n</code> 的环中，两个下标 <code>i</code> 和 <code>j</code> 之间的距离是 <code>min(|i-j|, n - |i-j|)</code>。这代表了顺时针和逆时针两个方向中较短的路径。</li>
-<li>我们分别计算 <code>q</code> 到 <code>prevNeighbor</code> 和 <code>q</code> 到 <code>nextNeighbor</code> 的环形距离，然后取这两者中更小的一个，即为最终答案。</li>
-</ul>
-</li>
-</ol>
-<p>通过这种“预处理+查询”的模式，我们可以高效地响应每一个查询，而不需要每次都重新遍历整个 <code>nums</code> 数组。</p>
-<h3 class="heading-element" id="示例-1-演练-query--5"><span>示例 1 演练 (<code>query = 5</code>)</span>
-  <a href="#%e7%a4%ba%e4%be%8b-1-%e6%bc%94%e7%bb%83-query--5" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><ul>
-<li><strong>输入</strong>: <code>nums = [1,3,1,4,1,3,2]</code>, <code>queries = [0,3,5]</code>, <code>n=7</code>。</li>
-<li><strong>预处理</strong>: <code>pos[3] = [1, 5]</code>。</li>
-<li><strong>查询</strong>: <code>q = 5</code>，对应的值是 <code>nums[5] = 3</code>。</li>
-<li><strong>定位</strong>: <code>indices = [1, 5]</code>。<code>q=5</code> 在 <code>indices</code> 中的位置 <code>p=1</code>。</li>
-<li><strong>找邻居</strong>:
-<ul>
-<li>前驱: <code>indices[(1-1+2)%2]</code> = <code>indices[0]</code> = <code>1</code>。</li>
-<li>后继: <code>indices[(1+1)%2]</code> = <code>indices[0]</code> = <code>1</code>。</li>
-<li>两个邻居都是 <code>1</code>。</li>
-</ul>
-</li>
-<li><strong>算距离</strong>:
-<ul>
-<li>计算 <code>q=5</code> 和邻居 <code>1</code> 之间的距离。</li>
-<li>直接距离: <code>|5 - 1| = 4</code>。</li>
-<li>环形绕路距离: <code>n - |5 - 1| = 7 - 4 = 3</code>。</li>
-<li>最短距离为 <code>min(4, 3) = 3</code>。</li>
-</ul>
-</li>
-<li><strong>结果</strong>: <code>query=5</code> 的答案是 <code>3</code>。</li>
-</ul>
-<hr>
-<h2 class="heading-element" id="-完整可运行代码go"><span>🚀 完整可运行代码（Go）</span>
-  <a href="#-%e5%ae%8c%e6%95%b4%e5%8f%af%e8%bf%90%e8%a1%8c%e4%bb%a3%e7%a0%81go" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><blockquote>
-<p>复制以下代码到本地或在线 Go 环境中，直接运行即可验证结果。</p>
-</blockquote>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span><span class="lnt">42
-</span><span class="lnt">43
-</span><span class="lnt">44
-</span><span class="lnt">45
-</span><span class="lnt">46
-</span><span class="lnt">47
-</span><span class="lnt">48
-</span><span class="lnt">49
-</span><span class="lnt">50
-</span><span class="lnt">51
-</span><span class="lnt">52
-</span><span class="lnt">53
-</span><span class="lnt">54
-</span><span class="lnt">55
-</span><span class="lnt">56
-</span><span class="lnt">57
-</span><span class="lnt">58
-</span><span class="lnt">59
-</span><span class="lnt">60
-</span><span class="lnt">61
-</span><span class="lnt">62
-</span><span class="lnt">63
-</span><span class="lnt">64
-</span><span class="lnt">65
-</span><span class="lnt">66
-</span><span class="lnt">67
-</span><span class="lnt">68
-</span><span class="lnt">69
-</span><span class="lnt">70
-</span><span class="lnt">71
-</span><span class="lnt">72
-</span><span class="lnt">73
-</span><span class="lnt">74
-</span><span class="lnt">75
-</span><span class="lnt">76
-</span><span class="lnt">77
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="s">&#34;fmt&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="s">&#34;reflect&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="s">&#34;sort&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// 测试用例</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">testCases</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">[]</span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">nums</span><span class="w">     </span><span class="p">[]</span><span class="kt">int</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">queries</span><span class="w">  </span><span class="p">[]</span><span class="kt">int</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">expected</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="p">},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="mi">3</span><span class="p">},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="p">[]</span><span class="kt">int</span><span class="p">{</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">},</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">tc</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">testCases</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">solveQueries</span><span class="p">(</span><span class="nx">tc</span><span class="p">.</span><span class="nx">nums</span><span class="p">,</span><span class="w"> </span><span class="nx">tc</span><span class="p">.</span><span class="nx">queries</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;测试用例 %d: 期望输出 = %v, 实际输出 = %v, 通过 = %t
-</span></span></span><span class="line"><span class="cl"><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nx">tc</span><span class="p">.</span><span class="nx">expected</span><span class="p">,</span><span class="w"> </span><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">reflect</span><span class="p">.</span><span class="nf">DeepEqual</span><span class="p">(</span><span class="nx">result</span><span class="p">,</span><span class="w"> </span><span class="nx">tc</span><span class="p">.</span><span class="nx">expected</span><span class="p">))</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">solveQueries</span><span class="p">(</span><span class="nx">nums</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nx">queries</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="p">[]</span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">nums</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">pos</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">(</span><span class="kd">map</span><span class="p">[</span><span class="kt">int</span><span class="p">][]</span><span class="kt">int</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">nums</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">pos</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nb">append</span><span class="p">(</span><span class="nx">pos</span><span class="p">[</span><span class="nx">x</span><span class="p">],</span><span class="w"> </span><span class="nx">i</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">ans</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">make</span><span class="p">([]</span><span class="kt">int</span><span class="p">,</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">queries</span><span class="p">))</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">i</span><span class="p">,</span><span class="w"> </span><span class="nx">q</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="k">range</span><span class="w"> </span><span class="nx">queries</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">nums</span><span class="p">[</span><span class="nx">q</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">indices</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">pos</span><span class="p">[</span><span class="nx">x</span><span class="p">]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="nx">ans</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="k">continue</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">p</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">sort</span><span class="p">.</span><span class="nf">SearchInts</span><span class="p">(</span><span class="nx">indices</span><span class="p">,</span><span class="w"> </span><span class="nx">q</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">prevNeighbor</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">indices</span><span class="p">[(</span><span class="nx">p</span><span class="o">-</span><span class="mi">1</span><span class="o">+</span><span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">))</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">)]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">distPrev</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">abs</span><span class="p">(</span><span class="nx">q</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">prevNeighbor</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">nextNeighbor</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nx">indices</span><span class="p">[(</span><span class="nx">p</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">%</span><span class="nb">len</span><span class="p">(</span><span class="nx">indices</span><span class="p">)]</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">distNext</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">abs</span><span class="p">(</span><span class="nx">q</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">nextNeighbor</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">minDist</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="nb">min</span><span class="p">(</span><span class="nx">distPrev</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">distPrev</span><span class="p">),</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="nx">distNext</span><span class="p">,</span><span class="w"> </span><span class="nx">n</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">distNext</span><span class="p">))</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">ans</span><span class="p">[</span><span class="nx">i</span><span class="p">]</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="nx">minDist</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">ans</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">abs</span><span class="p">(</span><span class="nx">x</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">x</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="nx">x</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">x</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nb">min</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">if</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="p">&lt;</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">return</span><span class="w"> </span><span class="nx">a</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="nx">b</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div></details>
-</div><div id="comments"><div id="giscus" class="comment">
-            <script
-                src="https://giscus.app/client.js"
-                data-repo="loommii/loommii.github.io"
-                data-repo-id="R_kgDOQ1YU8A"
-                data-category="Announcements"
-                data-category-id="DIC_kwDOQ1YU8M4C1aXA"
-                data-mapping="specific"
-                data-strict="0"
-                data-term="3488-closest-equal-element-queries"
-                data-theme="preferred_color_scheme"
-                data-reactions-enabled="1"
-                data-emit-metadata="0"
-                data-input-position="bottom"
-                data-lang="zh-CN"
-                data-loading="lazy"
-                crossorigin="anonymous"
-                async
-            ></script>
-        </div>
-        <noscript>
-            Please enable JavaScript to view the comments powered by <a href="https://giscus.app">giscus</a>.
-        </noscript></div></article></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
-        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
-            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
-              <a href="/zh-cn/">loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
-  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="查看评论"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
-    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
-  </noscript>
-</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/zh-cn/js/config/33572ff9e0f7121058a7d7f6bbfc66fa.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
-</html>
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><meta name=robots content="noodp"><title>3488_距离最小相等元素查询 - loommii</title><meta name=author content="loommii"><meta name=description content="LeetCode题解 - 3488_距离最小相等元素查询 解析与实现"><meta name=keywords content='LeetCode,Go,题解,哈希表,二分查找'><meta itemprop=name content="3488_距离最小相等元素查询"><meta itemprop=description content="LeetCode题解 - 3488_距离最小相等元素查询 解析与实现"><meta itemprop=datePublished content="2026-04-16T12:02:31+08:00"><meta itemprop=dateModified content="2026-04-16T12:02:31+08:00"><meta itemprop=wordCount content="1870"><meta itemprop=image content="https://loommii.github.io/images/logo.png"><meta itemprop=keywords content="LeetCode,Go,题解,哈希表,二分查找"><meta property="og:url" content="https://loommii.github.io/zh-cn/leetcode/3488_closest-equal-element-queries/"><meta property="og:site_name" content="loommii"><meta property="og:title" content="3488_距离最小相等元素查询"><meta property="og:description" content="LeetCode题解 - 3488_距离最小相等元素查询 解析与实现"><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="article:section" content="leetcode"><meta property="article:published_time" content="2026-04-16T12:02:31+08:00"><meta property="article:modified_time" content="2026-04-16T12:02:31+08:00"><meta property="article:tag" content="LeetCode"><meta property="article:tag" content="Go"><meta property="article:tag" content="题解"><meta property="article:tag" content="哈希表"><meta property="article:tag" content="二分查找"><meta property="og:image" content="https://loommii.github.io/images/logo.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://loommii.github.io/images/logo.png"><meta name=twitter:title content="3488_距离最小相等元素查询"><meta name=twitter:description content="LeetCode题解 - 3488_距离最小相等元素查询 解析与实现"><meta name=application-name content="FixIt"><meta name=apple-mobile-web-app-title content="FixIt"><meta name=theme-color data-light=#f8f8f8 data-dark=#252627 content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical type=text/html href=https://loommii.github.io/zh-cn/leetcode/3488_closest-equal-element-queries/ title="3488_距离最小相等元素查询 - loommii"><link rel=prev type=text/html href=https://loommii.github.io/zh-cn/posts/arduino-ide-esp32-mirror-install-guide/ title="Arduino IDE 安装 ESP32 开发板：使用国内镜像加速"><link rel=next type=text/html href=https://loommii.github.io/zh-cn/leetcode/2515_shortest_distance_to_a_target_string/ title=2515_到目标字符串的最短距离><link rel=alternate type=text/markdown href=https://loommii.github.io/zh-cn/leetcode/3488_closest-equal-element-queries/index.md title="3488_距离最小相等元素查询 - loommii"><link rel=stylesheet href=/css/config.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"3488_距离最小相等元素查询","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/loommii.github.io\/zh-cn\/leetcode\/3488_closest-equal-element-queries\/"},"genre":"leetcode","keywords":"LeetCode, Go, 题解, 哈希表, 二分查找","wordcount":1870,"url":"https:\/\/loommii.github.io\/zh-cn\/leetcode\/3488_closest-equal-element-queries\/","datePublished":"2026-04-16T12:02:31+08:00","dateModified":"2026-04-16T12:02:31+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"loommii"},"description":"LeetCode题解 - 3488_距离最小相等元素查询 解析与实现"}</script><script src=/js/head/color-scheme.min.js></script></head><body data-instant-intensity=viewport data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/zh-cn/ title=loommii><img class=logo src=/images/logo.png alt=loommii height=32 width=32><span class=header-title-text>loommii</span></a><span class=header-subtitle></span></div><nav><ul class=menu><li class=menu-item><a class=menu-link href=/zh-cn/posts/>文章</a></li><li class=menu-item><a class=menu-link href=/zh-cn/go_practise/>Go练习题</a></li><li class=menu-item><a class=menu-link href=/zh-cn/leetcode/>LeetCode题解</a></li><li class=menu-item><a class=menu-link href=/zh-cn/categories/>分类</a></li><li class=menu-item><a class=menu-link href=/zh-cn/tags/>标签</a></li><li class=menu-item><a class=menu-link href=/zh-cn/archives/>归档</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容…… id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-desktop><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></li><li class="menu-item theme-switch" role=button aria-label=切换主题 title=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></li><li class="menu-item language-switch"><span role=button aria-label=选择语言 title=选择语言><i class="fa-solid fa-language" aria-hidden=true></i></span><ul class=sub-menu><li class=menu-item><span class=text-secondary title=简体中文>简体中文</span></li><li class=menu-item><a href=/en/leetcode/3488_closest-equal-element-queries/ class=menu-link title=English>English</a></li></ul></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/zh-cn/ title=loommii><img class=logo src=/images/logo.png alt=loommii height=26 width=26><span class=header-title-text>loommii</span></a><span class=header-subtitle></span></div><div class=theme-switch role=button aria-label=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></div><div class=menu-toggle id=menu-toggle-mobile role=button aria-labelledby=menu-mobile><span></span><span></span><span></span></div></div><nav><ul class=menu id=menu-mobile><li class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容…… id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-mobile><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></li><li class=menu-item><a class=menu-link href=/zh-cn/posts/>文章</a></li><li class=menu-item><a class=menu-link href=/zh-cn/go_practise/>Go练习题</a></li><li class=menu-item><a class=menu-link href=/zh-cn/leetcode/>LeetCode题解</a></li><li class=menu-item><a class=menu-link href=/zh-cn/categories/>分类</a></li><li class=menu-item><a class=menu-link href=/zh-cn/tags/>标签</a></li><li class=menu-item><a class=menu-link href=/zh-cn/archives/>归档</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch"><span role=button aria-label=选择语言 title=选择语言>简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden=true></i></span>
+<select id=language-select class=language-select onchange="location=this.value"><option value=/zh-cn/leetcode/3488_closest-equal-element-queries/ selected disabled>简体中文</option><option value=/en/leetcode/3488_closest-equal-element-queries/>English</option></select></span></li></ul></nav></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=fi-container><article class="page single special"><div class=header><h1 class="single-title animate__animated animate__pulse animate__faster">3488_距离最小相等元素查询</h1></div><div class=content id=content><h1 class=heading-element id=leetcode-3488-距离最小相等元素查询><span>LeetCode 3488. 距离最小相等元素查询</span>
+<a href=#leetcode-3488-%e8%b7%9d%e7%a6%bb%e6%9c%80%e5%b0%8f%e7%9b%b8%e7%ad%89%e5%85%83%e7%b4%a0%e6%9f%a5%e8%af%a2 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h1><h2 class=heading-element id=-题目描述><span>📝 题目描述</span>
+<a href=#-%e9%a2%98%e7%9b%ae%e6%8f%8f%e8%bf%b0 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>给你一个 <strong>环形</strong> 数组 <code>nums</code> 和一个数组 <code>queries</code> 。</p><p>对于每个查询 <code>i</code> ，你需要找到以下内容：</p><ul><li>数组 <code>nums</code> 中下标 <code>queries[i]</code> 处的元素与 <strong>任意</strong> 其他下标 <code>j</code>（满足 <code>nums[j] == nums[queries[i]]</code>）之间的 <strong>最小</strong> 距离。如果不存在这样的下标 <code>j</code>，则该查询的结果为 <code>-1</code> 。</li></ul><p>返回一个数组 <code>answer</code>，其大小与 <code>queries</code> 相同，其中 <code>answer[i]</code> 表示查询 <code>i</code> 的结果。</p><hr><h2 class=heading-element id=-示例><span>📥 示例</span>
+<a href=#-%e7%a4%ba%e4%be%8b class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=示例-1><span>示例 1</span>
+<a href=#%e7%a4%ba%e4%be%8b-1 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>输入：</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>nums = [1,3,1,4,1,3,2], queries = [0,3,5]</span></span></code></pre></td></tr></table></div></div></div><p><strong>输出：</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>[2,-1,3]</span></span></code></pre></td></tr></table></div></div></div><p><strong>解释：</strong></p><ul><li>查询 0：下标 <code>queries[0] = 0</code> 处的元素为 <code>nums[0] = 1</code> 。最近的相同值下标为 2，距离为 2。</li><li>查询 1：下标 <code>queries[1] = 3</code> 处的元素为 <code>nums[3] = 4</code> 。不存在其他包含值 4 的下标，因此结果为 -1。</li><li>查询 2：下标 <code>queries[2] = 5</code> 处的元素为 <code>nums[5] = 3</code> 。最近的相同值下标为 1，距离为 3（沿着循环路径：<code>5 -> 6 -> 0 -> 1</code>）。</li></ul><h3 class=heading-element id=示例-2><span>示例 2</span>
+<a href=#%e7%a4%ba%e4%be%8b-2 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>输入：</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>nums = [1,2,3,4], queries = [0,1,2,3]</span></span></code></pre></td></tr></table></div></div></div><p><strong>输出：</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>[-1,-1,-1,-1]</span></span></code></pre></td></tr></table></div></div></div><p><strong>解释：</strong>
+数组 <code>nums</code> 中的每个值都是唯一的，因此没有下标与查询的元素值相同。所有查询的结果均为 -1。</p><hr><h2 class=heading-element id=-提示><span>📏 提示</span>
+<a href=#-%e6%8f%90%e7%a4%ba class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><ul><li><code>1 &lt;= queries.length &lt;= nums.length &lt;= 10^5</code></li><li><code>1 &lt;= nums[i] &lt;= 10^6</code></li><li><code>0 &lt;= queries[i] &lt; nums.length</code></li></ul><hr><h2 class=heading-element id=-go-模板><span>💻 Go 模板</span>
+<a href=#-go-%e6%a8%a1%e6%9d%bf class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=s>&#34;sort&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>solveQueries</span><span class=p>(</span><span class=nx>nums</span><span class=w> </span><span class=p>[]</span><span class=kt>int</span><span class=p>,</span><span class=w> </span><span class=nx>queries</span><span class=w> </span><span class=p>[]</span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=p>[]</span><span class=kt>int</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>n</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>len</span><span class=p>(</span><span class=nx>nums</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>pos</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>make</span><span class=p>(</span><span class=kd>map</span><span class=p>[</span><span class=kt>int</span><span class=p>][]</span><span class=kt>int</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>i</span><span class=p>,</span><span class=w> </span><span class=nx>x</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=k>range</span><span class=w> </span><span class=nx>nums</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>pos</span><span class=p>[</span><span class=nx>x</span><span class=p>]</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nb>append</span><span class=p>(</span><span class=nx>pos</span><span class=p>[</span><span class=nx>x</span><span class=p>],</span><span class=w> </span><span class=nx>i</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>ans</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>make</span><span class=p>([]</span><span class=kt>int</span><span class=p>,</span><span class=w> </span><span class=nb>len</span><span class=p>(</span><span class=nx>queries</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>i</span><span class=p>,</span><span class=w> </span><span class=nx>q</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=k>range</span><span class=w> </span><span class=nx>queries</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>x</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>nums</span><span class=p>[</span><span class=nx>q</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>indices</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>pos</span><span class=p>[</span><span class=nx>x</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=nb>len</span><span class=p>(</span><span class=nx>indices</span><span class=p>)</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=nx>ans</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=o>-</span><span class=mi>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>continue</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// 在所有相同值的下标中，找到当前查询下标 q 的位置</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>p</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>sort</span><span class=p>.</span><span class=nf>SearchInts</span><span class=p>(</span><span class=nx>indices</span><span class=p>,</span><span class=w> </span><span class=nx>q</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// 找到 q 在环形下标列表中的前一个邻居</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>prevNeighbor</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>indices</span><span class=p>[(</span><span class=nx>p</span><span class=o>-</span><span class=mi>1</span><span class=o>+</span><span class=nb>len</span><span class=p>(</span><span class=nx>indices</span><span class=p>))</span><span class=o>%</span><span class=nb>len</span><span class=p>(</span><span class=nx>indices</span><span class=p>)]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>distPrev</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>abs</span><span class=p>(</span><span class=nx>q</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=nx>prevNeighbor</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// 找到 q 在环形下标列表中的后一个邻居</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>nextNeighbor</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>indices</span><span class=p>[(</span><span class=nx>p</span><span class=o>+</span><span class=mi>1</span><span class=p>)</span><span class=o>%</span><span class=nb>len</span><span class=p>(</span><span class=nx>indices</span><span class=p>)]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>distNext</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>abs</span><span class=p>(</span><span class=nx>q</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=nx>nextNeighbor</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// 计算两个方向的环形距离，并取最小值</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>minDist</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>min</span><span class=p>(</span><span class=nb>min</span><span class=p>(</span><span class=nx>distPrev</span><span class=p>,</span><span class=w> </span><span class=nx>n</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=nx>distPrev</span><span class=p>),</span><span class=w> </span><span class=nb>min</span><span class=p>(</span><span class=nx>distNext</span><span class=p>,</span><span class=w> </span><span class=nx>n</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=nx>distNext</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>ans</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>minDist</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>ans</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>abs</span><span class=p>(</span><span class=nx>x</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>x</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=mi>0</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=o>-</span><span class=nx>x</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>x</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nb>min</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span><span class=w> </span><span class=nx>b</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>a</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=nx>b</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=nx>a</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>b</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label=展开或折叠代码块 role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div><hr><h2 class=heading-element id=-测试用例><span>🧪 测试用例</span>
+<a href=#-%e6%b5%8b%e8%af%95%e7%94%a8%e4%be%8b class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><div class=table-wrapper><table><thead><tr><th>#</th><th>nums</th><th>queries</th><th>期望输出</th></tr></thead><tbody><tr><td>1</td><td><code>[1,3,1,4,1,3,2]</code></td><td><code>[0,3,5]</code></td><td><code>[2,-1,3]</code></td></tr><tr><td>2</td><td><code>[1,2,3,4]</code></td><td><code>[0,1,2,3]</code></td><td><code>[-1,-1,-1,-1]</code></td></tr></tbody></table></div><hr><details><summary>🔑 答案解析： 👈点击</summary><h3 class=heading-element id=算法说明><span>算法说明</span>
+<a href=#%e7%ae%97%e6%b3%95%e8%af%b4%e6%98%8e class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>这个问题的核心是在环形数组中为多个查询高效地找到具有相同值的最近元素的距离。一个高效的解法是结合<strong>哈希表预处理</strong>和<strong>二分查找</strong>。</p><ol><li><p><strong>预处理</strong>：我们首先遍历一次 <code>nums</code> 数组，使用一个哈希表 <code>pos</code> 来存储每个数字出现的所有下标。<code>pos</code> 的键是 <code>nums</code> 中的数字，值是该数字出现的所有下标组成的列表。由于我们是按顺序遍历 <code>nums</code> 的，所以每个下标列表自然就是<strong>有序的</strong>。</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-fallback"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback><span class=line><span class=cl>// 例如: nums = [1,3,1,4,1,3,2]
+</span></span><span class=line><span class=cl>// pos = {
+</span></span><span class=line><span class=cl>//   1: [0, 2, 4],
+</span></span><span class=line><span class=cl>//   3: [1, 5],
+</span></span><span class=line><span class=cl>//   4: [3],
+</span></span><span class=line><span class=cl>//   2: [6]
+</span></span><span class=line><span class=cl>// }</span></span></code></pre></td></tr></table></div></div></div></li><li><p><strong>处理查询</strong>：遍历 <code>queries</code> 中的每一个查询下标 <code>q</code>。</p><ul><li>获取该下标对应的值 <code>val = nums[q]</code>。</li><li>从哈希表 <code>pos</code> 中取出 <code>val</code> 对应的所有下标列表 <code>indices</code>。</li><li>如果 <code>indices</code> 的长度小于等于 1，意味着 <code>val</code> 在 <code>nums</code> 中只出现了一次或零次，不存在“其他”相同元素，因此当前查询结果为 <code>-1</code>。</li></ul></li><li><p><strong>定位与查找</strong>：</p><ul><li>在有序的 <code>indices</code> 列表中，使用<strong>二分查找</strong>（<code>sort.SearchInts</code>）来定位 <code>q</code> 自身的位置。假设 <code>q</code> 在 <code>indices</code> 中的下标为 <code>p</code>。</li><li><code>q</code> 的最近邻居只可能是在 <code>indices</code> 列表中与它相邻的两个元素：<code>indices[p-1]</code> (前驱) 和 <code>indices[p+1]</code> (后继)。</li><li>因为 <code>indices</code> 列表本身也代表了一个环（第一个元素是最后一个元素的后继），所以我们可以通过取模运算 <code>(p-1+len)%len</code> 和 <code>(p+1)%len</code> 来轻松找到环形邻居。</li></ul></li><li><p><strong>计算最短距离</strong>：</p><ul><li>对于 <code>q</code> 和它的两个邻居（<code>prevNeighbor</code>, <code>nextNeighbor</code>），我们需要计算它们之间的<strong>环形距离</strong>。</li><li>在一个长度为 <code>n</code> 的环中，两个下标 <code>i</code> 和 <code>j</code> 之间的距离是 <code>min(|i-j|, n - |i-j|)</code>。这代表了顺时针和逆时针两个方向中较短的路径。</li><li>我们分别计算 <code>q</code> 到 <code>prevNeighbor</code> 和 <code>q</code> 到 <code>nextNeighbor</code> 的环形距离，然后取这两者中更小的一个，即为最终答案。</li></ul></li></ol><p>通过这种“预处理+查询”的模式，我们可以高效地响应每一个查询，而不需要每次都重新遍历整个 <code>nums</code> 数组。</p><h3 class=heading-element id=示例-1-演练-query--5><span>示例 1 演练 (<code>query = 5</code>)</span>
+<a href=#%e7%a4%ba%e4%be%8b-1-%e6%bc%94%e7%bb%83-query--5 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><ul><li><strong>输入</strong>: <code>nums = [1,3,1,4,1,3,2]</code>, <code>queries = [0,3,5]</code>, <code>n=7</code>。</li><li><strong>预处理</strong>: <code>pos[3] = [1, 5]</code>。</li><li><strong>查询</strong>: <code>q = 5</code>，对应的值是 <code>nums[5] = 3</code>。</li><li><strong>定位</strong>: <code>indices = [1, 5]</code>。<code>q=5</code> 在 <code>indices</code> 中的位置 <code>p=1</code>。</li><li><strong>找邻居</strong>:<ul><li>前驱: <code>indices[(1-1+2)%2]</code> = <code>indices[0]</code> = <code>1</code>。</li><li>后继: <code>indices[(1+1)%2]</code> = <code>indices[0]</code> = <code>1</code>。</li><li>两个邻居都是 <code>1</code>。</li></ul></li><li><strong>算距离</strong>:<ul><li>计算 <code>q=5</code> 和邻居 <code>1</code> 之间的距离。</li><li>直接距离: <code>|5 - 1| = 4</code>。</li><li>环形绕路距离: <code>n - |5 - 1| = 7 - 4 = 3</code>。</li><li>最短距离为 <code>min(4, 3) = 3</code>。</li></ul></li><li><strong>结果</strong>: <code>query=5</code> 的答案是 <code>3</code>。</li></ul><hr><h2 class=heading-element id=-完整可运行代码go><span>🚀 完整可运行代码（Go）</span>
+<a href=#-%e5%ae%8c%e6%95%b4%e5%8f%af%e8%bf%90%e8%a1%8c%e4%bb%a3%e7%a0%81go class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><blockquote><p>复制以下代码到本地或在线 Go 环境中，直接运行即可验证结果。</p></blockquote><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span><span class=lnt>66
+</span><span class=lnt>67
+</span><span class=lnt>68
+</span><span class=lnt>69
+</span><span class=lnt>70
+</span><span class=lnt>71
+</span><span class=lnt>72
+</span><span class=lnt>73
+</span><span class=lnt>74
+</span><span class=lnt>75
+</span><span class=lnt>76
+</span><span class=lnt>77
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=p>(</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;reflect&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=s>&#34;sort&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// 测试用例</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>testCases</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=p>[]</span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>nums</span><span class=w>     </span><span class=p>[]</span><span class=kt>int</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>queries</span><span class=w>  </span><span class=p>[]</span><span class=kt>int</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>expected</span><span class=w> </span><span class=p>[]</span><span class=kt>int</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>[]</span><span class=kt>int</span><span class=p>{</span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=mi>3</span><span class=p>,</span><span class=w> </span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=mi>4</span><span class=p>,</span><span class=w> </span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=mi>3</span><span class=p>,</span><span class=w> </span><span class=mi>2</span><span class=p>},</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>[]</span><span class=kt>int</span><span class=p>{</span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=mi>3</span><span class=p>,</span><span class=w> </span><span class=mi>5</span><span class=p>},</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>[]</span><span class=kt>int</span><span class=p>{</span><span class=mi>2</span><span class=p>,</span><span class=w> </span><span class=o>-</span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=mi>3</span><span class=p>},</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>},</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>[]</span><span class=kt>int</span><span class=p>{</span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w> </span><span class=mi>3</span><span class=p>,</span><span class=w> </span><span class=mi>4</span><span class=p>},</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>[]</span><span class=kt>int</span><span class=p>{</span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=mi>2</span><span class=p>,</span><span class=w> </span><span class=mi>3</span><span class=p>},</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=p>[]</span><span class=kt>int</span><span class=p>{</span><span class=o>-</span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=o>-</span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=o>-</span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=o>-</span><span class=mi>1</span><span class=p>},</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>},</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>i</span><span class=p>,</span><span class=w> </span><span class=nx>tc</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=k>range</span><span class=w> </span><span class=nx>testCases</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>result</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>solveQueries</span><span class=p>(</span><span class=nx>tc</span><span class=p>.</span><span class=nx>nums</span><span class=p>,</span><span class=w> </span><span class=nx>tc</span><span class=p>.</span><span class=nx>queries</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;测试用例 %d: 期望输出 = %v, 实际输出 = %v, 通过 = %t
+</span></span></span><span class=line><span class=cl><span class=s>&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>i</span><span class=o>+</span><span class=mi>1</span><span class=p>,</span><span class=w> </span><span class=nx>tc</span><span class=p>.</span><span class=nx>expected</span><span class=p>,</span><span class=w> </span><span class=nx>result</span><span class=p>,</span><span class=w> </span><span class=nx>reflect</span><span class=p>.</span><span class=nf>DeepEqual</span><span class=p>(</span><span class=nx>result</span><span class=p>,</span><span class=w> </span><span class=nx>tc</span><span class=p>.</span><span class=nx>expected</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>solveQueries</span><span class=p>(</span><span class=nx>nums</span><span class=w> </span><span class=p>[]</span><span class=kt>int</span><span class=p>,</span><span class=w> </span><span class=nx>queries</span><span class=w> </span><span class=p>[]</span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=p>[]</span><span class=kt>int</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>n</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>len</span><span class=p>(</span><span class=nx>nums</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>pos</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>make</span><span class=p>(</span><span class=kd>map</span><span class=p>[</span><span class=kt>int</span><span class=p>][]</span><span class=kt>int</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>i</span><span class=p>,</span><span class=w> </span><span class=nx>x</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=k>range</span><span class=w> </span><span class=nx>nums</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>pos</span><span class=p>[</span><span class=nx>x</span><span class=p>]</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nb>append</span><span class=p>(</span><span class=nx>pos</span><span class=p>[</span><span class=nx>x</span><span class=p>],</span><span class=w> </span><span class=nx>i</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>ans</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>make</span><span class=p>([]</span><span class=kt>int</span><span class=p>,</span><span class=w> </span><span class=nb>len</span><span class=p>(</span><span class=nx>queries</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>i</span><span class=p>,</span><span class=w> </span><span class=nx>q</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=k>range</span><span class=w> </span><span class=nx>queries</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>x</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>nums</span><span class=p>[</span><span class=nx>q</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>indices</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>pos</span><span class=p>[</span><span class=nx>x</span><span class=p>]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=nb>len</span><span class=p>(</span><span class=nx>indices</span><span class=p>)</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=nx>ans</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=o>-</span><span class=mi>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>continue</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>p</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>sort</span><span class=p>.</span><span class=nf>SearchInts</span><span class=p>(</span><span class=nx>indices</span><span class=p>,</span><span class=w> </span><span class=nx>q</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>prevNeighbor</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>indices</span><span class=p>[(</span><span class=nx>p</span><span class=o>-</span><span class=mi>1</span><span class=o>+</span><span class=nb>len</span><span class=p>(</span><span class=nx>indices</span><span class=p>))</span><span class=o>%</span><span class=nb>len</span><span class=p>(</span><span class=nx>indices</span><span class=p>)]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>distPrev</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>abs</span><span class=p>(</span><span class=nx>q</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=nx>prevNeighbor</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>nextNeighbor</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nx>indices</span><span class=p>[(</span><span class=nx>p</span><span class=o>+</span><span class=mi>1</span><span class=p>)</span><span class=o>%</span><span class=nb>len</span><span class=p>(</span><span class=nx>indices</span><span class=p>)]</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>distNext</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>abs</span><span class=p>(</span><span class=nx>q</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=nx>nextNeighbor</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>minDist</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>min</span><span class=p>(</span><span class=nb>min</span><span class=p>(</span><span class=nx>distPrev</span><span class=p>,</span><span class=w> </span><span class=nx>n</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=nx>distPrev</span><span class=p>),</span><span class=w> </span><span class=nb>min</span><span class=p>(</span><span class=nx>distNext</span><span class=p>,</span><span class=w> </span><span class=nx>n</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=nx>distNext</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>ans</span><span class=p>[</span><span class=nx>i</span><span class=p>]</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=nx>minDist</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>ans</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>abs</span><span class=p>(</span><span class=nx>x</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>x</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=mi>0</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=o>-</span><span class=nx>x</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>x</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nb>min</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span><span class=w> </span><span class=nx>b</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>if</span><span class=w> </span><span class=nx>a</span><span class=w> </span><span class=p>&lt;</span><span class=w> </span><span class=nx>b</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>return</span><span class=w> </span><span class=nx>a</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=nx>b</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label=展开或折叠代码块 role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div></details></div><div id=comments><div id=giscus class=comment><script src=https://giscus.app/client.js data-repo=loommii/loommii.github.io data-repo-id=R_kgDOQ1YU8A data-category=Announcements data-category-id=DIC_kwDOQ1YU8M4C1aXA data-mapping=specific data-strict=0 data-term=3488-closest-equal-element-queries data-theme=preferred_color_scheme data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-lang=zh-CN data-loading=lazy crossorigin=anonymous async></script></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://giscus.app>giscus</a>.</noscript></div></article></main><footer class=footer><div class=footer-container><div class="footer-line powered">由 <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class=hugo-icon src=/images/hugo.min.svg alt="Hugo logo"> Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/hugo-fixit/FixIt target=_blank rel=external title="FixIt v0.4.5"><img class=fixit-icon src=/images/fixit.min.svg alt="FixIt logo"> FixIt</a></div><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright" aria-hidden=true></i>
+<span itemprop=copyrightYear>2019 - 2026</span><span class=author itemprop=copyrightHolder>
+<a href=/zh-cn/>loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div class=widgets><div class=fixed-buttons><div class="fixed-button back-to-top animate__faster d-none" role=button aria-label=回到顶部><i class="fa-solid fa-arrow-up" aria-hidden=true></i></div><div class="fixed-button view-comments d-none" role=button aria-label=查看评论><i class="fa-solid fa-comment" aria-hidden=true></i></div></div><div id=mask></div><noscript><div class=noscript-warning>该网站在启用 JavaScript 的情况下效果最佳。</div></noscript></div><link rel=stylesheet href=/lib/lightgallery/css/lightgallery-bundle.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script src=/lib/autocomplete/autocomplete.min.js defer></script><script src=/lib/fuse/fuse.min.js defer></script><script src=/lib/lightgallery/lightgallery.min.js defer></script><script src=/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js defer></script><script src=/lib/lightgallery/plugins/zoom/lg-zoom.min.js defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=/lib/cell-tooltip/cell-tooltip.umd.js defer></script><script src=/zh-cn/js/config/33572ff9e0f7121058a7d7f6bbfc66fa.js defer></script><script src=/js/theme.min.js defer></script><script src=/js/custom.min.js defer></script></body></html>

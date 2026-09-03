@@ -1,481 +1,149 @@
-<!DOCTYPE html>
-<html itemscope itemtype="http://schema.org/WebPage" lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-    <meta name="robots" content="noodp" />
-    <title>2515_Shortest Distance to a Target String - loommii</title><meta name="author" content="loommii">
-<meta name="description" content="LeetCode Solutions - 2515_Shortest Distance to a Target String: Analysis and Implementation"><meta name="keywords" content='LeetCode, Algorithm, Go, Solution'>
-	<meta itemprop="name" content="2515_Shortest Distance to a Target String">
-	<meta itemprop="description" content="LeetCode Solutions - 2515_Shortest Distance to a Target String: Analysis and Implementation">
-	<meta itemprop="datePublished" content="2026-04-16T12:02:31+08:00">
-	<meta itemprop="dateModified" content="2026-04-16T12:02:31+08:00">
-	<meta itemprop="wordCount" content="1059">
-	<meta itemprop="image" content="https://loommii.github.io/images/logo.png">
-	<meta itemprop="keywords" content="LeetCode,Algorithm,Go,Solution"><meta property="og:url" content="https://loommii.github.io/en/leetcode/2515_shortest_distance_to_a_target_string/">
-	<meta property="og:site_name" content="loommii">
-	<meta property="og:title" content="2515_Shortest Distance to a Target String">
-	<meta property="og:description" content="LeetCode Solutions - 2515_Shortest Distance to a Target String: Analysis and Implementation">
-	<meta property="og:locale" content="en">
-	<meta property="og:type" content="article">
-		<meta property="article:section" content="leetcode">
-		<meta property="article:published_time" content="2026-04-16T12:02:31+08:00">
-		<meta property="article:modified_time" content="2026-04-16T12:02:31+08:00">
-		<meta property="article:tag" content="LeetCode">
-		<meta property="article:tag" content="Algorithm">
-		<meta property="article:tag" content="Go">
-		<meta property="article:tag" content="Solution">
-		<meta property="og:image" content="https://loommii.github.io/images/logo.png">
-
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
-	<meta name="twitter:title" content="2515_Shortest Distance to a Target String">
-	<meta name="twitter:description" content="LeetCode Solutions - 2515_Shortest Distance to a Target String: Analysis and Implementation">
-<meta name="application-name" content="FixIt">
-<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://loommii.github.io/en/leetcode/2515_shortest_distance_to_a_target_string/" title="2515_Shortest Distance to a Target String - loommii" /><link rel="prev" type="text/html" href="https://loommii.github.io/en/leetcode/3488_closest-equal-element-queries/" title="3488. Closest Equal Element Queries" /><link rel="next" type="text/html" href="https://loommii.github.io/en/posts/substore_cloudflare_workers_deployment_guide/" title="Deploying Sub-Store on Cloudflare Workers: A Zero-Server Guide" /><link rel="alternate" type="text/markdown" href="https://loommii.github.io/en/leetcode/2515_shortest_distance_to_a_target_string/index.md" title="2515_Shortest Distance to a Target String - loommii"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "headline": "2515_Shortest Distance to a Target String",
-    "inLanguage": "en",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https:\/\/loommii.github.io\/en\/leetcode\/2515_shortest_distance_to_a_target_string\/"
-    },"genre": "leetcode","keywords": "LeetCode, Algorithm, Go, Solution","wordcount":  1059 ,
-    "url": "https:\/\/loommii.github.io\/en\/leetcode\/2515_shortest_distance_to_a_target_string\/","datePublished": "2026-04-16T12:02:31+08:00","dateModified": "2026-04-16T12:02:31+08:00","publisher": {
-      "@type": "Organization",
-      "name": ""},"author": {
-        "@type": "Person",
-        "name": "loommii"
-      },"description": "LeetCode Solutions - 2515_Shortest Distance to a Target String: Analysis and Implementation"
-  }
-  </script><script src="/js/head/color-scheme.min.js"></script></head>
-  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
-  <div class="header-wrapper">
-    <div class="header-title">
-      <a href="/en/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="32" width="32"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
-    <nav>
-      <ul class="menu"><li class="menu-item">
-              <a class="menu-link" href="/en/posts/">Posts</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/go_practise/">Go Practice</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/leetcode/">LeetCode Solutions</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/categories/">Categories</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/tags/">Tags</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/archives/">Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
-            <input type="text" placeholder="Search titles or contents ..." id="search-input-desktop">
-            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
-              <i class="fa-solid fa-search" aria-hidden="true"></i>
-            </a>
-            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
-              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-            </a>
-            <span class="search-button search-loading" id="search-loading-desktop">
-              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-            </span>
-          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li><li class="menu-item language-switch">
-            <span role="button" aria-label="Select Language" title="Select Language"><i class="fa-solid fa-language" aria-hidden="true"></i></span>
-            <ul class="sub-menu"><li class="menu-item"><a href="/zh-cn/leetcode/2515_shortest_distance_to_a_target_string/" class="menu-link" title="简体中文">简体中文</a></li><li class="menu-item"><span class="text-secondary" title="English">English</span></li></ul>
-          </li></ul>
-    </nav>
-  </div>
-</header><header class="mobile animate__faster" id="header-mobile">
-  <div class="header-container">
-    <div class="header-wrapper">
-      <div class="header-title">
-        <a href="/en/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="26" width="26"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
-      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
-      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-    <nav>
-      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
-            <div class="search mobile" id="search-mobile">
-              <input type="text" placeholder="Search titles or contents ..." id="search-input-mobile">
-              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
-                <i class="fa-solid fa-search" aria-hidden="true"></i>
-              </a>
-              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
-                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-              </a>
-              <span class="search-button search-loading" id="search-loading-mobile">
-                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-              </span>
-            </div>
-            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-              Cancel
-            </a>
-          </li><li class="menu-item"><a class="menu-link" href="/en/posts/">Posts</a></li><li class="menu-item"><a class="menu-link" href="/en/go_practise/">Go Practice</a></li><li class="menu-item"><a class="menu-link" href="/en/leetcode/">LeetCode Solutions</a></li><li class="menu-item"><a class="menu-link" href="/en/categories/">Categories</a></li><li class="menu-item"><a class="menu-link" href="/en/tags/">Tags</a></li><li class="menu-item"><a class="menu-link" href="/en/archives/">Archives</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch">
-              <span role="button" aria-label="Select Language" title="Select Language">English<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i></span>
-              <select id="language-select" class="language-select" onchange="location = this.value;"><option value="/zh-cn/leetcode/2515_shortest_distance_to_a_target_string/">简体中文</option><option value="/en/leetcode/2515_shortest_distance_to_a_target_string/" selected disabled>English</option></select>
-            </span></li>
-      </ul>
-    </nav>
-  </div>
-</header><div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-  </div>
-  <div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-  </div><main class="fi-container"><article class="page single special">
-    <div class="header"><h1 class="single-title animate__animated animate__pulse animate__faster">2515_Shortest Distance to a Target String</h1></div><div class="content" id="content"><h1 class="heading-element" id="leetcode-2515-shortest-distance-to-a-target-string"><span>LeetCode 2515. Shortest Distance to a Target String</span>
-  <a href="#leetcode-2515-shortest-distance-to-a-target-string" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h1><h2 class="heading-element" id="-problem-description"><span>📝 Problem Description</span>
-  <a href="#-problem-description" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><p>You are given a <strong>0-indexed</strong> <strong>circular</strong> string array <code>words</code> and a string <code>target</code>. A <strong>circular array</strong> means that the last element of <code>words</code> is adjacent to the first element.</p>
-<p>You can move from <code>words[i]</code> to <code>words[j]</code> either clockwise or counter-clockwise.</p>
-<p>Return <em>the shortest distance from <code>startIndex</code> to <code>target</code></em>. If <code>target</code> is not in <code>words</code>, return <code>-1</code>.</p>
-<hr>
-<h2 class="heading-element" id="-examples"><span>📥 Examples</span>
-  <a href="#-examples" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><h3 class="heading-element" id="example-1"><span>Example 1</span>
-  <a href="#example-1" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p><strong>Input:</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">words = [&#34;hello&#34;,&#34;i&#34;,&#34;am&#34;,&#34;leetcode&#34;,&#34;hello&#34;], target = &#34;hello&#34;, startIndex = 1</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>Output:</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">1</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>Explanation:</strong>
-Starting from index 1, we can move to index 4 or index 0.</p>
-<ul>
-<li>Moving to index 4 requires 3 steps clockwise.</li>
-<li>Moving to index 0 requires 1 step counter-clockwise (utilizing the circular property).</li>
-</ul>
-<p>The shortest distance is 1.</p>
-<h3 class="heading-element" id="example-2"><span>Example 2</span>
-  <a href="#example-2" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p><strong>Input:</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">words = [&#34;a&#34;,&#34;b&#34;,&#34;leetcode&#34;], target = &#34;leetcode&#34;, startIndex = 0</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>Output:</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">1</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>Explanation:</strong>
-Starting from index 0, moving 1 step counter-clockwise to index 2 (where &ldquo;leetcode&rdquo; is) gives a distance of 1.</p>
-<h3 class="heading-element" id="example-3"><span>Example 3</span>
-  <a href="#example-3" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p><strong>Input:</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">words = [&#34;i&#34;,&#34;eat&#34;,&#34;leetcode&#34;], target = &#34;ate&#34;, startIndex = 0</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>Output:</strong></p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">-1</span></span></code></pre></td></tr></table></div>
-</div>
-</div><p><strong>Explanation:</strong>
-&ldquo;ate&rdquo; is not in the <code>words</code> array, so we return -1.</p>
-<hr>
-<h2 class="heading-element" id="-constraints"><span>📏 Constraints</span>
-  <a href="#-constraints" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><ul>
-<li><code>1 &lt;= words.length &lt;= 100</code></li>
-<li><code>1 &lt;= words[i].length &lt;= 100</code></li>
-<li><code>words[i]</code> and <code>target</code> consist of only lowercase English letters.</li>
-<li><code>0 &lt;= startIndex &lt; words.length</code></li>
-</ul>
-<hr>
-<h2 class="heading-element" id="-go-template"><span>💻 Go Template</span>
-  <a href="#-go-template" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">closestTarget</span><span class="p">(</span><span class="nx">words</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">startIndex</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">words</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// The search radius `dist` starts from 0.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// We only need to search up to half the array&#39;s length,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// as any longer path has a shorter counterpart in the other direction.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">dist</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">dist</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">n</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">dist</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// Calculate the index `dist` steps to the right (clockwise).</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">rightIndex</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">(</span><span class="nx">startIndex</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">dist</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nx">n</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// Calculate the index `dist` steps to the left (counter-clockwise).</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">leftIndex</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">(</span><span class="nx">startIndex</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">dist</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nx">n</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// If the target is found at either index, we&#39;ve found the shortest path.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">words</span><span class="p">[</span><span class="nx">rightIndex</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">words</span><span class="p">[</span><span class="nx">leftIndex</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">dist</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// If the loop completes and the target is not found, return -1.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div><hr>
-<h2 class="heading-element" id="-test-cases"><span>🧪 Test Cases</span>
-  <a href="#-test-cases" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><div class="table-wrapper">
-  <table>
-    <thead>
-        <tr>
-            <th>#</th>
-            <th>words</th>
-            <th>target</th>
-            <th>startIndex</th>
-            <th>Expected Output</th>
-        </tr>
-    </thead>
-    <tbody>
-        <tr>
-            <td>1</td>
-            <td><code>[&quot;hello&quot;,&quot;i&quot;,&quot;am&quot;,&quot;leetcode&quot;,&quot;hello&quot;]</code></td>
-            <td><code>&quot;hello&quot;</code></td>
-            <td><code>1</code></td>
-            <td><code>1</code></td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td><code>[&quot;a&quot;,&quot;b&quot;,&quot;leetcode&quot;]</code></td>
-            <td><code>&quot;leetcode&quot;</code></td>
-            <td><code>0</code></td>
-            <td><code>1</code></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td><code>[&quot;i&quot;,&quot;eat&quot;,&quot;leetcode&quot;]</code></td>
-            <td><code>&quot;ate&quot;</code></td>
-            <td><code>0</code></td>
-            <td><code>-1</code></td>
-        </tr>
-    </tbody>
-  </table>
-</div><hr>
-
-<details>
-  <summary>🔑 Solution Analysis: 👈 Click to expand</summary>
-  <h3 class="heading-element" id="algorithm-explanation"><span>Algorithm Explanation</span>
-  <a href="#algorithm-explanation" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>The core of this problem is finding the shortest distance within a circular array. An intuitive and efficient approach is a <strong>bidirectional expanding search</strong>.</p>
-<ol>
-<li><strong>Start from <code>startIndex</code></strong>: Our search begins at the <code>startIndex</code>, rather than iterating through the entire array. This is more direct.</li>
-<li><strong>Synchronous Expansion</strong>: We simulate a gradually expanding search &ldquo;radius&rdquo; (<code>dist</code>). In each step, we check the positions at the same distance both clockwise (right) and counter-clockwise (left). At a distance <code>dist</code>, we check indices <code>startIndex + dist</code> and <code>startIndex - dist</code>, being careful to handle the circular wrapping.</li>
-<li><strong>Stop When Found</strong>: Since we search from nearest to farthest (i.e., <code>dist</code> increases from 0), the first time we find the <code>target</code>, the corresponding distance is guaranteed to be the shortest. We can return the result immediately.</li>
-<li><strong>Key Optimization</strong>: In a circular array of length <code>n</code>, the shortest distance between any two points will not exceed <code>n / 2</code>. If the distance in one direction, <code>d</code>, is greater than <code>n / 2</code>, the distance in the opposite direction, <code>n - d</code>, will necessarily be less than <code>n / 2</code>. Therefore, our search radius only needs to expand up to <code>n / 2</code>, which avoids a redundant full traversal.</li>
-</ol>
-<h3 class="heading-element" id="example-1-walkthrough"><span>Example 1 Walkthrough</span>
-  <a href="#example-1-walkthrough" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>Let&rsquo;s walk through the process with <code>words = [&quot;hello&quot;,&quot;i&quot;,&quot;am&quot;,&quot;leetcode&quot;,&quot;hello&quot;]</code>, <code>target = &quot;hello&quot;</code>, <code>startIndex = 1</code>.</p>
-<ul>
-<li>
-<p><strong>Initialization</strong>: <code>n = 5</code>, <code>startIndex = 1</code>. The search radius <code>dist</code> will iterate from 0 up to <code>5 / 2 = 2</code>.</p>
-</li>
-<li>
-<p><strong><code>dist = 0</code></strong>:</p>
-<ul>
-<li>Clockwise 0 steps: <code>rightIndex = (1 + 0) % 5 = 1</code>. <code>words[1]</code> is <code>&quot;i&quot;</code>.</li>
-<li>Counter-clockwise 0 steps: <code>leftIndex = (1 - 0 + 5) % 5 = 1</code>. <code>words[1]</code> is <code>&quot;i&quot;</code>.</li>
-<li><code>&quot;i&quot;</code> is not <code>&quot;hello&quot;</code>, so we continue.</li>
-</ul>
-</li>
-<li>
-<p><strong><code>dist = 1</code></strong>:</p>
-<ul>
-<li>Clockwise 1 step: <code>rightIndex = (1 + 1) % 5 = 2</code>. <code>words[2]</code> is <code>&quot;am&quot;</code>.</li>
-<li>Counter-clockwise 1 step: <code>leftIndex = (1 - 1 + 5) % 5 = 0</code>. <code>words[0]</code> is <code>&quot;hello&quot;</code>.</li>
-<li><strong>Target found!</strong> <code>words[leftIndex]</code> matches the <code>target</code>.</li>
-<li>The function immediately returns the current <code>dist</code>, which is <strong><code>1</code></strong>.</li>
-</ul>
-</li>
-</ul>
-<p>The algorithm terminates. The shortest distance is 1.</p>
-</details>
-<hr>
-<h2 class="heading-element" id="-full-runnable-code-go"><span>🚀 Full Runnable Code (Go)</span>
-  <a href="#-full-runnable-code-go" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><blockquote>
-<p>Copy the following code into your local or online Go environment. The <code>closestTarget</code> function is already filled in, so you can run it directly to verify the results.</p>
-</blockquote>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span><span class="lnt">25
-</span><span class="lnt">26
-</span><span class="lnt">27
-</span><span class="lnt">28
-</span><span class="lnt">29
-</span><span class="lnt">30
-</span><span class="lnt">31
-</span><span class="lnt">32
-</span><span class="lnt">33
-</span><span class="lnt">34
-</span><span class="lnt">35
-</span><span class="lnt">36
-</span><span class="lnt">37
-</span><span class="lnt">38
-</span><span class="lnt">39
-</span><span class="lnt">40
-</span><span class="lnt">41
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="s">&#34;fmt&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// Test Case 1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">result1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">closestTarget</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;hello&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;i&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;am&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;leetcode&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;hello&#34;</span><span class="p">},</span><span class="w"> </span><span class="s">&#34;hello&#34;</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Test Case 1: Expected = 1, Got = %d, Passed = %t
-</span></span></span><span class="line"><span class="cl"><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">result1</span><span class="p">,</span><span class="w"> </span><span class="nx">result1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// Test Case 2</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">result2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">closestTarget</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;a&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;b&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;leetcode&#34;</span><span class="p">},</span><span class="w"> </span><span class="s">&#34;leetcode&#34;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Test Case 2: Expected = 1, Got = %d, Passed = %t
-</span></span></span><span class="line"><span class="cl"><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">result2</span><span class="p">,</span><span class="w"> </span><span class="nx">result2</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// Test Case 3</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">result3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nf">closestTarget</span><span class="p">([]</span><span class="kt">string</span><span class="p">{</span><span class="s">&#34;i&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;eat&#34;</span><span class="p">,</span><span class="w"> </span><span class="s">&#34;leetcode&#34;</span><span class="p">},</span><span class="w"> </span><span class="s">&#34;ate&#34;</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Printf</span><span class="p">(</span><span class="s">&#34;Test Case 3: Expected = -1, Got = %d, Passed = %t
-</span></span></span><span class="line"><span class="cl"><span class="s">&#34;</span><span class="p">,</span><span class="w"> </span><span class="nx">result3</span><span class="p">,</span><span class="w"> </span><span class="nx">result3</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">closestTarget</span><span class="p">(</span><span class="nx">words</span><span class="w"> </span><span class="p">[]</span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">startIndex</span><span class="w"> </span><span class="kt">int</span><span class="p">)</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="nx">n</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">words</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// The search radius `dist` starts from 0.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// We only need to search up to half the array&#39;s length (n/2),</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// as any longer path has a shorter counterpart in the other direction.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">for</span><span class="w"> </span><span class="nx">dist</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="nx">dist</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="nx">n</span><span class="o">/</span><span class="mi">2</span><span class="p">;</span><span class="w"> </span><span class="nx">dist</span><span class="o">++</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// Calculate the index `dist` steps to the right (clockwise).</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">rightIndex</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">(</span><span class="nx">startIndex</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">dist</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nx">n</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// Calculate the index `dist` steps to the left (counter-clockwise).</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// Adding `n` ensures the result of the subtraction is non-negative before the modulo.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="nx">leftIndex</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">(</span><span class="nx">startIndex</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nx">dist</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">n</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="nx">n</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="c1">// If the target is found at either index, we&#39;ve found the shortest path.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="k">if</span><span class="w"> </span><span class="nx">words</span><span class="p">[</span><span class="nx">rightIndex</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="nx">words</span><span class="p">[</span><span class="nx">leftIndex</span><span class="p">]</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="nx">target</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">			</span><span class="k">return</span><span class="w"> </span><span class="nx">dist</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">		</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="c1">// If the loop completes and the target is not found, return -1.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">	</span><span class="k">return</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div></div><div id="comments"><div id="giscus" class="comment">
-            <script
-                src="https://giscus.app/client.js"
-                data-repo="loommii/loommii.github.io"
-                data-repo-id="R_kgDOQ1YU8A"
-                data-category="Announcements"
-                data-category-id="DIC_kwDOQ1YU8M4C1aXA"
-                data-mapping="specific"
-                data-strict="0"
-                data-term="2515-shortest-distance-to-a-target-string"
-                data-theme="preferred_color_scheme"
-                data-reactions-enabled="1"
-                data-emit-metadata="0"
-                data-input-position="bottom"
-                data-lang="en"
-                data-loading="lazy"
-                crossorigin="anonymous"
-                async
-            ></script>
-        </div>
-        <noscript>
-            Please enable JavaScript to view the comments powered by <a href="https://giscus.app">giscus</a>.
-        </noscript></div></article></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
-        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
-            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
-              <a href="/en/">loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
-  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
-    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
-  </noscript>
-</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/en/js/config/16bdacd2c9aa9c2a5ee60863d1fe1d11.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
-</html>
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><meta name=robots content="noodp"><title>2515_Shortest Distance to a Target String - loommii</title><meta name=author content="loommii"><meta name=description content="LeetCode Solutions - 2515_Shortest Distance to a Target String: Analysis and Implementation"><meta name=keywords content='LeetCode,Algorithm,Go,Solution'><meta itemprop=name content="2515_Shortest Distance to a Target String"><meta itemprop=description content="LeetCode Solutions - 2515_Shortest Distance to a Target String: Analysis and Implementation"><meta itemprop=datePublished content="2026-04-16T12:02:31+08:00"><meta itemprop=dateModified content="2026-04-16T12:02:31+08:00"><meta itemprop=wordCount content="1059"><meta itemprop=image content="https://loommii.github.io/images/logo.png"><meta itemprop=keywords content="LeetCode,Algorithm,Go,Solution"><meta property="og:url" content="https://loommii.github.io/en/leetcode/2515_shortest_distance_to_a_target_string/"><meta property="og:site_name" content="loommii"><meta property="og:title" content="2515_Shortest Distance to a Target String"><meta property="og:description" content="LeetCode Solutions - 2515_Shortest Distance to a Target String: Analysis and Implementation"><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="leetcode"><meta property="article:published_time" content="2026-04-16T12:02:31+08:00"><meta property="article:modified_time" content="2026-04-16T12:02:31+08:00"><meta property="article:tag" content="LeetCode"><meta property="article:tag" content="Algorithm"><meta property="article:tag" content="Go"><meta property="article:tag" content="Solution"><meta property="og:image" content="https://loommii.github.io/images/logo.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://loommii.github.io/images/logo.png"><meta name=twitter:title content="2515_Shortest Distance to a Target String"><meta name=twitter:description content="LeetCode Solutions - 2515_Shortest Distance to a Target String: Analysis and Implementation"><meta name=application-name content="FixIt"><meta name=apple-mobile-web-app-title content="FixIt"><meta name=theme-color data-light=#f8f8f8 data-dark=#252627 content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical type=text/html href=https://loommii.github.io/en/leetcode/2515_shortest_distance_to_a_target_string/ title="2515_Shortest Distance to a Target String - loommii"><link rel=prev type=text/html href=https://loommii.github.io/en/leetcode/3488_closest-equal-element-queries/ title="3488. Closest Equal Element Queries"><link rel=next type=text/html href=https://loommii.github.io/en/posts/substore_cloudflare_workers_deployment_guide/ title="Deploying Sub-Store on Cloudflare Workers: A Zero-Server Guide"><link rel=alternate type=text/markdown href=https://loommii.github.io/en/leetcode/2515_shortest_distance_to_a_target_string/index.md title="2515_Shortest Distance to a Target String - loommii"><link rel=stylesheet href=/css/config.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"2515_Shortest Distance to a Target String","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/loommii.github.io\/en\/leetcode\/2515_shortest_distance_to_a_target_string\/"},"genre":"leetcode","keywords":"LeetCode, Algorithm, Go, Solution","wordcount":1059,"url":"https:\/\/loommii.github.io\/en\/leetcode\/2515_shortest_distance_to_a_target_string\/","datePublished":"2026-04-16T12:02:31+08:00","dateModified":"2026-04-16T12:02:31+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"loommii"},"description":"LeetCode Solutions - 2515_Shortest Distance to a Target String: Analysis and Implementation"}</script><script src=/js/head/color-scheme.min.js></script></head><body data-instant-intensity=viewport data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/en/ title=loommii><img class=logo src=/images/logo.png alt=loommii height=32 width=32><span class=header-title-text>loommii</span></a><span class=header-subtitle></span></div><nav><ul class=menu><li class=menu-item><a class=menu-link href=/en/posts/>Posts</a></li><li class=menu-item><a class=menu-link href=/en/go_practise/>Go Practice</a></li><li class=menu-item><a class=menu-link href=/en/leetcode/>LeetCode Solutions</a></li><li class=menu-item><a class=menu-link href=/en/categories/>Categories</a></li><li class=menu-item><a class=menu-link href=/en/tags/>Tags</a></li><li class=menu-item><a class=menu-link href=/en/archives/>Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id=search-desktop><input type=text placeholder="Search titles or contents ..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-desktop><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></li><li class="menu-item theme-switch" role=button aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden=true></i></li><li class="menu-item language-switch"><span role=button aria-label="Select Language" title="Select Language"><i class="fa-solid fa-language" aria-hidden=true></i></span><ul class=sub-menu><li class=menu-item><a href=/zh-cn/leetcode/2515_shortest_distance_to_a_target_string/ class=menu-link title=简体中文>简体中文</a></li><li class=menu-item><span class=text-secondary title=English>English</span></li></ul></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/en/ title=loommii><img class=logo src=/images/logo.png alt=loommii height=26 width=26><span class=header-title-text>loommii</span></a><span class=header-subtitle></span></div><div class=theme-switch role=button aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden=true></i></div><div class=menu-toggle id=menu-toggle-mobile role=button aria-labelledby=menu-mobile><span></span><span></span><span></span></div></div><nav><ul class=menu id=menu-mobile><li class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search titles or contents ..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-mobile><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></li><li class=menu-item><a class=menu-link href=/en/posts/>Posts</a></li><li class=menu-item><a class=menu-link href=/en/go_practise/>Go Practice</a></li><li class=menu-item><a class=menu-link href=/en/leetcode/>LeetCode Solutions</a></li><li class=menu-item><a class=menu-link href=/en/categories/>Categories</a></li><li class=menu-item><a class=menu-link href=/en/tags/>Tags</a></li><li class=menu-item><a class=menu-link href=/en/archives/>Archives</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch"><span role=button aria-label="Select Language" title="Select Language">English<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden=true></i></span>
+<select id=language-select class=language-select onchange="location=this.value"><option value=/zh-cn/leetcode/2515_shortest_distance_to_a_target_string/>简体中文</option><option value=/en/leetcode/2515_shortest_distance_to_a_target_string/ selected disabled>English</option></select></span></li></ul></nav></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=fi-container><article class="page single special"><div class=header><h1 class="single-title animate__animated animate__pulse animate__faster">2515_Shortest Distance to a Target String</h1></div><div class=content id=content><h1 class=heading-element id=leetcode-2515-shortest-distance-to-a-target-string><span>LeetCode 2515. Shortest Distance to a Target String</span>
+<a href=#leetcode-2515-shortest-distance-to-a-target-string class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h1><h2 class=heading-element id=-problem-description><span>📝 Problem Description</span>
+<a href=#-problem-description class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><p>You are given a <strong>0-indexed</strong> <strong>circular</strong> string array <code>words</code> and a string <code>target</code>. A <strong>circular array</strong> means that the last element of <code>words</code> is adjacent to the first element.</p><p>You can move from <code>words[i]</code> to <code>words[j]</code> either clockwise or counter-clockwise.</p><p>Return <em>the shortest distance from <code>startIndex</code> to <code>target</code></em>. If <code>target</code> is not in <code>words</code>, return <code>-1</code>.</p><hr><h2 class=heading-element id=-examples><span>📥 Examples</span>
+<a href=#-examples class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><h3 class=heading-element id=example-1><span>Example 1</span>
+<a href=#example-1 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>Input:</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>words = [&#34;hello&#34;,&#34;i&#34;,&#34;am&#34;,&#34;leetcode&#34;,&#34;hello&#34;], target = &#34;hello&#34;, startIndex = 1</span></span></code></pre></td></tr></table></div></div></div><p><strong>Output:</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>1</span></span></code></pre></td></tr></table></div></div></div><p><strong>Explanation:</strong>
+Starting from index 1, we can move to index 4 or index 0.</p><ul><li>Moving to index 4 requires 3 steps clockwise.</li><li>Moving to index 0 requires 1 step counter-clockwise (utilizing the circular property).</li></ul><p>The shortest distance is 1.</p><h3 class=heading-element id=example-2><span>Example 2</span>
+<a href=#example-2 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>Input:</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>words = [&#34;a&#34;,&#34;b&#34;,&#34;leetcode&#34;], target = &#34;leetcode&#34;, startIndex = 0</span></span></code></pre></td></tr></table></div></div></div><p><strong>Output:</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>1</span></span></code></pre></td></tr></table></div></div></div><p><strong>Explanation:</strong>
+Starting from index 0, moving 1 step counter-clockwise to index 2 (where &ldquo;leetcode&rdquo; is) gives a distance of 1.</p><h3 class=heading-element id=example-3><span>Example 3</span>
+<a href=#example-3 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p><strong>Input:</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>words = [&#34;i&#34;,&#34;eat&#34;,&#34;leetcode&#34;], target = &#34;ate&#34;, startIndex = 0</span></span></code></pre></td></tr></table></div></div></div><p><strong>Output:</strong></p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-text"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-text data-lang=text><span class=line><span class=cl>-1</span></span></code></pre></td></tr></table></div></div></div><p><strong>Explanation:</strong>
+&ldquo;ate&rdquo; is not in the <code>words</code> array, so we return -1.</p><hr><h2 class=heading-element id=-constraints><span>📏 Constraints</span>
+<a href=#-constraints class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><ul><li><code>1 &lt;= words.length &lt;= 100</code></li><li><code>1 &lt;= words[i].length &lt;= 100</code></li><li><code>words[i]</code> and <code>target</code> consist of only lowercase English letters.</li><li><code>0 &lt;= startIndex &lt; words.length</code></li></ul><hr><h2 class=heading-element id=-go-template><span>💻 Go Template</span>
+<a href=#-go-template class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>closestTarget</span><span class=p>(</span><span class=nx>words</span><span class=w> </span><span class=p>[]</span><span class=kt>string</span><span class=p>,</span><span class=w> </span><span class=nx>target</span><span class=w> </span><span class=kt>string</span><span class=p>,</span><span class=w> </span><span class=nx>startIndex</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>n</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>len</span><span class=p>(</span><span class=nx>words</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// The search radius `dist` starts from 0.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// We only need to search up to half the array&#39;s length,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// as any longer path has a shorter counterpart in the other direction.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>dist</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span><span class=nx>dist</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=nx>n</span><span class=o>/</span><span class=mi>2</span><span class=p>;</span><span class=w> </span><span class=nx>dist</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// Calculate the index `dist` steps to the right (clockwise).</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>rightIndex</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=p>(</span><span class=nx>startIndex</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=nx>dist</span><span class=p>)</span><span class=w> </span><span class=o>%</span><span class=w> </span><span class=nx>n</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// Calculate the index `dist` steps to the left (counter-clockwise).</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>leftIndex</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=p>(</span><span class=nx>startIndex</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=nx>dist</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=nx>n</span><span class=p>)</span><span class=w> </span><span class=o>%</span><span class=w> </span><span class=nx>n</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// If the target is found at either index, we&#39;ve found the shortest path.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=nx>words</span><span class=p>[</span><span class=nx>rightIndex</span><span class=p>]</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=nx>target</span><span class=w> </span><span class=o>||</span><span class=w> </span><span class=nx>words</span><span class=p>[</span><span class=nx>leftIndex</span><span class=p>]</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=nx>target</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>return</span><span class=w> </span><span class=nx>dist</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// If the loop completes and the target is not found, return -1.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>-</span><span class=mi>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label="Expand or collapse code block" role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div><hr><h2 class=heading-element id=-test-cases><span>🧪 Test Cases</span>
+<a href=#-test-cases class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><div class=table-wrapper><table><thead><tr><th>#</th><th>words</th><th>target</th><th>startIndex</th><th>Expected Output</th></tr></thead><tbody><tr><td>1</td><td><code>["hello","i","am","leetcode","hello"]</code></td><td><code>"hello"</code></td><td><code>1</code></td><td><code>1</code></td></tr><tr><td>2</td><td><code>["a","b","leetcode"]</code></td><td><code>"leetcode"</code></td><td><code>0</code></td><td><code>1</code></td></tr><tr><td>3</td><td><code>["i","eat","leetcode"]</code></td><td><code>"ate"</code></td><td><code>0</code></td><td><code>-1</code></td></tr></tbody></table></div><hr><details><summary>🔑 Solution Analysis: 👈 Click to expand</summary><h3 class=heading-element id=algorithm-explanation><span>Algorithm Explanation</span>
+<a href=#algorithm-explanation class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>The core of this problem is finding the shortest distance within a circular array. An intuitive and efficient approach is a <strong>bidirectional expanding search</strong>.</p><ol><li><strong>Start from <code>startIndex</code></strong>: Our search begins at the <code>startIndex</code>, rather than iterating through the entire array. This is more direct.</li><li><strong>Synchronous Expansion</strong>: We simulate a gradually expanding search &ldquo;radius&rdquo; (<code>dist</code>). In each step, we check the positions at the same distance both clockwise (right) and counter-clockwise (left). At a distance <code>dist</code>, we check indices <code>startIndex + dist</code> and <code>startIndex - dist</code>, being careful to handle the circular wrapping.</li><li><strong>Stop When Found</strong>: Since we search from nearest to farthest (i.e., <code>dist</code> increases from 0), the first time we find the <code>target</code>, the corresponding distance is guaranteed to be the shortest. We can return the result immediately.</li><li><strong>Key Optimization</strong>: In a circular array of length <code>n</code>, the shortest distance between any two points will not exceed <code>n / 2</code>. If the distance in one direction, <code>d</code>, is greater than <code>n / 2</code>, the distance in the opposite direction, <code>n - d</code>, will necessarily be less than <code>n / 2</code>. Therefore, our search radius only needs to expand up to <code>n / 2</code>, which avoids a redundant full traversal.</li></ol><h3 class=heading-element id=example-1-walkthrough><span>Example 1 Walkthrough</span>
+<a href=#example-1-walkthrough class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h3><p>Let&rsquo;s walk through the process with <code>words = ["hello","i","am","leetcode","hello"]</code>, <code>target = "hello"</code>, <code>startIndex = 1</code>.</p><ul><li><p><strong>Initialization</strong>: <code>n = 5</code>, <code>startIndex = 1</code>. The search radius <code>dist</code> will iterate from 0 up to <code>5 / 2 = 2</code>.</p></li><li><p><strong><code>dist = 0</code></strong>:</p><ul><li>Clockwise 0 steps: <code>rightIndex = (1 + 0) % 5 = 1</code>. <code>words[1]</code> is <code>"i"</code>.</li><li>Counter-clockwise 0 steps: <code>leftIndex = (1 - 0 + 5) % 5 = 1</code>. <code>words[1]</code> is <code>"i"</code>.</li><li><code>"i"</code> is not <code>"hello"</code>, so we continue.</li></ul></li><li><p><strong><code>dist = 1</code></strong>:</p><ul><li>Clockwise 1 step: <code>rightIndex = (1 + 1) % 5 = 2</code>. <code>words[2]</code> is <code>"am"</code>.</li><li>Counter-clockwise 1 step: <code>leftIndex = (1 - 1 + 5) % 5 = 0</code>. <code>words[0]</code> is <code>"hello"</code>.</li><li><strong>Target found!</strong> <code>words[leftIndex]</code> matches the <code>target</code>.</li><li>The function immediately returns the current <code>dist</code>, which is <strong><code>1</code></strong>.</li></ul></li></ul><p>The algorithm terminates. The shortest distance is 1.</p></details><hr><h2 class=heading-element id=-full-runnable-code-go><span>🚀 Full Runnable Code (Go)</span>
+<a href=#-full-runnable-code-go class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><blockquote><p>Copy the following code into your local or online Go environment. The <code>closestTarget</code> function is already filled in, so you can run it directly to verify the results.</p></blockquote><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kn>import</span><span class=w> </span><span class=s>&#34;fmt&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// Test Case 1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>result1</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>closestTarget</span><span class=p>([]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;hello&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;i&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;am&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;leetcode&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;hello&#34;</span><span class=p>},</span><span class=w> </span><span class=s>&#34;hello&#34;</span><span class=p>,</span><span class=w> </span><span class=mi>1</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Test Case 1: Expected = 1, Got = %d, Passed = %t
+</span></span></span><span class=line><span class=cl><span class=s>&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>result1</span><span class=p>,</span><span class=w> </span><span class=nx>result1</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=mi>1</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// Test Case 2</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>result2</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>closestTarget</span><span class=p>([]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;a&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;b&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;leetcode&#34;</span><span class=p>},</span><span class=w> </span><span class=s>&#34;leetcode&#34;</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Test Case 2: Expected = 1, Got = %d, Passed = %t
+</span></span></span><span class=line><span class=cl><span class=s>&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>result2</span><span class=p>,</span><span class=w> </span><span class=nx>result2</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=mi>1</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// Test Case 3</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>result3</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nf>closestTarget</span><span class=p>([]</span><span class=kt>string</span><span class=p>{</span><span class=s>&#34;i&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;eat&#34;</span><span class=p>,</span><span class=w> </span><span class=s>&#34;leetcode&#34;</span><span class=p>},</span><span class=w> </span><span class=s>&#34;ate&#34;</span><span class=p>,</span><span class=w> </span><span class=mi>0</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>fmt</span><span class=p>.</span><span class=nf>Printf</span><span class=p>(</span><span class=s>&#34;Test Case 3: Expected = -1, Got = %d, Passed = %t
+</span></span></span><span class=line><span class=cl><span class=s>&#34;</span><span class=p>,</span><span class=w> </span><span class=nx>result3</span><span class=p>,</span><span class=w> </span><span class=nx>result3</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=o>-</span><span class=mi>1</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>closestTarget</span><span class=p>(</span><span class=nx>words</span><span class=w> </span><span class=p>[]</span><span class=kt>string</span><span class=p>,</span><span class=w> </span><span class=nx>target</span><span class=w> </span><span class=kt>string</span><span class=p>,</span><span class=w> </span><span class=nx>startIndex</span><span class=w> </span><span class=kt>int</span><span class=p>)</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=nx>n</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=nb>len</span><span class=p>(</span><span class=nx>words</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// The search radius `dist` starts from 0.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// We only need to search up to half the array&#39;s length (n/2),</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// as any longer path has a shorter counterpart in the other direction.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>for</span><span class=w> </span><span class=nx>dist</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=mi>0</span><span class=p>;</span><span class=w> </span><span class=nx>dist</span><span class=w> </span><span class=o>&lt;=</span><span class=w> </span><span class=nx>n</span><span class=o>/</span><span class=mi>2</span><span class=p>;</span><span class=w> </span><span class=nx>dist</span><span class=o>++</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// Calculate the index `dist` steps to the right (clockwise).</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>rightIndex</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=p>(</span><span class=nx>startIndex</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=nx>dist</span><span class=p>)</span><span class=w> </span><span class=o>%</span><span class=w> </span><span class=nx>n</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// Calculate the index `dist` steps to the left (counter-clockwise).</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// Adding `n` ensures the result of the subtraction is non-negative before the modulo.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=nx>leftIndex</span><span class=w> </span><span class=o>:=</span><span class=w> </span><span class=p>(</span><span class=nx>startIndex</span><span class=w> </span><span class=o>-</span><span class=w> </span><span class=nx>dist</span><span class=w> </span><span class=o>+</span><span class=w> </span><span class=nx>n</span><span class=p>)</span><span class=w> </span><span class=o>%</span><span class=w> </span><span class=nx>n</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=c1>// If the target is found at either index, we&#39;ve found the shortest path.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=k>if</span><span class=w> </span><span class=nx>words</span><span class=p>[</span><span class=nx>rightIndex</span><span class=p>]</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=nx>target</span><span class=w> </span><span class=o>||</span><span class=w> </span><span class=nx>words</span><span class=p>[</span><span class=nx>leftIndex</span><span class=p>]</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=nx>target</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>			</span><span class=k>return</span><span class=w> </span><span class=nx>dist</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>		</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=c1>// If the loop completes and the target is not found, return -1.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>	</span><span class=k>return</span><span class=w> </span><span class=o>-</span><span class=mi>1</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label="Expand or collapse code block" role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div></div><div id=comments><div id=giscus class=comment><script src=https://giscus.app/client.js data-repo=loommii/loommii.github.io data-repo-id=R_kgDOQ1YU8A data-category=Announcements data-category-id=DIC_kwDOQ1YU8M4C1aXA data-mapping=specific data-strict=0 data-term=2515-shortest-distance-to-a-target-string data-theme=preferred_color_scheme data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-lang=en data-loading=lazy crossorigin=anonymous async></script></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://giscus.app>giscus</a>.</noscript></div></article></main><footer class=footer><div class=footer-container><div class="footer-line powered">Powered by <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class=hugo-icon src=/images/hugo.min.svg alt="Hugo logo"> Hugo</a> | Theme - <a href=https://github.com/hugo-fixit/FixIt target=_blank rel=external title="FixIt v0.4.5"><img class=fixit-icon src=/images/fixit.min.svg alt="FixIt logo"> FixIt</a></div><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright" aria-hidden=true></i>
+<span itemprop=copyrightYear>2019 - 2026</span><span class=author itemprop=copyrightHolder>
+<a href=/en/>loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div class=widgets><div class=fixed-buttons><div class="fixed-button back-to-top animate__faster d-none" role=button aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden=true></i></div><div class="fixed-button view-comments d-none" role=button aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden=true></i></div></div><div id=mask></div><noscript><div class=noscript-warning>This website works best with JavaScript enabled.</div></noscript></div><link rel=stylesheet href=/lib/lightgallery/css/lightgallery-bundle.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script src=/lib/autocomplete/autocomplete.min.js defer></script><script src=/lib/fuse/fuse.min.js defer></script><script src=/lib/lightgallery/lightgallery.min.js defer></script><script src=/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js defer></script><script src=/lib/lightgallery/plugins/zoom/lg-zoom.min.js defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=/lib/cell-tooltip/cell-tooltip.umd.js defer></script><script src=/en/js/config/16bdacd2c9aa9c2a5ee60863d1fe1d11.js defer></script><script src=/js/theme.min.js defer></script><script src=/js/custom.min.js defer></script></body></html>

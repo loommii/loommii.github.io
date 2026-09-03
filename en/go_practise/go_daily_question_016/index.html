@@ -1,264 +1,74 @@
-<!DOCTYPE html>
-<html itemscope itemtype="http://schema.org/WebPage" lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-    <meta name="robots" content="noodp" />
-    <title>Go Daily Question 016 - loommii</title><meta name="author" content="loommii">
-<meta name="description" content="The author of Go101 published an interesting problem that primarily tests subtle details, a characteristic for which the book Go101 is well-known. Let&rsquo;s look at this problem: what is the output of the following program? (Single choice)
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 package main const s = &#34;Go101.org&#34; // len(s) == 9 // 1 &lt;&lt; 9 == 512 // 512 / 128 == 4 var a byte = 1 &lt;&lt; len(s) / 128 var b byte = 1 &lt;&lt; len(s[:]) / 128 func main() { println(a, b) } A、0 0 B、0 4 C：4 0 D：4 4 🔑 Answer Analysis: There are 2 key points here:
-"><meta name="keywords" content='Go, GoLen, BitwiseOperations, GoOverflow, GoConstant'>
-	<meta itemprop="name" content="Go Daily Question 016">
-	<meta itemprop="description" content="The author of Go101 published an interesting problem that primarily tests subtle details, a characteristic for which the book Go101 is well-known. Let’s look at this problem: what is the output of the following program? (Single choice)
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 package main const s = &#34;Go101.org&#34; // len(s) == 9 // 1 &lt;&lt; 9 == 512 // 512 / 128 == 4 var a byte = 1 &lt;&lt; len(s) / 128 var b byte = 1 &lt;&lt; len(s[:]) / 128 func main() { println(a, b) } A、0 0 B、0 4 C：4 0 D：4 4 🔑 Answer Analysis: There are 2 key points here:">
-	<meta itemprop="datePublished" content="2024-12-06T18:35:20+08:00">
-	<meta itemprop="dateModified" content="2026-08-04T00:55:54+08:00">
-	<meta itemprop="wordCount" content="394">
-	<meta itemprop="image" content="https://loommii.github.io/images/logo.png">
-	<meta itemprop="keywords" content="Go,GoLen,BitwiseOperations,GoOverflow,GoConstant"><meta property="og:url" content="https://loommii.github.io/en/go_practise/go_daily_question_016/">
-	<meta property="og:site_name" content="loommii">
-	<meta property="og:title" content="Go Daily Question 016">
-	<meta property="og:description" content="The author of Go101 published an interesting problem that primarily tests subtle details, a characteristic for which the book Go101 is well-known. Let’s look at this problem: what is the output of the following program? (Single choice)
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 package main const s = &#34;Go101.org&#34; // len(s) == 9 // 1 &lt;&lt; 9 == 512 // 512 / 128 == 4 var a byte = 1 &lt;&lt; len(s) / 128 var b byte = 1 &lt;&lt; len(s[:]) / 128 func main() { println(a, b) } A、0 0 B、0 4 C：4 0 D：4 4 🔑 Answer Analysis: There are 2 key points here:">
-	<meta property="og:locale" content="en">
-	<meta property="og:type" content="article">
-		<meta property="article:section" content="go_practise">
-		<meta property="article:published_time" content="2024-12-06T18:35:20+08:00">
-		<meta property="article:modified_time" content="2026-08-04T00:55:54+08:00">
-		<meta property="article:tag" content="Go">
-		<meta property="article:tag" content="GoLen">
-		<meta property="article:tag" content="BitwiseOperations">
-		<meta property="article:tag" content="GoOverflow">
-		<meta property="article:tag" content="GoConstant">
-		<meta property="og:image" content="https://loommii.github.io/images/logo.png">
-
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
-	<meta name="twitter:title" content="Go Daily Question 016">
-	<meta name="twitter:description" content="The author of Go101 published an interesting problem that primarily tests subtle details, a characteristic for which the book Go101 is well-known. Let’s look at this problem: what is the output of the following program? (Single choice)
-1 2 3 4 5 6 7 8 9 10 11 12 13 14 package main const s = &#34;Go101.org&#34; // len(s) == 9 // 1 &lt;&lt; 9 == 512 // 512 / 128 == 4 var a byte = 1 &lt;&lt; len(s) / 128 var b byte = 1 &lt;&lt; len(s[:]) / 128 func main() { println(a, b) } A、0 0 B、0 4 C：4 0 D：4 4 🔑 Answer Analysis: There are 2 key points here:">
-<meta name="application-name" content="FixIt">
-<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://loommii.github.io/en/go_practise/go_daily_question_016/" title="Go Daily Question 016 - loommii" /><link rel="prev" type="text/html" href="https://loommii.github.io/en/go_practise/go_daily_question_017/" title="Go Daily Question 017" /><link rel="next" type="text/html" href="https://loommii.github.io/en/go_practise/go_daily_question_015/" title="Go Daily Question 015" /><link rel="alternate" type="text/markdown" href="https://loommii.github.io/en/go_practise/go_daily_question_016/index.md" title="Go Daily Question 016 - loommii"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "headline": "Go Daily Question 016",
-    "inLanguage": "en",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https:\/\/loommii.github.io\/en\/go_practise\/go_daily_question_016\/"
-    },"genre": "go_practise","keywords": "Go, GoLen, BitwiseOperations, GoOverflow, GoConstant","wordcount":  394 ,
-    "url": "https:\/\/loommii.github.io\/en\/go_practise\/go_daily_question_016\/","datePublished": "2024-12-06T18:35:20+08:00","dateModified": "2026-08-04T00:55:54+08:00","publisher": {
-      "@type": "Organization",
-      "name": ""},"author": {
-        "@type": "Person",
-        "name": "loommii"
-      },"description": ""
-  }
-  </script><script src="/js/head/color-scheme.min.js"></script></head>
-  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
-  <div class="header-wrapper">
-    <div class="header-title">
-      <a href="/en/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="32" width="32"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
-    <nav>
-      <ul class="menu"><li class="menu-item">
-              <a class="menu-link" href="/en/posts/">Posts</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/go_practise/">Go Practice</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/leetcode/">LeetCode Solutions</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/categories/">Categories</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/tags/">Tags</a></li><li class="menu-item">
-              <a class="menu-link" href="/en/archives/">Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
-            <input type="text" placeholder="Search titles or contents ..." id="search-input-desktop">
-            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="Search">
-              <i class="fa-solid fa-search" aria-hidden="true"></i>
-            </a>
-            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="Clear">
-              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-            </a>
-            <span class="search-button search-loading" id="search-loading-desktop">
-              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-            </span>
-          </li><li class="menu-item theme-switch" role="button" aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li><li class="menu-item language-switch">
-            <span role="button" aria-label="Select Language" title="Select Language"><i class="fa-solid fa-language" aria-hidden="true"></i></span>
-            <ul class="sub-menu"><li class="menu-item"><a href="/zh-cn/go_practise/go_daily_question_016/" class="menu-link" title="简体中文">简体中文</a></li><li class="menu-item"><span class="text-secondary" title="English">English</span></li></ul>
-          </li></ul>
-    </nav>
-  </div>
-</header><header class="mobile animate__faster" id="header-mobile">
-  <div class="header-container">
-    <div class="header-wrapper">
-      <div class="header-title">
-        <a href="/en/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="26" width="26"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
-      <div class="theme-switch" role="button" aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
-      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-    <nav>
-      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
-            <div class="search mobile" id="search-mobile">
-              <input type="text" placeholder="Search titles or contents ..." id="search-input-mobile">
-              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="Search">
-                <i class="fa-solid fa-search" aria-hidden="true"></i>
-              </a>
-              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="Clear">
-                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-              </a>
-              <span class="search-button search-loading" id="search-loading-mobile">
-                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-              </span>
-            </div>
-            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-              Cancel
-            </a>
-          </li><li class="menu-item"><a class="menu-link" href="/en/posts/">Posts</a></li><li class="menu-item"><a class="menu-link" href="/en/go_practise/">Go Practice</a></li><li class="menu-item"><a class="menu-link" href="/en/leetcode/">LeetCode Solutions</a></li><li class="menu-item"><a class="menu-link" href="/en/categories/">Categories</a></li><li class="menu-item"><a class="menu-link" href="/en/tags/">Tags</a></li><li class="menu-item"><a class="menu-link" href="/en/archives/">Archives</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch">
-              <span role="button" aria-label="Select Language" title="Select Language">English<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i></span>
-              <select id="language-select" class="language-select" onchange="location = this.value;"><option value="/zh-cn/go_practise/go_daily_question_016/">简体中文</option><option value="/en/go_practise/go_daily_question_016/" selected disabled>English</option></select>
-            </span></li>
-      </ul>
-    </nav>
-  </div>
-</header><div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-  </div>
-  <div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-  </div><main class="fi-container"><article class="page single special">
-    <div class="header"><h1 class="single-title animate__animated animate__pulse animate__faster">Go Daily Question 016</h1></div><div class="content" id="content"><p>The author of Go101 published an interesting problem that primarily tests subtle details, a characteristic for which the book Go101 is well-known. Let&rsquo;s look at this problem: what is the output of the following program? (Single choice)</p>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">const</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#34;Go101.org&#34;</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">// len(s) == 9</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">// 1 &lt;&lt; 9 == 512</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">// 512 / 128 == 4</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">var</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="kt">byte</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">128</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">var</span><span class="w"> </span><span class="nx">b</span><span class="w"> </span><span class="kt">byte</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">[:])</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">128</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">println</span><span class="p">(</span><span class="nx">a</span><span class="p">,</span><span class="w"> </span><span class="nx">b</span><span class="p">)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div><ul>
-<li>A、0 0</li>
-<li>B、0 4</li>
-<li>C：4 0</li>
-<li>D：4 4</li>
-</ul>
-
-<details>
-  <summary>🔑 Answer Analysis:</summary>
-  <p>There are 2 key points here:</p>
-<ol>
-<li>
-<p>len(s)</p>
-<ul>
-<li>If <code>s</code> is a string constant or a simple array expression, <code>len</code> returns an <code>int</code> constant.</li>
-<li>If <code>s</code> is not the above (e.g., involving function calls, channels), <code>len</code> returns an <code>int</code> variable.</li>
-</ul>
-</li>
-<li>
-<p>Regarding bit shift operations</p>
-<ul>
-<li>If the left operand of a constant shift expression is an untyped constant, its result is an integer constant; otherwise, it is a constant of the same type as the left operand (must be an integer type).</li>
-<li>If the left operand of a non-constant shift expression is an untyped constant, it is implicitly converted to the type that would result if the shift expression were replaced solely by its left operand.</li>
-</ul>
-</li>
-</ol>
-<h4 class="heading-element" id="back-to-the-problem"><span>Back to the problem</span>
-  <a href="#back-to-the-problem" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h4><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role="button" title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role="button" title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role="button" title="Copy to clipboard" data-copied-text="Copied" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">const</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="s">&#34;Go101.org&#34;</span><span class="w"> </span><span class="c1">// Declares a string constant s</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">)</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="c1">// len(string constant s) len returns an int constant</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nb">len</span><span class="p">(</span><span class="nx">s</span><span class="p">[:])</span><span class="w">  </span><span class="p">=</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="c1">// len(slice of string constant s) len returns an int variable</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nx">constant</span><span class="w">   </span><span class="c1">// Constant shift expression</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="nx">variable</span><span class="w">    </span><span class="c1">// Non-constant shift expression</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">The</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">constant</span><span class="w"> </span><span class="nx">shift</span><span class="w"> </span><span class="nx">expression</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">an</span><span class="w"> </span><span class="nx">integer</span><span class="w"> </span><span class="nx">constant</span><span class="p">.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">The</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="nx">non</span><span class="o">-</span><span class="nx">constant</span><span class="w"> </span><span class="nx">shift</span><span class="w"> </span><span class="nx">expression</span><span class="w"> </span><span class="nx">depends</span><span class="w"> </span><span class="nx">on</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="kd">type</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">left</span><span class="w"> </span><span class="nx">operand</span><span class="p">.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">If</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">left</span><span class="w"> </span><span class="nx">operand</span><span class="w"> </span><span class="nx">has</span><span class="w"> </span><span class="nx">a</span><span class="w"> </span><span class="kd">type</span><span class="p">,</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">result</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">original</span><span class="w"> </span><span class="kd">type</span><span class="p">.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">If</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">left</span><span class="w"> </span><span class="nx">operand</span><span class="w"> </span><span class="nx">has</span><span class="w"> </span><span class="nx">no</span><span class="w"> </span><span class="kd">type</span><span class="p">,</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="kd">type</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">left</span><span class="w"> </span><span class="nx">operand</span><span class="w"> </span><span class="nx">will</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">implicitly</span><span class="w"> </span><span class="nx">converted</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="kd">type</span><span class="w"> </span><span class="nx">of</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">variable</span><span class="w"> </span><span class="nx">to</span><span class="w"> </span><span class="nx">be</span><span class="w"> </span><span class="nx">assigned</span><span class="p">.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">In</span><span class="w"> </span><span class="nx">this</span><span class="w"> </span><span class="nx">problem</span><span class="p">,</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="kd">type</span><span class="w"> </span><span class="nx">is</span><span class="w"> </span><span class="kt">byte</span><span class="p">.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="nx">Here</span><span class="p">,</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kt">byte</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="nx">results</span><span class="w"> </span><span class="nx">in</span><span class="w"> </span><span class="kt">byte</span><span class="w"> </span><span class="mi">512</span><span class="p">,</span><span class="w"> </span><span class="nx">which</span><span class="w"> </span><span class="nx">overflows</span><span class="p">,</span><span class="w"> </span><span class="nx">so</span><span class="w"> </span><span class="nx">it</span><span class="w"> </span><span class="nx">becomes</span><span class="w"> </span><span class="mf">0.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="mi">0</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">9</span><span class="w"> </span><span class="p">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="nx">therefore</span><span class="w"> </span><span class="nx">the</span><span class="w"> </span><span class="nx">output</span><span class="w"> </span><span class="s">`b = 0`</span><span class="p">.</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="Expand or collapse code block" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div></details>
-</div><div id="comments"><div id="giscus" class="comment">
-            <script
-                src="https://giscus.app/client.js"
-                data-repo="loommii/loommii.github.io"
-                data-repo-id="R_kgDOQ1YU8A"
-                data-category="Announcements"
-                data-category-id="DIC_kwDOQ1YU8M4C1aXA"
-                data-mapping="specific"
-                data-strict="0"
-                data-term="go-daily-question-016"
-                data-theme="preferred_color_scheme"
-                data-reactions-enabled="1"
-                data-emit-metadata="0"
-                data-input-position="bottom"
-                data-lang="en"
-                data-loading="lazy"
-                crossorigin="anonymous"
-                async
-            ></script>
-        </div>
-        <noscript>
-            Please enable JavaScript to view the comments powered by <a href="https://giscus.app">giscus</a>.
-        </noscript></div></article></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">Powered by <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> | Theme - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
-        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
-            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
-              <a href="/en/">loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
-  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
-    <div class="noscript-warning">This website works best with JavaScript enabled.</div>
-  </noscript>
-</div><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/en/js/config/93abf479c9cb3620908cb5ba99269c8f.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
-</html>
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=en><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><meta name=robots content="noodp"><title>Go Daily Question 016 - loommii</title><meta name=author content="loommii"><meta name=description content='The author of Go101 published an interesting problem that primarily tests subtle details, a characteristic for which the book Go101 is well-known. Let&rsquo;s look at this problem: what is the output of the following program? (Single choice)
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 package main const s = "Go101.org" // len(s) == 9 // 1 << 9 == 512 // 512 / 128 == 4 var a byte = 1 << len(s) / 128 var b byte = 1 << len(s[:]) / 128 func main() { println(a, b) } A、0 0 B、0 4 C：4 0 D：4 4 🔑 Answer Analysis: There are 2 key points here:
+'><meta name=keywords content='Go,GoLen,BitwiseOperations,GoOverflow,GoConstant'><meta itemprop=name content="Go Daily Question 016"><meta itemprop=description content='The author of Go101 published an interesting problem that primarily tests subtle details, a characteristic for which the book Go101 is well-known. Let’s look at this problem: what is the output of the following program? (Single choice)
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 package main const s = "Go101.org" // len(s) == 9 // 1 << 9 == 512 // 512 / 128 == 4 var a byte = 1 << len(s) / 128 var b byte = 1 << len(s[:]) / 128 func main() { println(a, b) } A、0 0 B、0 4 C：4 0 D：4 4 🔑 Answer Analysis: There are 2 key points here:'><meta itemprop=datePublished content="2024-12-06T18:35:20+08:00"><meta itemprop=dateModified content="2026-09-03T20:06:49+08:00"><meta itemprop=wordCount content="394"><meta itemprop=image content="https://loommii.github.io/images/logo.png"><meta itemprop=keywords content="Go,GoLen,BitwiseOperations,GoOverflow,GoConstant"><meta property="og:url" content="https://loommii.github.io/en/go_practise/go_daily_question_016/"><meta property="og:site_name" content="loommii"><meta property="og:title" content="Go Daily Question 016"><meta property="og:description" content='The author of Go101 published an interesting problem that primarily tests subtle details, a characteristic for which the book Go101 is well-known. Let’s look at this problem: what is the output of the following program? (Single choice)
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 package main const s = "Go101.org" // len(s) == 9 // 1 << 9 == 512 // 512 / 128 == 4 var a byte = 1 << len(s) / 128 var b byte = 1 << len(s[:]) / 128 func main() { println(a, b) } A、0 0 B、0 4 C：4 0 D：4 4 🔑 Answer Analysis: There are 2 key points here:'><meta property="og:locale" content="en"><meta property="og:type" content="article"><meta property="article:section" content="go_practise"><meta property="article:published_time" content="2024-12-06T18:35:20+08:00"><meta property="article:modified_time" content="2026-09-03T20:06:49+08:00"><meta property="article:tag" content="Go"><meta property="article:tag" content="GoLen"><meta property="article:tag" content="BitwiseOperations"><meta property="article:tag" content="GoOverflow"><meta property="article:tag" content="GoConstant"><meta property="og:image" content="https://loommii.github.io/images/logo.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://loommii.github.io/images/logo.png"><meta name=twitter:title content="Go Daily Question 016"><meta name=twitter:description content='The author of Go101 published an interesting problem that primarily tests subtle details, a characteristic for which the book Go101 is well-known. Let’s look at this problem: what is the output of the following program? (Single choice)
+1 2 3 4 5 6 7 8 9 10 11 12 13 14 package main const s = "Go101.org" // len(s) == 9 // 1 << 9 == 512 // 512 / 128 == 4 var a byte = 1 << len(s) / 128 var b byte = 1 << len(s[:]) / 128 func main() { println(a, b) } A、0 0 B、0 4 C：4 0 D：4 4 🔑 Answer Analysis: There are 2 key points here:'><meta name=application-name content="FixIt"><meta name=apple-mobile-web-app-title content="FixIt"><meta name=theme-color data-light=#f8f8f8 data-dark=#252627 content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical type=text/html href=https://loommii.github.io/en/go_practise/go_daily_question_016/ title="Go Daily Question 016 - loommii"><link rel=prev type=text/html href=https://loommii.github.io/en/go_practise/go_daily_question_017/ title="Go Daily Question 017"><link rel=next type=text/html href=https://loommii.github.io/en/go_practise/go_daily_question_015/ title="Go Daily Question 015"><link rel=alternate type=text/markdown href=https://loommii.github.io/en/go_practise/go_daily_question_016/index.md title="Go Daily Question 016 - loommii"><link rel=stylesheet href=/css/config.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Go Daily Question 016","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/loommii.github.io\/en\/go_practise\/go_daily_question_016\/"},"genre":"go_practise","keywords":"Go, GoLen, BitwiseOperations, GoOverflow, GoConstant","wordcount":394,"url":"https:\/\/loommii.github.io\/en\/go_practise\/go_daily_question_016\/","datePublished":"2024-12-06T18:35:20+08:00","dateModified":"2026-09-03T20:06:49+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"loommii"},"description":""}</script><script src=/js/head/color-scheme.min.js></script></head><body data-instant-intensity=viewport data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/en/ title=loommii><img class=logo src=/images/logo.png alt=loommii height=32 width=32><span class=header-title-text>loommii</span></a><span class=header-subtitle></span></div><nav><ul class=menu><li class=menu-item><a class=menu-link href=/en/posts/>Posts</a></li><li class=menu-item><a class=menu-link href=/en/go_practise/>Go Practice</a></li><li class=menu-item><a class=menu-link href=/en/leetcode/>LeetCode Solutions</a></li><li class=menu-item><a class=menu-link href=/en/categories/>Categories</a></li><li class=menu-item><a class=menu-link href=/en/tags/>Tags</a></li><li class=menu-item><a class=menu-link href=/en/archives/>Archives</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id=search-desktop><input type=text placeholder="Search titles or contents ..." id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=Search><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=Clear><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-desktop><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></li><li class="menu-item theme-switch" role=button aria-label="Switch Theme" title="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden=true></i></li><li class="menu-item language-switch"><span role=button aria-label="Select Language" title="Select Language"><i class="fa-solid fa-language" aria-hidden=true></i></span><ul class=sub-menu><li class=menu-item><a href=/zh-cn/go_practise/go_daily_question_016/ class=menu-link title=简体中文>简体中文</a></li><li class=menu-item><span class=text-secondary title=English>English</span></li></ul></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/en/ title=loommii><img class=logo src=/images/logo.png alt=loommii height=26 width=26><span class=header-title-text>loommii</span></a><span class=header-subtitle></span></div><div class=theme-switch role=button aria-label="Switch Theme"><i class="fa-solid fa-adjust" aria-hidden=true></i></div><div class=menu-toggle id=menu-toggle-mobile role=button aria-labelledby=menu-mobile><span></span><span></span><span></span></div></div><nav><ul class=menu id=menu-mobile><li class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder="Search titles or contents ..." id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=Search><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=Clear><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-mobile><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>Cancel</a></li><li class=menu-item><a class=menu-link href=/en/posts/>Posts</a></li><li class=menu-item><a class=menu-link href=/en/go_practise/>Go Practice</a></li><li class=menu-item><a class=menu-link href=/en/leetcode/>LeetCode Solutions</a></li><li class=menu-item><a class=menu-link href=/en/categories/>Categories</a></li><li class=menu-item><a class=menu-link href=/en/tags/>Tags</a></li><li class=menu-item><a class=menu-link href=/en/archives/>Archives</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch"><span role=button aria-label="Select Language" title="Select Language">English<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden=true></i></span>
+<select id=language-select class=language-select onchange="location=this.value"><option value=/zh-cn/go_practise/go_daily_question_016/>简体中文</option><option value=/en/go_practise/go_daily_question_016/ selected disabled>English</option></select></span></li></ul></nav></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=fi-container><article class="page single special"><div class=header><h1 class="single-title animate__animated animate__pulse animate__faster">Go Daily Question 016</h1></div><div class=content id=content><p>The author of Go101 published an interesting problem that primarily tests subtle details, a characteristic for which the book Go101 is well-known. Let&rsquo;s look at this problem: what is the output of the following program? (Single choice)</p><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kn>package</span><span class=w> </span><span class=nx>main</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>const</span><span class=w> </span><span class=nx>s</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=s>&#34;Go101.org&#34;</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// len(s) == 9</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// 1 &lt;&lt; 9 == 512</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// 512 / 128 == 4</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>a</span><span class=w> </span><span class=kt>byte</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=o>&lt;&lt;</span><span class=w> </span><span class=nb>len</span><span class=p>(</span><span class=nx>s</span><span class=p>)</span><span class=w> </span><span class=o>/</span><span class=w> </span><span class=mi>128</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>var</span><span class=w> </span><span class=nx>b</span><span class=w> </span><span class=kt>byte</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=o>&lt;&lt;</span><span class=w> </span><span class=nb>len</span><span class=p>(</span><span class=nx>s</span><span class=p>[:])</span><span class=w> </span><span class=o>/</span><span class=w> </span><span class=mi>128</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>main</span><span class=p>()</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nb>println</span><span class=p>(</span><span class=nx>a</span><span class=p>,</span><span class=w> </span><span class=nx>b</span><span class=p>)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label="Expand or collapse code block" role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div><ul><li>A、0 0</li><li>B、0 4</li><li>C：4 0</li><li>D：4 4</li></ul><details><summary>🔑 Answer Analysis:</summary><p>There are 2 key points here:</p><ol><li><p>len(s)</p><ul><li>If <code>s</code> is a string constant or a simple array expression, <code>len</code> returns an <code>int</code> constant.</li><li>If <code>s</code> is not the above (e.g., involving function calls, channels), <code>len</code> returns an <code>int</code> variable.</li></ul></li><li><p>Regarding bit shift operations</p><ul><li>If the left operand of a constant shift expression is an untyped constant, its result is an integer constant; otherwise, it is a constant of the same type as the left operand (must be an integer type).</li><li>If the left operand of a non-constant shift expression is an untyped constant, it is implicitly converted to the type that would result if the shift expression were replaced solely by its left operand.</li></ul></li></ol><h4 class=heading-element id=back-to-the-problem><span>Back to the problem</span>
+<a href=#back-to-the-problem class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h4><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label="Toggle line numbers" role=button title="Toggle line numbers" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label="Toggle code wrap" role=button title="Toggle code wrap" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label="Copy to clipboard" role=button title="Copy to clipboard" data-copied-text=Copied data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>const</span><span class=w> </span><span class=nx>s</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=s>&#34;Go101.org&#34;</span><span class=w> </span><span class=c1>// Declares a string constant s</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nb>len</span><span class=p>(</span><span class=nx>s</span><span class=p>)</span><span class=w>  </span><span class=p>=</span><span class=w> </span><span class=mi>9</span><span class=w> </span><span class=c1>// len(string constant s) len returns an int constant</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nb>len</span><span class=p>(</span><span class=nx>s</span><span class=p>[:])</span><span class=w>  </span><span class=p>=</span><span class=w> </span><span class=mi>9</span><span class=w> </span><span class=c1>// len(slice of string constant s) len returns an int variable</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=mi>1</span><span class=w> </span><span class=o>&lt;&lt;</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=nx>constant</span><span class=w>   </span><span class=c1>// Constant shift expression</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=mi>1</span><span class=w> </span><span class=o>&lt;&lt;</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=nx>variable</span><span class=w>    </span><span class=c1>// Non-constant shift expression</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>The</span><span class=w> </span><span class=nx>result</span><span class=w> </span><span class=nx>of</span><span class=w> </span><span class=nx>a</span><span class=w> </span><span class=nx>constant</span><span class=w> </span><span class=nx>shift</span><span class=w> </span><span class=nx>expression</span><span class=w> </span><span class=nx>is</span><span class=w> </span><span class=nx>an</span><span class=w> </span><span class=nx>integer</span><span class=w> </span><span class=nx>constant</span><span class=p>.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>The</span><span class=w> </span><span class=nx>result</span><span class=w> </span><span class=nx>of</span><span class=w> </span><span class=nx>a</span><span class=w> </span><span class=nx>non</span><span class=o>-</span><span class=nx>constant</span><span class=w> </span><span class=nx>shift</span><span class=w> </span><span class=nx>expression</span><span class=w> </span><span class=nx>depends</span><span class=w> </span><span class=nx>on</span><span class=w> </span><span class=nx>the</span><span class=w> </span><span class=kd>type</span><span class=w> </span><span class=nx>of</span><span class=w> </span><span class=nx>the</span><span class=w> </span><span class=nx>left</span><span class=w> </span><span class=nx>operand</span><span class=p>.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>If</span><span class=w> </span><span class=nx>the</span><span class=w> </span><span class=nx>left</span><span class=w> </span><span class=nx>operand</span><span class=w> </span><span class=nx>has</span><span class=w> </span><span class=nx>a</span><span class=w> </span><span class=kd>type</span><span class=p>,</span><span class=w> </span><span class=nx>the</span><span class=w> </span><span class=nx>result</span><span class=w> </span><span class=nx>is</span><span class=w> </span><span class=nx>of</span><span class=w> </span><span class=nx>the</span><span class=w> </span><span class=nx>original</span><span class=w> </span><span class=kd>type</span><span class=p>.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>If</span><span class=w> </span><span class=nx>the</span><span class=w> </span><span class=nx>left</span><span class=w> </span><span class=nx>operand</span><span class=w> </span><span class=nx>has</span><span class=w> </span><span class=nx>no</span><span class=w> </span><span class=kd>type</span><span class=p>,</span><span class=w> </span><span class=nx>the</span><span class=w> </span><span class=kd>type</span><span class=w> </span><span class=nx>of</span><span class=w> </span><span class=nx>the</span><span class=w> </span><span class=nx>left</span><span class=w> </span><span class=nx>operand</span><span class=w> </span><span class=nx>will</span><span class=w> </span><span class=nx>be</span><span class=w> </span><span class=nx>implicitly</span><span class=w> </span><span class=nx>converted</span><span class=w> </span><span class=nx>to</span><span class=w> </span><span class=nx>the</span><span class=w> </span><span class=kd>type</span><span class=w> </span><span class=nx>of</span><span class=w> </span><span class=nx>the</span><span class=w> </span><span class=nx>variable</span><span class=w> </span><span class=nx>to</span><span class=w> </span><span class=nx>be</span><span class=w> </span><span class=nx>assigned</span><span class=p>.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>In</span><span class=w> </span><span class=nx>this</span><span class=w> </span><span class=nx>problem</span><span class=p>,</span><span class=w> </span><span class=nx>the</span><span class=w> </span><span class=kd>type</span><span class=w> </span><span class=nx>is</span><span class=w> </span><span class=kt>byte</span><span class=p>.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=nx>Here</span><span class=p>,</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kt>byte</span><span class=w> </span><span class=mi>1</span><span class=w> </span><span class=o>&lt;&lt;</span><span class=w> </span><span class=kt>int</span><span class=w> </span><span class=mi>9</span><span class=w> </span><span class=nx>results</span><span class=w> </span><span class=nx>in</span><span class=w> </span><span class=kt>byte</span><span class=w> </span><span class=mi>512</span><span class=p>,</span><span class=w> </span><span class=nx>which</span><span class=w> </span><span class=nx>overflows</span><span class=p>,</span><span class=w> </span><span class=nx>so</span><span class=w> </span><span class=nx>it</span><span class=w> </span><span class=nx>becomes</span><span class=w> </span><span class=mf>0.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=mi>0</span><span class=w> </span><span class=o>/</span><span class=w> </span><span class=mi>9</span><span class=w> </span><span class=p>=</span><span class=w> </span><span class=mi>0</span><span class=p>,</span><span class=w> </span><span class=nx>therefore</span><span class=w> </span><span class=nx>the</span><span class=w> </span><span class=nx>output</span><span class=w> </span><span class=s>`b = 0`</span><span class=p>.</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label="Expand or collapse code block" role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div></details></div><div id=comments><div id=giscus class=comment><script src=https://giscus.app/client.js data-repo=loommii/loommii.github.io data-repo-id=R_kgDOQ1YU8A data-category=Announcements data-category-id=DIC_kwDOQ1YU8M4C1aXA data-mapping=specific data-strict=0 data-term=go-daily-question-016 data-theme=preferred_color_scheme data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-lang=en data-loading=lazy crossorigin=anonymous async></script></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://giscus.app>giscus</a>.</noscript></div></article></main><footer class=footer><div class=footer-container><div class="footer-line powered">Powered by <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class=hugo-icon src=/images/hugo.min.svg alt="Hugo logo"> Hugo</a> | Theme - <a href=https://github.com/hugo-fixit/FixIt target=_blank rel=external title="FixIt v0.4.5"><img class=fixit-icon src=/images/fixit.min.svg alt="FixIt logo"> FixIt</a></div><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright" aria-hidden=true></i>
+<span itemprop=copyrightYear>2019 - 2026</span><span class=author itemprop=copyrightHolder>
+<a href=/en/>loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div class=widgets><div class=fixed-buttons><div class="fixed-button back-to-top animate__faster d-none" role=button aria-label="Back to Top"><i class="fa-solid fa-arrow-up" aria-hidden=true></i></div><div class="fixed-button view-comments d-none" role=button aria-label="View Comments"><i class="fa-solid fa-comment" aria-hidden=true></i></div></div><div id=mask></div><noscript><div class=noscript-warning>This website works best with JavaScript enabled.</div></noscript></div><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script src=/lib/autocomplete/autocomplete.min.js defer></script><script src=/lib/fuse/fuse.min.js defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=/lib/cell-tooltip/cell-tooltip.umd.js defer></script><script src=/en/js/config/93abf479c9cb3620908cb5ba99269c8f.js defer></script><script src=/js/theme.min.js defer></script><script src=/js/custom.min.js defer></script></body></html>

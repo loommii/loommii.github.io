@@ -1,369 +1,77 @@
-<!DOCTYPE html>
-<html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
-    <meta name="robots" content="noodp" />
-    <title>Go: Slice(切片) 和 Map(集合) 未初始化操作会怎样 - loommii</title><meta name="author" content="loommii">
-<meta name="description" content="详解Go语言中slice和map未初始化操作的行为和影响"><meta name="keywords" content='Go, Go切片, Gomap, Go初始化, 内存管理'>
-	<meta itemprop="name" content="Go: slice(切片) 和 map(集合) 未初始化操作会怎样">
-	<meta itemprop="description" content="详解Go语言中slice和map未初始化操作的行为和影响">
-	<meta itemprop="datePublished" content="2024-12-16T19:03:04+08:00">
-	<meta itemprop="dateModified" content="2026-01-16T01:28:43+08:00">
-	<meta itemprop="wordCount" content="881">
-	<meta itemprop="image" content="https://loommii.github.io/images/logo.png">
-	<meta itemprop="keywords" content="Go,Go切片,Gomap,Go初始化,内存管理"><meta property="og:url" content="https://loommii.github.io/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/">
-	<meta property="og:site_name" content="loommii">
-	<meta property="og:title" content="Go: slice(切片) 和 map(集合) 未初始化操作会怎样">
-	<meta property="og:description" content="详解Go语言中slice和map未初始化操作的行为和影响">
-	<meta property="og:locale" content="zh_CN">
-	<meta property="og:type" content="article">
-		<meta property="article:section" content="posts">
-		<meta property="article:published_time" content="2024-12-16T19:03:04+08:00">
-		<meta property="article:modified_time" content="2026-01-16T01:28:43+08:00">
-		<meta property="article:tag" content="Go">
-		<meta property="article:tag" content="Go切片">
-		<meta property="article:tag" content="Gomap">
-		<meta property="article:tag" content="Go初始化">
-		<meta property="article:tag" content="内存管理">
-		<meta property="og:image" content="https://loommii.github.io/images/logo.png">
-
-	<meta name="twitter:card" content="summary_large_image">
-	<meta name="twitter:image" content="https://loommii.github.io/images/logo.png">
-	<meta name="twitter:title" content="Go: slice(切片) 和 map(集合) 未初始化操作会怎样">
-	<meta name="twitter:description" content="详解Go语言中slice和map未初始化操作的行为和影响">
-<meta name="application-name" content="FixIt">
-<meta name="apple-mobile-web-app-title" content="FixIt"><meta name="theme-color" data-light="#f8f8f8" data-dark="#252627" content="#f8f8f8"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
-    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="canonical" type="text/html" href="https://loommii.github.io/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/" title="Go: slice(切片) 和 map(集合) 未初始化操作会怎样 - loommii" /><link rel="prev" type="text/html" href="https://loommii.github.io/zh-cn/posts/difference_between_go_slice_and_array/" title="Go: slice(切片) 和array(数组) 的区别" /><link rel="next" type="text/html" href="https://loommii.github.io/zh-cn/posts/why_is_go_map_unordered/" title="Go: 为什么Map是无序的" /><link rel="alternate" type="text/markdown" href="https://loommii.github.io/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/index.md" title="Go: slice(切片) 和 map(集合) 未初始化操作会怎样 - loommii"><link rel="stylesheet" href="/css/config.min.css"><link rel="stylesheet" href="/css/style.min.css"><link rel="preload" href="/lib/fontawesome-free/all.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"></noscript><link rel="preload" href="/lib/animate/animate.min.css" as="style" onload="this.removeAttribute('onload');this.rel='stylesheet'">
-    <noscript><link rel="stylesheet" href="/lib/animate/animate.min.css"></noscript><script type="application/ld+json">
-  {
-    "@context": "http://schema.org",
-    "@type": "BlogPosting",
-    "headline": "Go: slice(切片) 和 map(集合) 未初始化操作会怎样",
-    "inLanguage": "zh-CN",
-    "mainEntityOfPage": {
-      "@type": "WebPage",
-      "@id": "https:\/\/loommii.github.io\/zh-cn\/posts\/what_happens_if_go_map_slice_is_not_initialized\/"
-    },"genre": "posts","keywords": "Go, Go切片, Gomap, Go初始化, 内存管理","wordcount":  881 ,
-    "url": "https:\/\/loommii.github.io\/zh-cn\/posts\/what_happens_if_go_map_slice_is_not_initialized\/","datePublished": "2024-12-16T19:03:04+08:00","dateModified": "2026-01-16T01:28:43+08:00","publisher": {
-      "@type": "Organization",
-      "name": ""},"author": {
-        "@type": "Person",
-        "name": "loommii"
-      },"description": "详解Go语言中slice和map未初始化操作的行为和影响"
-  }
-  </script><script src="/js/head/color-scheme.min.js"></script></head>
-  <body data-instant-intensity="viewport" data-header-desktop="sticky" data-header-mobile="auto"><div class="wrapper" data-page-style="normal"><header class="desktop animate__faster" id="header-desktop">
-  <div class="header-wrapper">
-    <div class="header-title">
-      <a href="/zh-cn/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="32" width="32"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
-    <nav>
-      <ul class="menu"><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/posts/">文章</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/go_practise/">Go练习题</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/leetcode/">LeetCode题解</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/categories/">分类</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/tags/">标签</a></li><li class="menu-item">
-              <a class="menu-link" href="/zh-cn/archives/">归档</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id="search-desktop">
-            <input type="text" placeholder="搜索文章标题或内容……" id="search-input-desktop">
-            <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
-              <i class="fa-solid fa-search" aria-hidden="true"></i>
-            </a>
-            <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-desktop" title="清空">
-              <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-            </a>
-            <span class="search-button search-loading" id="search-loading-desktop">
-              <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-            </span>
-          </li><li class="menu-item theme-switch" role="button" aria-label="切换主题" title="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></li><li class="menu-item language-switch">
-            <span role="button" aria-label="选择语言" title="选择语言"><i class="fa-solid fa-language" aria-hidden="true"></i></span>
-            <ul class="sub-menu"><li class="menu-item"><span class="text-secondary" title="简体中文">简体中文</span></li><li class="menu-item"><a href="/en/posts/what_happens_if_go_map_slice_is_not_initialized/" class="menu-link" title="English">English</a></li></ul>
-          </li></ul>
-    </nav>
-  </div>
-</header><header class="mobile animate__faster" id="header-mobile">
-  <div class="header-container">
-    <div class="header-wrapper">
-      <div class="header-title">
-        <a href="/zh-cn/" title="loommii"><img class="logo" src='/images/logo.png' alt="loommii" height="26" width="26"><span class="header-title-text">loommii</span></a><span class="header-subtitle"></span></div>
-      <div class="theme-switch" role="button" aria-label="切换主题"><i class="fa-solid fa-adjust" aria-hidden="true"></i></div>
-      <div class="menu-toggle" id="menu-toggle-mobile" role="button" aria-labelledby="menu-mobile">
-        <span></span><span></span><span></span>
-      </div>
-    </div>
-    <nav>
-      <ul class="menu" id="menu-mobile"><li class="search-wrapper">
-            <div class="search mobile" id="search-mobile">
-              <input type="text" placeholder="搜索文章标题或内容……" id="search-input-mobile">
-              <a href="javascript:void(0);" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
-                <i class="fa-solid fa-search" aria-hidden="true"></i>
-              </a>
-              <a href="javascript:void(0);" class="search-button search-clear" id="search-clear-mobile" title="清空">
-                <i class="fa-solid fa-times-circle" aria-hidden="true"></i>
-              </a>
-              <span class="search-button search-loading" id="search-loading-mobile">
-                <i class="fa-solid fa-spinner fa-spin" aria-hidden="true"></i>
-              </span>
-            </div>
-            <a href="javascript:void(0);" class="search-cancel" id="search-cancel-mobile">
-              取消
-            </a>
-          </li><li class="menu-item"><a class="menu-link" href="/zh-cn/posts/">文章</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/go_practise/">Go练习题</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/leetcode/">LeetCode题解</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/categories/">分类</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/tags/">标签</a></li><li class="menu-item"><a class="menu-link" href="/zh-cn/archives/">归档</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch">
-              <span role="button" aria-label="选择语言" title="选择语言">简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden="true"></i></span>
-              <select id="language-select" class="language-select" onchange="location = this.value;"><option value="/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/" selected disabled>简体中文</option><option value="/en/posts/what_happens_if_go_map_slice_is_not_initialized/">English</option></select>
-            </span></li>
-      </ul>
-    </nav>
-  </div>
-</header><div class="search-dropdown desktop">
-    <div id="search-dropdown-desktop"></div>
-  </div>
-  <div class="search-dropdown mobile">
-    <div id="search-dropdown-mobile"></div>
-  </div><main class="fi-container"><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label="合集"></aside>
-
-  <article class="page single">
-    <div class="header"><h1 class="single-title animate__animated animate__flipInX"><span>Go: Slice(切片) 和 Map(集合) 未初始化操作会怎样</span>
-      </h1></div><div class="post-meta">
-      <div class="post-meta-line"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      loommii</span></span><span class="post-included-in">&nbsp;收录于 <a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" class="post-category" title="分类 - 技术文章"><i class="fa-regular fa-folder" aria-hidden="true"></i> 技术文章</a></span></div><div class="post-meta-line"><span title="发布于 2024-12-16 19:03:04"><i class="fa-solid fa-calendar-days me-1" aria-hidden="true"></i><time datetime="2024-12-16">2024-12-16</time></span>&nbsp;<span title="更新于 2026-01-16 01:28:43"><i class="fa-regular fa-calendar-check me-1" aria-hidden="true"></i><time datetime="2026-01-16">2026-01-16</time></span>&nbsp;<span title="881 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden="true"></i>约 900 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden="true"></i>预计阅读 2 分钟</span>&nbsp;</div>
-    </div><div class="details toc" id="toc-static" data-kept="false">
-        <div class="details-summary toc-title">
-          <span>目录</span>
-          <span><i class="details-icon fa-solid fa-angle-right" aria-hidden="true"></i></span>
-        </div>
-        <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
-  <ul>
-    <li><a href="#底层结构">底层结构</a></li>
-    <li><a href="#slice切片">slice(切片)</a></li>
-    <li><a href="#map集合">map(集合)</a></li>
-    <li><a href="#为什么未初始化map写入会panic-而slice切片不会">为什么未初始化Map写入会panic 而slice(切片)不会)</a></li>
-    <li><a href="#如何避免">如何避免</a></li>
-  </ul>
-</nav></div>
-      </div><div class="content" id="content"><h2 class="heading-element" id="底层结构"><span>底层结构</span>
-  <a href="#%e5%ba%95%e5%b1%82%e7%bb%93%e6%9e%84" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
-</span><span class="lnt"> 2
-</span><span class="lnt"> 3
-</span><span class="lnt"> 4
-</span><span class="lnt"> 5
-</span><span class="lnt"> 6
-</span><span class="lnt"> 7
-</span><span class="lnt"> 8
-</span><span class="lnt"> 9
-</span><span class="lnt">10
-</span><span class="lnt">11
-</span><span class="lnt">12
-</span><span class="lnt">13
-</span><span class="lnt">14
-</span><span class="lnt">15
-</span><span class="lnt">16
-</span><span class="lnt">17
-</span><span class="lnt">18
-</span><span class="lnt">19
-</span><span class="lnt">20
-</span><span class="lnt">21
-</span><span class="lnt">22
-</span><span class="lnt">23
-</span><span class="lnt">24
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="c1">// slice(切片)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">SliceHeader</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Data</span><span class="w"> </span><span class="kt">uintptr</span><span class="w"> </span><span class="c1">// 底层数组的地址</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Len</span><span class="w">  </span><span class="kt">int</span><span class="w">     </span><span class="c1">// 长度</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">Cap</span><span class="w">  </span><span class="kt">int</span><span class="w">     </span><span class="c1">// 容量</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="c1">// map(集合)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="kd">type</span><span class="w"> </span><span class="nx">hmap</span><span class="w"> </span><span class="kd">struct</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// Make sure this stays in sync with the compiler&#39;s definition.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">count</span><span class="w">     </span><span class="kt">int</span><span class="w"> </span><span class="c1">// # live cells == size of map.  Must be first (used by len() builtin)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">flags</span><span class="w">     </span><span class="kt">uint8</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">B</span><span class="w">         </span><span class="kt">uint8</span><span class="w">  </span><span class="c1">// log_2 of # of buckets (can hold up to loadFactor * 2^B items)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">noverflow</span><span class="w"> </span><span class="kt">uint16</span><span class="w"> </span><span class="c1">// approximate number of overflow buckets; see incrnoverflow for details</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">hash0</span><span class="w">     </span><span class="kt">uint32</span><span class="w"> </span><span class="c1">// hash seed</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">buckets</span><span class="w">    </span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="w"> </span><span class="c1">// array of 2^B Buckets. may be nil if count==0.</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">oldbuckets</span><span class="w"> </span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="w"> </span><span class="c1">// previous bucket array of half the size, non-nil only when growing</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">nevacuate</span><span class="w">  </span><span class="kt">uintptr</span><span class="w">        </span><span class="c1">// progress counter for evacuation (buckets less than this have been evacuated)</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">clearSeq</span><span class="w">   </span><span class="kt">uint64</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nx">extra</span><span class="w"> </span><span class="o">*</span><span class="nx">mapextra</span><span class="w"> </span><span class="c1">// optional fields</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
-</div>
-</div><p>这2个类型都属于引用类型,特点是存储的是一个地址,且零值为nil</p>
-<p>透过上面代码你会发现底层结构都存在指向其他空间的地址</p>
-<ul>
-<li>slice(切片) Data指向底层数组</li>
-<li>map(集合) buckets存储桶 oldbuckets旧的存储桶 mapextra 保存溢出桶的链表和未使用的溢出桶数组的首地址</li>
-</ul>
-<p>因此如果为初始化的情况下。指向的地址为nil。</p>
-<h2 class="heading-element" id="slice切片"><span>slice(切片)</span>
-  <a href="#slice%e5%88%87%e7%89%87" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><ol>
-<li>未初始化读取
-<ul>
-<li>
-<p>指定下标</p>
-<p>这时候slice长度和空间都为0,如果通过下标的形式读取会panic。越界了</p>
-</li>
-<li>
-<p>for range</p>
-<p>无内容,不会发生panic <a href="https://go.dev/play/p/PlQgXmM7MKe" target="_blank" rel="external nofollow noopener noreferrer">https://go.dev/play/p/PlQgXmM7MKe</a></p>
-</li>
-</ul>
-</li>
-<li>未初始化写入
-<ul>
-<li>
-<p>指定下标</p>
-<p>这时候slice长度和空间都为0,如果通过下标的形式写会panic。越界了</p>
-</li>
-<li>
-<p>append</p>
-<p>不会发panic,可以正常写入 <a href="https://go.dev/play/p/wo6M-xCZ6XW" target="_blank" rel="external nofollow noopener noreferrer">https://go.dev/play/p/wo6M-xCZ6XW</a></p>
-</li>
-</ul>
-</li>
-</ol>
-<h2 class="heading-element" id="map集合"><span>map(集合)</span>
-  <a href="#map%e9%9b%86%e5%90%88" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><ol>
-<li>
-<p>未初始化读取</p>
-<ul>
-<li>
-<p>指定Key值</p>
-<p>不会发生panic,读取到的为0值 <a href="https://go.dev/play/p/Fjd67YLcHj4" target="_blank" rel="external nofollow noopener noreferrer">https://go.dev/play/p/Fjd67YLcHj4</a></p>
-</li>
-<li>
-<p>for range</p>
-<p>不会发生panic,无内容 <a href="https://go.dev/play/p/h6U7522hWBv" target="_blank" rel="external nofollow noopener noreferrer">https://go.dev/play/p/h6U7522hWBv</a></p>
-</li>
-</ul>
-</li>
-<li>
-<p>未初始化写入</p>
-<p>发生panic,<code>panic: assignment to entry in nil map</code> <a href="https://go.dev/play/p/S8xUziyKnLa" target="_blank" rel="external nofollow noopener noreferrer">https://go.dev/play/p/S8xUziyKnLa</a></p>
-</li>
-<li>
-<p>未初始化删除</p>
-<p>不会发生panic,<a href="https://go.dev/play/p/Be3SgjevDlA" target="_blank" rel="external nofollow noopener noreferrer">https://go.dev/play/p/Be3SgjevDlA</a></p>
-</li>
-</ol>
-<h2 class="heading-element" id="为什么未初始化map写入会panic-而slice切片不会"><span>为什么未初始化Map写入会panic 而slice(切片)不会)</span>
-  <a href="#%e4%b8%ba%e4%bb%80%e4%b9%88%e6%9c%aa%e5%88%9d%e5%a7%8b%e5%8c%96map%e5%86%99%e5%85%a5%e4%bc%9apanic-%e8%80%8cslice%e5%88%87%e7%89%87%e4%b8%8d%e4%bc%9a" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><ol>
-<li>slice在添加的时候使用的是append,写入的时候会判断是否超过容量,超过就发生扩容。扩容后的数组地址就不为之前的nil</li>
-<li>map也有扩容机制为什么还是会panic</li>
-</ol>
-<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
-<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
-<pre tabindex="0" class="chroma"><code><span class="lnt">1
-</span><span class="lnt">2
-</span><span class="lnt">3
-</span><span class="lnt">4
-</span><span class="lnt">5
-</span><span class="lnt">6
-</span></code></pre></td>
-<td class="lntd">
-<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">mapassign</span><span class="p">(</span><span class="nx">t</span><span class="w"> </span><span class="o">*</span><span class="nx">maptype</span><span class="p">,</span><span class="w"> </span><span class="nx">h</span><span class="w"> </span><span class="o">*</span><span class="nx">hmap</span><span class="p">,</span><span class="w"> </span><span class="nx">key</span><span class="w"> </span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="p">)</span><span class="w"> </span><span class="nx">unsafe</span><span class="p">.</span><span class="nx">Pointer</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="nx">h</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="kc">nil</span><span class="w"> </span><span class="p">{</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">        </span><span class="nb">panic</span><span class="p">(</span><span class="nf">plainError</span><span class="p">(</span><span class="s">&#34;assignment to entry in nil map&#34;</span><span class="p">))</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="p">}</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="c1">// 省略细节</span><span class="w">
-</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div>
-</div>
-</div><p>make map的时候 会设置hash0哨因子,若未初始化hash0就为0。操作的时候会除以hash0 ./0 是不被允许的</p>
-<h2 class="heading-element" id="如何避免"><span>如何避免</span>
-  <a href="#%e5%a6%82%e4%bd%95%e9%81%bf%e5%85%8d" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h2><ol>
-<li>引入单元测试,这种未初始化操作导致的panic异常是可预见的,因在项目开发中加入单元测试。</li>
-<li>recover恢复panic</li>
-</ol></div><div class="post-footer" id="post-footer">
-  <div class="post-info">
-    <div class="post-info-line">
-      <div class="post-info-mod"><span title="更新于 2026-01-16 01:28:43">更新于 2026-01-16&nbsp;</span>
-      </div><div class="post-info-license">
-            <span><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a></span>
-          </div></div><div class="post-info-line">
-        <div class="post-info-md"><span><a href="/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/index.md" title="阅读原始文档" class="link-to-markdown">阅读原始文档</a></span></div>
-        <div class="post-info-share">
-          <span><a href="javascript:void(0);" title="分享到 X" data-sharer="twitter" data-url="https://loommii.github.io/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/" data-title="Go: Slice(切片) 和 Map(集合) 未初始化操作会怎样" data-hashtags="Go,Go切片,Gomap,Go初始化,内存管理"><i class="fa-brands fa-x-twitter" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://loommii.github.io/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/" data-hashtag="Go"><i class="fa-brands fa-facebook-square" aria-hidden="true"></i></a>
-  <a href="javascript:void(0);" title="分享到 微博" data-sharer="weibo" data-url="https://loommii.github.io/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/" data-title="Go: Slice(切片) 和 Map(集合) 未初始化操作会怎样"><i class="fa-brands fa-weibo" aria-hidden="true"></i></a>
-  </span>
-        </div>
-      </div></div>
-
-  <div class="post-info-more">
-    <section class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href="/zh-cn/tags/go/" class="post-tag" title="标签 - Go">Go</a><a href="/zh-cn/tags/go%E5%88%87%E7%89%87/" class="post-tag" title="标签 - Go切片">Go切片</a><a href="/zh-cn/tags/gomap/" class="post-tag" title="标签 - Gomap">Gomap</a><a href="/zh-cn/tags/go%E5%88%9D%E5%A7%8B%E5%8C%96/" class="post-tag" title="标签 - Go初始化">Go初始化</a><a href="/zh-cn/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/" class="post-tag" title="标签 - 内存管理">内存管理</a></section>
-    <section><span><a href="javascript:void(0);" onclick="window.history.back();">返回</a></span>&nbsp;|&nbsp;<span><a href="/zh-cn/">主页</a></span>
-    </section>
-  </div><div class="post-nav"><a href="/zh-cn/posts/difference_between_go_slice_and_array/" class="post-nav-item" rel="prev" title="Go: Slice(切片) 和array(数组) 的区别"><i class="fa-solid fa-angle-left" aria-hidden="true"></i>Go: Slice(切片) 和array(数组) 的区别</a><a href="/zh-cn/posts/why_is_go_map_unordered/" class="post-nav-item" rel="next" title="Go: 为什么Map是无序的">Go: 为什么Map是无序的<i class="fa-solid fa-angle-right" aria-hidden="true"></i></a></div>
-</div>
-<div id="comments"><div id="giscus" class="comment">
-            <script
-                src="https://giscus.app/client.js"
-                data-repo="loommii/loommii.github.io"
-                data-repo-id="R_kgDOQ1YU8A"
-                data-category="Announcements"
-                data-category-id="DIC_kwDOQ1YU8M4C1aXA"
-                data-mapping="specific"
-                data-strict="0"
-                data-term="what-happens-if-go-map-slice-is-not-initialized"
-                data-theme="preferred_color_scheme"
-                data-reactions-enabled="1"
-                data-emit-metadata="0"
-                data-input-position="bottom"
-                data-lang="zh-CN"
-                data-loading="lazy"
-                crossorigin="anonymous"
-                async
-            ></script>
-        </div>
-        <noscript>
-            Please enable JavaScript to view the comments powered by <a href="https://giscus.app">giscus</a>.
-        </noscript></div></article>
-
-  <aside class="toc" id="toc-auto" aria-label="目录"><h2 class="toc-title">目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden="true"></i></h2>
-      <div class="toc-content" id="toc-content-auto"></div></aside><dialog id="toc-dialog" aria-labelledby="toc-dialog-title" role="dialog">
-      <div class="toc">
-        <h2 class="toc-title">目录</h2>
-        <div class="toc-content" id="toc-content-drawer"><nav >
-  <ul>
-    <li><a href="#底层结构">底层结构</a></li>
-    <li><a href="#slice切片">slice(切片)</a></li>
-    <li><a href="#map集合">map(集合)</a></li>
-    <li><a href="#为什么未初始化map写入会panic-而slice切片不会">为什么未初始化Map写入会panic 而slice(切片)不会)</a></li>
-    <li><a href="#如何避免">如何避免</a></li>
-  </ul>
-</nav></div>
-      </div>
-    </dialog></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
-        </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
-            <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
-              <a href="/zh-cn/">loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
-  </footer></div><div class="widgets"><div class="fixed-buttons"><div class="fixed-button back-to-top animate__faster d-none" role="button" aria-label="回到顶部"><i class="fa-solid fa-arrow-up" aria-hidden="true"></i></div><div id="toc-drawer-button" class="fixed-button toc-drawer-button d-none" role="button" aria-label="目录"><i class="fa-solid fa-bars" aria-hidden="true"></i></div><div class="fixed-button view-comments d-none" role="button" aria-label="查看评论"><i class="fa-solid fa-comment" aria-hidden="true"></i></div></div><div id="mask"></div><noscript>
-    <div class="noscript-warning">该网站在启用 JavaScript 的情况下效果最佳。</div>
-  </noscript>
-</div><link rel="stylesheet" href="/lib/lightgallery/css/lightgallery-bundle.min.css"><link rel="stylesheet" href="/lib/cookieconsent/cookieconsent.min.css"><script src="/lib/autocomplete/autocomplete.min.js" defer></script><script src="/lib/fuse/fuse.min.js" defer></script><script src="/lib/lightgallery/lightgallery.min.js" defer></script><script src="/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js" defer></script><script src="/lib/lightgallery/plugins/zoom/lg-zoom.min.js" defer></script><script src="/lib/sharer/sharer.min.js" async defer></script><script src="/lib/cookieconsent/cookieconsent.min.js" defer></script><script src="/lib/cell-tooltip/cell-tooltip.umd.js" defer></script><script src="/zh-cn/js/config/562058fbd29f81a99654249a6bdc549e.js" defer></script><script src="/js/theme.min.js" defer></script><script src="/js/custom.min.js" defer></script></body>
-</html>
+<!doctype html><html itemscope itemtype=http://schema.org/WebPage lang=zh-CN><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1,maximum-scale=2"><meta name=robots content="noodp"><title>Go: Slice(切片) 和 Map(集合) 未初始化操作会怎样 - loommii</title><meta name=author content="loommii"><meta name=description content="详解Go语言中slice和map未初始化操作的行为和影响"><meta name=keywords content='Go,Go切片,Gomap,Go初始化,内存管理'><meta itemprop=name content="Go: slice(切片) 和 map(集合) 未初始化操作会怎样"><meta itemprop=description content="详解Go语言中slice和map未初始化操作的行为和影响"><meta itemprop=datePublished content="2024-12-16T19:03:04+08:00"><meta itemprop=dateModified content="2026-01-16T01:28:43+08:00"><meta itemprop=wordCount content="881"><meta itemprop=image content="https://loommii.github.io/images/logo.png"><meta itemprop=keywords content="Go,Go切片,Gomap,Go初始化,内存管理"><meta property="og:url" content="https://loommii.github.io/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/"><meta property="og:site_name" content="loommii"><meta property="og:title" content="Go: slice(切片) 和 map(集合) 未初始化操作会怎样"><meta property="og:description" content="详解Go语言中slice和map未初始化操作的行为和影响"><meta property="og:locale" content="zh_CN"><meta property="og:type" content="article"><meta property="article:section" content="posts"><meta property="article:published_time" content="2024-12-16T19:03:04+08:00"><meta property="article:modified_time" content="2026-01-16T01:28:43+08:00"><meta property="article:tag" content="Go"><meta property="article:tag" content="Go切片"><meta property="article:tag" content="Gomap"><meta property="article:tag" content="Go初始化"><meta property="article:tag" content="内存管理"><meta property="og:image" content="https://loommii.github.io/images/logo.png"><meta name=twitter:card content="summary_large_image"><meta name=twitter:image content="https://loommii.github.io/images/logo.png"><meta name=twitter:title content="Go: slice(切片) 和 map(集合) 未初始化操作会怎样"><meta name=twitter:description content="详解Go语言中slice和map未初始化操作的行为和影响"><meta name=application-name content="FixIt"><meta name=apple-mobile-web-app-title content="FixIt"><meta name=theme-color data-light=#f8f8f8 data-dark=#252627 content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico><link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png><link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=canonical type=text/html href=https://loommii.github.io/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/ title="Go: slice(切片) 和 map(集合) 未初始化操作会怎样 - loommii"><link rel=prev type=text/html href=https://loommii.github.io/zh-cn/posts/difference_between_go_slice_and_array/ title="Go: slice(切片) 和array(数组) 的区别"><link rel=next type=text/html href=https://loommii.github.io/zh-cn/posts/why_is_go_map_unordered/ title="Go: 为什么Map是无序的"><link rel=alternate type=text/markdown href=https://loommii.github.io/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/index.md title="Go: slice(切片) 和 map(集合) 未初始化操作会怎样 - loommii"><link rel=stylesheet href=/css/config.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload href=/lib/fontawesome-free/all.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload href=/lib/animate/animate.min.css as=style onload='this.removeAttribute("onload"),this.rel="stylesheet"'><noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript><script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Go: slice(切片) 和 map(集合) 未初始化操作会怎样","inLanguage":"zh-CN","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/loommii.github.io\/zh-cn\/posts\/what_happens_if_go_map_slice_is_not_initialized\/"},"genre":"posts","keywords":"Go, Go切片, Gomap, Go初始化, 内存管理","wordcount":881,"url":"https:\/\/loommii.github.io\/zh-cn\/posts\/what_happens_if_go_map_slice_is_not_initialized\/","datePublished":"2024-12-16T19:03:04+08:00","dateModified":"2026-01-16T01:28:43+08:00","publisher":{"@type":"Organization","name":""},"author":{"@type":"Person","name":"loommii"},"description":"详解Go语言中slice和map未初始化操作的行为和影响"}</script><script src=/js/head/color-scheme.min.js></script></head><body data-instant-intensity=viewport data-header-desktop=sticky data-header-mobile=auto><div class=wrapper data-page-style=normal><header class="desktop animate__faster" id=header-desktop><div class=header-wrapper><div class=header-title><a href=/zh-cn/ title=loommii><img class=logo src=/images/logo.png alt=loommii height=32 width=32><span class=header-title-text>loommii</span></a><span class=header-subtitle></span></div><nav><ul class=menu><li class=menu-item><a class=menu-link href=/zh-cn/posts/>文章</a></li><li class=menu-item><a class=menu-link href=/zh-cn/go_practise/>Go练习题</a></li><li class=menu-item><a class=menu-link href=/zh-cn/leetcode/>LeetCode题解</a></li><li class=menu-item><a class=menu-link href=/zh-cn/categories/>分类</a></li><li class=menu-item><a class=menu-link href=/zh-cn/tags/>标签</a></li><li class=menu-item><a class=menu-link href=/zh-cn/archives/>归档</a></li><li class="menu-item delimiter"></li><li class="menu-item search" id=search-desktop><input type=text placeholder=搜索文章标题或内容…… id=search-input-desktop>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-desktop title=搜索><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-desktop title=清空><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-desktop><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></li><li class="menu-item theme-switch" role=button aria-label=切换主题 title=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></li><li class="menu-item language-switch"><span role=button aria-label=选择语言 title=选择语言><i class="fa-solid fa-language" aria-hidden=true></i></span><ul class=sub-menu><li class=menu-item><span class=text-secondary title=简体中文>简体中文</span></li><li class=menu-item><a href=/en/posts/what_happens_if_go_map_slice_is_not_initialized/ class=menu-link title=English>English</a></li></ul></li></ul></nav></div></header><header class="mobile animate__faster" id=header-mobile><div class=header-container><div class=header-wrapper><div class=header-title><a href=/zh-cn/ title=loommii><img class=logo src=/images/logo.png alt=loommii height=26 width=26><span class=header-title-text>loommii</span></a><span class=header-subtitle></span></div><div class=theme-switch role=button aria-label=切换主题><i class="fa-solid fa-adjust" aria-hidden=true></i></div><div class=menu-toggle id=menu-toggle-mobile role=button aria-labelledby=menu-mobile><span></span><span></span><span></span></div></div><nav><ul class=menu id=menu-mobile><li class=search-wrapper><div class="search mobile" id=search-mobile><input type=text placeholder=搜索文章标题或内容…… id=search-input-mobile>
+<a href=javascript:void(0); class="search-button search-toggle" id=search-toggle-mobile title=搜索><i class="fa-solid fa-search" aria-hidden=true></i>
+</a><a href=javascript:void(0); class="search-button search-clear" id=search-clear-mobile title=清空><i class="fa-solid fa-times-circle" aria-hidden=true></i>
+</a><span class="search-button search-loading" id=search-loading-mobile><i class="fa-solid fa-spinner fa-spin" aria-hidden=true></i></span></div><a href=javascript:void(0); class=search-cancel id=search-cancel-mobile>取消</a></li><li class=menu-item><a class=menu-link href=/zh-cn/posts/>文章</a></li><li class=menu-item><a class=menu-link href=/zh-cn/go_practise/>Go练习题</a></li><li class=menu-item><a class=menu-link href=/zh-cn/leetcode/>LeetCode题解</a></li><li class=menu-item><a class=menu-link href=/zh-cn/categories/>分类</a></li><li class=menu-item><a class=menu-link href=/zh-cn/tags/>标签</a></li><li class=menu-item><a class=menu-link href=/zh-cn/archives/>归档</a></li><li class="menu-item menu-system"><span class="menu-system-item language-switch"><span role=button aria-label=选择语言 title=选择语言>简体中文<i class="dropdown-icon fa-solid fa-chevron-down" aria-hidden=true></i></span>
+<select id=language-select class=language-select onchange="location=this.value"><option value=/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/ selected disabled>简体中文</option><option value=/en/posts/what_happens_if_go_map_slice_is_not_initialized/>English</option></select></span></li></ul></nav></div></header><div class="search-dropdown desktop"><div id=search-dropdown-desktop></div></div><div class="search-dropdown mobile"><div id=search-dropdown-mobile></div></div><main class=fi-container><aside class="aside-collection animate__animated animate__fadeIn animate__faster" aria-label=合集></aside><article class="page single"><div class=header><h1 class="single-title animate__animated animate__flipInX"><span>Go: Slice(切片) 和 Map(集合) 未初始化操作会怎样</span></h1></div><div class=post-meta><div class=post-meta-line><span class=post-author><span class=author><i class="fa-solid fa-user-circle" aria-hidden=true></i>
+loommii</span></span><span class=post-included-in>&nbsp;收录于 <a href=/zh-cn/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/ class=post-category title="分类 - 技术文章"><i class="fa-regular fa-folder" aria-hidden=true></i> 技术文章</a></span></div><div class=post-meta-line><span title="发布于 2024-12-16 19:03:04"><i class="fa-solid fa-calendar-days me-1" aria-hidden=true></i><time datetime=2024-12-16>2024-12-16</time></span>&nbsp;<span title="更新于 2026-01-16 01:28:43"><i class="fa-regular fa-calendar-check me-1" aria-hidden=true></i><time datetime=2026-01-16>2026-01-16</time></span>&nbsp;<span title="881 字"><i class="fa-solid fa-pencil-alt me-1" aria-hidden=true></i>约 900 字</span>&nbsp;<span><i class="fa-regular fa-clock me-1" aria-hidden=true></i>预计阅读 2 分钟</span>&nbsp;</div></div><div class="details toc" id=toc-static data-kept=false><div class="details-summary toc-title"><span>目录</span>
+<span><i class="details-icon fa-solid fa-angle-right" aria-hidden=true></i></span></div><div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents><ul><li><a href=#底层结构>底层结构</a></li><li><a href=#slice切片>slice(切片)</a></li><li><a href=#map集合>map(集合)</a></li><li><a href=#为什么未初始化map写入会panic-而slice切片不会>为什么未初始化Map写入会panic 而slice(切片)不会)</a></li><li><a href=#如何避免>如何避免</a></li></ul></nav></div></div><div class=content id=content><h2 class=heading-element id=底层结构><span>底层结构</span>
+<a href=#%e5%ba%95%e5%b1%82%e7%bb%93%e6%9e%84 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=2 style=--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=c1>// slice(切片)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>SliceHeader</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>Data</span><span class=w> </span><span class=kt>uintptr</span><span class=w> </span><span class=c1>// 底层数组的地址</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>Len</span><span class=w>  </span><span class=kt>int</span><span class=w>     </span><span class=c1>// 长度</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>Cap</span><span class=w>  </span><span class=kt>int</span><span class=w>     </span><span class=c1>// 容量</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=c1>// map(集合)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=kd>type</span><span class=w> </span><span class=nx>hmap</span><span class=w> </span><span class=kd>struct</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// Note: the format of the hmap is also encoded in cmd/compile/internal/reflectdata/reflect.go.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// Make sure this stays in sync with the compiler&#39;s definition.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>count</span><span class=w>     </span><span class=kt>int</span><span class=w> </span><span class=c1>// # live cells == size of map.  Must be first (used by len() builtin)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>flags</span><span class=w>     </span><span class=kt>uint8</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>B</span><span class=w>         </span><span class=kt>uint8</span><span class=w>  </span><span class=c1>// log_2 of # of buckets (can hold up to loadFactor * 2^B items)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>noverflow</span><span class=w> </span><span class=kt>uint16</span><span class=w> </span><span class=c1>// approximate number of overflow buckets; see incrnoverflow for details</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>hash0</span><span class=w>     </span><span class=kt>uint32</span><span class=w> </span><span class=c1>// hash seed</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>buckets</span><span class=w>    </span><span class=nx>unsafe</span><span class=p>.</span><span class=nx>Pointer</span><span class=w> </span><span class=c1>// array of 2^B Buckets. may be nil if count==0.</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>oldbuckets</span><span class=w> </span><span class=nx>unsafe</span><span class=p>.</span><span class=nx>Pointer</span><span class=w> </span><span class=c1>// previous bucket array of half the size, non-nil only when growing</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>nevacuate</span><span class=w>  </span><span class=kt>uintptr</span><span class=w>        </span><span class=c1>// progress counter for evacuation (buckets less than this have been evacuated)</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>clearSeq</span><span class=w>   </span><span class=kt>uint64</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=nx>extra</span><span class=w> </span><span class=o>*</span><span class=nx>mapextra</span><span class=w> </span><span class=c1>// optional fields</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div><div class=code-expand-btn aria-label=展开或折叠代码块 role=button><i class="fa-solid fa-angles-down" aria-hidden=true></i></div></div></div><p>这2个类型都属于引用类型,特点是存储的是一个地址,且零值为nil</p><p>透过上面代码你会发现底层结构都存在指向其他空间的地址</p><ul><li>slice(切片) Data指向底层数组</li><li>map(集合) buckets存储桶 oldbuckets旧的存储桶 mapextra 保存溢出桶的链表和未使用的溢出桶数组的首地址</li></ul><p>因此如果为初始化的情况下。指向的地址为nil。</p><h2 class=heading-element id=slice切片><span>slice(切片)</span>
+<a href=#slice%e5%88%87%e7%89%87 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><ol><li>未初始化读取<ul><li><p>指定下标</p><p>这时候slice长度和空间都为0,如果通过下标的形式读取会panic。越界了</p></li><li><p>for range</p><p>无内容,不会发生panic <a href=https://go.dev/play/p/PlQgXmM7MKe target=_blank rel="external nofollow noopener noreferrer">https://go.dev/play/p/PlQgXmM7MKe</a></p></li></ul></li><li>未初始化写入<ul><li><p>指定下标</p><p>这时候slice长度和空间都为0,如果通过下标的形式写会panic。越界了</p></li><li><p>append</p><p>不会发panic,可以正常写入 <a href=https://go.dev/play/p/wo6M-xCZ6XW target=_blank rel="external nofollow noopener noreferrer">https://go.dev/play/p/wo6M-xCZ6XW</a></p></li></ul></li></ol><h2 class=heading-element id=map集合><span>map(集合)</span>
+<a href=#map%e9%9b%86%e5%90%88 class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><ol><li><p>未初始化读取</p><ul><li><p>指定Key值</p><p>不会发生panic,读取到的为0值 <a href=https://go.dev/play/p/Fjd67YLcHj4 target=_blank rel="external nofollow noopener noreferrer">https://go.dev/play/p/Fjd67YLcHj4</a></p></li><li><p>for range</p><p>不会发生panic,无内容 <a href=https://go.dev/play/p/h6U7522hWBv target=_blank rel="external nofollow noopener noreferrer">https://go.dev/play/p/h6U7522hWBv</a></p></li></ul></li><li><p>未初始化写入</p><p>发生panic,<code>panic: assignment to entry in nil map</code> <a href=https://go.dev/play/p/S8xUziyKnLa target=_blank rel="external nofollow noopener noreferrer">https://go.dev/play/p/S8xUziyKnLa</a></p></li><li><p>未初始化删除</p><p>不会发生panic,<a href=https://go.dev/play/p/Be3SgjevDlA target=_blank rel="external nofollow noopener noreferrer">https://go.dev/play/p/Be3SgjevDlA</a></p></li></ol><h2 class=heading-element id=为什么未初始化map写入会panic-而slice切片不会><span>为什么未初始化Map写入会panic 而slice(切片)不会)</span>
+<a href=#%e4%b8%ba%e4%bb%80%e4%b9%88%e6%9c%aa%e5%88%9d%e5%a7%8b%e5%8c%96map%e5%86%99%e5%85%a5%e4%bc%9apanic-%e8%80%8cslice%e5%88%87%e7%89%87%e4%b8%8d%e4%bc%9a class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><ol><li>slice在添加的时候使用的是append,写入的时候会判断是否超过容量,超过就发生扩容。扩容后的数组地址就不为之前的nil</li><li>map也有扩容机制为什么还是会panic</li></ol><div class="code-block highlight" data-mode=classic data-copyable=true><div class=chroma><div class="code-header language-go"><span class=code-title><i class="arrow fa-solid fa-chevron-down" aria-hidden=true></i></span><span class=ellipses-btn aria-label="Show more options" role=button><i class="fa-solid fa-ellipsis-h" aria-hidden=true></i></span><span class="action-btn line-nos-btn" aria-label=切换行号 role=button title=切换行号 data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden=true></i></span><span class="action-btn line-wrap-btn" aria-label=切换自动换行 role=button title=切换自动换行 data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden=true></i></span><span class="action-btn copy-btn" aria-label=复制到剪贴板 role=button title=复制到剪贴板 data-copied-text=已复制 data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden=true></i></span></div><div class=code-wrapper data-max=10 data-line-digit=1 style=--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1><table class=lntable><tr><td class=lntd><pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td><td class=lntd><pre tabindex=0 class=chroma><code class=language-go data-lang=go><span class=line><span class=cl><span class=kd>func</span><span class=w> </span><span class=nf>mapassign</span><span class=p>(</span><span class=nx>t</span><span class=w> </span><span class=o>*</span><span class=nx>maptype</span><span class=p>,</span><span class=w> </span><span class=nx>h</span><span class=w> </span><span class=o>*</span><span class=nx>hmap</span><span class=p>,</span><span class=w> </span><span class=nx>key</span><span class=w> </span><span class=nx>unsafe</span><span class=p>.</span><span class=nx>Pointer</span><span class=p>)</span><span class=w> </span><span class=nx>unsafe</span><span class=p>.</span><span class=nx>Pointer</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=k>if</span><span class=w> </span><span class=nx>h</span><span class=w> </span><span class=o>==</span><span class=w> </span><span class=kc>nil</span><span class=w> </span><span class=p>{</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>        </span><span class=nb>panic</span><span class=p>(</span><span class=nf>plainError</span><span class=p>(</span><span class=s>&#34;assignment to entry in nil map&#34;</span><span class=p>))</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=p>}</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=w>    </span><span class=c1>// 省略细节</span><span class=w>
+</span></span></span><span class=line><span class=cl><span class=p>}</span></span></span></code></pre></td></tr></table></div></div></div><p>make map的时候 会设置hash0哨因子,若未初始化hash0就为0。操作的时候会除以hash0 ./0 是不被允许的</p><h2 class=heading-element id=如何避免><span>如何避免</span>
+<a href=#%e5%a6%82%e4%bd%95%e9%81%bf%e5%85%8d class=heading-mark><svg class="octicon octicon-link" viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5.0 114.95 4.95l-2.5 2.5a3.5 3.5.0 01-4.95.0.751.751.0 01.018-1.042.751.751.0 011.042-.018 1.998 1.998.0 002.83.0l2.5-2.5a2.002 2.002.0 00-2.83-2.83l-1.25 1.25a.751.751.0 01-1.042-.018.751.751.0 01-.018-1.042zm-4.69 9.64a1.998 1.998.0 002.83.0l1.25-1.25a.751.751.0 011.042.018.751.751.0 01.018 1.042l-1.25 1.25a3.5 3.5.0 11-4.95-4.95l2.5-2.5a3.5 3.5.0 014.95.0.751.751.0 01-.018 1.042.751.751.0 01-1.042.018 1.998 1.998.0 00-2.83.0l-2.5 2.5a1.998 1.998.0 000 2.83z"/></svg></a></h2><ol><li>引入单元测试,这种未初始化操作导致的panic异常是可预见的,因在项目开发中加入单元测试。</li><li>recover恢复panic</li></ol></div><div class=post-footer id=post-footer><div class=post-info><div class=post-info-line><div class=post-info-mod><span title="更新于 2026-01-16 01:28:43">更新于 2026-01-16&nbsp;</span></div><div class=post-info-license><span><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc-sa/4.0/ target=_blank>CC BY-NC-SA 4.0</a></span></div></div><div class=post-info-line><div class=post-info-md><span><a href=/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/index.md title=阅读原始文档 class=link-to-markdown>阅读原始文档</a></span></div><div class=post-info-share><span><a href=javascript:void(0); title="分享到 X" data-sharer=twitter data-url=https://loommii.github.io/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/ data-title="Go: Slice(切片) 和 Map(集合) 未初始化操作会怎样" data-hashtags=Go,Go切片,Gomap,Go初始化,内存管理><i class="fa-brands fa-x-twitter" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 Facebook" data-sharer=facebook data-url=https://loommii.github.io/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/ data-hashtag=Go><i class="fa-brands fa-facebook-square" aria-hidden=true></i></a>
+<a href=javascript:void(0); title="分享到 微博" data-sharer=weibo data-url=https://loommii.github.io/zh-cn/posts/what_happens_if_go_map_slice_is_not_initialized/ data-title="Go: Slice(切片) 和 Map(集合) 未初始化操作会怎样"><i class="fa-brands fa-weibo" aria-hidden=true></i></a></span></div></div></div><div class=post-info-more><section class=post-tags><i class="fa-solid fa-tags me-1" aria-hidden=true></i><a href=/zh-cn/tags/go/ class=post-tag title="标签 - Go">Go</a><a href=/zh-cn/tags/go%E5%88%87%E7%89%87/ class=post-tag title="标签 - Go切片">Go切片</a><a href=/zh-cn/tags/gomap/ class=post-tag title="标签 - Gomap">Gomap</a><a href=/zh-cn/tags/go%E5%88%9D%E5%A7%8B%E5%8C%96/ class=post-tag title="标签 - Go初始化">Go初始化</a><a href=/zh-cn/tags/%E5%86%85%E5%AD%98%E7%AE%A1%E7%90%86/ class=post-tag title="标签 - 内存管理">内存管理</a></section><section><span><a href=javascript:void(0); onclick=window.history.back()>返回</a></span>&nbsp;|&nbsp;<span><a href=/zh-cn/>主页</a></span></section></div><div class=post-nav><a href=/zh-cn/posts/difference_between_go_slice_and_array/ class=post-nav-item rel=prev title="Go: Slice(切片) 和array(数组) 的区别"><i class="fa-solid fa-angle-left" aria-hidden=true></i>Go: Slice(切片) 和array(数组) 的区别</a><a href=/zh-cn/posts/why_is_go_map_unordered/ class=post-nav-item rel=next title="Go: 为什么Map是无序的">Go: 为什么Map是无序的<i class="fa-solid fa-angle-right" aria-hidden=true></i></a></div></div><div id=comments><div id=giscus class=comment><script src=https://giscus.app/client.js data-repo=loommii/loommii.github.io data-repo-id=R_kgDOQ1YU8A data-category=Announcements data-category-id=DIC_kwDOQ1YU8M4C1aXA data-mapping=specific data-strict=0 data-term=what-happens-if-go-map-slice-is-not-initialized data-theme=preferred_color_scheme data-reactions-enabled=1 data-emit-metadata=0 data-input-position=bottom data-lang=zh-CN data-loading=lazy crossorigin=anonymous async></script></div><noscript>Please enable JavaScript to view the comments powered by <a href=https://giscus.app>giscus</a>.</noscript></div></article><aside class=toc id=toc-auto aria-label=目录><h2 class=toc-title>目录&nbsp;<i class="toc-icon fa-solid fa-angle-down" aria-hidden=true></i></h2><div class=toc-content id=toc-content-auto></div></aside><dialog id=toc-dialog aria-labelledby=toc-dialog-title role=dialog><div class=toc><h2 class=toc-title>目录</h2><div class=toc-content id=toc-content-drawer><nav><ul><li><a href=#底层结构>底层结构</a></li><li><a href=#slice切片>slice(切片)</a></li><li><a href=#map集合>map(集合)</a></li><li><a href=#为什么未初始化map写入会panic-而slice切片不会>为什么未初始化Map写入会panic 而slice(切片)不会)</a></li><li><a href=#如何避免>如何避免</a></li></ul></nav></div></div></dialog></main><footer class=footer><div class=footer-container><div class="footer-line powered">由 <a href=https://gohugo.io/ target=_blank rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class=hugo-icon src=/images/hugo.min.svg alt="Hugo logo"> Hugo</a> 强力驱动 | 主题 - <a href=https://github.com/hugo-fixit/FixIt target=_blank rel=external title="FixIt v0.4.5"><img class=fixit-icon src=/images/fixit.min.svg alt="FixIt logo"> FixIt</a></div><div class="footer-line copyright" itemscope itemtype=http://schema.org/CreativeWork><i class="fa-regular fa-copyright" aria-hidden=true></i>
+<span itemprop=copyrightYear>2019 - 2026</span><span class=author itemprop=copyrightHolder>
+<a href=/zh-cn/>loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div></div></footer></div><div class=widgets><div class=fixed-buttons><div class="fixed-button back-to-top animate__faster d-none" role=button aria-label=回到顶部><i class="fa-solid fa-arrow-up" aria-hidden=true></i></div><div id=toc-drawer-button class="fixed-button toc-drawer-button d-none" role=button aria-label=目录><i class="fa-solid fa-bars" aria-hidden=true></i></div><div class="fixed-button view-comments d-none" role=button aria-label=查看评论><i class="fa-solid fa-comment" aria-hidden=true></i></div></div><div id=mask></div><noscript><div class=noscript-warning>该网站在启用 JavaScript 的情况下效果最佳。</div></noscript></div><link rel=stylesheet href=/lib/lightgallery/css/lightgallery-bundle.min.css><link rel=stylesheet href=/lib/cookieconsent/cookieconsent.min.css><script src=/lib/autocomplete/autocomplete.min.js defer></script><script src=/lib/fuse/fuse.min.js defer></script><script src=/lib/lightgallery/lightgallery.min.js defer></script><script src=/lib/lightgallery/plugins/thumbnail/lg-thumbnail.min.js defer></script><script src=/lib/lightgallery/plugins/zoom/lg-zoom.min.js defer></script><script src=/lib/sharer/sharer.min.js async defer></script><script src=/lib/cookieconsent/cookieconsent.min.js defer></script><script src=/lib/cell-tooltip/cell-tooltip.umd.js defer></script><script src=/zh-cn/js/config/562058fbd29f81a99654249a6bdc549e.js defer></script><script src=/js/theme.min.js defer></script><script src=/js/custom.min.js defer></script></body></html>
