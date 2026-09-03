@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
   <head>
-	<meta name="generator" content="Hugo 0.164.0">
+	<meta name="generator" content="Hugo 0.165.0">
     <meta name="theme" content='FixIt v0.4.5'>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -126,7 +126,67 @@
 <li><strong><a href="/zh-cn/posts/">技术文章</a></strong> - 各他技术文章和教程</li>
 </ul>
 </div>
-        </div><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/zh-cn/go_practise/go_daily_question_003/">Go每日一题_003</a>
+        </div><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/zh-cn/go_practise/go_daily_question_002/">Go每日一题_002</a>
+  </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 19:40:53'>发布于 <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;收录于 <a href="/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="post-category" title="分类 - Go每日一题"><i class="fa-regular fa-folder" aria-hidden="true"></i> Go每日一题</a>&ensp;<a href="/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" class="post-category" title="分类 - Go语言基础"><i class="fa-regular fa-folder" aria-hidden="true"></i> Go语言基础</a></span></div><div class="content"><p>下面这段代码输出的内容</p>
+<div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-go"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="2" style="--fi-max-shown-lines:10;--fi-line-digit:2;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt"> 1
+</span><span class="lnt"> 2
+</span><span class="lnt"> 3
+</span><span class="lnt"> 4
+</span><span class="lnt"> 5
+</span><span class="lnt"> 6
+</span><span class="lnt"> 7
+</span><span class="lnt"> 8
+</span><span class="lnt"> 9
+</span><span class="lnt">10
+</span><span class="lnt">11
+</span><span class="lnt">12
+</span><span class="lnt">13
+</span><span class="lnt">14
+</span><span class="lnt">15
+</span><span class="lnt">16
+</span><span class="lnt">17
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-go" data-lang="go"><span class="line"><span class="cl"><span class="kn">package</span><span class="w"> </span><span class="nx">main</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kn">import</span><span class="w"> </span><span class="p">(</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="s">&#34;fmt&#34;</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">main</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nf">defer_call</span><span class="p">()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="kd">func</span><span class="w"> </span><span class="nf">defer_call</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;打印前&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">}()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;打印中&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">}()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="k">defer</span><span class="w"> </span><span class="kd">func</span><span class="p">()</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">fmt</span><span class="p">.</span><span class="nf">Println</span><span class="p">(</span><span class="s">&#34;打印后&#34;</span><span class="p">)</span><span class="w"> </span><span class="p">}()</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="w">    </span><span class="nb">panic</span><span class="p">(</span><span class="s">&#34;触发异常&#34;</span><span class="p">)</span><span class="w">
+</span></span></span><span class="line"><span class="cl"><span class="p">}</span></span></span></code></pre></td></tr></table></div><div class="code-expand-btn" aria-label="展开或折叠代码块" role="button"><i class="fa-solid fa-angles-down" aria-hidden="true"></i></div>
+</div>
+</div>
+<details>
+  <summary>🔑 答案解析：</summary>
+  <div class="code-block highlight" data-mode="classic" data-copyable="true"><div class="chroma">
+<div class="code-header language-text"><span class="code-title"><i class="arrow fa-solid fa-chevron-down" aria-hidden="true"></i></span><span class="ellipses-btn" aria-label="Show more options" role="button"><i class="fa-solid fa-ellipsis-h" aria-hidden="true"></i></span><span class="action-btn line-nos-btn" aria-label="切换行号" role="button" title="切换行号" data-ct-tooltip><i class="fa-solid fa-list-ol" aria-hidden="true"></i></span><span class="action-btn line-wrap-btn" aria-label="切换自动换行" role="button" title="切换自动换行" data-ct-tooltip><i class="fa-solid fa-right-left" aria-hidden="true"></i></span><span class="action-btn copy-btn" aria-label="复制到剪贴板" role="button" title="复制到剪贴板" data-copied-text="已复制" data-ct-tooltip><i class="fa-regular fa-clone" aria-hidden="true"></i></span></div><div class="code-wrapper" data-max="10" data-line-digit="1" style="--fi-max-shown-lines:10;--fi-line-digit:1;--fi-line-start:1;"><table class="lntable"><tr><td class="lntd">
+<pre tabindex="0" class="chroma"><code><span class="lnt">1
+</span><span class="lnt">2
+</span><span class="lnt">3
+</span><span class="lnt">4
+</span></code></pre></td>
+<td class="lntd">
+<pre tabindex="0" class="chroma"><code class="language-text" data-lang="text"><span class="line"><span class="cl">打印后
+</span></span><span class="line"><span class="cl">打印中
+</span></span><span class="line"><span class="cl">打印前
+</span></span><span class="line"><span class="cl">panic: 触发异常</span></span></code></pre></td></tr></table></div>
+</div>
+</div><p>解析：defer 的执行顺序是后进先出。当出现 panic 语句的时候，会先按照 defer 的后进先出的顺序执行，最后才会执行panic。</p></div><div class="post-footer">
+    <a href="/zh-cn/go_practise/go_daily_question_002/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/zh-cn/tags/go/' class="post-tag">Go</a><a href='/zh-cn/tags/godefer/' class="post-tag">Godefer</a><a href='/zh-cn/tags/gopanic/' class="post-tag">Gopanic</a><a href='/zh-cn/tags/lifo/' class="post-tag">LIFO</a><a href='/zh-cn/tags/go%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F/' class="post-tag">Go执行顺序</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/zh-cn/go_practise/go_daily_question_003/">Go每日一题_003</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
       loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 19:40:53'>发布于 <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;收录于 <a href="/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="post-category" title="分类 - Go每日一题"><i class="fa-regular fa-folder" aria-hidden="true"></i> Go每日一题</a>&ensp;<a href="/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" class="post-category" title="分类 - Go语言基础"><i class="fa-regular fa-folder" aria-hidden="true"></i> Go语言基础</a></span></div><div class="content"><p>map 的 key 为什么是无序的？</p>
 <p>在遍历 map 的时候，我们会发现，输出的 key 是无序的。为什么？</p>
@@ -195,18 +255,6 @@
   <summary>🔑 答案解析：</summary>
   <p>答:不能,编译报错</p></div><div class="post-footer">
     <a href="/zh-cn/go_practise/go_daily_question_007/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/zh-cn/tags/go/' class="post-tag">Go</a><a href='/zh-cn/tags/gomap/' class="post-tag">Gomap</a><a href='/zh-cn/tags/go%E6%8C%87%E9%92%88/' class="post-tag">Go指针</a><a href='/zh-cn/tags/go%E5%86%85%E5%AD%98/' class="post-tag">Go内存</a><a href='/zh-cn/tags/%E7%BC%96%E8%AF%91%E9%94%99%E8%AF%AF/' class="post-tag">编译错误</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/zh-cn/go_practise/go_daily_question_008/">Go每日一题_008</a>
-  </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      loommii</span></span>&nbsp;<span class="post-publish" title='2024-12-06 19:40:52'>发布于 <time datetime="2024-12-06">2024-12-06</time></span><span class="post-included-in">&nbsp;收录于 <a href="/zh-cn/categories/go%E6%AF%8F%E6%97%A5%E4%B8%80%E9%A2%98/" class="post-category" title="分类 - Go每日一题"><i class="fa-regular fa-folder" aria-hidden="true"></i> Go每日一题</a>&ensp;<a href="/zh-cn/categories/go%E8%AF%AD%E8%A8%80%E5%9F%BA%E7%A1%80/" class="post-category" title="分类 - Go语言基础"><i class="fa-regular fa-folder" aria-hidden="true"></i> Go语言基础</a></span></div><div class="content"><p>如何确认两个 map 是否相等？</p>
-
-<details>
-  <summary>🔑 答案解析：</summary>
-  <p>map 深度相等的条件：</p>
-<p>都为 nil
-非空、长度相等，指向同一个 map 实体对象
-相应的 key 指向的 value “深度”相等</p>
-<p>直接将使用 <code>map1 == map2</code> 是<code>错误</code>的。这种写法只能比较 map 是否为 nil。</p></div><div class="post-footer">
-    <a href="/zh-cn/go_practise/go_daily_question_008/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/zh-cn/tags/go/' class="post-tag">Go</a><a href='/zh-cn/tags/gomap/' class="post-tag">Gomap</a><a href='/zh-cn/tags/go%E6%AF%94%E8%BE%83/' class="post-tag">Go比较</a><a href='/zh-cn/tags/go%E7%9B%B8%E7%AD%89%E6%80%A7/' class="post-tag">Go相等性</a><a href='/zh-cn/tags/go%E5%8F%8D%E5%B0%84/' class="post-tag">Go反射</a></div></div>
 </article><ul class="pagination"><li class="page-item">
           <span class="page-link">
             <a href="/zh-cn/">1</a>
@@ -233,8 +281,12 @@
           <span class="page-link">
             <a href="/zh-cn/page/53/">53</a>
           </span>
+        </li><li class="page-item">
+          <span class="page-link">
+            <a href="/zh-cn/page/54/">54</a>
+          </span>
         </li></ul></div></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.164.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
         </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
             <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
               <a href="/zh-cn/">loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html itemscope itemtype="http://schema.org/WebPage" lang="zh-CN">
   <head>
-	<meta name="generator" content="Hugo 0.164.0">
+	<meta name="generator" content="Hugo 0.165.0">
     <meta name="theme" content='FixIt v0.4.5'>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
@@ -126,7 +126,11 @@
 <li><strong><a href="/zh-cn/posts/">技术文章</a></strong> - 各他技术文章和教程</li>
 </ul>
 </div>
-        </div><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/zh-cn/posts/substore_cloudflare_workers_deployment_guide/">零服务器部署 Sub-Store：Cloudflare Workers 免费方案实战</a>
+        </div><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/zh-cn/posts/dsh-upgrade-session-projection-cache-schema-mismatch/">DSH 升级后 Session-Projection-Cache 启动失败：Schema 不兼容排查与修复</a>
+  </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
+      loommii</span></span>&nbsp;<span class="post-publish" title='2026-09-03 10:00:00'>发布于 <time datetime="2026-09-03">2026-09-03</time></span><span class="post-included-in">&nbsp;收录于 <a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" class="post-category" title="分类 - 技术文章"><i class="fa-regular fa-folder" aria-hidden="true"></i> 技术文章</a></span></div><div class="content">DSH 升级后 session-projection-cache 因 schema 不兼容导致 Zod 校验失败的根因分析与解决方案</div><div class="post-footer">
+    <a href="/zh-cn/posts/dsh-upgrade-session-projection-cache-schema-mismatch/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/zh-cn/tags/dsh/' class="post-tag">DSH</a><a href='/zh-cn/tags/agent/' class="post-tag">Agent</a><a href='/zh-cn/tags/ai/' class="post-tag">Ai</a><a href='/zh-cn/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/' class="post-tag">故障排查</a></div></div>
+</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/zh-cn/posts/substore_cloudflare_workers_deployment_guide/">零服务器部署 Sub-Store：Cloudflare Workers 免费方案实战</a>
   </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
       loommii</span></span>&nbsp;<span class="post-publish" title='2026-08-04 01:49:40'>发布于 <time datetime="2026-08-04">2026-08-04</time></span><span class="post-included-in">&nbsp;收录于 <a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" class="post-category" title="分类 - 技术文章"><i class="fa-regular fa-folder" aria-hidden="true"></i> 技术文章</a></span></div><div class="content"><h3 class="heading-element" id="前言"><span>前言</span>
   <a href="#%e5%89%8d%e8%a8%80" class="heading-mark">
@@ -176,14 +180,6 @@
   </a>
 </h3><p>在我之前的文章 <a href="/zh-cn/posts/add-giscus-comments-to-hugo-blog/">《为你的 HUGO 博客集成 Giscus 评论系统》</a> 中，我详细介绍了如何为 LoveIt 主题的博客添加 Giscus 评论系统。</p></div><div class="post-footer">
     <a href="/zh-cn/posts/hugo-giscus-multilang-comment-fix/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/zh-cn/tags/hugo/' class="post-tag">HUGO</a><a href='/zh-cn/tags/giscus/' class="post-tag">Giscus</a><a href='/zh-cn/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/' class="post-tag">博客搭建</a><a href='/zh-cn/tags/%E6%95%85%E9%9A%9C%E6%8E%92%E6%9F%A5/' class="post-tag">故障排查</a><a href='/zh-cn/tags/%E5%A4%9A%E8%AF%AD%E8%A8%80/' class="post-tag">多语言</a></div></div>
-</article><article class="single summary" itemscope itemtype="http://schema.org/Article"><h2 class="single-title" itemprop="name headline"><a href="/zh-cn/posts/add-giscus-comments-to-hugo-blog/">为你的 HUGO 博客集成 Giscus 评论系统</a>
-  </h2><div class="post-meta"><span class="post-author"><span class="author"><i class="fa-solid fa-user-circle" aria-hidden="true"></i>
-      loommii</span></span>&nbsp;<span class="post-publish" title='2026-01-26 00:48:19'>发布于 <time datetime="2026-01-26">2026-01-26</time></span><span class="post-included-in">&nbsp;收录于 <a href="/zh-cn/categories/%E6%8A%80%E6%9C%AF%E6%96%87%E7%AB%A0/" class="post-category" title="分类 - 技术文章"><i class="fa-regular fa-folder" aria-hidden="true"></i> 技术文章</a></span></div><div class="content"><h3 class="heading-element" id="前言"><span>前言</span>
-  <a href="#%e5%89%8d%e8%a8%80" class="heading-mark">
-    <svg class="octicon octicon-link" viewBox="0 0 16 16" version="1.1" width="16" height="16" aria-hidden="true"><path d="m7.775 3.275 1.25-1.25a3.5 3.5 0 1 1 4.95 4.95l-2.5 2.5a3.5 3.5 0 0 1-4.95 0 .751.751 0 0 1 .018-1.042.751.751 0 0 1 1.042-.018 1.998 1.998 0 0 0 2.83 0l2.5-2.5a2.002 2.002 0 0 0-2.83-2.83l-1.25 1.25a.751.751 0 0 1-1.042-.018.751.751 0 0 1-.018-1.042Zm-4.69 9.64a1.998 1.998 0 0 0 2.83 0l1.25-1.25a.751.751 0 0 1 1.042.018.751.751 0 0 1 .018 1.042l-1.25 1.25a3.5 3.5 0 1 1-4.95-4.95l2.5-2.5a3.5 3.5 0 0 1 4.95 0 .751.751 0 0 1-.018 1.042.751.751 0 0 1-1.042.018 1.998 1.998 0 0 0-2.83 0l-2.5 2.5a1.998 1.998 0 0 0 0 2.83Z"></path></svg>
-  </a>
-</h3><p>对于一个个人博客而言，评论系统是与读者建立连接、收集反馈和促进思想交流的关键桥梁。一个活跃的评论区不仅能提升网站的互动性，更能为内容创作者带来持续的写作动力。</p></div><div class="post-footer">
-    <a href="/zh-cn/posts/add-giscus-comments-to-hugo-blog/">阅读全文</a><div class="post-tags"><i class="fa-solid fa-tags me-1" aria-hidden="true"></i><a href='/zh-cn/tags/hugo/' class="post-tag">HUGO</a><a href='/zh-cn/tags/giscus/' class="post-tag">Giscus</a><a href='/zh-cn/tags/%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA/' class="post-tag">博客搭建</a><a href='/zh-cn/tags/%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F/' class="post-tag">评论系统</a><a href='/zh-cn/tags/loveit/' class="post-tag">LoveIt</a></div></div>
 </article><ul class="pagination"><li class="page-item active">
           <span class="page-link">
             <a href="/zh-cn/">1</a>
@@ -200,10 +196,10 @@
           <span class="page-link" aria-hidden="true">&hellip;</span>
         </li><li class="page-item">
           <span class="page-link">
-            <a href="/zh-cn/page/53/">53</a>
+            <a href="/zh-cn/page/54/">54</a>
           </span>
         </li></ul></div></main><footer class="footer">
-    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.164.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
+    <div class="footer-container"><div class="footer-line powered">由 <a href="https://gohugo.io/" target="_blank" rel="external nofollow noopener noreferrer" title="Hugo 0.165.0"><img class="hugo-icon" src="/images/hugo.min.svg" alt="Hugo logo" /> Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/hugo-fixit/FixIt" target="_blank" rel="external" title="FixIt v0.4.5"><img class="fixit-icon" src="/images/fixit.min.svg" alt="FixIt logo" /> FixIt</a>
         </div><div class="footer-line copyright" itemscope itemtype="http://schema.org/CreativeWork"><i class="fa-regular fa-copyright" aria-hidden="true"></i>
             <span itemprop="copyrightYear">2019 - 2026</span><span class="author" itemprop="copyrightHolder">
               <a href="/zh-cn/">loommii</a></span><span class="license footer-divider"><a rel="license external nofollow noopener noreferrer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div></div>
