@@ -29,6 +29,9 @@ jobs:
           repository: loommii/blog
           token: ${{ secrets.PRIVATE_REPO_TOKEN }}
           path: blog-fixit-source
+          # 必须全量克隆：浅克隆下 git log 会把“边界提交”的时间返回给所有文件，
+          # 导致未写 lastmod 的文章被标成“更新于本次 push”，并污染 sitemap 的 lastmod
+          fetch-depth: 0
 
       # ── 3. 安装 Hugo ──
       - name: Setup Hugo
