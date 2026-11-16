@@ -1,21 +1,26 @@
 name: Deploy Hugo Site
 
-# 手动按钮触发：从私有仓库拉取源码，Hugo 构建后部署到本仓库
+# 手动按钮触发：从私有仓库拉取源码，Hugo 构建后全量强制覆盖发布到 gh-pages 分支
+# 发布方式：孤儿提交 + force push（每次发布只有一个提交，不再累积历史、不需要清理旧文件）
 on:
   workflow_dispatch:
 
 permissions:
   contents: write
 
+# force push 不会因并发而报错（后到的直接覆盖），必须在此串行化，否则可能出现旧内容覆盖新内容
+concurrency:
+  group: pages-deploy
+  cancel-in-progress: true
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    timeout-minutes: 15
     steps:
-      # ── 1. 检出当前部署仓库（loommii.github.io）──
+      # ── 1. 检出部署仓库（actions-gh-pages 需要已初始化的 git 工作区）──
       - name: Checkout deploy repo
         uses: actions/checkout@v4
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
 
       # ── 2. 检出私有源码仓库（blog-fixit）──
       - name: Checkout private source repo
@@ -37,43 +42,21 @@ jobs:
         working-directory: blog-fixit-source
         run: hugo --minify
 
-      # ── 5. 部署：同步构建产物到部署仓库 ──
-      - name: Deploy to GitHub Pages
+      # ── 5. 产物校验：强制覆盖前确认产物非空，避免把线上覆盖成空站 ──
+      - name: Verify build output
+        working-directory: blog-fixit-source
         run: |
-          echo "🧹 清理旧构建产物..."
-          # 删除旧文件，但保留 .git、.github、.nojekyll、CNAME
-          find . -maxdepth 1 \
-            -not -name '.git' \
-            -not -name '.github' \
-            -not -name '.nojekyll' \
-            -not -name 'CNAME' \
-            -not -name 'blog-fixit-source' \
-            -not -name '.' \
-            -exec rm -rf {} +
+          test -s public/index.html || { echo "❌ 构建产物为空，已中止发布"; exit 1; }
+          echo "✅ 产物 HTML 数量: $(find public -name '*.html' | wc -l)"
 
-          echo "📦 复制新构建产物..."
-          cp -r blog-fixit-source/public/. .
-
-          # 确保 .nojekyll 存在（GitHub Pages 渲染主题需要）
-          touch .nojekyll
-
-          echo "🗑️ 删除私有源码..."
-          rm -rf blog-fixit-source
-
-          echo "✅ 部署文件准备完成"
-          ls -la
-
-      # ── 6. 提交并推送 ──
-      - name: Commit and push
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add -A
-
-          if git diff --cached --quiet; then
-            echo "没有变更，跳过提交"
-          else
-            git commit -m "deploy: rebuild site $(date -u '+%Y-%m-%d %H:%M:%S UTC')"
-            git push
-            echo "✅ 已推送到 GitHub Pages"
-          fi
+      # ── 6. 全量强制覆盖发布到 gh-pages（孤儿提交，历史只保留 1 条）──
+      - name: Publish to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./blog-fixit-source/public
+          publish_branch: gh-pages
+          force_orphan: true
+          user_name: 'github-actions[bot]'
+          user_email: 'github-actions[bot]@users.noreply.github.com'
+          commit_message: 'deploy: rebuild site (run ${{ github.run_id }})'
