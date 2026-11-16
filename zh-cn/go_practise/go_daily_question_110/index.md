@@ -1,0 +1,57 @@
+# Go每日一题_110
+
+
+如果 Add() 函数的调用代码为：
+
+```go
+func main() {
+    var a Integer = 1
+    var b Integer = 2
+    var i interface{} = &a
+    sum := i.(*Integer).Add(b)
+    fmt.Println(sum)
+}
+```
+
+则Add函数定义正确的是：
+
+```go
+A.
+type Integer int
+func (a Integer) Add(b Integer) Integer {
+        return a + b
+}
+
+B.
+type Integer int
+func (a Integer) Add(b *Integer) Integer {
+        return a + *b
+}
+
+C.
+type Integer int
+func (a *Integer) Add(b Integer) Integer {
+        return *a + b
+}
+
+D.
+type Integer int
+func (a *Integer) Add(b *Integer) Integer {
+        return *a + *b
+}
+```
+
+{{< details summary="🔑 答案解析：" >}}
+
+AC
+如果是func (a Integer) 编译会自动帮你添加 func (a *Integer)
+反过来则不行
+
+{{< /details >}}
+
+
+---
+
+> 作者: loommii  
+> URL: https://loommii.github.io/zh-cn/go_practise/go_daily_question_110/  
+
